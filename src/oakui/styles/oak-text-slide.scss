@@ -1,0 +1,58 @@
+.oak-text-field {
+  // width: 100%;
+
+  input,
+  textarea {
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 3px;
+    width: 100%;
+    color: var(--color-body-invert);
+    font-size: 1em;
+    outline: none;
+    border: none;
+    background-color: var(--color-body-dim);
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    padding: 10px 16px;
+    // border: 2px solid;
+    // border-color: var(--color-body-dim);
+
+    &:focus {
+      // background-color: var(--color-body-invert-dim);
+      // border-color: var(--color-body-invert-dim);
+      // color: var(--color-body);
+    }
+
+    &.error {
+      // border-color: var(--color-failure);
+      background-color: var(--color-failure-dim);
+
+      &:focus {
+        color: var(--color-body-invert);
+      }
+    }
+
+    &.disabled {
+      background-color: var(--color-body-invert-dim);
+      color: var(--color-body-dim);
+    }
+  }
+
+  textarea {
+    // height: 500px;
+    overflow-y: auto;
+    resize: none;
+    max-height: 200px;
+  }
+
+  label {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    display: block;
+    // bottom: 8px;
+    left: 10px;
+    position: relative;
+    font-size: 0.8em;
+    color: var(--color-body-invert-dim);
+    text-transform: capitalize;
+  }
+}

@@ -1,0 +1,104 @@
+.oak-check-box {
+  --ocb-variant-radius: 4px;
+  --ocb-theme-bg: var(--color-default);
+
+  &.circle {
+    --ocb-variant-radius: 50%;
+  }
+
+  &.square {
+    --ocb-variant-radius: 4px;
+  }
+
+  &.primary {
+    --ocb-theme-bg: var(--color-primary);
+  }
+
+  &.secondary {
+    --ocb-theme-bg: var(--color-secondary);
+  }
+
+  &.tertiary {
+    --ocb-theme-bg: var(--color-tertiary);
+  }
+
+  &.default {
+    --ocb-theme-bg: var(--color-default);
+  }
+
+  .container {
+    .checkbox input[type='checkbox'] {
+      opacity: 0;
+    }
+
+    .checkbox label {
+      position: relative;
+      display: inline-block;
+
+      /*20px width of fake checkbox + 6px distance between fake checkbox and text*/
+      padding-left: 26px;
+      padding-top: 2.5px;
+    }
+
+    .checkbox label::before,
+    .checkbox label::after {
+      position: absolute;
+      content: '';
+
+      /*Needed for the line-height to take effect*/
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    /*Outer box of the fake checkbox*/
+    .checkbox label::before {
+      border-radius: var(--ocb-variant-radius);
+      height: 20px;
+      width: 20px;
+
+      border: 1.5px solid;
+      left: 0px;
+
+      /*(24px line-height - 16px height of fake checkbox) / 2 - 1px for the border
+       *to vertically center it.
+       */
+      top: 3px;
+      background-color: var(--color-body);
+    }
+
+    /*Checkmark of the fake checkbox*/
+    .checkbox label::after {
+      height: 5px;
+      width: 9px;
+      border-left: 2px solid;
+      border-bottom: 2px solid;
+
+      transform: rotate(-45deg);
+
+      left: 6px;
+      top: 9px;
+    }
+
+    /*Hide the checkmark by default*/
+    .checkbox input[type='checkbox'] + label::after {
+      content: none;
+    }
+
+    /*Unhide on the checked state*/
+    .checkbox input[type='checkbox']:checked + label::after {
+      content: '';
+      color: var(--color-body);
+    }
+
+    /*Adding focus styles on the outer-box of the fake checkbox*/
+    .checkbox input[type='checkbox']:focus + label::before {
+      // outline: rgb(59, 153, 252) auto 5px;
+    }
+
+    .checkbox input[type='checkbox']:checked + label::before {
+      // outline: rgb(59, 153, 252) auto 5px;
+      background-color: var(--ocb-theme-bg);
+      border: 1.5px solid var(--ocb-theme-bg);
+    }
+  }
+}

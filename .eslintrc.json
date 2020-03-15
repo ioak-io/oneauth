@@ -1,0 +1,70 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": "."
+  },
+  "plugins": ["@typescript-eslint", "react-hooks", "jest", "prettier"],
+  "extends": [
+    "airbnb",
+    "plugin:import/typescript",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/@typescript-eslint",
+    "plugin:prettier/recommended",
+    "prettier/react"
+  ],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "jest/globals": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "react/destructuring-assignment": ["error", "never"],
+    "react/jsx-filename-extension": [
+      2,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    ],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/no-unresolved": "off",
+    "no-console": "off",
+    "func-names": "off",
+    "import/extensions": "off",
+    "no-return-assign": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-nested-ternary": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/ban-ts-ignore": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "react/jsx-props-no-spreading": "off",
+    "no-param-reassign": "off",
+    "array-callback-return": "off",
+    "no-underscore-dangle": "off",
+    "no-useless-concat": "off",
+    "react/no-access-state-in-setstate": "off",
+    "no-useless-escape": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "no-shadow": "off",
+    "consistent-return": "off",
+    "no-unused-expressions": "off",
+    "jsx-a11y/no-autofocus": "off",
+    "react/button-has-type": "off",
+    "jsx-a11y/label-has-associated-control": "off"
+    // "import/extensions": [
+    //   "error",
+    //   "ignorePackages",
+    //   {
+    //     "js": "never",
+    //     "jsx": "never",
+    //     "ts": "never",
+    //     "tsx": "never"
+    //   }
+    // ]
+  }
+}

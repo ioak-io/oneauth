@@ -1,0 +1,116 @@
+.oak-dialog {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  .dialog {
+    height: calc(100vh - var(--height-nav));
+    width: calc(100vw - 362px - 50px);
+
+    &.fullscreen {
+      width: calc(100vw - 25px);
+    }
+
+    @media (max-width: 767px) {
+      width: calc(100vw - 5px);
+    }
+    right: 0;
+    top: var(--height-nav);
+    background-color: var(--color-body);
+    position: fixed;
+    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+      0px 4px 5px 0px rgba(0, 0, 0, 0.24), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+
+    transition-property: width;
+    transition-duration: 0.3s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    z-index: 10;
+
+    .container {
+      display: grid;
+      grid-template-rows: auto auto auto;
+      .dialog-header {
+        margin-right: 20px;
+        margin-top: 10px;
+        display: grid;
+        align-items: center;
+        justify-content: flex-end;
+        .container {
+          cursor: pointer;
+          color: var(--color-body-invert-dim);
+          &:hover {
+            color: var(--color-body-invert);
+          }
+          .material-icons {
+            vertical-align: middle;
+            margin-left: 5px;
+            font-size: 2em;
+          }
+          .text-esc {
+            vertical-align: middle;
+            margin-left: 5px;
+            font-size: 1.2em;
+          }
+        }
+      }
+
+      .dialog-body {
+        height: calc(100vh - var(--height-nav) - 135px);
+        overflow-y: auto;
+        padding: 0px 100px 0px 100px;
+        @media (max-width: 767px) {
+          padding: 0px 10px 0px 10px;
+        }
+      }
+
+      .dialog-footer {
+        background-color: var(--color-body-dim);
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        // &::before {
+        //     position: fixed;
+        //     display: inline-block;
+        //     content: "";
+        //     border-top: 2px solid var(--color-body-invert-dim);
+        //     width: 90%;
+        //     // margin: 0 1rem;
+        //     // transform: translateY(-1rem);
+        // }
+      }
+
+      // top: 100px;
+      // display: grid;
+      // height: inherit;
+      // grid-template-rows: auto auto 1fr;
+      &.hidetext {
+        display: none;
+      }
+    }
+
+    &.hide {
+      width: 0vw;
+    }
+
+    &.show {
+      padding: 0px;
+      // padding-left: 2vh;
+      // padding-right: 2vh;
+    }
+
+    &.small {
+      height: auto;
+      top: 30vh;
+
+      .dialog-header {
+        display: none;
+      }
+
+      .dialog-body {
+        // height: calc(40vh - var(--height-nav) - 135px);
+        height: auto;
+      }
+    }
+  }
+}

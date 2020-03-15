@@ -1,0 +1,173 @@
+button {
+  &.oak-button {
+    user-select: none;
+    border-radius: 3px;
+
+    // Initialize colors based on theme
+    &.default {
+      --color-bg: var(--color-btn-default-bg);
+      --color-fg: var(--color-btn-default-fg);
+      --color-fg-hover: var(--color-btn-default-fg-hover);
+      &.invert {
+        --color-fg-hover: var(--color-btn-default-fg);
+        --color-fg: var(--color-btn-default-fg-hover);
+      }
+    }
+
+    &.primary {
+      --color-bg: var(--color-btn-primary-bg);
+      --color-fg: var(--color-btn-primary-fg);
+      --color-fg-hover: var(--color-btn-primary-fg-hover);
+      &.invert {
+        --color-fg-hover: var(--color-btn-primary-fg);
+        --color-fg: var(--color-btn-primary-fg-hover);
+      }
+    }
+
+    &.secondary {
+      --color-bg: var(--color-btn-secondary-bg);
+      --color-fg: var(--color-btn-secondary-fg);
+      --color-fg-hover: var(--color-btn-secondary-fg-hover);
+      &.invert {
+        --color-fg-hover: var(--color-btn-secondary-fg);
+        --color-fg: var(--color-btn-secondary-fg-hover);
+      }
+    }
+
+    &.tertiary {
+      --color-bg: var(--color-btn-tertiary-bg);
+      --color-fg: var(--color-btn-tertiary-fg);
+      --color-fg-hover: var(--color-btn-tertiary-fg-hover);
+      &.invert {
+        --color-fg-hover: var(--color-btn-tertiary-fg);
+        --color-fg: var(--color-btn-tertiary-fg-hover);
+      }
+    }
+
+    // Initialize animation parameters
+    transition: 0.4s cubic-bezier(0.5, 1.6, 0.4, 0.7);
+    &.in {
+      --height-start: 0%;
+      --height-end: 100%;
+      --width-start: 0%;
+      --width-end: 100%;
+    }
+
+    &.out {
+      --height-start: 100%;
+      --height-end: 0%;
+      --width-start: 100%;
+      --width-end: 0%;
+    }
+
+    background: none;
+    outline: none;
+    color: var(--color-fg);
+    // text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    border: 2px solid var(--color-bg);
+
+    padding: 8px 16px;
+
+    &.small {
+      padding: 4px 8px;
+    }
+
+    &.align-left {
+      margin-right: 5px;
+    }
+
+    &.align-right {
+      margin-left: 5px;
+    }
+
+    &.align-center {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    // Slider animation defaulted to right
+    &.animate {
+      &.in,
+      &.out {
+        &::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          width: 100%;
+          height: 0%;
+          z-index: -1;
+          transition: 0.4s cubic-bezier(0.5, 1.6, 0.4, 0.7);
+          background-color: var(--color-bg);
+          top: 0;
+          width: var(--width-start);
+          height: 100%;
+        }
+        &:hover {
+          &::before {
+            right: 0;
+            width: var(--width-end);
+          }
+        }
+      }
+
+      &.none {
+        &:hover {
+          background-color: var(--color-bg);
+        }
+      }
+
+      &.none,
+      &.in {
+        color: var(--color-fg);
+        &:hover {
+          color: var(--color-fg-hover);
+        }
+      }
+
+      &.out {
+        color: var(--color-fg-hover) !important;
+        &:hover {
+          color: var(--color-fg) !important;
+        }
+      }
+    }
+
+    &.block {
+      border: 2px solid transparent;
+      &:hover {
+        color: var(--color-fg-hover);
+        background-color: var(--color-bg);
+      }
+    }
+
+    &.outline {
+      border: 2px solid transparent;
+      color: var(--color-fg);
+      &:hover {
+        border: 2px solid var(--color-bg);
+      }
+    }
+
+    &.icon {
+      height: 38px;
+      width: 38px;
+      border-width: 1px;
+      padding: 4px 4px;
+      border-radius: 50%;
+      .material-icons {
+        margin: 0;
+        font-size: 1.5em;
+      }
+    }
+
+    .material-icons {
+      vertical-align: middle;
+      margin-right: 5px;
+      font-size: 1.2em;
+    }
+  }
+}

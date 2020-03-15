@@ -1,0 +1,196 @@
+.oak-select {
+  user-select: none;
+  margin-bottom: 20px;
+  --color-bg: var(--color-btn-default-bg);
+  --color-fg: var(--color-btn-default-fg);
+  --color-fg-hover: var(--color-btn-default-fg-hover);
+  &.default {
+    --color-bg: var(--color-btn-default-bg);
+    --color-fg: var(--color-btn-default-fg);
+    --color-fg-hover: var(--color-btn-default-fg-hover);
+    &.invert {
+      --color-fg-hover: var(--color-btn-default-fg);
+      --color-fg: var(--color-btn-default-fg-hover);
+    }
+  }
+
+  &.primary {
+    --color-bg: var(--color-btn-primary-bg);
+    --color-fg: var(--color-btn-primary-fg);
+    --color-fg-hover: var(--color-btn-primary-fg-hover);
+    &.invert {
+      --color-fg-hover: var(--color-btn-primary-fg);
+      --color-fg: var(--color-btn-primary-fg-hover);
+    }
+  }
+
+  &.secondary {
+    --color-bg: var(--color-btn-secondary-bg);
+    --color-fg: var(--color-btn-secondary-fg);
+    --color-fg-hover: var(--color-btn-secondary-fg-hover);
+    &.invert {
+      --color-fg-hover: var(--color-btn-secondary-fg);
+      --color-fg: var(--color-btn-secondary-fg-hover);
+    }
+  }
+
+  &.tertiary {
+    --color-bg: var(--color-btn-tertiary-bg);
+    --color-fg: var(--color-btn-tertiary-fg);
+    --color-fg-hover: var(--color-btn-tertiary-fg-hover);
+    &.invert {
+      --color-fg-hover: var(--color-btn-tertiary-fg);
+      --color-fg: var(--color-btn-tertiary-fg-hover);
+    }
+  }
+
+  label {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    display: block;
+    // bottom: 8px;
+    left: 10px;
+    position: relative;
+    font-size: 0.8em;
+    color: var(--color-body-invert-dim);
+    text-transform: capitalize;
+  }
+
+  .select-button {
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: var(--color-body-dim);
+    color: var(--color-body-invert);
+    padding: 10px 16px;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    align-items: center;
+
+    .material-icons {
+      vertical-align: middle;
+    }
+  }
+
+  &.block {
+    .select-button {
+      background-color: var(--color-bg);
+      color: var(--color-fg-hover);
+    }
+  }
+
+  &.outline {
+    .select-button {
+      background-color: var(--color-body);
+      color: var(--color-body-invert);
+      border: 1.5px solid var(--color-bg);
+    }
+  }
+
+  &.no-outline {
+    .select-button {
+      background-color: transparent;
+      color: var(--color-body-invert);
+    }
+  }
+
+  &.normal {
+    .select-button {
+      background-color: var(--color-body-dim);
+      color: var(--color-body-invert);
+    }
+  }
+
+  .dropdown {
+    z-index: 1;
+    // position: relative;
+    &.show {
+      display: block;
+    }
+    &.hide {
+      display: none;
+    }
+
+    .dropdown-content {
+      z-index: 1;
+      max-height: 300px;
+      overflow-y: auto;
+      position: absolute;
+      // width: 100%;
+      background-color: var(--color-body-dim);
+      margin-top: 4px;
+
+      .option {
+        padding: 10px 16px;
+        cursor: pointer;
+
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        &:hover {
+          background-color: var(--color-bg);
+          color: var(--color-fg-hover);
+        }
+      }
+    }
+  }
+
+  &.width-25 {
+    max-width: 25%;
+  }
+  &.width-50 {
+    max-width: 50%;
+  }
+  &.width-75 {
+    max-width: 75%;
+  }
+  &.width-100 {
+    max-width: 100%;
+  }
+
+  .palette-1 {
+    display: inline-block;
+    padding: 6px;
+    font-size: 14px;
+    border-radius: 4px;
+    background-color: var(--color-body);
+    margin-left: 10px;
+    min-width: 14px;
+    text-align: center;
+    height: 14px;
+    line-height: 14px;
+  }
+
+  min-width: 10px !important;
+}
+
+.select-palette {
+  display: inline-block;
+  padding: 6px;
+  border-radius: 4px;
+  width: 12px;
+  text-align: center;
+  height: 12px;
+  line-height: 12px;
+
+  &.one {
+    background-color: #448c30;
+  }
+  &.two {
+    background-color: #f2e205;
+  }
+  &.three {
+    background-color: #dd403a;
+  }
+  &.four {
+    background-color: #970ff2;
+  }
+  &.five {
+    background-color: #0597f2;
+  }
+  &.six {
+    background-color: #f2309b;
+  }
+}

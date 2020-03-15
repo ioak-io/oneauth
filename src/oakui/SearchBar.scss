@@ -1,0 +1,71 @@
+form {
+  .search-bar {
+    display: flex;
+    flex: 1 1 100%;
+    max-width: 100%;
+    // margin: 5vh 10vw 0px 10vw;
+
+    button {
+      cursor: pointer;
+      &.icon {
+        background: #fff;
+        color: #1a1a1a;
+        min-width: 40px;
+        font-weight: 300;
+        line-height: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0px 3px 3px 0px;
+        font-size: 16px;
+        text-align: center;
+        white-space: nowrap;
+        padding: 14.4px 24px;
+        padding: 3px 24px;
+        border: none;
+        // line-height: 25px;
+        // padding: 14.4px 16px;
+
+        &::before, &::after {
+          box-sizing: border-box;
+        }
+      }
+    }
+
+    input {
+      // z-index: 0;
+      height: 20px;
+      border-radius: 3px 0px 0px 3px;
+    }
+
+    &.alt {
+      input {
+        border: none;
+        border-radius: 3px 3px 3px 3px;
+        background-color: #5a5f67;
+        color: white;
+        font-weight: 100;
+        height: 10px;
+        width: 100%;
+        padding: 14.4px 6px;
+        &:focus {
+          background-color: white;
+          color: black;
+        }
+      }
+
+      button {
+        display: none;
+        &.icon {
+          min-width: 40px;
+          font-weight: 100;
+          line-height: 1;
+          border-radius: 0px 3px 3px 0px;
+          font-size: 16px;
+          padding: 3px 24px;
+        }
+      }
+
+    }
+  }
+}

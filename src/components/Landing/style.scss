@@ -1,0 +1,14 @@
+.landing {
+    display: grid;
+    grid-template-rows: auto;
+    justify-content: center;
+    align-content: flex-start;
+
+    padding: 100px;
+    min-height: 100vh;
+
+    .action {
+        display: grid;
+        justify-content: center;
+    }
+}
