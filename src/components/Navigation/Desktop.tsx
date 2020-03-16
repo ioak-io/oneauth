@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import './style.scss';
-import mirrorWhite from '../../images/mirror_white.svg';
-import mirrorBlack from '../../images/mirror_black.svg';
+import mirrorWhite from '../../images/ioak_white.svg';
+import mirrorBlack from '../../images/ioak_black.svg';
 import Links from './Links';
 import { Authorization, Profile } from '../Types/GeneralTypes';
 // import SearchBar from '../Ux/SearchBar';
