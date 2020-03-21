@@ -56,7 +56,8 @@ code {
   --color-themecolor-4: #37ae82;
 
   .themecolor1 {
-    --color-dark-primary: #91ccd9;
+    --color-dark-primary: rgba(1,169,130,.9);
+    --color-dark-primary-alt: rgba(1,169,130,1);
     --color-dark-secondary: #69a7bf;
     --color-dark-tertiary: #376b8c;
     --color-dark-tertiary-trans: rgba(55, 107, 140, 0.2);
@@ -105,6 +106,7 @@ code {
     --color-body-invert: #fcfcfc;
     --color-body-invert-dim: #a1a1a1;
     --color-primary: var(--color-dark-primary);
+    --color-primary-alt: var(--color-dark-primary-alt);
     --color-secondary: var(--color-dark-secondary);
     --color-tertiary: var(--color-dark-tertiary);
     --color-tertiary-trans: var(--color-dark-tertiary-trans);
@@ -132,6 +134,7 @@ code {
     --color-navitem-mobile: var(--color-white);
 
     --color-btn-primary-bg: var(--color-primary);
+    --color-btn-primary-bg-hover: var(--color-primary-alt);
     --color-btn-primary-fg: var(--color-body-invert);
     --color-btn-primary-fg-hover: black;
     --color-btn-secondary-bg: var(--color-secondary);

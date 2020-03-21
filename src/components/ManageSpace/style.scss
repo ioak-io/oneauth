@@ -1,0 +1,21 @@
+.app-page {
+    height: 100vh;
+    // CHANGETBD uncomment below two lines
+    // background: url('../../images/1.svg') no-repeat center center;
+    // background-size: cover;
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    .app-container {
+        height: 100%;
+        overflow: auto;
+        .home {
+            width: 80vw;
+            margin: 20px auto;
+
+            display: flex;
+            flex-direction: column;
+        }
+    }
+}

@@ -5,6 +5,7 @@ const initialState = {
   textSize: 'textsize_medium',
   themeColor: 'themecolor1',
   tenant: '',
+  appStatus: 'notmounted',
 };
 
 export default function(state = initialState, action) {

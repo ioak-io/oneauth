@@ -76,22 +76,8 @@ const Navigation = (props: Props) => {
     }
   };
 
-  const changeTextSize = size => {
-    props.setProfile({
-      ...props.profile,
-      textSize: size,
-    });
-  };
-
-  const changeThemeColor = color => {
-    props.setProfile({
-      ...props.profile,
-      themeColor: color,
-    });
-  };
-
   const login = type => {
-    props.history.push(`/${props.profile.tenant}/login?type=${type}`);
+    props.history.push(`/login?type=${type}`);
   };
 
   const toggleSettings = () => {

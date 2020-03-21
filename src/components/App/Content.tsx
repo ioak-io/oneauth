@@ -6,7 +6,7 @@ import { withCookies } from 'react-cookie';
 import { connect } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Home from '../Home';
-import Login from '../Auth/Login';
+import SpaceLogin from '../Login/SpaceLogin';
 import Landing from '../Landing';
 import PrivateRoute from '../Auth/PrivateRoute';
 import AuthInit from '../Auth/AuthInit';
@@ -22,6 +22,9 @@ import { Authorization } from '../Types/GeneralTypes';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 import Tenant from '../Tenant';
 import constants from '../Constants';
+import OaLogin from '../Login/OaLogin';
+import OakRoute from '../Auth/OakRoute';
+import ManageSpace from '../ManageSpace';
 
 const themes = {
   themecolor1: getTheme('#69A7BF'),
@@ -96,10 +99,7 @@ const Content = (props: Props) => {
     message = 'You have been logged out'
   ) => {
     props.removeAuth();
-    props.cookies.remove('isAuth');
-    props.cookies.remove('token');
-    props.cookies.remove('secret');
-    props.cookies.remove('name');
+    props.cookies.remove('oneauth');
     sendMessage('notification', true, {
       type,
       message,
@@ -118,38 +118,51 @@ const Content = (props: Props) => {
           <div className="body-content">
             <Notification />
             <MuiThemeProvider theme={themes.themecolor1}>
-              <Navigation {...props} logout={() => logout} />
               <Route
-                path="/:tenant/home"
-                render={(propsLocal: any) => (
-                  <Home {...propsLocal} {...props} logout={() => logout} />
+                path="/home"
+                render={propsLocal => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={Home}
+                  />
                 )}
               />
               <Route
                 path="/:tenant/login"
                 render={(propsLocal: any) => (
-                  <Login {...propsLocal} {...props} logout={() => logout} />
+                  <SpaceLogin
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                  />
+                )}
+              />
+              <Route
+                path="/login"
+                render={(propsLocal: any) => (
+                  <OaLogin {...propsLocal} {...props} logout={() => logout} />
                 )}
               />
               <Route
                 path="/"
                 exact
                 render={(propsLocal: any) => (
-                  <Landing {...propsLocal} {...props} logout={() => logout} />
+                  <Home {...propsLocal} {...props} logout={() => logout} />
                 )}
               />
               <Route
-                path="/home"
+                path="/managespace"
                 exact
-                render={(propsLocal: any) => (
-                  <Landing {...propsLocal} {...props} logout={() => logout} />
-                )}
-              />
-              <Route
-                path="/tenant"
-                exact
-                render={(propsLocal: any) => (
-                  <Tenant {...propsLocal} {...props} logout={() => logout} />
+                render={propsLocal => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={ManageSpace}
+                    middleware={['isAuthenticated']}
+                  />
                 )}
               />
             </MuiThemeProvider>

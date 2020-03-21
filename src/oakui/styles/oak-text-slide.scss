@@ -6,11 +6,11 @@
     font-family: 'Open Sans', sans-serif;
     border-radius: 3px;
     width: 100%;
-    color: var(--color-body-invert);
+    color: var(--color-body);
     font-size: 1em;
     outline: none;
     border: none;
-    background-color: var(--color-body-dim);
+    background-color: var(--color-body-invert);
     margin-bottom: 20px;
     box-sizing: border-box;
     padding: 10px 16px;
@@ -38,6 +38,13 @@
     }
   }
 
+  input {
+    height: 50px;
+    @media (max-width: 767px) {
+        height: 40px;
+    }
+  }
+
   textarea {
     // height: 500px;
     overflow-y: auto;
@@ -52,7 +59,8 @@
     left: 10px;
     position: relative;
     font-size: 0.8em;
-    color: var(--color-body-invert-dim);
+    margin-bottom: 6px;
+    color: var(--color-body-invert);
     text-transform: capitalize;
   }
 }
