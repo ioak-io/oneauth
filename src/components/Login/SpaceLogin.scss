@@ -4,7 +4,7 @@
     // background: url('../../images/login_bg.jpg') no-repeat center center;
     // background-size: cover;
     position: relative;
-    background-color: var(--color-tertiary);
+    background-color: var(--color-palette-3);
 
     .overlay {
         // CHANGETBD uncomment below line
@@ -44,7 +44,7 @@
                 font-size: 13px;
                 opacity: .4;
                 letter-spacing: .2px;
-                color: var(--color-body-invert-dim);
+                color: var(--color-foreground-2);
                 &::before {
                     content: "";
                     display: inline-block;
@@ -52,7 +52,7 @@
                     position: relative;
                     vertical-align: middle;
                     width: 50%;
-                    background-color: var(--color-body-invert-dim);
+                    background-color: var(--color-foreground-2);
                     right: 0.5em;
                     margin-left: -50%;
                 }
@@ -63,7 +63,7 @@
                     position: relative;
                     vertical-align: middle;
                     width: 50%;
-                    background-color: var(--color-body-invert-dim);
+                    background-color: var(--color-foreground-2);
                     left: 0.5em;
                     margin-right: -50%;
                 }
@@ -88,7 +88,7 @@
                 position: relative;
                 left: 10px;
                 margin-bottom: 6px;
-                color: var(--color-body-invert);
+                color: var(--color-foreground-1);
             }
 
             button {
@@ -102,7 +102,7 @@
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    color: var(--color-primary) !important;
+                    color: var(--color-palette-1) !important;
                 }
             }
         }
@@ -110,8 +110,8 @@
 
     // .container {
     //     position: absolute;
-    //     background: var(--color-body);
-    //     color: var(--color-body-invert);
+    //     background: var(--color-background-1);
+    //     color: var(--color-foreground-1);
 
     //     .form {
     //         width: 15rem;

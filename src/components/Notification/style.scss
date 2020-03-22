@@ -10,7 +10,7 @@
     align-items: center;
     font-weight: 700;
     font-size: 1.5em;
-    color: var(--color-white);
+    color: var(--color-foreground-1);
     position: fixed;
     z-index: 11;
     &.success {
@@ -29,7 +29,7 @@
     &.hide {
       transition: transform .5s;
       transform: translateX(-150vw);
-      // background-color: var(--color-body-invert-dim);
+      // background-color: var(--color-foreground-2);
     }
 
     .message {
@@ -64,8 +64,8 @@
     height: 46px;
     margin: 1px;
     border-radius: 50%;
-    border: 5px solid var(--color-primary);
-    border-color: var(--color-primary) transparent var(--color-primary) transparent;
+    border: 5px solid var(--color-palette-1);
+    border-color: var(--color-palette-1) transparent var(--color-palette-1) transparent;
     animation: lds-dual-ring 1.2s linear infinite;
 }
 
@@ -102,7 +102,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: var(--color-primary);
+    background: var(--color-palette-1);
     margin: -3px 0 0 -3px;
   }
   .lds-roller div:nth-child(1) {
@@ -188,7 +188,7 @@
     position: absolute;
     left: 6px;
     width: 13px;
-    background: var(--color-primary);
+    background: var(--color-palette-1);
     animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
   }
   .lds-facebook div:nth-child(1) {

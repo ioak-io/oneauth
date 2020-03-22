@@ -3,38 +3,38 @@ button {
 
     // Initialize colors based on theme
     &.default {
-      --color-bg: var(--color-btn-default-bg);
+      --color-bg: var(--color-btn-bg-palette-0);
       &.in {
-        --color-fg: var(--color-btn-default-fg);
-        --color-fg-hover: var(--color-btn-default-fg-hover);
+        --color-fg: var(--color-btn-fg-palette-0);
+        --color-fg-hover: var(--color-btn-fg-palette-0-hover);
       }
       &.out {
-        --color-fg: var(--color-btn-default-fg-hover);
-        --color-fg-hover: var(--color-btn-default-fg);
+        --color-fg: var(--color-btn-fg-palette-0-hover);
+        --color-fg-hover: var(--color-btn-fg-palette-0);
       }
     }
   
     &.primary {
-      --color-bg: var(--color-btn-primary-bg);
+      --color-bg: var(--color-btn-bg-palette-1);
       &.in {
-        --color-fg: var(--color-btn-primary-fg);
-        --color-fg-hover: var(--color-btn-primary-fg-hover);
+        --color-fg: var(--color-btn-fg-palette-1);
+        --color-fg-hover: var(--color-btn-fg-palette-1-hover);
       }
       &.out {
-        --color-fg: var(--color-btn-primary-fg-hover);
-        --color-fg-hover: var(--color-btn-primary-fg);
+        --color-fg: var(--color-btn-fg-palette-1-hover);
+        --color-fg-hover: var(--color-btn-fg-palette-1);
       }    
     }
   
     &.secondary {
-      --color-bg: var(--color-btn-secondary-bg);
+      --color-bg: var(--color-btn-bg-palette-2);
       &.in {
-        --color-fg: var(--color-btn-secondary-fg);
-        --color-fg-hover: var(--color-btn-secondary-fg-hover);
+        --color-fg: var(--color-btn-fg-palette-2);
+        --color-fg-hover: var(--color-btn-fg-palette-2-hover);
       }
       &.out {
-        --color-fg: var(--color-btn-secondary-fg-hover);
-        --color-fg-hover: var(--color-btn-secondary-fg);
+        --color-fg: var(--color-btn-fg-palette-2-hover);
+        --color-fg-hover: var(--color-btn-fg-palette-2);
       }
     }
   

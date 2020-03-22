@@ -1,6 +1,6 @@
 .oak-check-box {
   --ocb-variant-radius: 4px;
-  --ocb-theme-bg: var(--color-default);
+  --ocb-theme-bg: var(--color-palette-0);
 
   &.circle {
     --ocb-variant-radius: 50%;
@@ -11,19 +11,19 @@
   }
 
   &.primary {
-    --ocb-theme-bg: var(--color-primary);
+    --ocb-theme-bg: var(--color-palette-1);
   }
 
   &.secondary {
-    --ocb-theme-bg: var(--color-secondary);
+    --ocb-theme-bg: var(--color-palette-2);
   }
 
   &.tertiary {
-    --ocb-theme-bg: var(--color-tertiary);
+    --ocb-theme-bg: var(--color-palette-3);
   }
 
   &.default {
-    --ocb-theme-bg: var(--color-default);
+    --ocb-theme-bg: var(--color-palette-0);
   }
 
   .container {
@@ -63,7 +63,7 @@
        *to vertically center it.
        */
       top: 3px;
-      background-color: var(--color-body);
+      background-color: var(--color-background-1);
     }
 
     /*Checkmark of the fake checkbox*/
@@ -87,7 +87,7 @@
     /*Unhide on the checked state*/
     .checkbox input[type='checkbox']:checked + label::after {
       content: '';
-      color: var(--color-body);
+      color: var(--color-background-1);
     }
 
     /*Adding focus styles on the outer-box of the fake checkbox*/

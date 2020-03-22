@@ -1,54 +1,54 @@
 .oak-select {
   user-select: none;
   margin-bottom: 20px;
-  --color-bg: var(--color-btn-default-bg);
-  --color-fg: var(--color-btn-default-fg);
-  --color-fg-hover: var(--color-btn-default-fg-hover);
+  --color-bg: var(--color-btn-bg-palette-0);
+  --color-fg: var(--color-btn-fg-palette-0);
+  --color-fg-hover: var(--color-btn-fg-palette-0-hover);
   &.default {
-    --color-bg: var(--color-btn-default-bg);
-    --color-fg: var(--color-btn-default-fg);
-    --color-fg-hover: var(--color-btn-default-fg-hover);
+    --color-bg: var(--color-btn-bg-palette-0);
+    --color-fg: var(--color-btn-fg-palette-0);
+    --color-fg-hover: var(--color-btn-fg-palette-0-hover);
     &.invert {
-      --color-fg-hover: var(--color-btn-default-fg);
-      --color-fg: var(--color-btn-default-fg-hover);
+      --color-fg-hover: var(--color-btn-fg-palette-0);
+      --color-fg: var(--color-btn-fg-palette-0-hover);
     }
   }
 
   &.primary {
-    --color-bg: var(--color-btn-primary-bg);
-    --color-fg: var(--color-btn-primary-fg);
-    --color-fg-hover: var(--color-btn-primary-fg-hover);
+    --color-bg: var(--color-btn-bg-palette-1);
+    --color-fg: var(--color-btn-fg-palette-1);
+    --color-fg-hover: var(--color-btn-fg-palette-1-hover);
     &.invert {
-      --color-fg-hover: var(--color-btn-primary-fg);
-      --color-fg: var(--color-btn-primary-fg-hover);
+      --color-fg-hover: var(--color-btn-fg-palette-1);
+      --color-fg: var(--color-btn-fg-palette-1-hover);
     }
   }
 
   &.secondary {
-    --color-bg: var(--color-btn-secondary-bg);
-    --color-fg: var(--color-btn-secondary-fg);
-    --color-fg-hover: var(--color-btn-secondary-fg-hover);
+    --color-bg: var(--color-btn-bg-palette-2);
+    --color-fg: var(--color-btn-fg-palette-2);
+    --color-fg-hover: var(--color-btn-fg-palette-2-hover);
     &.invert {
-      --color-fg-hover: var(--color-btn-secondary-fg);
-      --color-fg: var(--color-btn-secondary-fg-hover);
+      --color-fg-hover: var(--color-btn-fg-palette-2);
+      --color-fg: var(--color-btn-fg-palette-2-hover);
     }
   }
 
   &.tertiary {
-    --color-bg: var(--color-btn-tertiary-bg);
-    --color-fg: var(--color-btn-tertiary-fg);
-    --color-fg-hover: var(--color-btn-tertiary-fg-hover);
+    --color-bg: var(--color-btn-bg-palette-3);
+    --color-fg: var(--color-btn-fg-palette-3);
+    --color-fg-hover: var(--color-btn-fg-palette-3-hover);
     &.invert {
-      --color-fg-hover: var(--color-btn-tertiary-fg);
-      --color-fg: var(--color-btn-tertiary-fg-hover);
+      --color-fg-hover: var(--color-btn-fg-palette-3);
+      --color-fg: var(--color-btn-fg-palette-3-hover);
     }
   }
 
   .select-button {
     border-radius: 100px;
     cursor: pointer;
-    background-color: var(--color-body-dim);
-    color: var(--color-body-invert);
+    background-color: var(--color-background-2);
+    color: var(--color-foreground-1);
     padding: 10px 16px;
     width: 100%;
     box-sizing: border-box;
@@ -74,8 +74,8 @@
 
   &.outline {
     .select-button {
-      background-color: var(--color-body);
-      color: var(--color-body-invert);
+      background-color: var(--color-background-1);
+      color: var(--color-foreground-1);
       border: 1.5px solid var(--color-bg);
     }
   }
@@ -83,14 +83,14 @@
   &.no-outline {
     .select-button {
       background-color: transparent;
-      color: var(--color-body-invert);
+      color: var(--color-foreground-1);
     }
   }
 
   &.normal {
     .select-button {
-      background-color: var(--color-body-dim);
-      color: var(--color-body-invert);
+      background-color: var(--color-background-2);
+      color: var(--color-foreground-1);
     }
   }
 
@@ -110,7 +110,7 @@
       overflow-y: auto;
       position: absolute;
       // width: 100%;
-      background-color: var(--color-body-dim);
+      background-color: var(--color-background-2);
       border-radius: 20px;
       margin-top: 4px;
 
@@ -146,7 +146,7 @@
     padding: 6px;
     font-size: 14px;
     border-radius: 4px;
-    background-color: var(--color-body);
+    background-color: var(--color-background-1);
     margin-left: 10px;
     min-width: 14px;
     text-align: center;
@@ -164,7 +164,7 @@ label {
   left: 10px;
   position: relative;
   font-size: 0.8em;
-  color: var(--color-body-invert-dim);
+  color: var(--color-foreground-2);
   text-transform: capitalize;
 }
 
