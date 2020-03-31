@@ -25,8 +25,8 @@
     .main {
         // background-image: linear-gradient(to right top, #01A982, #009F9B, #0093B4, #0084C6, #0072CC, #1A59C0);
         // background-color: rgba(22, 22, 22, 0.753);
-        // background-color: var(--color-palette-1);
-        background-color: var(--color-palette-3);
+        // background-color: var(--color-primary-1);
+        background-color: var(--color-tertiary-1);
         // background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72);
         // background-image: linear-gradient(to right top, #01A982, #009688, #008287, #006E7E, #215B6D, #2F4858);
         width: 100%;
@@ -123,7 +123,7 @@
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                color: var(--color-palette-1) !important;
+                color: var(--color-primary-1) !important;
             }
         }
     }

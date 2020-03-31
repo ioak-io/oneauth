@@ -4,7 +4,7 @@
     // background: url('../../images/login_bg.jpg') no-repeat center center;
     // background-size: cover;
     position: relative;
-    background-color: var(--color-palette-3);
+    background-color: var(--color-tertiary-1);
 
     .overlay {
         // CHANGETBD uncomment below line
@@ -102,7 +102,7 @@
                     flex-direction: column;
                     justify-content: center;
                     align-items: center;
-                    color: var(--color-palette-1) !important;
+                    color: var(--color-primary-1) !important;
                 }
             }
         }

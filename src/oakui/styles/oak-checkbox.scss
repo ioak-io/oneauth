@@ -1,6 +1,6 @@
 .oak-check-box {
   --ocb-variant-radius: 4px;
-  --ocb-theme-bg: var(--color-palette-0);
+  --ocb-theme-bg: var(--color-default);
 
   &.circle {
     --ocb-variant-radius: 50%;
@@ -11,19 +11,19 @@
   }
 
   &.primary {
-    --ocb-theme-bg: var(--color-palette-1);
+    --ocb-theme-bg: var(--color-primary-1);
   }
 
   &.secondary {
-    --ocb-theme-bg: var(--color-palette-2);
+    --ocb-theme-bg: var(--color-secondary-1);
   }
 
   &.tertiary {
-    --ocb-theme-bg: var(--color-palette-3);
+    --ocb-theme-bg: var(--color-tertiary-1);
   }
 
   &.default {
-    --ocb-theme-bg: var(--color-palette-0);
+    --ocb-theme-bg: var(--color-default);
   }
 
   .container {

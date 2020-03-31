@@ -1,0 +1,109 @@
+.oak-popover-menu {
+  --color-popover-theme: var(--color-default);
+  &.primary {
+    --color-popover-theme: var(--color-primary-1);
+  }
+  &.secondary {
+    --color-popover-theme: var(--color-secondary-1);
+  }
+  &.tertiary {
+    --color-popover-theme: var(--color-tertiary-1);
+  }
+  --color-label-normal: none;
+  &.on {
+    --color-label-normal: var(--color-popover-theme);
+  }
+  position: relative;
+  box-sizing: border-box;
+  user-select: none;
+  .label {
+    cursor: pointer;
+    height: 26px;
+    line-height: 26px;
+    padding: 0px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+    background-color: var(--color-label-normal);
+    display: flex;
+    align-items: center;
+    &.short-label {
+      @media (max-width: 767px) {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+        padding: 0px;
+        margin: 0px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        .label-text {
+          display: none;
+        }
+        .left-icon,
+        .right-icon {
+          margin: 0px;
+        }
+      }
+    }
+    &.active,
+    &:hover {
+      background-color: var(--color-popover-theme);
+    }
+    .material-icons {
+      line-height: 26px;
+      vertical-align: middle;
+    }
+    .left-icon {
+      margin-right: 6px;
+      display: inline;
+    }
+    .right-icon {
+      margin-left: 6px;
+      display: inline;
+    }
+  }
+  .label-custom {
+    cursor: pointer;
+  }
+  .dropdown-content {
+    position: absolute;
+    padding: 8px 0px;
+    background-color: var(--color-background-1);
+    // box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
+    //   0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.15),
+      0 5px 20px 0 rgba(21, 27, 38, 0.08);
+    border-radius: 4px;
+    // max-width: 200px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1;
+    .element {
+      cursor: pointer;
+      margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      padding: 0px 20px;
+      height: 40px;
+      line-height: 40px;
+      &:hover {
+        background-color: var(--color-popover-theme);
+      }
+      .material-icons {
+        line-height: 32px;
+        vertical-align: middle;
+        margin-right: 10px;
+      }
+    }
+    &.show {
+      display: block;
+    }
+    &.hide {
+      display: none;
+    }
+    &.right {
+      right: 0;
+    }
+  }
+}
