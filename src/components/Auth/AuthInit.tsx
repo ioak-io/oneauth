@@ -35,8 +35,6 @@ const AuthInit = (props: Props) => {
   // }, [props.authorization.isAuth]);
 
   useEffect(() => {
-    console.log('*******');
-    console.log(profile.appStatus);
     if (profile.appStatus === 'mounted') {
       const authKey = props.cookies.get('oneauth');
       if (authKey) {
@@ -47,7 +45,9 @@ const AuthInit = (props: Props) => {
                 isAuth: true,
                 token: sessionResponse.data.token,
                 secret: '',
-                name: 'name',
+                firstName: sessionResponse.data.firstName,
+                lastName: sessionResponse.data.lastName,
+                email: sessionResponse.data.email,
               })
             );
             dispatch(setProfile({ ...profile, appStatus: 'authenticated' }));

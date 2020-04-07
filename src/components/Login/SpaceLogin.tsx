@@ -45,7 +45,8 @@ interface State {
 const Login = (props: Props) => {
   const [data, setData] = useState({
     newuser: false,
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     password: '',
     repeatpassword: '',
@@ -134,7 +135,7 @@ const Login = (props: Props) => {
     event.preventDefault();
     sendMessage('notification', false);
     sendMessage('spinner');
-    if (data.name && data.password && data.email) {
+    if (data.firstName && data.lastName && data.password && data.email) {
       if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
         sendMessage('notification', true, {
           type: 'failure',
@@ -147,7 +148,8 @@ const Login = (props: Props) => {
       httpPost(
         `/auth/${props.profile.tenant}/signup`,
         {
-          name: data.name,
+          firstName: data.firstName,
+          lastName: data.lastName,
           email: data.email,
           password: data.password,
         },
@@ -161,10 +163,16 @@ const Login = (props: Props) => {
           });
         }
       });
-    } else if (!data.name) {
+    } else if (!data.firstName) {
       sendMessage('notification', true, {
         type: 'failure',
-        message: 'Name cannot be empty',
+        message: 'First name cannot be empty',
+        duration: 3000,
+      });
+    } else if (!data.lastName) {
+      sendMessage('notification', true, {
+        type: 'failure',
+        message: 'Last name cannot be empty',
         duration: 3000,
       });
     } else if (!data.email) {
@@ -319,8 +327,14 @@ const Login = (props: Props) => {
               <form method="GET" onSubmit={signupAction} noValidate>
                 <div className="form">
                   <OakText
-                    label="Name"
-                    id="name"
+                    label="First Name"
+                    id="firstName"
+                    data={data}
+                    handleChange={e => handleChange(e)}
+                  />
+                  <OakText
+                    label="Last Name"
+                    id="lastName"
                     data={data}
                     handleChange={e => handleChange(e)}
                   />
