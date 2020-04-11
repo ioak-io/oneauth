@@ -11,8 +11,14 @@ interface Props {
   disabled?: boolean;
   rows?: number;
   multiline?: boolean;
+  handleFocus?: Function;
 }
 const OakText = (props: Props) => {
+  const handleFocus = () => {
+    if (props.handleFocus) {
+      props.handleFocus();
+    }
+  };
   return (
     <div className="oak-text-field">
       {props.label && <label htmlFor={props.id}>{props.label}</label>}
@@ -29,6 +35,7 @@ const OakText = (props: Props) => {
           id={props.id}
           value={props.data[props.id]}
           onChange={props.handleChange}
+          onFocus={handleFocus}
         />
       )}
       {/* rows={props.rows ? props.rows : 4} */}

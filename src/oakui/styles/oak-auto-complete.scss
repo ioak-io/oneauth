@@ -1,0 +1,26 @@
+.oak-auto-complete {
+    position: relative;
+    .results {
+      position: fixed;
+      z-index: 1;
+      // margin-top: -20px;
+      padding: 8px 0px;
+      background-color: var(--color-background-5);
+      box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.15),
+        0 5px 20px 0 rgba(21, 27, 38, 0.08);
+        max-height: 200px;
+        overflow-y: auto;
+        width: auto;
+      .element {
+        cursor: pointer;
+        padding: 0px 20px;
+        height: 40px;
+        line-height: 40px;
+        overflow: hidden;
+        &:hover {
+          background-color: var(--color-background-3);
+        }
+      }
+    }
+  }
+  
