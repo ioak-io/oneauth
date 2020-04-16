@@ -4,11 +4,16 @@ import Navigation from '../Navigation';
 import OakButton from '../../oakui/OakButton';
 import OakPopoverMenu from '../../oakui/OakPopoverMenu';
 import OakAutoComplete from '../../oakui/OakAutoComplete';
+import OakTab from '../../oakui/OakTab';
 
 interface Props {
   label?: string;
   logout: Function;
 }
+const tabDetails = [
+  { slotName: 'details', label: 'Basic details', icon: 'subject' },
+  { slotName: 'description', label: 'Description', icon: 'text_fields' },
+];
 const ManageSpace = (props: Props) => {
   const [data, setData] = useState({
     autoCompleteDropdownData: [
@@ -91,6 +96,36 @@ const ManageSpace = (props: Props) => {
               handleChange={handleAutoCompleteChange}
               objects={data.autoCompleteDropdownData}
             />
+          </div>
+          <div className="tab-test">
+            <OakTab meta={tabDetails}>
+              <div slot="details">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
+                eget blandit tellus. Nam vel gravida ipsum. Ut porta scelerisque
+                neque, at fringilla erat tristique quis. Nunc tellus orci,
+                dictum sit amet venenatis et, ornare vel neque. Maecenas
+                efficitur congue tristique. Curabitur vitae imperdiet magna.
+                Quisque vehicula dui eros, non varius diam luctus a. Phasellus
+                lectus sapien, elementum eget orci vitae, dictum fringilla orci.
+                Vestibulum id ipsum id lectus elementum blandit. Proin sed eros
+                nec lectus egestas iaculis nec eu nisi. Nullam id feugiat magna.
+                Etiam lorem massa, scelerisque sed faucibus a, varius eget
+                magna. Quisque sit amet dui placerat, luctus orci ut, volutpat
+                leo.
+              </div>
+              <div slot="description">
+                Morbi condimentum egestas placerat. Phasellus euismod rutrum
+                orci non tristique. Nullam venenatis accumsan ornare. In
+                venenatis volutpat scelerisque. Praesent eu risus ac metus
+                mattis tempor. Donec luctus ante nec sapien hendrerit
+                condimentum. Aliquam suscipit tincidunt justo vitae volutpat.
+                Cras tincidunt lorem nec erat bibendum consectetur. Maecenas
+                tempus ligula eget varius sollicitudin. Nam dictum leo non
+                sapien gravida aliquam. Nullam eget accumsan urna. Morbi
+                facilisis dictum dui vel maximus. Fusce enim orci, fermentum
+                luctus quam in, tempor rhoncus augue.
+              </div>
+            </OakTab>
           </div>
         </div>
       </div>
