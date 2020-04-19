@@ -1,5 +1,5 @@
 import React, { useEffect, ReactNode, useState } from 'react';
-import './styles/oak-dialog.scss';
+import './styles/oak-modal.scss';
 import { sendMessage } from '../events/MessageService';
 
 interface Props {
@@ -8,9 +8,10 @@ interface Props {
   small?: boolean;
   fullscreen?: boolean;
   children?: ReactNode;
+  label?: string;
 }
 
-const OakDialog = (props: Props) => {
+const OakModal = (props: Props) => {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     if (visible !== props.visible) {
@@ -22,23 +23,20 @@ const OakDialog = (props: Props) => {
     }
   }, [props.visible]);
 
-  useEffect(() => {
-    const documentWidth = document.documentElement.clientWidth;
-    const windowWidth = window.innerWidth;
-    const scrollBarWidth = windowWidth - documentWidth;
-    document.documentElement.style.setProperty(
-      '--scrollbar-width',
-      `${scrollBarWidth}px`
-    );
-    setVisible(props.visible);
-  }, []);
+  // useEffect(() => {
+  //   if (props.visible) {
+  //     setVisible(props.visible);
+  //   } else {
+  //     setTimeout(() => setVisible(props.visible), 2000);
+  //   }
+  // }, []);
 
   useEffect(() => {
-    sendMessage('dialog', props.visible);
-    if (props.visible) {
-      document.body.classList.add('oak-dialog-open');
+    sendMessage('modal', visible);
+    if (visible) {
+      document.body.classList.add('oak-modal-open');
     } else {
-      document.body.classList.remove('oak-dialog-open');
+      document.body.classList.remove('oak-modal-open');
     }
     document.addEventListener('keydown', escFunction, false);
     return () => document.removeEventListener('keydown', escFunction, false);
@@ -46,13 +44,13 @@ const OakDialog = (props: Props) => {
 
   const escFunction = event => {
     if (event.keyCode === 27) {
-      if (props.visible) {
+      if (visible) {
         props.toggleVisibility();
       }
     }
   };
 
-  const getDialogStyle = () => {
+  const getmodalStyle = () => {
     let style = '';
     style += props.small ? ' small' : '';
     style += props.fullscreen ? ' fullscreen' : '';
@@ -60,24 +58,27 @@ const OakDialog = (props: Props) => {
   };
 
   return (
-    <div className="oak-dialog">
+    <div className="oak-modal">
       {visible && (
         <div
           className={
             props.visible
-              ? `dialog show ${getDialogStyle()}`
-              : `dialog hide ${getDialogStyle()}`
+              ? `modal show ${getmodalStyle()}`
+              : `modal hide ${getmodalStyle()}`
           }
         >
           <div className={props.visible ? 'container' : 'container hidetext'}>
-            <div className="dialog-header">
-              <div
-                className="container"
-                data-test="toggle-visibility"
-                onClick={props.toggleVisibility}
-              >
-                <i className="material-icons">close</i>
-                <div className="text-esc">esc</div>
+            <div className="modal-header">
+              <div className="container" data-test="toggle-visibility">
+                <div className="title">{props.label}</div>
+                <div>
+                  <i
+                    className="material-icons"
+                    onClick={props.toggleVisibility}
+                  >
+                    close
+                  </i>
+                </div>
               </div>
             </div>
             {props.children}
@@ -88,4 +89,4 @@ const OakDialog = (props: Props) => {
   );
 };
 
-export default OakDialog;
+export default OakModal;

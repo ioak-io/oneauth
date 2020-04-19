@@ -5,6 +5,8 @@ import OakButton from '../../oakui/OakButton';
 import OakPopoverMenu from '../../oakui/OakPopoverMenu';
 import OakAutoComplete from '../../oakui/OakAutoComplete';
 import OakTab from '../../oakui/OakTab';
+import OakModal from '../../oakui/OakModal';
+import OakDialog from '../../oakui/OakDialog';
 
 interface Props {
   label?: string;
@@ -35,6 +37,7 @@ const ManageSpace = (props: Props) => {
       { key: 'fou0r', value: 'four value' },
     ],
   });
+  const [modalVisible, setModalVisible] = useState(false);
   const action = () => {
     console.log('action clicked');
   };
@@ -125,6 +128,33 @@ const ManageSpace = (props: Props) => {
               </div>
             </OakTab>
           </div>
+          <div>
+            <OakButton
+              theme="primary"
+              variant="animate in"
+              icon="add"
+              action={() => setModalVisible(true)}
+            >
+              Modal test
+            </OakButton>
+          </div>
+          <OakModal
+            visible={modalVisible}
+            toggleVisibility={() => setModalVisible(!modalVisible)}
+            label="Testing a modal dialog"
+          >
+            <div className="modal-body">
+              Morbi condimentum egestas placerat. Phasellus euismod rutrum orci
+              non tristique. Nullam venenatis accumsan ornare. In venenatis
+              volutpat scelerisque. Praesent eu risus ac metus mattis tempor.
+              Donec luctus ante nec sapien hendrerit condimentum. Aliquam
+              suscipit tincidunt justo vitae volutpat. Cras tincidunt lorem nec
+              erat bibendum consectetur. Maecenas tempus ligula eget varius
+              sollicitudin. Nam dictum leo non sapien gravida aliquam. Nullam
+              eget accumsan urna. Morbi facilisis dictum dui vel maximus. Fusce
+              enim orci, fermentum luctus quam in, tempor rhoncus augue.
+            </div>
+          </OakModal>
         </div>
       </div>
     </div>
