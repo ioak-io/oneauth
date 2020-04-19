@@ -1,24 +1,27 @@
 import React, { ReactNode, useState, useEffect } from 'react';
 import './styles/oak-auto-complete.scss';
 import OakText from './OakText';
+import { newId } from '../events/MessageService';
 
 interface Props {
-  id: string;
-  data: any;
   label: string;
   objects: any;
   handleChange: Function;
 }
 
+const id = newId();
+
 const OakAutoComplete = (props: Props) => {
   const [searchOn, setSearchOn] = useState(false);
-  const [criteria, setCriteria] = useState('');
+  const [criteria, setCriteria] = useState({
+    [id]: '',
+  });
   const [dropdownFiltered, setDropdownFiltered] = useState<
     [{ key: string; value: string }] | undefined
   >(undefined);
 
   useEffect(() => {
-    updateSearchResults(criteria);
+    updateSearchResults(criteria[id]);
   }, [props.objects]);
 
   const selected = key => {
@@ -31,7 +34,7 @@ const OakAutoComplete = (props: Props) => {
   };
 
   const handleChange = event => {
-    setCriteria(event.target.value);
+    setCriteria({ [event.target.name]: event.target.value });
     updateSearchResults(event.target.value);
   };
   const updateSearchResults = searchCriteria => {
@@ -44,18 +47,18 @@ const OakAutoComplete = (props: Props) => {
 
   useEffect(() => {
     window.addEventListener('click', (e: any) => {
-      if (!document.getElementById(props.id)?.contains(e.target)) {
+      if (!document.getElementById(id)?.contains(e.target)) {
         setSearchOn(false);
       }
     });
   }, []);
 
   return (
-    <div className="oak-auto-complete" id={props.id}>
+    <div className="oak-auto-complete" id={id}>
       <div className="search-bar">
         <OakText
-          id={props.id}
-          data={props.data}
+          id={id}
+          data={criteria}
           label={props.label}
           handleFocus={handleFocus}
           handleChange={handleChange}

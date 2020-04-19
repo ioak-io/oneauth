@@ -18,3 +18,11 @@ export function clearMessages() {
 export function receiveMessage(): Observable<Message> {
   return subject.asObservable();
 }
+
+export function newMessageId() {
+  return Math.random();
+}
+
+export function newId() {
+  return Math.random().toString();
+}

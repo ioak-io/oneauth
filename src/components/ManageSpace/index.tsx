@@ -90,9 +90,7 @@ const ManageSpace = (props: Props) => {
           </div>
           <div className="autocomplete-test">
             <OakAutoComplete
-              data={data}
               label="auto complete search"
-              id="criteria"
               handleChange={handleAutoCompleteChange}
               objects={data.autoCompleteDropdownData}
             />
