@@ -1,49 +1,124 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
 import Navigation from '../Navigation';
 import OakButton from '../../oakui/OakButton';
-import OakPopoverMenu from '../../oakui/OakPopoverMenu';
-import OakAutoComplete from '../../oakui/OakAutoComplete';
-import OakTab from '../../oakui/OakTab';
-import OakModal from '../../oakui/OakModal';
 import OakDialog from '../../oakui/OakDialog';
+import { Authorization } from '../Types/GeneralTypes';
+import { isEmptyOrSpaces } from '../Utils';
+import {
+  sendMessage,
+  receiveMessage,
+  newId,
+} from '../../events/MessageService';
+import { createSpace } from '../../actions/SpaceActions';
+import SpaceItem from './SpaceItem';
+import OakText from '../../oakui/OakText';
+
+const domain = 'space';
+
+const id = newId();
 
 interface Props {
+  authorization: Authorization;
   label?: string;
   logout: Function;
 }
-const tabDetails = [
-  { slotName: 'details', label: 'Basic details', icon: 'subject' },
-  { slotName: 'description', label: 'Description', icon: 'text_fields' },
-];
+// const tabDetails = [
+//   { slotName: 'details', label: 'Basic details', icon: 'subject' },
+//   { slotName: 'description', label: 'Description', icon: 'text_fields' },
+// ];
 const ManageSpace = (props: Props) => {
+  const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.authorization);
+  const space = useSelector(state => state.space);
+  const spaceUsers = useSelector(state => state.adminUsers.data);
+  const adminUsers = useSelector(state => state.roles);
   const [data, setData] = useState({
-    autoCompleteDropdownData: [
-      { key: 'one', value: 'one odfdf value' },
-      { key: 'two', value: 'two value' },
-      { key: 'three', value: 'three value' },
-      { key: 'four', value: 'four value' },
-      { key: 'one1', value: 'one value' },
-      { key: 'two2', value: 'two value' },
-      { key: 'three3', value: 'three value' },
-      { key: 'four4', value: 'four value' },
-      { key: 'one9', value: 'one value' },
-      { key: 'two9', value: 'two value' },
-      { key: 'thre9', value: 'three value' },
-      { key: 'fou9r', value: 'four value' },
-      { key: 'one0', value: 'one value' },
-      { key: 't0wo', value: 'two value' },
-      { key: 'thr0ee', value: 'three value' },
-      { key: 'fou0r', value: 'four value' },
-    ],
+    id: undefined,
+    name: '',
+    spaceId: '',
+    email: '',
+    password: '',
   });
-  const [modalVisible, setModalVisible] = useState(false);
-  const action = () => {
-    console.log('action clicked');
+  // const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    const eventBus = receiveMessage().subscribe(message => {
+      if (message.name === domain && message.signal) {
+        sendMessage('notification', true, {
+          type: 'success',
+          message: `${domain} ${message.data.action}`,
+          duration: 5000,
+        });
+        if (message.data.action === 'created') {
+          setCreateDialogOpen(false);
+        }
+      }
+    });
+    return () => eventBus.unsubscribe();
+  });
+
+  useEffect(() => {
+    if (!createDialogOpen) {
+      setData({
+        id: undefined,
+        name: '',
+        spaceId: '',
+        email: auth.email,
+        password: '',
+      });
+    }
+  }, [createDialogOpen]);
+
+  const addSpace = () => {
+    const spaceData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    };
+    if (isEmptyOrSpaces(spaceData.name)) {
+      sendMessage('notification', true, {
+        type: 'failure',
+        message: 'Space Name is missing',
+        duration: 5000,
+      });
+      return;
+    }
+
+    if (isEmptyOrSpaces(spaceData.password)) {
+      sendMessage('notification', true, {
+        type: 'failure',
+        message: 'Password is missing',
+        duration: 5000,
+      });
+      return;
+    }
+
+    dispatch(createSpace(props.authorization, spaceData));
   };
-  const handleAutoCompleteChange = (value: string) => {
-    console.log(value);
+
+  const handleChange = event => {
+    setData({
+      ...data,
+      [event.target.name]: event.target.value,
+    });
   };
+
+  const view = space.data.map(item => (
+    <div key={id}>
+      <SpaceItem
+        id={item._id}
+        space={item}
+        authorization={props.authorization}
+        spaceUsers={spaceUsers}
+        role={adminUsers}
+      />
+      <br />
+    </div>
+  ));
+
   return (
     <div className="app-page">
       <div>
@@ -52,53 +127,64 @@ const ManageSpace = (props: Props) => {
       <div className="app-container">
         <div className="home">
           <div className="typography-2">Manage space</div>
-          <div className="typography-5">Content</div>
           <div>
-            <OakButton theme="primary" variant="animate in" icon="add">
+            <OakButton
+              theme="primary"
+              action={() => setCreateDialogOpen(!createDialogOpen)}
+              variant="animate in"
+              icon="add"
+            >
               Create
             </OakButton>
           </div>
-          <div className="popover-test space-top-4">
-            <OakPopoverMenu
-              label="dropout menu zsdcsa sd "
-              id="popover-test"
-              theme="primary"
-              elements={[
-                {
-                  label: 'Task',
-                  action,
-                  icon: 'library_add_check',
-                },
-                {
-                  label: 'Project',
-                  action,
-                  icon: 'apps',
-                },
-                {
-                  label: 'Team',
-                  action,
-                  icon: 'people_alt',
-                },
-                {
-                  label: 'Stage / Lane',
-                  action,
-                  icon: 'vertical_split',
-                },
-              ]}
-              iconLeft="playlist_add"
-              labelVariant="on"
-              right
-              mobilize
-            />
-          </div>
-          <div className="autocomplete-test">
-            <OakAutoComplete
-              label="auto complete search"
-              handleChange={handleAutoCompleteChange}
-              objects={data.autoCompleteDropdownData}
-            />
-          </div>
-          <div className="tab-test">
+          <OakDialog
+            visible={createDialogOpen}
+            toggleVisibility={() => setCreateDialogOpen(!createDialogOpen)}
+          >
+            <div className="dialog-body">
+              <OakText
+                label="Space Name"
+                data={data}
+                id="name"
+                handleChange={e => handleChange(e)}
+              />
+              <OakText
+                label="Administrator Email"
+                data={data}
+                id="email"
+                disabled
+                handleChange={e => handleChange(e)}
+              />
+              <OakText
+                label="Administrator Password"
+                data={data}
+                id="password"
+                type="password"
+                handleChange={e => handleChange(e)}
+              />
+            </div>
+            <div className="dialog-footer">
+              <OakButton
+                action={() => setCreateDialogOpen(!createDialogOpen)}
+                theme="default"
+                variant="animate in"
+                align="left"
+              >
+                <i className="material-icons">close</i>Cancel
+              </OakButton>
+              <OakButton
+                action={() => addSpace()}
+                theme="primary"
+                variant="animate out"
+                align="right"
+              >
+                <i className="material-icons">double_arrow</i>Create
+              </OakButton>
+            </div>
+          </OakDialog>
+          {view}
+
+          {/* <div className="tab-test">
             <OakTab meta={tabDetails}>
               <div slot="details">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis
@@ -154,7 +240,7 @@ const ManageSpace = (props: Props) => {
               eget accumsan urna. Morbi facilisis dictum dui vel maximus. Fusce
               enim orci, fermentum luctus quam in, tempor rhoncus augue.
             </div>
-          </OakModal>
+          </OakModal> */}
         </div>
       </div>
     </div>

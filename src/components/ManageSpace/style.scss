@@ -29,3 +29,26 @@
     padding: 0 20px 20px 20px;
     margin-top: 20px;
 }
+
+.space-display {
+    
+    .card {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+    grid-gap: 1rem;
+
+        border: transparent solid #e7e7e7;
+        border-radius: 4px;
+        padding: .5rem;
+        }
+    
+    @media (max-width: 767px) {
+        padding: 5px 16px !important;
+    }
+        
+}
+
+.popover-test {
+    display: flex;
+}

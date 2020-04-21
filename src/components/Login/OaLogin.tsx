@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
+import { fetchSpace } from '../../actions/SpaceActions';
+import { fetchAllSpaceUser } from '../../actions/UserAction';
+import { fetchAdmins } from '../../actions/RoleActions';
 import './OaLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import OakText from '../../oakui/OakText';
@@ -22,6 +25,9 @@ import mirrorBlack from '../../images/ioak_black.svg';
 const queryString = require('query-string');
 
 interface Props {
+  fetchAdmins: Function;
+  fetchAllSpaceUser: Function;
+  fetchSpace: Function;
   setProfile: Function;
   getAuth: Function;
   addAuth: Function;
@@ -278,6 +284,9 @@ const Login = (props: Props) => {
       lastName: data.lastName,
       email: data.email,
     });
+    props.fetchSpace(data);
+    props.fetchAllSpaceUser(data);
+    props.fetchAdmins(data);
     props.setProfile({ appStatus: 'authenticated' });
     sendMessage('loggedin', true);
     props.cookies.set(`oneauth`, data.authKey);
@@ -403,8 +412,16 @@ const Login = (props: Props) => {
 
 const mapStateToProps = state => ({
   authorization: state.authorization,
+  fetchSpace: state.fetchSpace,
+  fetchAllSpaceUser: state.fetchAllSpaceUser,
+  existingAdmins: state.fetchAdmins,
 });
 
-export default connect(mapStateToProps, { getAuth, addAuth, removeAuth })(
-  withCookies(Login)
-);
+export default connect(mapStateToProps, {
+  getAuth,
+  addAuth,
+  removeAuth,
+  fetchSpace,
+  fetchAllSpaceUser,
+  fetchAdmins,
+})(withCookies(Login));

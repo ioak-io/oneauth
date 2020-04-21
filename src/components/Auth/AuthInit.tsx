@@ -7,6 +7,9 @@ import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
 import { Authorization } from '../Types/GeneralTypes';
 import { httpGet } from '../Lib/RestTemplate';
 import { setProfile } from '../../actions/ProfileActions';
+import { fetchSpace } from '../../actions/SpaceActions';
+import { fetchAllSpaceUser } from '../../actions/UserAction';
+import { fetchAdmins } from '../../actions/RoleActions';
 
 interface Props extends ReactCookieProps {
   authorization: Authorization;
@@ -21,6 +24,7 @@ interface Props extends ReactCookieProps {
 
 const AuthInit = (props: Props) => {
   const profile = useSelector(state => state.profile);
+  // const space = useSelector(state => state.space);
   const dispatch = useDispatch();
   // useEffect(() => {
   //   if (!props.authorization.isAuth && props.cookies.get('isAuth')) {
@@ -50,6 +54,9 @@ const AuthInit = (props: Props) => {
                 email: sessionResponse.data.email,
               })
             );
+            dispatch(fetchSpace(sessionResponse.data));
+            dispatch(fetchAllSpaceUser(sessionResponse.data));
+            dispatch(fetchAdmins(sessionResponse.data));
             dispatch(setProfile({ ...profile, appStatus: 'authenticated' }));
           }
         });
