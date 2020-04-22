@@ -8,8 +8,8 @@ import { Authorization } from '../Types/GeneralTypes';
 import { httpGet } from '../Lib/RestTemplate';
 import { setProfile } from '../../actions/ProfileActions';
 import { fetchSpace } from '../../actions/SpaceActions';
-import { fetchAllSpaceUser } from '../../actions/UserAction';
-import { fetchAdmins } from '../../actions/RoleActions';
+import fetchUsers from '../../actions/OaUserAction';
+import { fetchRoles } from '../../actions/OaRoleActions';
 
 interface Props extends ReactCookieProps {
   authorization: Authorization;
@@ -55,8 +55,8 @@ const AuthInit = (props: Props) => {
               })
             );
             dispatch(fetchSpace(sessionResponse.data));
-            dispatch(fetchAllSpaceUser(sessionResponse.data));
-            dispatch(fetchAdmins(sessionResponse.data));
+            dispatch(fetchUsers(sessionResponse.data));
+            dispatch(fetchRoles(sessionResponse.data));
             dispatch(setProfile({ ...profile, appStatus: 'authenticated' }));
           }
         });

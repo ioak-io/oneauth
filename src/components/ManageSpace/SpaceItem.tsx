@@ -1,27 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import OakDialog from '../../oakui/OakDialog';
+import { useDispatch, useSelector } from 'react-redux';
 import OakPopoverMenu from '../../oakui/OakPopoverMenu';
 import './style.scss';
 import OakPrompt from '../../oakui/OakPrompt';
 import { deleteSpace } from '../../actions/SpaceActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
-import SpaceView from './SpaceView';
-import { Authorization } from '../Types/GeneralTypes';
+import EditAdministrators from './EditAdministrators';
 import OakModal from '../../oakui/OakModal';
 
 const domain = ['space', 'role'];
 
 interface Props {
-  authorization: Authorization;
   space: any;
   id: string;
-  spaceUsers: any;
-  role: any;
 }
 const SpaceItem = (props: Props) => {
-  const auth = props.authorization;
   const dispatch = useDispatch();
+  const oaRoles = useSelector(state => state.oaRoles);
+  const oaUsers = useSelector(state => state.oaUsers);
+  const authorization = useSelector(state => state.authorization);
+
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [adminDialogOpen, setAdminDialogOpen] = useState(false);
   const [users, setUsers] = useState({});
@@ -68,9 +66,9 @@ const SpaceItem = (props: Props) => {
   });
 
   useEffect(() => {
-    setUsers(props.spaceUsers);
-    setExistingAdmins(props.role.data.data);
-  }, [props.spaceUsers, props.role.data.data]);
+    setUsers(oaUsers);
+    setExistingAdmins(oaRoles.data.data);
+  }, [oaUsers, oaRoles.data.data]);
 
   useEffect(() => {
     setDataItem(props.space);
@@ -87,16 +85,18 @@ const SpaceItem = (props: Props) => {
     });
   };
 
-  const editAdmin = id => {
+  const editAdmin = () => {
     setDataItem({
       ...dataItem,
-      id,
+      id: props.space._id,
     });
     console.log(existigAdmins);
     setAdminDialogOpen(true);
-    const userRole = existigAdmins?.filter(item => item.domainId === id);
+    const userRole = existigAdmins?.filter(
+      item => item.domainId === props.space._id
+    );
     console.log(userRole);
-    const userData = diff(userRole, props.spaceUsers.data);
+    const userData = diff(userRole, oaUsers.data);
     console.log(userData);
     setItems(userData);
   };
@@ -113,90 +113,88 @@ const SpaceItem = (props: Props) => {
     return ret;
   };
 
-  const confirmDeleteSpace = spaceId => {
-    console.log(spaceId);
+  const confirmDeleteSpace = () => {
+    console.log(props.space.spaceId);
     setDataItem({
       ...dataItem,
-      spaceId,
+      spaceId: props.space.spaceId,
     });
     setDeleteDialogOpen(true);
   };
 
   const updateSpace = space => (
-    <SpaceView
-      id={space._id}
-      space={space}
-      authorization={auth}
-      spaceUsers={users}
-    />
+    <EditAdministrators id={space._id} space={space} oaUsers={users} />
   );
 
   const updateAdmin = (space, items) => (
-    <SpaceView
+    <EditAdministrators
       id={space._id}
       space={space}
-      authorization={auth}
-      spaceUsers={users}
+      oaUsers={users}
       existingAdmins={items}
     />
   );
+  const actionElements = [
+    {
+      label: 'Edit Space',
+      action: () => {
+        editSpace(props.space);
+      },
+      icon: 'library_add_check',
+    },
+    {
+      label: 'Delete Space',
+      action: confirmDeleteSpace,
+      icon: 'apps',
+    },
+    {
+      label: 'Update Admin',
+      action: editAdmin,
+      icon: 'people_alt',
+    },
+  ];
+
   return (
-    <div className="space-display space-top-2" key={props.space.id}>
-      <div className="card">
-        <div className="title typography-4">{props.space.spaceId}</div>
-        <div className="typography-4">{props.space.name}</div>
-        <div className="popover-test space-top-0">
-          <OakPopoverMenu
-            label="Manage"
-            id={props.space._id}
-            theme="primary"
-            elements={[
-              {
-                label: 'Edit Space',
-                action: () => {
-                  editSpace(props.space);
-                },
-                icon: 'library_add_check',
-              },
-              {
-                label: 'Delete Space',
-                action: () => confirmDeleteSpace(props.space.spaceId),
-                icon: 'apps',
-              },
-              {
-                label: 'Update Admin',
-                action: () => editAdmin(props.space._id),
-                icon: 'people_alt',
-              },
-            ]}
-            iconLeft="playlist_add"
-            labelVariant="on"
-            right
-            mobilize
-          />
+    <>
+      <div className="space-item" key={props.space.id}>
+        <div className="content">
+          <div className="title typography-8">{`${props.space.name} (${props.space.spaceId})`}</div>
+          <div className="statistics typography-4">
+            <div className="administrators" onClick={editAdmin}>
+              3 Administrators
+            </div>
+            <div>2 Connected Apps</div>
+          </div>
         </div>
-        <OakModal
-          visible={editDialogOpen}
-          toggleVisibility={() => setEditDialogOpen(!editDialogOpen)}
-        >
-          {updateSpace(dataItem)}
-        </OakModal>
-        <OakDialog
-          visible={adminDialogOpen}
-          toggleVisibility={() => setAdminDialogOpen(!adminDialogOpen)}
-        >
-          {updateAdmin(dataItem, items)}
-        </OakDialog>
-        {deleteDialogOpen}
-        <OakPrompt
-          action={() =>
-            dispatch(deleteSpace(props.authorization, dataItem.spaceId))
-          }
-          visible={deleteDialogOpen}
-          toggleVisibility={() => setDeleteDialogOpen(!deleteDialogOpen)}
-        />
+        <div className="action space-top-0">
+          <OakPopoverMenu elements={actionElements} theme="primary" right>
+            <div slot="label" className="action-item">
+              <i className="material-icons">more_horiz</i>
+            </div>
+          </OakPopoverMenu>
+        </div>
       </div>
-    </div>
+
+      <OakModal
+        label="Edit space"
+        visible={editDialogOpen}
+        toggleVisibility={() => setEditDialogOpen(!editDialogOpen)}
+      >
+        {updateSpace(dataItem)}
+      </OakModal>
+      <OakModal
+        label="Space Administrators"
+        visible={adminDialogOpen}
+        toggleVisibility={() => setAdminDialogOpen(!adminDialogOpen)}
+      >
+        {updateAdmin(dataItem, items)}
+      </OakModal>
+      <OakPrompt
+        action={() => dispatch(deleteSpace(authorization, props.space.spaceId))}
+        visible={deleteDialogOpen}
+        toggleVisibility={() => setDeleteDialogOpen(!deleteDialogOpen)}
+      />
+    </>
   );
 };
 

@@ -6,6 +6,7 @@ interface Props {
   visible: boolean;
   toggleVisibility: any;
   small?: boolean;
+  noheader?: boolean;
   fullscreen?: boolean;
   children?: ReactNode;
 }
@@ -13,6 +14,7 @@ interface Props {
 const OakDialog = (props: Props) => {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
+    sendMessage('modal', props.visible);
     if (visible !== props.visible) {
       if (props.visible) {
         setVisible(props.visible);
@@ -55,12 +57,13 @@ const OakDialog = (props: Props) => {
   const getDialogStyle = () => {
     let style = '';
     style += props.small ? ' small' : '';
+    style += props.noheader ? ' noheader' : '';
     style += props.fullscreen ? ' fullscreen' : '';
     return style;
   };
 
   return (
-    <div className="oak-dialog">
+    <div className={`oak-dialog ${getDialogStyle()}`}>
       {visible && (
         <div
           className={

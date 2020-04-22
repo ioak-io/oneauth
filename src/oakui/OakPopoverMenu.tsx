@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './styles/oak-popover-menu.scss';
+import { newId } from '../events/MessageService';
 
 interface Props {
-  id: string;
-  label: string;
+  label?: string;
   elements: any;
   labelVariant?: string;
   theme?: string;
@@ -12,14 +12,29 @@ interface Props {
   iconRight?: string;
   mobilize?: boolean;
   width?: string;
+  children?: any;
 }
 
 const OakPopoverMenu = (props: Props) => {
   const [show, setShow] = useState(false);
+  const [slots, setSlots] = useState<any | {}>({});
+  const [id, setId] = useState(newId());
+
+  useEffect(() => {
+    initializeViews();
+  }, []);
+
+  const initializeViews = () => {
+    let newSlots = {};
+    React.Children.toArray(props.children).forEach((node: any) => {
+      newSlots = { ...newSlots, [node.props.slot]: node };
+    });
+    setSlots(newSlots);
+  };
 
   useEffect(() => {
     window.addEventListener('click', (e: any) => {
-      if (!document.getElementById(props.id)?.contains(e.target)) {
+      if (!document.getElementById(id)?.contains(e.target)) {
         setShow(false);
       }
     });
@@ -47,8 +62,8 @@ const OakPopoverMenu = (props: Props) => {
   };
 
   return (
-    <div className={`oak-popover-menu ${getStyle()}`} id={props.id}>
-      {props.label && (
+    <div className={`oak-popover-menu ${getStyle()}`} id={id}>
+      {!slots.label && (
         <div className={`label ${labelStyle()}`} onClick={toggle}>
           {props.iconLeft && (
             <div className="left-icon">
@@ -61,9 +76,9 @@ const OakPopoverMenu = (props: Props) => {
           </div>
         </div>
       )}
-      {!props.label && (
+      {slots.label && (
         <div className="label-custom" onClick={toggle}>
-          {/* <slot name="label"></slot> */}
+          {slots.label}
         </div>
       )}
       <div

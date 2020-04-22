@@ -2,9 +2,9 @@ button {
   &.oak-button {
     user-select: none;
     border-radius: 4px;
-    height: 50px;
+    height: 40px;
     @media (max-width: 767px) {
-        height: 40px;
+      height: 30px;
     }
 
 
@@ -31,22 +31,24 @@ button {
     }
 
     &.secondary {
-      --color-bg: var(--color-btn-bg-secondary);
-      --color-fg: var(--color-btn-fg-secondary);
+      --color-bg: var(--color-btn-secondary-bg);
+      --color-bg-hover: var(--color-btn-secondary-bg-hover);
+      --color-fg: var(--color-btn-secondary-fg);
       --color-fg-hover: var(--color-btn-fg-secondary-hover);
       &.invert {
-        --color-fg-hover: var(--color-btn-fg-secondary);
-        --color-fg: var(--color-btn-fg-secondary-hover);
+        --color-fg-hover: var(--color-btn-secondary-fg);
+        --color-fg: var(--color-btn-secondary-fg-hover);
       }
     }
 
     &.tertiary {
-      --color-bg: var(--color-btn-bg-tertiary);
-      --color-fg: var(--color-btn-fg-tertiary);
+      --color-bg: var(--color-btn-tertiary-bg);
+      --color-bg-hover: var(--color-btn-tertiary-bg-hover);
+      --color-fg: var(--color-btn-tertiary-fg);
       --color-fg-hover: var(--color-btn-fg-tertiary-hover);
       &.invert {
-        --color-fg-hover: var(--color-btn-fg-tertiary);
-        --color-fg: var(--color-btn-fg-tertiary-hover);
+        --color-fg-hover: var(--color-btn-tertiary-fg);
+        --color-fg: var(--color-btn-tertiary-fg-hover);
       }
     }
 

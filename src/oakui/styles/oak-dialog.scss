@@ -115,7 +115,7 @@
       // height: inherit;
       // grid-template-rows: auto auto 1fr;
       &.hidetext {
-        display: none;
+        // display: none;
       }
     }
 
@@ -131,15 +131,20 @@
 
     &.small {
       height: auto;
-      top: 30vh;
-
-      .dialog-header {
-        display: none;
-      }
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
 
       .dialog-body {
         // height: calc(40vh - var(--height-nav) - 135px);
         height: auto;
+        max-height: calc(100vh - 106px);
+      }
+    }
+
+    &.noheader {
+      .dialog-header {
+        display: none;
       }
     }
   }

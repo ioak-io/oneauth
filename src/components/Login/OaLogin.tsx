@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
 import { fetchSpace } from '../../actions/SpaceActions';
-import { fetchAllSpaceUser } from '../../actions/UserAction';
-import { fetchAdmins } from '../../actions/RoleActions';
+import fetchUsers from '../../actions/OaUserAction';
+import { fetchRoles } from '../../actions/OaRoleActions';
 import './OaLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import OakText from '../../oakui/OakText';
@@ -25,8 +25,8 @@ import mirrorBlack from '../../images/ioak_black.svg';
 const queryString = require('query-string');
 
 interface Props {
-  fetchAdmins: Function;
-  fetchAllSpaceUser: Function;
+  fetchRoles: Function;
+  fetchUsers: Function;
   fetchSpace: Function;
   setProfile: Function;
   getAuth: Function;
@@ -285,8 +285,8 @@ const Login = (props: Props) => {
       email: data.email,
     });
     props.fetchSpace(data);
-    props.fetchAllSpaceUser(data);
-    props.fetchAdmins(data);
+    props.fetchUsers(data);
+    props.fetchRoles(data);
     props.setProfile({ appStatus: 'authenticated' });
     sendMessage('loggedin', true);
     props.cookies.set(`oneauth`, data.authKey);
@@ -413,8 +413,8 @@ const Login = (props: Props) => {
 const mapStateToProps = state => ({
   authorization: state.authorization,
   fetchSpace: state.fetchSpace,
-  fetchAllSpaceUser: state.fetchAllSpaceUser,
-  existingAdmins: state.fetchAdmins,
+  fetchUsers: state.fetchUsers,
+  existingAdmins: state.fetchRoles,
 });
 
 export default connect(mapStateToProps, {
@@ -422,6 +422,6 @@ export default connect(mapStateToProps, {
   addAuth,
   removeAuth,
   fetchSpace,
-  fetchAllSpaceUser,
-  fetchAdmins,
+  fetchUsers,
+  fetchRoles,
 })(withCookies(Login));

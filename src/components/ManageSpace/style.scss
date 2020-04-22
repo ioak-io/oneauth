@@ -6,17 +6,34 @@
 
     display: grid;
     grid-template-rows: auto 1fr;
+    overflow:auto;
 
     .app-container {
         height: 100%;
         overflow: auto;
+        width: 80vw;
+        margin: auto;
+        padding: 100px;
         .home {
-            width: 80vw;
             margin: 20px auto;
 
             display: flex;
             flex-direction: column;
         }
+
+        .top-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+    }
+
+    .header-image {
+        height: 30vh;
+        background: url('../../images/managespace.jpg') no-repeat center center;
+        background-size: cover;
+        display: flex;
+        align-items: flex-start;
+        // justify-content: center;
     }
 }
 
@@ -30,23 +47,60 @@
     margin-top: 20px;
 }
 
-.space-display {
-    
-    .card {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: auto;
-    grid-gap: 1rem;
-
-        border: transparent solid #e7e7e7;
-        border-radius: 4px;
-        padding: .5rem;
-        }
-    
+.space-list {
+    padding: 20px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     @media (max-width: 767px) {
-        padding: 5px 16px !important;
+        flex-direction: column;
     }
-        
+}
+.space-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    background-color: var(--color-background-3);
+    box-shadow: var(--bs-md);
+    margin: 0 10px;
+    padding: 0 10px;
+    width: auto;
+    .content {
+        display: grid;
+        row-gap: 10px;
+        padding: 10px 0;
+        word-break: break-all;
+        .statistics {
+            user-select: none;
+            display: grid;
+            row-gap: 10px;
+            color: var(--color-foreground-3);
+            .administrators {
+                &:hover {
+                    cursor: pointer;
+                    text-decoration: underline;
+                    color: var(--color-foreground-1)
+                }
+            }
+        }
+    }
+    .action {
+        // background-color: var(--color-background-2);
+        display: flex;
+        justify-content: flex-end;
+        .action-item  {
+            cursor: pointer;
+            color: var(--color-foreground-3);
+            &:hover {
+                color: var(--color-primary-1);
+            }
+            &.delete {
+            &:hover {
+                color: var(--color-failure);
+            }}
+        }
+    } 
 }
 
 .popover-test {

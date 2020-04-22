@@ -2,10 +2,11 @@ import { httpGet, httpPut, httpDelete } from '../components/Lib/RestTemplate';
 import constants from '../components/Constants';
 import { UPDATE_ROLE } from './types';
 import { sendMessage } from '../events/MessageService';
+import { fetchSpace } from './SpaceActions';
 
 const domain = 'role';
 
-export const fetchAdmins = authorization => dispatch => {
+export const fetchRoles = authorization => dispatch => {
   httpGet(`${constants.API_ROLE_FETCH}`, {
     headers: {
       Authorization: authorization.token,
@@ -27,7 +28,7 @@ export const updateRoles = (authorization, payload) => dispatch => {
     .then(response => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'updated' });
-        dispatch(fetchAdmins(authorization));
+        dispatch(fetchRoles(authorization));
       }
     })
     .catch(error => {
@@ -51,7 +52,8 @@ export const deleteRoles = (
     .then(response => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'deleted' });
-        dispatch(fetchAdmins(authorization));
+        dispatch(fetchRoles(authorization));
+        dispatch(fetchSpace(authorization));
       }
     })
     .catch(error => {

@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import OakAutoComplete from '../../oakui/OakAutoComplete';
 import OakText from '../../oakui/OakText';
 import OakButton from '../../oakui/OakButton';
 import { updateSpace } from '../../actions/SpaceActions';
 import {
   updateRoles,
-  fetchAdmins,
+  fetchRoles,
   deleteRoles,
-} from '../../actions/RoleActions';
-import { Authorization } from '../Types/GeneralTypes';
+} from '../../actions/OaRoleActions';
 import OakPrompt from '../../oakui/OakPrompt';
 
 interface Props {
-  authorization: Authorization;
   space: any;
   id: string;
-  spaceUsers: any;
+  oaUsers: any;
   existingAdmins?: any;
 }
 
-const SpaceView = (props: Props) => {
+const EditAdministrators = (props: Props) => {
   console.log(props.space);
   const dispatch = useDispatch();
+  const authorization = useSelector(state => state.authorization);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [user, setUser] = useState<undefined | any[]>([{}]);
@@ -40,24 +39,6 @@ const SpaceView = (props: Props) => {
   });
   const [data, setData] = useState({
     autoCompleteDropdownData: [{}],
-    // autoCompleteDropdownData: [
-    //   { key: 'one', value: 'one odfdf value' },
-    //   { key: 'two', value: 'two value' },
-    //   { key: 'three', value: 'three value' },
-    //   { key: 'four', value: 'four value' },
-    //   { key: 'one1', value: 'one value' },
-    //   { key: 'two2', value: 'two value' },
-    //   { key: 'three3', value: 'three value' },
-    //   { key: 'four4', value: 'four value' },
-    //   { key: 'one9', value: 'one value' },
-    //   { key: 'two9', value: 'two value' },
-    //   { key: 'thre9', value: 'three value' },
-    //   { key: 'fou9r', value: 'four value' },
-    //   { key: 'one0', value: 'one value' },
-    //   { key: 't0wo', value: 'two value' },
-    //   { key: 'thr0ee', value: 'three value' },
-    //   { key: 'fou0r', value: 'four value' },
-    // ],
   });
 
   useEffect(() => {
@@ -73,12 +54,14 @@ const SpaceView = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    setUser(props.spaceUsers.data);
-  }, [props.spaceUsers.data]);
+    setUser(props.oaUsers.data);
+  }, [props.oaUsers.data]);
 
   useEffect(() => {
-    dispatch(fetchAdmins(props.authorization));
-  }, []);
+    // if (authorization) {
+    dispatch(fetchRoles(authorization));
+    // }
+  }, [authorization]);
 
   useEffect(() => {
     let list: any[] = [];
@@ -105,7 +88,7 @@ const SpaceView = (props: Props) => {
       userId: value,
       domainId: spaceData.id,
     };
-    dispatch(updateRoles(props.authorization, administrator));
+    dispatch(updateRoles(authorization, administrator));
   };
 
   const handleChange = event => {
@@ -124,17 +107,14 @@ const SpaceView = (props: Props) => {
   };
 
   const handleUpdateSpace = () => {
-    dispatch(updateSpace(props.authorization, spaceData));
+    dispatch(updateSpace(authorization, spaceData));
   };
 
   return (
     <div>
-      <div className="dialog-body">
+      <div className="modal-body">
         {props.existingAdmins && (
           <div>
-            <div className="typography-5 space-top-2 space-bottom-3">
-              Add New Administartors
-            </div>
             <div className="autocomplete-test space-bottom-2">
               <OakAutoComplete
                 label="Users to Add"
@@ -176,7 +156,7 @@ const SpaceView = (props: Props) => {
               action={() =>
                 dispatch(
                   deleteRoles(
-                    props.authorization,
+                    authorization,
                     'space',
                     administrators.userId,
                     administrators.domainId
@@ -191,37 +171,35 @@ const SpaceView = (props: Props) => {
 
         {!props.existingAdmins && (
           <div>
-            <div className="typography-5 space-bottom-3">Update Space</div>
             <OakText
               label="Space Name"
               data={spaceData}
               id="name"
               handleChange={e => handleChange(e)}
             />
-
-            <div className="dialog-footer">
-              <OakButton
-                action={() => setEditDialogOpen(!editDialogOpen)}
-                theme="default"
-                variant="animate in"
-                align="left"
-              >
-                <i className="material-icons">close</i>Cancel
-              </OakButton>
-              <OakButton
-                theme="primary"
-                action={handleUpdateSpace}
-                variant="animate out"
-                align="right"
-              >
-                <i className="material-icons">double_arrow</i>Update
-              </OakButton>
-            </div>
           </div>
         )}
+      </div>
+      <div className="modal-footer">
+        <OakButton
+          action={() => setEditDialogOpen(!editDialogOpen)}
+          theme="default"
+          variant="animate in"
+          align="left"
+        >
+          <i className="material-icons">close</i>Cancel
+        </OakButton>
+        <OakButton
+          theme="primary"
+          action={handleUpdateSpace}
+          variant="animate none"
+          align="right"
+        >
+          <i className="material-icons">double_arrow</i>Update
+        </OakButton>
       </div>
     </div>
   );
 };
 
-export default SpaceView;
+export default EditAdministrators;

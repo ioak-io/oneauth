@@ -9,11 +9,13 @@ interface Props {
   fullscreen?: boolean;
   children?: ReactNode;
   label?: string;
+  noheader?: boolean;
 }
 
 const OakModal = (props: Props) => {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
+    sendMessage('modal', props.visible);
     if (visible !== props.visible) {
       if (props.visible) {
         setVisible(props.visible);
@@ -32,7 +34,6 @@ const OakModal = (props: Props) => {
   // }, []);
 
   useEffect(() => {
-    sendMessage('modal', visible);
     if (visible) {
       document.body.classList.add('oak-modal-open');
     } else {
@@ -53,12 +54,13 @@ const OakModal = (props: Props) => {
   const getmodalStyle = () => {
     let style = '';
     style += props.small ? ' small' : '';
+    style += props.noheader ? ' noheader' : '';
     style += props.fullscreen ? ' fullscreen' : '';
     return style;
   };
 
   return (
-    <div className="oak-modal">
+    <div className={`oak-modal ${getmodalStyle()}`}>
       {visible && (
         <div
           className={

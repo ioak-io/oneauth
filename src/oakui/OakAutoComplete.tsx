@@ -9,9 +9,8 @@ interface Props {
   handleChange: Function;
 }
 
-const id = newId();
-
 const OakAutoComplete = (props: Props) => {
+  const [id, setId] = useState(newId());
   const [searchOn, setSearchOn] = useState(false);
   const [criteria, setCriteria] = useState({
     [id]: '',

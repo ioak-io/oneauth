@@ -11,7 +11,6 @@ import Landing from '../Landing';
 import PrivateRoute from '../Auth/PrivateRoute';
 import AuthInit from '../Auth/AuthInit';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
-import { getUser, addUser } from '../../actions/UserActions';
 import { getProfile, setProfile } from '../../actions/ProfileActions';
 
 import Backdrop from './Backdrop';
@@ -52,8 +51,6 @@ interface Props {
   getAuth: Function;
   addAuth: Function;
   removeAuth: Function;
-  getUser: Function;
-  addUser: Function;
   cookies: any;
 
   // event: PropTypes.object,
@@ -76,22 +73,6 @@ const Content = (props: Props) => {
     });
     return () => eventBus.unsubscribe();
   });
-
-  useEffect(() => {
-    if (
-      props.authorization &&
-      props.authorization.token &&
-      props.profile.tenant
-    ) {
-      httpGet(`${constants.API_URL_USER}/${props.profile.tenant}/`, {
-        headers: {
-          Authorization: props.authorization.token,
-        },
-      }).then(response => {
-        props.addUser(response.data.data[0]);
-      });
-    }
-  }, [props.authorization]);
 
   const logout = (
     event: any,
@@ -186,6 +167,4 @@ export default connect(mapStateToProps, {
   removeAuth,
   getProfile,
   setProfile,
-  getUser,
-  addUser,
 })(withCookies(Content));

@@ -1,7 +1,7 @@
 import React from 'react';
-import './styles/oak-dialog.scss';
-import OakDialog from './OakDialog';
+import './styles/oak-prompt.scss';
 import OakButton from './OakButton';
+import OakModal from './OakModal';
 
 interface Props {
   visible: boolean;
@@ -26,20 +26,23 @@ const OakPrompt = (props: Props) => {
   // }
 
   const action = () => {
-    props.action();
+    console.log('triggered action');
     props.toggleVisibility();
+    console.log('before action');
+    props.action();
+    console.log('after action');
   };
 
   return (
-    <OakDialog
-      small
+    <OakModal
       visible={props.visible}
       toggleVisibility={props.toggleVisibility}
+      noheader
     >
-      <div className="dialog-body typography-4 space-top-4 space-bottom-4">
+      <div className="modal-body typography-8 space-top-4 space-bottom-4 confirmation-text">
         {props.text ? props.text : 'Are you sure you want to continue?'}
       </div>
-      <div className="dialog-footer">
+      <div className="modal-footer">
         {props.children && props.children}
         {!props.children && (
           <>
@@ -64,7 +67,7 @@ const OakPrompt = (props: Props) => {
           </>
         )}
       </div>
-    </OakDialog>
+    </OakModal>
   );
 };
 
