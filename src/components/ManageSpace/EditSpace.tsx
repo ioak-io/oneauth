@@ -8,12 +8,12 @@ import { sendMessage } from '../../events/MessageService';
 
 interface Props {
   space: any;
+  toggleVisibilityHandler: Function;
 }
 
 const EditSpace = (props: Props) => {
   const dispatch = useDispatch();
   const authorization = useSelector(state => state.authorization);
-  const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [spaceData, setSpaceData] = useState({
     name: '',
   });
@@ -21,10 +21,6 @@ const EditSpace = (props: Props) => {
   useEffect(() => {
     setSpaceData(props.space);
   }, [props.space]);
-
-  useEffect(() => {
-    setEditDialogOpen(editDialogOpen);
-  }, []);
 
   const handleChange = event => {
     setSpaceData({
@@ -63,7 +59,7 @@ const EditSpace = (props: Props) => {
       </div>
       <div className="modal-footer">
         <OakButton
-          action={() => setEditDialogOpen(!editDialogOpen)}
+          action={props.toggleVisibilityHandler}
           theme="default"
           variant="animate in"
           align="left"

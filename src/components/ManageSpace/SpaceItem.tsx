@@ -10,7 +10,8 @@ import OakModal from '../../oakui/OakModal';
 import EditSpace from './EditSpace';
 import { fetchRoles } from '../../actions/OaRoleActions';
 
-const domain = ['space', 'role'];
+const spaceDomain = 'space';
+const roleDomain = 'role';
 
 interface Props {
   space: any;
@@ -28,10 +29,10 @@ const SpaceItem = (props: Props) => {
 
   useEffect(() => {
     const eventBus = receiveMessage().subscribe(message => {
-      if (message.name === domain[0] && message.signal) {
+      if (message.name === spaceDomain && message.signal) {
         sendMessage('notification', true, {
           type: 'success',
-          message: `${domain[0]} ${message.data.action}`,
+          message: `${spaceDomain} ${message.data.action}`,
           duration: 5000,
         });
         if (message.data.action === 'updated') {
@@ -41,18 +42,18 @@ const SpaceItem = (props: Props) => {
           setDeleteDialogOpen(false);
         }
       }
-      if (message.name === domain[1] && message.signal) {
+      if (message.name === roleDomain && message.signal) {
         sendMessage('notification', true, {
           type: 'success',
-          message: `${domain[1]} ${message.data.action}`,
+          message: `${roleDomain} ${message.data.action}`,
           duration: 5000,
         });
         if (message.data.action === 'updated') {
-          setAdminDialogOpen(false);
+          // setAdminDialogOpen(false);
           setEditDialogOpen(false);
         }
         if (message.data.action === 'deleted') {
-          setAdminDialogOpen(false);
+          // setAdminDialogOpen(false);
         }
       }
     });
@@ -127,14 +128,20 @@ const SpaceItem = (props: Props) => {
         visible={editDialogOpen}
         toggleVisibility={() => setEditDialogOpen(!editDialogOpen)}
       >
-        <EditSpace space={props.space} />
+        <EditSpace
+          space={props.space}
+          toggleVisibilityHandler={() => setEditDialogOpen(!editDialogOpen)}
+        />
       </OakModal>
       <OakModal
         label="Space Administrators"
         visible={adminDialogOpen}
         toggleVisibility={() => setAdminDialogOpen(!adminDialogOpen)}
       >
-        <EditAdministrators space={props.space} />
+        <EditAdministrators
+          space={props.space}
+          toggleVisibilityHandler={() => setAdminDialogOpen(!adminDialogOpen)}
+        />
       </OakModal>
       <OakPrompt
         action={() => dispatch(deleteSpace(authorization, props.space.spaceId))}

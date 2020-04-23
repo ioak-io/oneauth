@@ -7,9 +7,11 @@ import {
   deleteRoles,
 } from '../../actions/OaRoleActions';
 import OakPrompt from '../../oakui/OakPrompt';
+import OakButton from '../../oakui/OakButton';
 
 interface Props {
   space: any;
+  toggleVisibilityHandler: Function;
 }
 
 const EditAdministrators = (props: Props) => {
@@ -20,7 +22,6 @@ const EditAdministrators = (props: Props) => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [items, setItems] = useState<undefined | any[]>([{}]);
   const [administrators, setAdministrators] = useState({
-    type: '',
     userId: '',
     domainId: '',
   });
@@ -99,21 +100,19 @@ const EditAdministrators = (props: Props) => {
             objects={data.autoCompleteDropdownData}
           />
         </div>
-        <div className="typography-6 space-top-2 ">Existing Administartors</div>
         <div
-          className="space-display space-top-2 space-bottom-4"
+          className="space-view space-top-2 space-bottom-4"
           key={oaUsers._id}
         >
-          <div className="card">
-            <div className="label">Admin Email</div>
-            <div className="label">Admin First Name</div>
-            <div className="label">Admin Last Name</div>
+          <div className="list-view-header typography-5">
+            <div className="label">Email</div>
+            <div className="label">Name</div>
+            <div className="label" />
           </div>
           {items?.map(item => (
-            <div className="card" key={item._id}>
+            <div className="list-view-item" key={item._id}>
               <div className="title typography-6">{item.email}</div>
-              <div className="typography-6">{item.firstName}</div>
-              <div className="typography-6">{item.lastName}</div>
+              <div className="typography-6">{`${item.lastName}, ${item.firstName}`}</div>
               <div className="item-delete">
                 <i
                   data-test="article-delete"
@@ -127,21 +126,32 @@ const EditAdministrators = (props: Props) => {
           ))}
         </div>
       </div>
-      {deleteDialogOpen}
-      <OakPrompt
-        action={() =>
-          dispatch(
-            deleteRoles(
-              authorization,
-              'space',
-              administrators.userId,
-              administrators.domainId
+      <div className="modal-footer">
+        <OakButton
+          action={props.toggleVisibilityHandler}
+          theme="default"
+          variant="animate in"
+          align="left"
+        >
+          <i className="material-icons">close</i>Close
+        </OakButton>
+      </div>
+      {deleteDialogOpen && (
+        <OakPrompt
+          action={() =>
+            dispatch(
+              deleteRoles(
+                authorization,
+                'space',
+                administrators.userId,
+                administrators.domainId
+              )
             )
-          )
-        }
-        visible={deleteDialogOpen}
-        toggleVisibility={() => setDeleteDialogOpen(!deleteDialogOpen)}
-      />
+          }
+          visible={deleteDialogOpen}
+          toggleVisibility={() => setDeleteDialogOpen(!deleteDialogOpen)}
+        />
+      )}
     </>
   );
 };
