@@ -86,19 +86,24 @@ const SpaceItem = (props: Props) => {
 
   const actionElements = [
     {
-      label: 'Edit Space',
+      label: 'Details',
       action: editSpace,
-      icon: 'library_add_check',
+      icon: 'edit',
+    },
+    {
+      label: 'Administrators',
+      action: editAdmin,
+      icon: 'people_alt',
+    },
+    {
+      label: 'Roles',
+      action: editAdmin,
+      icon: 'vpn_key',
     },
     {
       label: 'Delete Space',
       action: confirmDeleteSpace,
-      icon: 'apps',
-    },
-    {
-      label: 'Update Admin',
-      action: editAdmin,
-      icon: 'people_alt',
+      icon: 'delete',
     },
   ];
 

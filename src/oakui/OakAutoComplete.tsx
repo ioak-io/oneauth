@@ -4,7 +4,8 @@ import OakText from './OakText';
 import { newId } from '../events/MessageService';
 
 interface Props {
-  label: string;
+  label?: string;
+  placeholder?: string;
   objects: any;
   handleChange: Function;
 }
@@ -61,6 +62,7 @@ const OakAutoComplete = (props: Props) => {
           label={props.label}
           handleFocus={handleFocus}
           handleChange={handleChange}
+          placeholder={props.placeholder}
         />
       </div>
       {searchOn && (

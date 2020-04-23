@@ -2,11 +2,11 @@ button {
   &.oak-button {
     user-select: none;
     border-radius: 4px;
-    height: 40px;
+    height: var(--metric-formelement-height);
+    white-space: nowrap;
     @media (max-width: 767px) {
-      height: 30px;
+      height: var(--metric-formelement-height-mobile);
     }
-
 
     // Initialize colors based on theme
     &.default {

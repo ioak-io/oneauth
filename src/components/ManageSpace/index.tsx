@@ -26,6 +26,12 @@ const ManageSpace = (props: Props) => {
     password: '',
     repeatPassword: '',
   });
+  const [searchCriteria, setSearchCriteria] = useState({ text: '' });
+  const [view, setView] = useState<Array<any> | undefined>(undefined);
+
+  useEffect(() => {
+    setView(search(space.data, searchCriteria.text));
+  }, [space.data, searchCriteria]);
 
   useEffect(() => {
     if (!dialogOpen) {
@@ -57,6 +63,15 @@ const ManageSpace = (props: Props) => {
   useEffect(() => {
     setData({ ...data, email: auth.email });
   }, [auth]);
+
+  const search = (spaceList, criteria) => {
+    if (isEmptyOrSpaces(criteria)) {
+      return spaceList;
+    }
+    return spaceList.filter(
+      item => item.name.toLowerCase().indexOf(criteria.toLowerCase()) !== -1
+    );
+  };
 
   const validateEmptyText = (text, message) => {
     if (isEmptyOrSpaces(text)) {
@@ -100,12 +115,12 @@ const ManageSpace = (props: Props) => {
     });
   };
 
-  const view = space.data.map(item => (
-    <div key={item._id}>
-      <SpaceItem id={item._id} space={item} />
-      <br />
-    </div>
-  ));
+  const handleSearchCriteriaChange = event => {
+    setSearchCriteria({
+      ...searchCriteria,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   return (
     <>
@@ -113,18 +128,34 @@ const ManageSpace = (props: Props) => {
         <div className="header-image">
           <Navigation {...props} logout={props.logout} />
         </div>
-        <div className="app-container">
+        <div className="space-container">
           <div className="top-actions">
-            <OakButton
-              theme="primary"
-              action={() => setDialogOpen(!dialogOpen)}
-              variant="animate in"
-              icon="add"
-            >
-              Create
-            </OakButton>
+            <div className="search-bar">
+              <OakText
+                placeholder="Type to search"
+                handleChange={handleSearchCriteriaChange}
+                id="text"
+                data={searchCriteria}
+              />
+            </div>
+            <div className="create-action">
+              <OakButton
+                theme="primary"
+                action={() => setDialogOpen(!dialogOpen)}
+                variant="animate none"
+                icon="blur_on"
+              >
+                New space
+              </OakButton>
+            </div>
           </div>
-          <div className="space-list">{view}</div>
+          <div className="space-list">
+            {view?.map(item => (
+              <div key={item._id}>
+                <SpaceItem id={item._id} space={item} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -134,29 +165,25 @@ const ManageSpace = (props: Props) => {
         visible={dialogOpen}
         toggleVisibility={() => setDialogOpen(!dialogOpen)}
       >
-        <div className="modal-body">
+        <div className="modal-body two-column">
+          <div className="typography-5">Name</div>
+          <OakText data={data} id="name" handleChange={e => handleChange(e)} />
+          <div className="typography-5">Administrator Email</div>
           <OakText
-            label="Space Name"
-            data={data}
-            id="name"
-            handleChange={e => handleChange(e)}
-          />
-          <OakText
-            label="Administrator Email"
             data={data}
             id="email"
             disabled
             handleChange={e => handleChange(e)}
           />
+          <div className="typography-5">Administrator Password</div>
           <OakText
-            label="Administrator Password"
             data={data}
             id="password"
             type="password"
             handleChange={e => handleChange(e)}
           />
+          <div className="typography-5">Repeat Password</div>
           <OakText
-            label="Repeat Password"
             data={data}
             id="repeatPassword"
             type="password"

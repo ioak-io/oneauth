@@ -6,14 +6,14 @@
     font-family: 'Open Sans', sans-serif;
     border-radius: 3px;
     width: 100%;
-    color: var(--color-background-1);
+    color: var(--color-formelement-fg);
     font-size: 1em;
     outline: none;
     border: none;
-    background-color: var(--color-foreground-1);
+    background-color: var(--color-formelement-bg-1);
     // margin-bottom: 20px;
     box-sizing: border-box;
-    padding: 10px 16px;
+    padding: var(--metric-formelement-padding);
     // border: 2px solid;
     // border-color: var(--color-background-2);
 
@@ -33,15 +33,15 @@
     }
 
     &.disabled {
-      background-color: var(--color-foreground-2);
-      color: var(--color-background-2);
+      background-color: var(--color-formelement-bg-2);
+      color: var(--color-foreground-4);
     }
   }
 
   input {
-    height: 40px;
+    height: var(--metric-formelement-height);
     @media (max-width: 767px) {
-        height: 30px;
+      height: var(--metric-formelement-height-mobile);
     }
   }
 

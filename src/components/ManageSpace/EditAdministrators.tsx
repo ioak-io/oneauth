@@ -95,7 +95,7 @@ const EditAdministrators = (props: Props) => {
       <div className="modal-body">
         <div className="autocomplete-users space-bottom-2">
           <OakAutoComplete
-            label="Users to Add"
+            placeholder="Search by user name"
             handleChange={handleAutoCompleteChange}
             objects={data.autoCompleteDropdownData}
           />

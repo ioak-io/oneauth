@@ -12,6 +12,7 @@ interface Props {
   rows?: number;
   multiline?: boolean;
   handleFocus?: Function;
+  placeholder?: string;
 }
 const OakText = (props: Props) => {
   const handleFocus = () => {
@@ -36,6 +37,7 @@ const OakText = (props: Props) => {
           value={props.data[props.id]}
           onChange={props.handleChange}
           onFocus={handleFocus}
+          placeholder={props.placeholder}
         />
       )}
       {/* rows={props.rows ? props.rows : 4} */}

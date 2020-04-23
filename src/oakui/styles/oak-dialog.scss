@@ -95,9 +95,11 @@
         border-top: 1px solid var(--color-background-5);
         background-color: var(--color-background-3);
         height: 50px;
-        display: flex;
-        align-items: center;
+        display: grid;
+        grid-auto-flow: column;
         justify-content: center;
+        align-items: center;
+        column-gap: 10px;
 
         // &::before {
         //     position: fixed;

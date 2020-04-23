@@ -1,7 +1,12 @@
 * {
+  --metric-formelement-height: 36px;
+  --metric-formelement-height-mobile: 32px;
+  --metric-formelement-padding: 0 16px;
   --metric-space-vertical: 10px;
   --metric-space-horizontal: 10px;
 
+  --metric-typography-base-12: 30px;
+  --metric-typography-base-11: 28px;
   --metric-typography-base-10: 26px;
   --metric-typography-base-9: 24px;
   --metric-typography-base-8: 22px;
@@ -48,6 +53,12 @@
   );
   --metric-typography-10: calc(
     var(--metric-unit-medium) * var(--metric-typography-base-10)
+  );
+  --metric-typography-11: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-11)
+  );
+  --metric-typography-12: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-12)
   );
 }
 
@@ -162,6 +173,14 @@
 
 .display-inline {
   display: inline;
+}
+
+.typography-12 {
+  font-size: var(--metric-typography-12);
+}
+
+.typography-11 {
+  font-size: var(--metric-typography-11);
 }
 
 .typography-10 {

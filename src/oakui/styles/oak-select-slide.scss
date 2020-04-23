@@ -1,67 +1,46 @@
 .oak-select {
   user-select: none;
-  margin-bottom: 20px;
-  --color-bg: var(--color-btn-bg-default);
-  --color-fg: var(--color-btn-fg-default);
-  --color-fg-hover: var(--color-btn-fg-default-hover);
+  // margin-bottom: 20px;
+  font-size: 14px;
+  --color-bg: var(--color-formelement-bg-2);
+  --color-fg: var(--color-formelement-fg-1);
+  --color-fg-hover: var(--color-formelement-fg-1);
   &.default {
-    --color-bg: var(--color-btn-bg-default);
-    --color-fg: var(--color-btn-fg-default);
-    --color-fg-hover: var(--color-btn-fg-default-hover);
-    &.invert {
-      --color-fg-hover: var(--color-btn-fg-default);
-      --color-fg: var(--color-btn-fg-default-hover);
-    }
+    --color-bg: var(--color-formelement-bg-2);
+    --color-fg: var(--color-formelement-fg-1);
+    --color-fg-hover: var(--color-formelement-fg-1);
   }
 
   &.primary {
-    --color-bg: var(--color-btn-bg-primary);
-    --color-fg: var(--color-btn-fg-primary);
-    --color-fg-hover: var(--color-btn-fg-primary-hover);
-    &.invert {
-      --color-fg-hover: var(--color-btn-fg-primary);
-      --color-fg: var(--color-btn-fg-primary-hover);
-    }
+    --color-bg: var(--color-btn-primary-bg);
+    --color-fg: var(--color-btn-primary-fg);
+    --color-fg-hover: var(--color-btn-primary-fg);
   }
 
   &.secondary {
-    --color-bg: var(--color-btn-bg-secondary);
-    --color-fg: var(--color-btn-fg-secondary);
-    --color-fg-hover: var(--color-btn-fg-secondary-hover);
-    &.invert {
-      --color-fg-hover: var(--color-btn-fg-secondary);
-      --color-fg: var(--color-btn-fg-secondary-hover);
-    }
+    --color-bg: var(--color-btn-secondary-bg);
+    --color-fg: var(--color-btn-secondary-fg);
+    --color-fg-hover: var(--color-btn-secondary-fg);
   }
 
   &.tertiary {
-    --color-bg: var(--color-btn-bg-tertiary);
-    --color-fg: var(--color-btn-fg-tertiary);
-    --color-fg-hover: var(--color-btn-fg-tertiary-hover);
-    &.invert {
-      --color-fg-hover: var(--color-btn-fg-tertiary);
-      --color-fg: var(--color-btn-fg-tertiary-hover);
-    }
-  }
-
-  label {
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    display: block;
-    // bottom: 8px;
-    left: 10px;
-    position: relative;
-    font-size: 0.8em;
-    color: var(--color-foreground-2);
-    text-transform: capitalize;
+    --color-bg: var(--color-btn-tertiary-bg);
+    --color-fg: var(--color-btn-tertiary-fg);
+    --color-fg-hover: var(--color-btn-tertiary-fg);
   }
 
   .select-button {
+    // min-width: 200px;
     border-radius: 3px;
     cursor: pointer;
-    background-color: var(--color-background-2);
-    color: var(--color-foreground-1);
-    padding: 10px 16px;
-    width: 100%;
+    background-color: var(--color-formelement-bg-1);
+    color: var(--color-formelement-fg);
+    padding: var(--metric-formelement-padding);
+    height: var(--metric-formelement-height);
+    line-height: var(--metric-formelement-height);
+
+    width: fit-content;
+    width: auto;
     box-sizing: border-box;
     overflow-x: hidden;
     text-overflow: ellipsis;
@@ -84,8 +63,8 @@
 
   &.outline {
     .select-button {
-      background-color: var(--color-background-1);
-      color: var(--color-foreground-1);
+      background-color: var(--color-formelement-bg-1);
+      color: var(--color-formelement-fg);
       border: 1.5px solid var(--color-bg);
     }
   }
@@ -99,14 +78,14 @@
 
   &.normal {
     .select-button {
-      background-color: var(--color-background-2);
-      color: var(--color-foreground-1);
+      background-color: var(--color-formelement-bg-1);
+      color: var(--color-formelement-fg);
     }
   }
 
   .dropdown {
     z-index: 1;
-    // position: relative;
+    position: relative;
     &.show {
       display: block;
     }
@@ -115,16 +94,25 @@
     }
 
     .dropdown-content {
+      padding: 6px 0px;
+      width: 100% !important;
       z-index: 1;
       max-height: 300px;
       overflow-y: auto;
       position: absolute;
-      // width: 100%;
-      background-color: var(--color-background-2);
-      margin-top: 4px;
+      //   position: relative;
+      width: fit-content;
+      background-color: var(--color-formelement-bg-1);
+      color: var(--color-formelement-fg);
+      // box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.15),
+      //   0 5px 20px 0 rgba(21, 27, 38, 0.08);
+      box-shadow: var(--bs-lg);
+      //   margin-top: 4px;
 
       .option {
-        padding: 10px 16px;
+        height: var(--metric-formelement-height);
+        line-height: var(--metric-formelement-height);
+        padding: var(--metric-formelement-padding);
         cursor: pointer;
 
         overflow-x: hidden;

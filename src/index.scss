@@ -121,10 +121,10 @@ code {
     --color-background-2: #1e1e1e;
     --color-background-3: #272727;
     --color-background-4: #2e2e2e;
-    --color-background-5: #353535;
-    --color-foreground-1: rgba(255, 255, 255, 0.9);
-    --color-foreground-2: rgba(255, 255, 255, 0.8);
-    --color-foreground-3: rgba(255, 255, 255, 0.7);
+    --color-background-5: #3c3c3c;
+    --color-foreground-1: #ffffff;
+    --color-foreground-2: #f5f5f5;
+    --color-foreground-3: #f0f0f0;
     --color-foreground-4: rgba(255, 255, 255, 0.6);
     --color-foreground-5: rgba(255, 255, 255, 0.5);
     --color-primary-1: var(--color-dark-primary-1);
@@ -132,6 +132,9 @@ code {
     --color-secondary-1: var(--color-dark-secondary-1);
     --color-tertiary-1: var(--color-dark-tertiary-1);
     --color-tertiary-1-trans: var(--color-dark-tertiary-1-trans);
+    --color-formelement-bg-1: var(--color-background-5);
+    --color-formelement-bg-2: var(--color-background-4);
+    --color-formelement-fg: var(--color-foreground-1);
     --color-default: rgba(217, 217, 217, 1);
     --color-selected: rgba(217, 217, 217, 1);
     --color-hover: rgba(217, 217, 217, 0.2);
