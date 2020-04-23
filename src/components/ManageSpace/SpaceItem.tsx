@@ -7,6 +7,8 @@ import { deleteSpace } from '../../actions/SpaceActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 import EditAdministrators from './EditAdministrators';
 import OakModal from '../../oakui/OakModal';
+import EditSpace from './EditSpace';
+import { fetchRoles } from '../../actions/OaRoleActions';
 
 const domain = ['space', 'role'];
 
@@ -17,21 +19,12 @@ interface Props {
 const SpaceItem = (props: Props) => {
   const dispatch = useDispatch();
   const oaRoles = useSelector(state => state.oaRoles);
-  const oaUsers = useSelector(state => state.oaUsers);
   const authorization = useSelector(state => state.authorization);
 
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [adminDialogOpen, setAdminDialogOpen] = useState(false);
-  const [users, setUsers] = useState({});
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [items, setItems] = useState<undefined | any[]>([{}]);
-  const [existigAdmins, setExistingAdmins] = useState<undefined | any[]>([{}]);
-  const [dataItem, setDataItem] = useState({
-    id: undefined,
-    name: '',
-    spaceId: '',
-    email: '',
-  });
+  const [countOfAdmins, setCountofAdmins] = useState<undefined | number>(0);
 
   useEffect(() => {
     const eventBus = receiveMessage().subscribe(message => {
@@ -56,6 +49,7 @@ const SpaceItem = (props: Props) => {
         });
         if (message.data.action === 'updated') {
           setAdminDialogOpen(false);
+          setEditDialogOpen(false);
         }
         if (message.data.action === 'deleted') {
           setAdminDialogOpen(false);
@@ -66,80 +60,33 @@ const SpaceItem = (props: Props) => {
   });
 
   useEffect(() => {
-    setUsers(oaUsers);
-    setExistingAdmins(oaRoles.data.data);
-  }, [oaUsers, oaRoles.data.data]);
+    dispatch(fetchRoles(authorization));
+  }, [authorization]);
 
   useEffect(() => {
-    setDataItem(props.space);
-  }, [props.space]);
+    const existingAdmins = oaRoles.data.data?.filter(
+      item => item.domainId === props.space._id
+    );
 
-  const editSpace = space => {
+    setCountofAdmins(existingAdmins?.length);
+  }, [oaRoles.data.data]);
+
+  const editSpace = () => {
     setEditDialogOpen(true);
-    setDataItem({
-      ...dataItem,
-      id: space._id,
-      name: space.name,
-      spaceId: space.spaceId,
-      email: space.email,
-    });
   };
 
   const editAdmin = () => {
-    setDataItem({
-      ...dataItem,
-      id: props.space._id,
-    });
-    console.log(existigAdmins);
     setAdminDialogOpen(true);
-    const userRole = existigAdmins?.filter(
-      item => item.domainId === props.space._id
-    );
-    console.log(userRole);
-    const userData = diff(userRole, oaUsers.data);
-    console.log(userData);
-    setItems(userData);
-  };
-
-  const diff = (arr, arr2) => {
-    const ret: any[] = [];
-    arr2.map(item1 => {
-      arr.map(item => {
-        if (item1._id.indexOf(item.userId) > -1) {
-          ret.push(item1);
-        }
-      });
-    });
-    return ret;
   };
 
   const confirmDeleteSpace = () => {
-    console.log(props.space.spaceId);
-    setDataItem({
-      ...dataItem,
-      spaceId: props.space.spaceId,
-    });
     setDeleteDialogOpen(true);
   };
 
-  const updateSpace = space => (
-    <EditAdministrators id={space._id} space={space} oaUsers={users} />
-  );
-
-  const updateAdmin = (space, items) => (
-    <EditAdministrators
-      id={space._id}
-      space={space}
-      oaUsers={users}
-      existingAdmins={items}
-    />
-  );
   const actionElements = [
     {
       label: 'Edit Space',
-      action: () => {
-        editSpace(props.space);
-      },
+      action: editSpace,
       icon: 'library_add_check',
     },
     {
@@ -161,7 +108,7 @@ const SpaceItem = (props: Props) => {
           <div className="title typography-8">{`${props.space.name} (${props.space.spaceId})`}</div>
           <div className="statistics typography-4">
             <div className="administrators" onClick={editAdmin}>
-              3 Administrators
+              {countOfAdmins} Administrators
             </div>
             <div>2 Connected Apps</div>
           </div>
@@ -180,14 +127,14 @@ const SpaceItem = (props: Props) => {
         visible={editDialogOpen}
         toggleVisibility={() => setEditDialogOpen(!editDialogOpen)}
       >
-        {updateSpace(dataItem)}
+        <EditSpace space={props.space} />
       </OakModal>
       <OakModal
         label="Space Administrators"
         visible={adminDialogOpen}
         toggleVisibility={() => setAdminDialogOpen(!adminDialogOpen)}
       >
-        {updateAdmin(dataItem, items)}
+        <EditAdministrators space={props.space} />
       </OakModal>
       <OakPrompt
         action={() => dispatch(deleteSpace(authorization, props.space.spaceId))}

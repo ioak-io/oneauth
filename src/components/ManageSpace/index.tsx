@@ -28,6 +28,17 @@ const ManageSpace = (props: Props) => {
   });
 
   useEffect(() => {
+    if (!dialogOpen) {
+      setData({
+        ...data,
+        name: '',
+        password: '',
+        repeatPassword: '',
+      });
+    }
+  }, [dialogOpen]);
+
+  useEffect(() => {
     const eventBus = receiveMessage().subscribe(message => {
       if (message.name === domain && message.signal) {
         sendMessage('notification', true, {
