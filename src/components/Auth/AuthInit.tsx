@@ -10,6 +10,7 @@ import { setProfile } from '../../actions/ProfileActions';
 import { fetchSpace } from '../../actions/SpaceActions';
 import fetchUsers from '../../actions/OaUserAction';
 import { fetchRoles } from '../../actions/OaRoleActions';
+import { fetchApp } from '../../actions/AppActions';
 
 interface Props extends ReactCookieProps {
   authorization: Authorization;
@@ -57,6 +58,7 @@ const AuthInit = (props: Props) => {
             dispatch(fetchSpace(sessionResponse.data));
             dispatch(fetchUsers(sessionResponse.data));
             dispatch(fetchRoles(sessionResponse.data));
+            dispatch(fetchApp(sessionResponse.data));
             dispatch(setProfile({ ...profile, appStatus: 'authenticated' }));
           }
         });

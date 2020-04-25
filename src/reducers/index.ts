@@ -4,11 +4,13 @@ import ProfileReducer from './ProfileReducer';
 import SpaceReducer from './SpaceReducer';
 import OaRoleReducer from './OaRoleReducer';
 import OaUserReducer from './OaUserReducer';
+import AppReducer from './AppReducer';
 
 export default combineReducers({
   authorization: AuthReducer,
   profile: ProfileReducer,
   space: SpaceReducer,
+  app: AppReducer,
   oaUsers: OaUserReducer,
   oaRoles: OaRoleReducer,
 });

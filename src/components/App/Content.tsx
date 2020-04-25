@@ -24,6 +24,7 @@ import constants from '../Constants';
 import OaLogin from '../Login/OaLogin';
 import OakRoute from '../Auth/OakRoute';
 import ManageSpace from '../ManageSpace';
+import ManageApp from '../ManageApp';
 
 const themes = {
   themecolor1: getTheme('#69A7BF'),
@@ -142,6 +143,19 @@ const Content = (props: Props) => {
                     {...props}
                     logout={() => logout}
                     component={ManageSpace}
+                    middleware={['isAuthenticated']}
+                  />
+                )}
+              />
+              <Route
+                path="/manageapp"
+                exact
+                render={propsLocal => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={ManageApp}
                     middleware={['isAuthenticated']}
                   />
                 )}

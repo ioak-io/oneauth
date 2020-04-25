@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
 import { fetchSpace } from '../../actions/SpaceActions';
+import { fetchApp } from '../../actions/AppActions';
 import fetchUsers from '../../actions/OaUserAction';
 import { fetchRoles } from '../../actions/OaRoleActions';
 import './OaLogin.scss';
@@ -28,6 +29,7 @@ interface Props {
   fetchRoles: Function;
   fetchUsers: Function;
   fetchSpace: Function;
+  fetchApp: Function;
   setProfile: Function;
   getAuth: Function;
   addAuth: Function;
@@ -285,6 +287,7 @@ const Login = (props: Props) => {
       email: data.email,
     });
     props.fetchSpace(data);
+    props.fetchApp(data);
     props.fetchUsers(data);
     props.fetchRoles(data);
     props.setProfile({ appStatus: 'authenticated' });
@@ -415,6 +418,7 @@ const mapStateToProps = state => ({
   fetchSpace: state.fetchSpace,
   fetchUsers: state.fetchUsers,
   existingAdmins: state.fetchRoles,
+  fetchApp: state.fetchApp,
 });
 
 export default connect(mapStateToProps, {
@@ -424,4 +428,5 @@ export default connect(mapStateToProps, {
   fetchSpace,
   fetchUsers,
   fetchRoles,
+  fetchApp,
 })(withCookies(Login));
