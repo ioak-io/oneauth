@@ -29,7 +29,6 @@ const AppDetails = (props: Props) => {
       <div className="modal-body two-column">
         <div className="typography-5">App Id</div>
         <OakText
-          label=""
           data={appData}
           id="_id"
           disabled
@@ -37,7 +36,6 @@ const AppDetails = (props: Props) => {
         />
         <div className="typography-5">App Name</div>
         <OakText
-          label=""
           data={appData}
           id="name"
           disabled
@@ -45,7 +43,6 @@ const AppDetails = (props: Props) => {
         />
         <div className="typography-5">Redirect url</div>
         <OakText
-          label=""
           data={appData}
           id="redirect"
           disabled

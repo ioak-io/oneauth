@@ -55,15 +55,9 @@ const EditApp = (props: Props) => {
     <>
       <div className="modal-body two-column">
         <div className="typography-5">App Name</div>
-        <OakText
-          label=""
-          data={appData}
-          id="name"
-          handleChange={e => handleChange(e)}
-        />
+        <OakText data={appData} id="name" handleChange={e => handleChange(e)} />
         <div className="typography-5">Redirect url</div>
         <OakText
-          label=""
           data={appData}
           id="redirect"
           handleChange={e => handleChange(e)}
