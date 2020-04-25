@@ -133,7 +133,7 @@ const ManageApp = (props: Props) => {
               </OakButton>
             </div>
           </div>
-          <div className="app-list">
+          <div className="oaapp-list">
             {view?.map(item => (
               <div key={item._id}>
                 <AppItem id={item._id} app={item} />

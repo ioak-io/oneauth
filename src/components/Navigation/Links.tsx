@@ -25,7 +25,7 @@ const Links = (props: Props) => {
             Manage Space
           </NavLink>
           <NavLink to="/manageapp" className="navitem" activeClassName="active">
-            Manage APP
+            Manage App
           </NavLink>
         </>
       )}

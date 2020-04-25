@@ -101,7 +101,10 @@ const EditAdministrators = (props: Props) => {
             objects={data.autoCompleteDropdownData}
           />
         </div>
-        <div className="app-view space-top-2 space-bottom-4" key={oaUsers._id}>
+        <div
+          className="oaapp-view space-top-2 space-bottom-4"
+          key={oaUsers._id}
+        >
           <div className="list-view-header typography-5">
             <div className="label">Email</div>
             <div className="label">Name</div>

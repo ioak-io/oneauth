@@ -49,9 +49,10 @@ const EditSpace = (props: Props) => {
 
   return (
     <>
-      <div className="modal-body">
+      <div className="modal-body two-column">
+        <div className="typography-5">Space Name</div>
         <OakText
-          label="Space Name"
+          label=""
           data={spaceData}
           id="name"
           handleChange={e => handleChange(e)}

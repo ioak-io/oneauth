@@ -46,7 +46,7 @@
       // justify-content: center;
     }
   
-    .app-view {
+    .oaapp-view {
       display: flex;
       flex-direction: column;
      .list-view-header, .list-view-item {
@@ -66,7 +66,7 @@
     }
   }
   
-  .app-list {
+  .oaapp-list {
     background-color: var(--color-background-1);
     display: grid;
     column-gap: 20px;
@@ -78,7 +78,7 @@
       grid-template-columns: 1fr;
     }
   }
-  .app-item {
+  .oaapp-item {
     border-left: 4px solid transparent;
     &:hover {
       border-left: 4px solid var(--color-primary-1);
@@ -109,6 +109,13 @@
           }
         }
       }
+      .title {
+        &:hover {
+          cursor: pointer;
+          text-decoration: underline;
+          color: var(--color-foreground-1);
+      }
+    }
     }
     .action {
       // background-color: var(--color-background-2);

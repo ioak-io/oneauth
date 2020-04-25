@@ -110,7 +110,7 @@ const AppItem = (props: Props) => {
 
   return (
     <>
-      <div className="app-item" key={props.app._id}>
+      <div className="oaapp-item" key={props.app._id}>
         <div className="content">
           <div
             className="title typography-8"
