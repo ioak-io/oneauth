@@ -130,14 +130,6 @@ const Mobile = (props: Props) => {
             </div>
           </div>
           <Links authorization={props.authorization} profile={props.profile} />
-          <div className="dark-mode">
-            <i
-              className="material-icons"
-              onClick={() => props.toggleDarkMode()}
-            >
-              brightness_6
-            </i>
-          </div>
         </div>
       </div>
     </>

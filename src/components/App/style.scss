@@ -2,31 +2,29 @@
 
 a {
   text-decoration: none;
-  color: var(--color-primary);
+  color: var(--color-primary-1);
 }
 
 .dialog-container {
   background-color: var(--color-dialog) !important;
-  color: var(--color-body-invert);
+  color: var(--color-foreground-1);
 }
 
-::-webkit-scrollbar
-{
-  width: 10px;  /* for vertical scrollbars */
-  height: 10px; /* for horizontal scrollbars */
-}
+// ::-webkit-scrollbar
+// {
+//   width: 6px;  /* for vertical scrollbars */
+//   height: 6px; /* for horizontal scrollbars */
+// }
 
-::-webkit-scrollbar-track
-{
-  background: rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
+// ::-webkit-scrollbar-track
+// {
+//   background: rgba(0, 0, 0, 0.1);
+// }
 
-::-webkit-scrollbar-thumb
-{
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 10px;
-}
+// ::-webkit-scrollbar-thumb
+// {
+//   background: rgba(0, 0, 0, 0.3);
+// }
 
 .App {
   width: 100%;
@@ -80,7 +78,7 @@ a {
     position: fixed;
     height: 100vh;
     width: 100vw;
-    background-color: black;
+    background-color: var(--color-background-5);
     z-index: 2;
     opacity: 0.5;
     overflow: hidden;
@@ -106,11 +104,11 @@ a {
 }
 
 .color-primary {
-  color: var(--color-primary);
+  color: var(--color-primary-1);
 }
 
 .color-secondary {
-  color: var(--color-secondary);
+  color: var(--color-secondary-1);
 }
 
 input {

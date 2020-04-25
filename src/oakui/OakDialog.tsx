@@ -1,4 +1,4 @@
-import React, { useEffect, ReactNode } from 'react';
+import React, { useEffect, ReactNode, useState } from 'react';
 import './styles/oak-dialog.scss';
 import { sendMessage } from '../events/MessageService';
 
@@ -6,11 +6,24 @@ interface Props {
   visible: boolean;
   toggleVisibility: any;
   small?: boolean;
+  noheader?: boolean;
   fullscreen?: boolean;
   children?: ReactNode;
 }
 
 const OakDialog = (props: Props) => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    sendMessage('modal', props.visible);
+    if (visible !== props.visible) {
+      if (props.visible) {
+        setVisible(props.visible);
+      } else {
+        setTimeout(() => setVisible(props.visible), 200);
+      }
+    }
+  }, [props.visible]);
+
   useEffect(() => {
     const documentWidth = document.documentElement.clientWidth;
     const windowWidth = window.innerWidth;
@@ -19,6 +32,7 @@ const OakDialog = (props: Props) => {
       '--scrollbar-width',
       `${scrollBarWidth}px`
     );
+    setVisible(props.visible);
   }, []);
 
   useEffect(() => {
@@ -30,7 +44,7 @@ const OakDialog = (props: Props) => {
     }
     document.addEventListener('keydown', escFunction, false);
     return () => document.removeEventListener('keydown', escFunction, false);
-  }, [props.visible]);
+  }, [visible]);
 
   const escFunction = event => {
     if (event.keyCode === 27) {
@@ -43,33 +57,36 @@ const OakDialog = (props: Props) => {
   const getDialogStyle = () => {
     let style = '';
     style += props.small ? ' small' : '';
+    style += props.noheader ? ' noheader' : '';
     style += props.fullscreen ? ' fullscreen' : '';
     return style;
   };
 
   return (
-    <div className="oak-dialog">
-      <div
-        className={
-          props.visible
-            ? `dialog show ${getDialogStyle()}`
-            : `dialog hide ${getDialogStyle()}`
-        }
-      >
-        <div className={props.visible ? 'container' : 'container hidetext'}>
-          <div className="dialog-header">
-            <div
-              className="container"
-              data-test="toggle-visibility"
-              onClick={props.toggleVisibility}
-            >
-              <i className="material-icons">close</i>
-              <div className="text-esc">esc</div>
+    <div className={`oak-dialog ${getDialogStyle()}`}>
+      {visible && (
+        <div
+          className={
+            props.visible
+              ? `dialog show ${getDialogStyle()}`
+              : `dialog hide ${getDialogStyle()}`
+          }
+        >
+          <div className={props.visible ? 'container' : 'container hidetext'}>
+            <div className="dialog-header">
+              <div
+                className="container"
+                data-test="toggle-visibility"
+                onClick={props.toggleVisibility}
+              >
+                <i className="material-icons">close</i>
+                <div className="text-esc">esc</div>
+              </div>
             </div>
+            {props.children}
           </div>
-          {props.children}
         </div>
-      </div>
+      )}
     </div>
   );
 };

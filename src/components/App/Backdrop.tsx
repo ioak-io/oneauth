@@ -5,7 +5,7 @@ const Backdrop = () => {
   const [backdrop, setBackdrop] = useState('');
   useEffect(() => {
     const eventBus = receiveMessage().subscribe(message => {
-      if (message.name === 'dialog') {
+      if (message.name === 'dialog' || message.name === 'modal') {
         if (message.signal) {
           setBackdrop('backdrop-fade');
         } else {

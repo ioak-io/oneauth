@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/oak-text-slide.scss';
 
 interface Props {
-  label: string;
+  label?: string;
   id: string;
   data: any;
   type?: string;
@@ -11,11 +11,18 @@ interface Props {
   disabled?: boolean;
   rows?: number;
   multiline?: boolean;
+  handleFocus?: Function;
+  placeholder?: string;
 }
 const OakText = (props: Props) => {
+  const handleFocus = () => {
+    if (props.handleFocus) {
+      props.handleFocus();
+    }
+  };
   return (
     <div className="oak-text-field">
-      <label htmlFor={props.id}>{props.label}</label>
+      {props.label && <label htmlFor={props.id}>{props.label}</label>}
       {!props.multiline && (
         <input
           disabled={props.disabled}
@@ -29,6 +36,8 @@ const OakText = (props: Props) => {
           id={props.id}
           value={props.data[props.id]}
           onChange={props.handleChange}
+          onFocus={handleFocus}
+          placeholder={props.placeholder}
         />
       )}
       {/* rows={props.rows ? props.rows : 4} */}

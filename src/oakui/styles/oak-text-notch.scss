@@ -19,21 +19,21 @@
     // Initialize colors based on theme
     font-family: 'Open Sans', sans-serif;
     width: 100%;
-    color: var(--color-body-invert);
+    color: var(--color-foreground-1);
     font-size: 1em;
     outline: none;
     border: none;
-    background-color: var(--color-body-dim);
+    background-color: var(--color-background-2);
     margin-bottom: 20px;
     box-sizing: border-box;
     padding: 10px 16px;
     // border: 2px solid;
-    // border-color: var(--color-body-dim);
+    // border-color: var(--color-background-2);
 
     &:focus {
-      // background-color: var(--color-body-invert-dim);
-      // border-color: var(--color-body-invert-dim);
-      // color: var(--color-body);
+      // background-color: var(--color-foreground-2);
+      // border-color: var(--color-foreground-2);
+      // color: var(--color-background-1);
     }
 
     &.error {
@@ -41,13 +41,13 @@
       background-color: var(--color-failure-dim);
 
       &:focus {
-        color: var(--color-body-invert);
+        color: var(--color-foreground-1);
       }
     }
 
     &.disabled {
-      background-color: var(--color-body-invert-dim);
-      color: var(--color-body-dim);
+      background-color: var(--color-foreground-2);
+      color: var(--color-background-2);
     }
   }
 
@@ -80,7 +80,7 @@
     left: 10px;
     position: relative;
     font-size: 0.8em;
-    color: var(--color-body-invert-dim);
+    color: var(--color-foreground-2);
     text-transform: capitalize;
   }
 }

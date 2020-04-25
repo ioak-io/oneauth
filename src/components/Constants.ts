@@ -24,6 +24,11 @@ const constants = {
   API_JWT: '/signin/jwt',
 
   API_SPACE_CREATE: '/space/create',
+  API_SPACE_FETCH: '/space',
+  API_SPACE_DELETE: '/space/delete',
+  API_APP_FETCH: '/app',
+  API_APP_DELETE: '/app/delete',
+  API_ROLE_FETCH: '/role',
 };
 
 export default constants;

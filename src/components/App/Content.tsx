@@ -6,12 +6,11 @@ import { withCookies } from 'react-cookie';
 import { connect } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Home from '../Home';
-import Login from '../Auth/Login';
+import SpaceLogin from '../Login/SpaceLogin';
 import Landing from '../Landing';
 import PrivateRoute from '../Auth/PrivateRoute';
 import AuthInit from '../Auth/AuthInit';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
-import { getUser, addUser } from '../../actions/UserActions';
 import { getProfile, setProfile } from '../../actions/ProfileActions';
 
 import Backdrop from './Backdrop';
@@ -22,6 +21,10 @@ import { Authorization } from '../Types/GeneralTypes';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 import Tenant from '../Tenant';
 import constants from '../Constants';
+import OaLogin from '../Login/OaLogin';
+import OakRoute from '../Auth/OakRoute';
+import ManageSpace from '../ManageSpace';
+import ManageApp from '../ManageApp';
 
 const themes = {
   themecolor1: getTheme('#69A7BF'),
@@ -49,8 +52,6 @@ interface Props {
   getAuth: Function;
   addAuth: Function;
   removeAuth: Function;
-  getUser: Function;
-  addUser: Function;
   cookies: any;
 
   // event: PropTypes.object,
@@ -74,32 +75,13 @@ const Content = (props: Props) => {
     return () => eventBus.unsubscribe();
   });
 
-  useEffect(() => {
-    if (
-      props.authorization &&
-      props.authorization.token &&
-      props.profile.tenant
-    ) {
-      httpGet(`${constants.API_URL_USER}/${props.profile.tenant}/`, {
-        headers: {
-          Authorization: props.authorization.token,
-        },
-      }).then(response => {
-        props.addUser(response.data.data[0]);
-      });
-    }
-  }, [props.authorization]);
-
   const logout = (
     event: any,
     type = 'success',
     message = 'You have been logged out'
   ) => {
     props.removeAuth();
-    props.cookies.remove('isAuth');
-    props.cookies.remove('token');
-    props.cookies.remove('secret');
-    props.cookies.remove('name');
+    props.cookies.remove('oneauth');
     sendMessage('notification', true, {
       type,
       message,
@@ -118,38 +100,64 @@ const Content = (props: Props) => {
           <div className="body-content">
             <Notification />
             <MuiThemeProvider theme={themes.themecolor1}>
-              <Navigation {...props} logout={() => logout} />
               <Route
-                path="/:tenant/home"
-                render={(propsLocal: any) => (
-                  <Home {...propsLocal} {...props} logout={() => logout} />
+                path="/home"
+                render={propsLocal => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={Home}
+                  />
                 )}
               />
               <Route
                 path="/:tenant/login"
                 render={(propsLocal: any) => (
-                  <Login {...propsLocal} {...props} logout={() => logout} />
+                  <SpaceLogin
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                  />
+                )}
+              />
+              <Route
+                path="/login"
+                render={(propsLocal: any) => (
+                  <OaLogin {...propsLocal} {...props} logout={() => logout} />
                 )}
               />
               <Route
                 path="/"
                 exact
                 render={(propsLocal: any) => (
-                  <Landing {...propsLocal} {...props} logout={() => logout} />
+                  <Home {...propsLocal} {...props} logout={() => logout} />
                 )}
               />
               <Route
-                path="/home"
+                path="/managespace"
                 exact
-                render={(propsLocal: any) => (
-                  <Landing {...propsLocal} {...props} logout={() => logout} />
+                render={propsLocal => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={ManageSpace}
+                    middleware={['isAuthenticated']}
+                  />
                 )}
               />
               <Route
-                path="/tenant"
+                path="/manageapp"
                 exact
-                render={(propsLocal: any) => (
-                  <Tenant {...propsLocal} {...props} logout={() => logout} />
+                render={propsLocal => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={ManageApp}
+                    middleware={['isAuthenticated']}
+                  />
                 )}
               />
             </MuiThemeProvider>
@@ -173,6 +181,4 @@ export default connect(mapStateToProps, {
   removeAuth,
   getProfile,
   setProfile,
-  getUser,
-  addUser,
 })(withCookies(Content));

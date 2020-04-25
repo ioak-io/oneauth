@@ -61,16 +61,11 @@ const Desktop = (props: Props) => {
         {showSearchBar && <SearchBar alt />}
       </div>
       <div className="right">
-        <div className="dark-mode">
-          <i className="material-icons" onClick={() => props.toggleDarkMode()}>
-            brightness_6
-          </i>
-        </div>
         <div className="action">
           {props.authorization.isAuth && (
             <OakButton
               theme="primary"
-              variant="animate out"
+              variant="disabled"
               small
               action={props.logout()}
             >

@@ -3,38 +3,38 @@ button {
 
     // Initialize colors based on theme
     &.default {
-      --color-bg: var(--color-btn-default-bg);
+      --color-bg: var(--color-btn-bg-default);
       &.in {
-        --color-fg: var(--color-btn-default-fg);
-        --color-fg-hover: var(--color-btn-default-fg-hover);
+        --color-fg: var(--color-btn-fg-default);
+        --color-fg-hover: var(--color-btn-fg-default-hover);
       }
       &.out {
-        --color-fg: var(--color-btn-default-fg-hover);
-        --color-fg-hover: var(--color-btn-default-fg);
+        --color-fg: var(--color-btn-fg-default-hover);
+        --color-fg-hover: var(--color-btn-fg-default);
       }
     }
   
     &.primary {
-      --color-bg: var(--color-btn-primary-bg);
+      --color-bg: var(--color-btn-bg-primary);
       &.in {
-        --color-fg: var(--color-btn-primary-fg);
-        --color-fg-hover: var(--color-btn-primary-fg-hover);
+        --color-fg: var(--color-btn-fg-primary);
+        --color-fg-hover: var(--color-btn-fg-primary-hover);
       }
       &.out {
-        --color-fg: var(--color-btn-primary-fg-hover);
-        --color-fg-hover: var(--color-btn-primary-fg);
+        --color-fg: var(--color-btn-fg-primary-hover);
+        --color-fg-hover: var(--color-btn-fg-primary);
       }    
     }
   
     &.secondary {
-      --color-bg: var(--color-btn-secondary-bg);
+      --color-bg: var(--color-btn-bg-secondary);
       &.in {
-        --color-fg: var(--color-btn-secondary-fg);
-        --color-fg-hover: var(--color-btn-secondary-fg-hover);
+        --color-fg: var(--color-btn-fg-secondary);
+        --color-fg-hover: var(--color-btn-fg-secondary-hover);
       }
       &.out {
-        --color-fg: var(--color-btn-secondary-fg-hover);
-        --color-fg-hover: var(--color-btn-secondary-fg);
+        --color-fg: var(--color-btn-fg-secondary-hover);
+        --color-fg-hover: var(--color-btn-fg-secondary);
       }
     }
   

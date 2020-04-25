@@ -1,352 +1,446 @@
 import React from 'react';
 import './style.scss';
-import cover from '../../images/cover.jpg';
-import SearchBar from '../../oakui/SearchBar';
-import constants from '../Constants';
-import { sendMessage, receiveMessage } from '../../events/MessageService';
-import {
-  searchTextChangedEvent$,
-  searchEvent$,
-} from '../../events/SearchEvent';
-import { getBanner } from '../Tenant/TenantService';
-import { httpGet, httpPost, httpPut } from '../Lib/RestTemplate';
-import { Authorization } from '../Types/GeneralTypes';
-import OakDialog from '../../oakui/OakDialog';
-import { isEmptyOrSpaces } from '../Utils';
-import OakPrompt from '../../oakui/OakPrompt';
-import OakText from '../../oakui/OakText';
-import OakButton from '../../oakui/OakButton';
-
-const pageYOffsetCutoff = 10;
+import Navigation from '../Navigation';
 
 interface Props {
-  setProfile: Function;
-  profile: any;
-  match: any;
-  authorization: Authorization;
-  history: any;
+  label?: string;
+  logout: Function;
 }
-
-interface State {
-  banner: any;
-  prevScrollpos: number;
-  showMainSearchBar: boolean;
-  searchResults: any[];
-  isCreateRequestDialogOpen: boolean;
-  isNotLoggedInPromptOpen: boolean;
-  searchTitle: string;
-  searchDescription: string;
-  requestId?: string;
-  stages: any;
-}
-
-export default class Home extends React.Component<Props, State> {
-  constructor(props) {
-    super(props);
-    this.state = {
-      banner: null,
-      prevScrollpos: window.pageYOffset,
-      showMainSearchBar: true,
-      searchTitle: '',
-      searchDescription: '',
-      isCreateRequestDialogOpen: false,
-      isNotLoggedInPromptOpen: false,
-      searchResults: [],
-      stages: [],
-    };
-  }
-
-  componentDidMount() {
-    // sendMessage('navbar-transparency', true);
-    window.addEventListener('scroll', this.handleScroll);
-    this.props.setProfile({
-      ...this.props.profile,
-      tenant: this.props.match.params.tenant,
-    });
-
-    httpGet(`${constants.API_URL_STAGE}/${this.props.match.params.tenant}/`, {
-      headers: {
-        Authorization: this.props.authorization.token,
-      },
-    })
-      .then(response => {
-        this.setState({
-          stages: response.data.stage,
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    searchEvent$.subscribe(searchText => this.search(searchText));
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.authorization) {
-      getBanner(this.props.match.params.tenant, {
-        headers: {
-          Authorization: nextProps.authorization.token,
-        },
-      })
-        .then(response => {
-          if (response.status === 200 && response.data) {
-            this.setState({
-              banner: `data:image/jpeg;base64,${response.data}`,
-            });
-          } else {
-            this.setState({ banner: cover });
-          }
-        })
-        .catch(() => {
-          this.setState({ banner: cover });
-        });
-    }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-    sendMessage('show-navbar-element', false);
-    searchTextChangedEvent$.next('');
-    // sendMessage('navbar-transparency', false);
-  }
-
-  search = (searchText: string) => {
-    this.setState({
-      searchTitle: searchText,
-      requestId: undefined,
-    });
-    httpPost(
-      `/learning/${this.props.match.params.tenant}${constants.API_URL_PREDICT}`,
-      searchText,
-      {
-        headers: {
-          Authorization: this.props.authorization.token,
-        },
-      }
-    ).then(response => {
-      const predictionMap: any = {};
-      response.data.prediction.forEach(element => {
-        predictionMap[element.rank] = element.label;
-      });
-      httpGet(
-        `${constants.API_URL_FAQ}/${this.props.match.params.tenant}/category/${predictionMap[0]}`,
-        {
-          headers: {
-            Authorization: this.props.authorization.token,
-          },
-        }
-      ).then(faqs => {
-        this.setState({
-          searchResults: faqs.data.data,
-        });
-      });
-    });
-  };
-
-  handleScroll = () => {
-    // const { prevScrollpos } = this.state;
-
-    const currentScrollPos = window.pageYOffset;
-    const showMainSearchBar = currentScrollPos < pageYOffsetCutoff;
-
-    if (this.state.showMainSearchBar !== showMainSearchBar) {
-      if (!showMainSearchBar) {
-        // sendMessage('navbar-transparency', false);
-        sendMessage('show-navbar-element', true);
-      } else {
-        // sendMessage('navbar-transparency', true);
-        sendMessage('show-navbar-element', false);
-      }
-    }
-
-    this.setState({
-      prevScrollpos: currentScrollPos,
-      showMainSearchBar,
-    });
-  };
-
-  notHelpful = () => {
-    if (this.props.authorization && this.props.authorization.token) {
-      this.toggleEditDialog();
-    } else {
-      this.toggleNotLoggedInPrompt();
-    }
-  };
-
-  helpful = () => {
-    console.log('not implemented');
-  };
-
-  toggleEditDialog = () => {
-    this.setState({
-      isCreateRequestDialogOpen: !this.state.isCreateRequestDialogOpen,
-      // editDialogLabel: 'Add'
-    });
-  };
-
-  toggleNotLoggedInPrompt = () => {
-    this.setState({
-      isNotLoggedInPromptOpen: !this.state.isNotLoggedInPromptOpen,
-    });
-  };
-
-  redirectToLogin = () => {
-    this.props.history.push(`/${this.props.match.params.tenant}/login`);
-  };
-
-  handleChange = event => {
-    this.setState({
-      ...this.state,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  addRequest = () => {
-    const stage = [...this.state.stages];
-    const request = {
-      title: this.state.searchTitle,
-      description: this.state.searchDescription,
-      priority: 'Low',
-      stage: stage[0]._id,
-      status: 'assigned',
-    };
-    if (isEmptyOrSpaces(request.title)) {
-      sendMessage('notification', true, {
-        type: 'failure',
-        message: 'Title is missing',
-        duration: 5000,
-      });
-      return;
-    }
-
-    if (isEmptyOrSpaces(request.description)) {
-      sendMessage('notification', true, {
-        type: 'failure',
-        message: 'Description is missing',
-        duration: 5000,
-      });
-      return;
-    }
-
-    httpPut(
-      `${constants.API_URL_SR}/${this.props.match.params.tenant}/main`,
-      request,
-      {
-        headers: {
-          Authorization: this.props.authorization.token,
-        },
-      }
-    ).then(response => {
-      if (response.status === 200) {
-        sendMessage('notification', true, {
-          type: 'success',
-          message: `Request created [${response.data.data._id}]`,
-          duration: 10000,
-        });
-        this.toggleEditDialog();
-        this.setState({
-          requestId: response.data.data._id,
-        });
-      }
-    });
-  };
-
-  render() {
-    return (
-      <div className="home full">
-        <OakDialog
-          visible={this.state.isCreateRequestDialogOpen}
-          toggleVisibility={this.toggleEditDialog}
-        >
-          <div className="dialog-body">
-            <OakText
-              label="Title"
-              data={this.state}
-              id="searchTitle"
-              handleChange={e => this.handleChange(e)}
-            />
-            <OakText
-              label="Description"
-              data={this.state}
-              id="searchDescription"
-              handleChange={e => this.handleChange(e)}
-            />
+const Home = (props: Props) => {
+  return (
+    <div className="app-page">
+      <div>
+        <Navigation {...props} logout={props.logout} />
+      </div>
+      <div className="app-container">
+        <div className="home">
+          <div className="typography-2 space-bottom-2">
+            Home page and Landing page
           </div>
-          <div className="dialog-footer">
-            <OakButton
-              action={this.toggleEditDialog}
-              theme="default"
-              variant="animate in"
-              align="left"
-            >
-              <i className="material-icons">close</i>Cancel
-            </OakButton>
-            <OakButton
-              action={this.addRequest}
-              theme="primary"
-              variant="animate out"
-              align="right"
-            >
-              <i className="material-icons">double_arrow</i>Create Service
-              Request
-            </OakButton>
+          <div className="typography-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum
+            erat sed elit blandit mattis. Mauris accumsan, nulla ac eleifend
+            molestie, magna mi tincidunt odio, et tempor mi nisi eu nunc. Aenean
+            et dapibus est, at malesuada ante. Aenean orci eros, euismod
+            fermentum nisl vel, scelerisque viverra velit. Fusce ac egestas
+            velit. Vestibulum mattis laoreet commodo. Vivamus at laoreet augue.
+            Fusce eu suscipit augue, quis rhoncus ipsum. Fusce faucibus justo eu
+            diam posuere, quis sollicitudin lacus placerat. Sed a purus congue,
+            tincidunt metus ac, interdum elit. Duis fermentum lectus id nisl
+            convallis imperdiet. Ut non dui eleifend, posuere dui in, iaculis
+            magna. Sed maximus efficitur purus id scelerisque. Proin rutrum ex
+            sit amet justo lobortis, ut iaculis nibh aliquet. Morbi pharetra
+            risus id ullamcorper vulputate. Nullam at mollis nulla.
+            <br />
+            <br />
+            Duis ut elementum urna. In sed hendrerit lacus, non rutrum diam. In
+            non mauris at eros tempor elementum. Etiam eu risus ut lacus
+            malesuada feugiat. Maecenas in pellentesque enim. Aenean auctor ac
+            eros rhoncus egestas. Integer facilisis tincidunt ultricies.
+            Praesent nec leo quam. Cras eleifend pulvinar nisi, aliquet aliquam
+            nulla faucibus ac. Vivamus lorem orci, elementum sit amet eros ac,
+            vestibulum placerat tortor. Interdum et malesuada fames ac ante
+            ipsum primis in faucibus. Duis malesuada nulla sed lorem mattis
+            maximus nec vitae sapien. Proin et odio id nibh tincidunt congue
+            aliquet eu turpis.
+            <br />
+            <br />
+            Pellentesque sit amet nunc ac nibh blandit ultricies condimentum
+            cursus lorem. Curabitur ac nisi magna. Ut a erat eget ligula rutrum
+            vestibulum. Mauris vulputate aliquet augue, molestie porta nulla
+            consequat id. Ut ut orci sollicitudin, volutpat nulla non,
+            sollicitudin diam. Class aptent taciti sociosqu ad litora torquent
+            per conubia nostra, per inceptos himenaeos. Sed efficitur justo nec
+            scelerisque facilisis. Cras nec mollis nibh. Donec id ante vel arcu
+            aliquam vehicula. Ut vitae enim libero. Class aptent taciti sociosqu
+            ad litora torquent per conubia nostra, per inceptos himenaeos.
+            <br />
+            <br />
+            Nunc non neque sollicitudin, tempus ex id, tincidunt orci. Sed
+            rutrum sollicitudin elit ac tincidunt. Fusce lobortis nec ligula id
+            ullamcorper. Etiam nec velit ante. In vel porttitor justo, a
+            imperdiet augue. Cras dignissim mauris id massa vulputate, id
+            efficitur tortor bibendum. Mauris felis sapien, egestas ut aliquet
+            et, semper nec tellus. Morbi sed velit non risus euismod
+            ullamcorper. Nullam vitae sollicitudin urna. Nullam sed euismod
+            tellus, vitae laoreet ex. Cras porta vulputate orci, ac posuere
+            turpis finibus id.
+            <br />
+            <br />
+            Maecenas a blandit ex. Cras lacus quam, volutpat sed sodales non,
+            rutrum sed diam. In et justo vitae purus consequat varius id a
+            ipsum. In luctus sapien ac magna tempus, nec congue nibh facilisis.
+            Quisque pharetra augue nec justo rhoncus vehicula. Etiam eget auctor
+            dolor. Nam fringilla lectus ut nisi eleifend congue. Integer id eros
+            scelerisque, tempus augue vitae, ultricies mi. Nam quis cursus nisi,
+            at laoreet sapien. Phasellus non magna massa. Proin vel libero diam.
+            Aliquam a maximus magna. Maecenas dui ex, pretium in pharetra et,
+            rhoncus ut erat. Pellentesque eu dapibus sapien.
           </div>
-        </OakDialog>
-        <OakPrompt
-          action={this.redirectToLogin}
-          visible={this.state.isNotLoggedInPromptOpen}
-          toggleVisibility={this.toggleNotLoggedInPrompt}
-          text="You are not logged in. Do you want to login to submit a service request?"
-        />
-        <div className="cover">
-          <img src={this.state.banner} alt="Red dot" />
-        </div>
-        {this.state.showMainSearchBar && <SearchBar />}
-
-        <div className="search-results">
-          <div className="action-bar">
-            <OakButton
-              theme="primary"
-              action={this.helpful}
-              variant="animate in"
-              align="left"
-            >
-              Helpful
-            </OakButton>
-            <OakButton
-              theme="primary"
-              variant="animate in"
-              align="right"
-              action={this.notHelpful}
-            >
-              Not Helpful
-            </OakButton>
+          <div className="typography-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum
+            erat sed elit blandit mattis. Mauris accumsan, nulla ac eleifend
+            molestie, magna mi tincidunt odio, et tempor mi nisi eu nunc. Aenean
+            et dapibus est, at malesuada ante. Aenean orci eros, euismod
+            fermentum nisl vel, scelerisque viverra velit. Fusce ac egestas
+            velit. Vestibulum mattis laoreet commodo. Vivamus at laoreet augue.
+            Fusce eu suscipit augue, quis rhoncus ipsum. Fusce faucibus justo eu
+            diam posuere, quis sollicitudin lacus placerat. Sed a purus congue,
+            tincidunt metus ac, interdum elit. Duis fermentum lectus id nisl
+            convallis imperdiet. Ut non dui eleifend, posuere dui in, iaculis
+            magna. Sed maximus efficitur purus id scelerisque. Proin rutrum ex
+            sit amet justo lobortis, ut iaculis nibh aliquet. Morbi pharetra
+            risus id ullamcorper vulputate. Nullam at mollis nulla.
+            <br />
+            <br />
+            Duis ut elementum urna. In sed hendrerit lacus, non rutrum diam. In
+            non mauris at eros tempor elementum. Etiam eu risus ut lacus
+            malesuada feugiat. Maecenas in pellentesque enim. Aenean auctor ac
+            eros rhoncus egestas. Integer facilisis tincidunt ultricies.
+            Praesent nec leo quam. Cras eleifend pulvinar nisi, aliquet aliquam
+            nulla faucibus ac. Vivamus lorem orci, elementum sit amet eros ac,
+            vestibulum placerat tortor. Interdum et malesuada fames ac ante
+            ipsum primis in faucibus. Duis malesuada nulla sed lorem mattis
+            maximus nec vitae sapien. Proin et odio id nibh tincidunt congue
+            aliquet eu turpis.
+            <br />
+            <br />
+            Pellentesque sit amet nunc ac nibh blandit ultricies condimentum
+            cursus lorem. Curabitur ac nisi magna. Ut a erat eget ligula rutrum
+            vestibulum. Mauris vulputate aliquet augue, molestie porta nulla
+            consequat id. Ut ut orci sollicitudin, volutpat nulla non,
+            sollicitudin diam. Class aptent taciti sociosqu ad litora torquent
+            per conubia nostra, per inceptos himenaeos. Sed efficitur justo nec
+            scelerisque facilisis. Cras nec mollis nibh. Donec id ante vel arcu
+            aliquam vehicula. Ut vitae enim libero. Class aptent taciti sociosqu
+            ad litora torquent per conubia nostra, per inceptos himenaeos.
+            <br />
+            <br />
+            Nunc non neque sollicitudin, tempus ex id, tincidunt orci. Sed
+            rutrum sollicitudin elit ac tincidunt. Fusce lobortis nec ligula id
+            ullamcorper. Etiam nec velit ante. In vel porttitor justo, a
+            imperdiet augue. Cras dignissim mauris id massa vulputate, id
+            efficitur tortor bibendum. Mauris felis sapien, egestas ut aliquet
+            et, semper nec tellus. Morbi sed velit non risus euismod
+            ullamcorper. Nullam vitae sollicitudin urna. Nullam sed euismod
+            tellus, vitae laoreet ex. Cras porta vulputate orci, ac posuere
+            turpis finibus id.
+            <br />
+            <br />
+            Maecenas a blandit ex. Cras lacus quam, volutpat sed sodales non,
+            rutrum sed diam. In et justo vitae purus consequat varius id a
+            ipsum. In luctus sapien ac magna tempus, nec congue nibh facilisis.
+            Quisque pharetra augue nec justo rhoncus vehicula. Etiam eget auctor
+            dolor. Nam fringilla lectus ut nisi eleifend congue. Integer id eros
+            scelerisque, tempus augue vitae, ultricies mi. Nam quis cursus nisi,
+            at laoreet sapien. Phasellus non magna massa. Proin vel libero diam.
+            Aliquam a maximus magna. Maecenas dui ex, pretium in pharetra et,
+            rhoncus ut erat. Pellentesque eu dapibus sapien.
           </div>
-          {this.state.searchResults &&
-            this.state.searchResults.map(item => (
-              <div key={item.question} className="result-record">
-                <div className="question typography-4 space-bottom-2">
-                  {item.question}
-                </div>
-                <div className="answer typography-5">{item.answer}</div>
-              </div>
-            ))}
-          {this.state.requestId && (
-            <div className="request-created">
-              <div className="request-icon">
-                <i className="material-icons">file_copy</i>
-              </div>
-              <div className="request-id typography-4">
-                {this.state.requestId}
-              </div>
-              <div className="request-message typography-5">
-                Your request has been created and an email has been sent to your
-                inbox with details
-              </div>
-            </div>
-          )}
+          <div className="typography-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum
+            erat sed elit blandit mattis. Mauris accumsan, nulla ac eleifend
+            molestie, magna mi tincidunt odio, et tempor mi nisi eu nunc. Aenean
+            et dapibus est, at malesuada ante. Aenean orci eros, euismod
+            fermentum nisl vel, scelerisque viverra velit. Fusce ac egestas
+            velit. Vestibulum mattis laoreet commodo. Vivamus at laoreet augue.
+            Fusce eu suscipit augue, quis rhoncus ipsum. Fusce faucibus justo eu
+            diam posuere, quis sollicitudin lacus placerat. Sed a purus congue,
+            tincidunt metus ac, interdum elit. Duis fermentum lectus id nisl
+            convallis imperdiet. Ut non dui eleifend, posuere dui in, iaculis
+            magna. Sed maximus efficitur purus id scelerisque. Proin rutrum ex
+            sit amet justo lobortis, ut iaculis nibh aliquet. Morbi pharetra
+            risus id ullamcorper vulputate. Nullam at mollis nulla.
+            <br />
+            <br />
+            Duis ut elementum urna. In sed hendrerit lacus, non rutrum diam. In
+            non mauris at eros tempor elementum. Etiam eu risus ut lacus
+            malesuada feugiat. Maecenas in pellentesque enim. Aenean auctor ac
+            eros rhoncus egestas. Integer facilisis tincidunt ultricies.
+            Praesent nec leo quam. Cras eleifend pulvinar nisi, aliquet aliquam
+            nulla faucibus ac. Vivamus lorem orci, elementum sit amet eros ac,
+            vestibulum placerat tortor. Interdum et malesuada fames ac ante
+            ipsum primis in faucibus. Duis malesuada nulla sed lorem mattis
+            maximus nec vitae sapien. Proin et odio id nibh tincidunt congue
+            aliquet eu turpis.
+            <br />
+            <br />
+            Pellentesque sit amet nunc ac nibh blandit ultricies condimentum
+            cursus lorem. Curabitur ac nisi magna. Ut a erat eget ligula rutrum
+            vestibulum. Mauris vulputate aliquet augue, molestie porta nulla
+            consequat id. Ut ut orci sollicitudin, volutpat nulla non,
+            sollicitudin diam. Class aptent taciti sociosqu ad litora torquent
+            per conubia nostra, per inceptos himenaeos. Sed efficitur justo nec
+            scelerisque facilisis. Cras nec mollis nibh. Donec id ante vel arcu
+            aliquam vehicula. Ut vitae enim libero. Class aptent taciti sociosqu
+            ad litora torquent per conubia nostra, per inceptos himenaeos.
+            <br />
+            <br />
+            Nunc non neque sollicitudin, tempus ex id, tincidunt orci. Sed
+            rutrum sollicitudin elit ac tincidunt. Fusce lobortis nec ligula id
+            ullamcorper. Etiam nec velit ante. In vel porttitor justo, a
+            imperdiet augue. Cras dignissim mauris id massa vulputate, id
+            efficitur tortor bibendum. Mauris felis sapien, egestas ut aliquet
+            et, semper nec tellus. Morbi sed velit non risus euismod
+            ullamcorper. Nullam vitae sollicitudin urna. Nullam sed euismod
+            tellus, vitae laoreet ex. Cras porta vulputate orci, ac posuere
+            turpis finibus id.
+            <br />
+            <br />
+            Maecenas a blandit ex. Cras lacus quam, volutpat sed sodales non,
+            rutrum sed diam. In et justo vitae purus consequat varius id a
+            ipsum. In luctus sapien ac magna tempus, nec congue nibh facilisis.
+            Quisque pharetra augue nec justo rhoncus vehicula. Etiam eget auctor
+            dolor. Nam fringilla lectus ut nisi eleifend congue. Integer id eros
+            scelerisque, tempus augue vitae, ultricies mi. Nam quis cursus nisi,
+            at laoreet sapien. Phasellus non magna massa. Proin vel libero diam.
+            Aliquam a maximus magna. Maecenas dui ex, pretium in pharetra et,
+            rhoncus ut erat. Pellentesque eu dapibus sapien.
+          </div>
+          <div className="typography-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum
+            erat sed elit blandit mattis. Mauris accumsan, nulla ac eleifend
+            molestie, magna mi tincidunt odio, et tempor mi nisi eu nunc. Aenean
+            et dapibus est, at malesuada ante. Aenean orci eros, euismod
+            fermentum nisl vel, scelerisque viverra velit. Fusce ac egestas
+            velit. Vestibulum mattis laoreet commodo. Vivamus at laoreet augue.
+            Fusce eu suscipit augue, quis rhoncus ipsum. Fusce faucibus justo eu
+            diam posuere, quis sollicitudin lacus placerat. Sed a purus congue,
+            tincidunt metus ac, interdum elit. Duis fermentum lectus id nisl
+            convallis imperdiet. Ut non dui eleifend, posuere dui in, iaculis
+            magna. Sed maximus efficitur purus id scelerisque. Proin rutrum ex
+            sit amet justo lobortis, ut iaculis nibh aliquet. Morbi pharetra
+            risus id ullamcorper vulputate. Nullam at mollis nulla.
+            <br />
+            <br />
+            Duis ut elementum urna. In sed hendrerit lacus, non rutrum diam. In
+            non mauris at eros tempor elementum. Etiam eu risus ut lacus
+            malesuada feugiat. Maecenas in pellentesque enim. Aenean auctor ac
+            eros rhoncus egestas. Integer facilisis tincidunt ultricies.
+            Praesent nec leo quam. Cras eleifend pulvinar nisi, aliquet aliquam
+            nulla faucibus ac. Vivamus lorem orci, elementum sit amet eros ac,
+            vestibulum placerat tortor. Interdum et malesuada fames ac ante
+            ipsum primis in faucibus. Duis malesuada nulla sed lorem mattis
+            maximus nec vitae sapien. Proin et odio id nibh tincidunt congue
+            aliquet eu turpis.
+            <br />
+            <br />
+            Pellentesque sit amet nunc ac nibh blandit ultricies condimentum
+            cursus lorem. Curabitur ac nisi magna. Ut a erat eget ligula rutrum
+            vestibulum. Mauris vulputate aliquet augue, molestie porta nulla
+            consequat id. Ut ut orci sollicitudin, volutpat nulla non,
+            sollicitudin diam. Class aptent taciti sociosqu ad litora torquent
+            per conubia nostra, per inceptos himenaeos. Sed efficitur justo nec
+            scelerisque facilisis. Cras nec mollis nibh. Donec id ante vel arcu
+            aliquam vehicula. Ut vitae enim libero. Class aptent taciti sociosqu
+            ad litora torquent per conubia nostra, per inceptos himenaeos.
+            <br />
+            <br />
+            Nunc non neque sollicitudin, tempus ex id, tincidunt orci. Sed
+            rutrum sollicitudin elit ac tincidunt. Fusce lobortis nec ligula id
+            ullamcorper. Etiam nec velit ante. In vel porttitor justo, a
+            imperdiet augue. Cras dignissim mauris id massa vulputate, id
+            efficitur tortor bibendum. Mauris felis sapien, egestas ut aliquet
+            et, semper nec tellus. Morbi sed velit non risus euismod
+            ullamcorper. Nullam vitae sollicitudin urna. Nullam sed euismod
+            tellus, vitae laoreet ex. Cras porta vulputate orci, ac posuere
+            turpis finibus id.
+            <br />
+            <br />
+            Maecenas a blandit ex. Cras lacus quam, volutpat sed sodales non,
+            rutrum sed diam. In et justo vitae purus consequat varius id a
+            ipsum. In luctus sapien ac magna tempus, nec congue nibh facilisis.
+            Quisque pharetra augue nec justo rhoncus vehicula. Etiam eget auctor
+            dolor. Nam fringilla lectus ut nisi eleifend congue. Integer id eros
+            scelerisque, tempus augue vitae, ultricies mi. Nam quis cursus nisi,
+            at laoreet sapien. Phasellus non magna massa. Proin vel libero diam.
+            Aliquam a maximus magna. Maecenas dui ex, pretium in pharetra et,
+            rhoncus ut erat. Pellentesque eu dapibus sapien.
+          </div>
+          <div className="typography-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum
+            erat sed elit blandit mattis. Mauris accumsan, nulla ac eleifend
+            molestie, magna mi tincidunt odio, et tempor mi nisi eu nunc. Aenean
+            et dapibus est, at malesuada ante. Aenean orci eros, euismod
+            fermentum nisl vel, scelerisque viverra velit. Fusce ac egestas
+            velit. Vestibulum mattis laoreet commodo. Vivamus at laoreet augue.
+            Fusce eu suscipit augue, quis rhoncus ipsum. Fusce faucibus justo eu
+            diam posuere, quis sollicitudin lacus placerat. Sed a purus congue,
+            tincidunt metus ac, interdum elit. Duis fermentum lectus id nisl
+            convallis imperdiet. Ut non dui eleifend, posuere dui in, iaculis
+            magna. Sed maximus efficitur purus id scelerisque. Proin rutrum ex
+            sit amet justo lobortis, ut iaculis nibh aliquet. Morbi pharetra
+            risus id ullamcorper vulputate. Nullam at mollis nulla.
+            <br />
+            <br />
+            Duis ut elementum urna. In sed hendrerit lacus, non rutrum diam. In
+            non mauris at eros tempor elementum. Etiam eu risus ut lacus
+            malesuada feugiat. Maecenas in pellentesque enim. Aenean auctor ac
+            eros rhoncus egestas. Integer facilisis tincidunt ultricies.
+            Praesent nec leo quam. Cras eleifend pulvinar nisi, aliquet aliquam
+            nulla faucibus ac. Vivamus lorem orci, elementum sit amet eros ac,
+            vestibulum placerat tortor. Interdum et malesuada fames ac ante
+            ipsum primis in faucibus. Duis malesuada nulla sed lorem mattis
+            maximus nec vitae sapien. Proin et odio id nibh tincidunt congue
+            aliquet eu turpis.
+            <br />
+            <br />
+            Pellentesque sit amet nunc ac nibh blandit ultricies condimentum
+            cursus lorem. Curabitur ac nisi magna. Ut a erat eget ligula rutrum
+            vestibulum. Mauris vulputate aliquet augue, molestie porta nulla
+            consequat id. Ut ut orci sollicitudin, volutpat nulla non,
+            sollicitudin diam. Class aptent taciti sociosqu ad litora torquent
+            per conubia nostra, per inceptos himenaeos. Sed efficitur justo nec
+            scelerisque facilisis. Cras nec mollis nibh. Donec id ante vel arcu
+            aliquam vehicula. Ut vitae enim libero. Class aptent taciti sociosqu
+            ad litora torquent per conubia nostra, per inceptos himenaeos.
+            <br />
+            <br />
+            Nunc non neque sollicitudin, tempus ex id, tincidunt orci. Sed
+            rutrum sollicitudin elit ac tincidunt. Fusce lobortis nec ligula id
+            ullamcorper. Etiam nec velit ante. In vel porttitor justo, a
+            imperdiet augue. Cras dignissim mauris id massa vulputate, id
+            efficitur tortor bibendum. Mauris felis sapien, egestas ut aliquet
+            et, semper nec tellus. Morbi sed velit non risus euismod
+            ullamcorper. Nullam vitae sollicitudin urna. Nullam sed euismod
+            tellus, vitae laoreet ex. Cras porta vulputate orci, ac posuere
+            turpis finibus id.
+            <br />
+            <br />
+            Maecenas a blandit ex. Cras lacus quam, volutpat sed sodales non,
+            rutrum sed diam. In et justo vitae purus consequat varius id a
+            ipsum. In luctus sapien ac magna tempus, nec congue nibh facilisis.
+            Quisque pharetra augue nec justo rhoncus vehicula. Etiam eget auctor
+            dolor. Nam fringilla lectus ut nisi eleifend congue. Integer id eros
+            scelerisque, tempus augue vitae, ultricies mi. Nam quis cursus nisi,
+            at laoreet sapien. Phasellus non magna massa. Proin vel libero diam.
+            Aliquam a maximus magna. Maecenas dui ex, pretium in pharetra et,
+            rhoncus ut erat. Pellentesque eu dapibus sapien.
+          </div>
+          <div className="typography-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum
+            erat sed elit blandit mattis. Mauris accumsan, nulla ac eleifend
+            molestie, magna mi tincidunt odio, et tempor mi nisi eu nunc. Aenean
+            et dapibus est, at malesuada ante. Aenean orci eros, euismod
+            fermentum nisl vel, scelerisque viverra velit. Fusce ac egestas
+            velit. Vestibulum mattis laoreet commodo. Vivamus at laoreet augue.
+            Fusce eu suscipit augue, quis rhoncus ipsum. Fusce faucibus justo eu
+            diam posuere, quis sollicitudin lacus placerat. Sed a purus congue,
+            tincidunt metus ac, interdum elit. Duis fermentum lectus id nisl
+            convallis imperdiet. Ut non dui eleifend, posuere dui in, iaculis
+            magna. Sed maximus efficitur purus id scelerisque. Proin rutrum ex
+            sit amet justo lobortis, ut iaculis nibh aliquet. Morbi pharetra
+            risus id ullamcorper vulputate. Nullam at mollis nulla.
+            <br />
+            <br />
+            Duis ut elementum urna. In sed hendrerit lacus, non rutrum diam. In
+            non mauris at eros tempor elementum. Etiam eu risus ut lacus
+            malesuada feugiat. Maecenas in pellentesque enim. Aenean auctor ac
+            eros rhoncus egestas. Integer facilisis tincidunt ultricies.
+            Praesent nec leo quam. Cras eleifend pulvinar nisi, aliquet aliquam
+            nulla faucibus ac. Vivamus lorem orci, elementum sit amet eros ac,
+            vestibulum placerat tortor. Interdum et malesuada fames ac ante
+            ipsum primis in faucibus. Duis malesuada nulla sed lorem mattis
+            maximus nec vitae sapien. Proin et odio id nibh tincidunt congue
+            aliquet eu turpis.
+            <br />
+            <br />
+            Pellentesque sit amet nunc ac nibh blandit ultricies condimentum
+            cursus lorem. Curabitur ac nisi magna. Ut a erat eget ligula rutrum
+            vestibulum. Mauris vulputate aliquet augue, molestie porta nulla
+            consequat id. Ut ut orci sollicitudin, volutpat nulla non,
+            sollicitudin diam. Class aptent taciti sociosqu ad litora torquent
+            per conubia nostra, per inceptos himenaeos. Sed efficitur justo nec
+            scelerisque facilisis. Cras nec mollis nibh. Donec id ante vel arcu
+            aliquam vehicula. Ut vitae enim libero. Class aptent taciti sociosqu
+            ad litora torquent per conubia nostra, per inceptos himenaeos.
+            <br />
+            <br />
+            Nunc non neque sollicitudin, tempus ex id, tincidunt orci. Sed
+            rutrum sollicitudin elit ac tincidunt. Fusce lobortis nec ligula id
+            ullamcorper. Etiam nec velit ante. In vel porttitor justo, a
+            imperdiet augue. Cras dignissim mauris id massa vulputate, id
+            efficitur tortor bibendum. Mauris felis sapien, egestas ut aliquet
+            et, semper nec tellus. Morbi sed velit non risus euismod
+            ullamcorper. Nullam vitae sollicitudin urna. Nullam sed euismod
+            tellus, vitae laoreet ex. Cras porta vulputate orci, ac posuere
+            turpis finibus id.
+            <br />
+            <br />
+            Maecenas a blandit ex. Cras lacus quam, volutpat sed sodales non,
+            rutrum sed diam. In et justo vitae purus consequat varius id a
+            ipsum. In luctus sapien ac magna tempus, nec congue nibh facilisis.
+            Quisque pharetra augue nec justo rhoncus vehicula. Etiam eget auctor
+            dolor. Nam fringilla lectus ut nisi eleifend congue. Integer id eros
+            scelerisque, tempus augue vitae, ultricies mi. Nam quis cursus nisi,
+            at laoreet sapien. Phasellus non magna massa. Proin vel libero diam.
+            Aliquam a maximus magna. Maecenas dui ex, pretium in pharetra et,
+            rhoncus ut erat. Pellentesque eu dapibus sapien.
+          </div>
+          <div className="typography-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. In rutrum
+            erat sed elit blandit mattis. Mauris accumsan, nulla ac eleifend
+            molestie, magna mi tincidunt odio, et tempor mi nisi eu nunc. Aenean
+            et dapibus est, at malesuada ante. Aenean orci eros, euismod
+            fermentum nisl vel, scelerisque viverra velit. Fusce ac egestas
+            velit. Vestibulum mattis laoreet commodo. Vivamus at laoreet augue.
+            Fusce eu suscipit augue, quis rhoncus ipsum. Fusce faucibus justo eu
+            diam posuere, quis sollicitudin lacus placerat. Sed a purus congue,
+            tincidunt metus ac, interdum elit. Duis fermentum lectus id nisl
+            convallis imperdiet. Ut non dui eleifend, posuere dui in, iaculis
+            magna. Sed maximus efficitur purus id scelerisque. Proin rutrum ex
+            sit amet justo lobortis, ut iaculis nibh aliquet. Morbi pharetra
+            risus id ullamcorper vulputate. Nullam at mollis nulla.
+            <br />
+            <br />
+            Duis ut elementum urna. In sed hendrerit lacus, non rutrum diam. In
+            non mauris at eros tempor elementum. Etiam eu risus ut lacus
+            malesuada feugiat. Maecenas in pellentesque enim. Aenean auctor ac
+            eros rhoncus egestas. Integer facilisis tincidunt ultricies.
+            Praesent nec leo quam. Cras eleifend pulvinar nisi, aliquet aliquam
+            nulla faucibus ac. Vivamus lorem orci, elementum sit amet eros ac,
+            vestibulum placerat tortor. Interdum et malesuada fames ac ante
+            ipsum primis in faucibus. Duis malesuada nulla sed lorem mattis
+            maximus nec vitae sapien. Proin et odio id nibh tincidunt congue
+            aliquet eu turpis.
+            <br />
+            <br />
+            Pellentesque sit amet nunc ac nibh blandit ultricies condimentum
+            cursus lorem. Curabitur ac nisi magna. Ut a erat eget ligula rutrum
+            vestibulum. Mauris vulputate aliquet augue, molestie porta nulla
+            consequat id. Ut ut orci sollicitudin, volutpat nulla non,
+            sollicitudin diam. Class aptent taciti sociosqu ad litora torquent
+            per conubia nostra, per inceptos himenaeos. Sed efficitur justo nec
+            scelerisque facilisis. Cras nec mollis nibh. Donec id ante vel arcu
+            aliquam vehicula. Ut vitae enim libero. Class aptent taciti sociosqu
+            ad litora torquent per conubia nostra, per inceptos himenaeos.
+            <br />
+            <br />
+            Nunc non neque sollicitudin, tempus ex id, tincidunt orci. Sed
+            rutrum sollicitudin elit ac tincidunt. Fusce lobortis nec ligula id
+            ullamcorper. Etiam nec velit ante. In vel porttitor justo, a
+            imperdiet augue. Cras dignissim mauris id massa vulputate, id
+            efficitur tortor bibendum. Mauris felis sapien, egestas ut aliquet
+            et, semper nec tellus. Morbi sed velit non risus euismod
+            ullamcorper. Nullam vitae sollicitudin urna. Nullam sed euismod
+            tellus, vitae laoreet ex. Cras porta vulputate orci, ac posuere
+            turpis finibus id.
+            <br />
+            <br />
+            Maecenas a blandit ex. Cras lacus quam, volutpat sed sodales non,
+            rutrum sed diam. In et justo vitae purus consequat varius id a
+            ipsum. In luctus sapien ac magna tempus, nec congue nibh facilisis.
+            Quisque pharetra augue nec justo rhoncus vehicula. Etiam eget auctor
+            dolor. Nam fringilla lectus ut nisi eleifend congue. Integer id eros
+            scelerisque, tempus augue vitae, ultricies mi. Nam quis cursus nisi,
+            at laoreet sapien. Phasellus non magna massa. Proin vel libero diam.
+            Aliquam a maximus magna. Maecenas dui ex, pretium in pharetra et,
+            rhoncus ut erat. Pellentesque eu dapibus sapien.
+          </div>
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default Home;

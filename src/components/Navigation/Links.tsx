@@ -14,40 +14,18 @@ const Links = (props: Props) => {
     <div className="links">
       {props.authorization.isAuth && (
         <>
-          <NavLink
-            to={`/${props.profile.tenant}/home`}
-            className="navitem"
-            activeClassName="active"
-          >
+          <NavLink to="/home" className="navitem" activeClassName="active">
             Home
           </NavLink>
           <NavLink
-            to={`/${props.profile.tenant}/article`}
+            to="/managespace"
             className="navitem"
             activeClassName="active"
           >
-            Articles
+            Manage Space
           </NavLink>
-          <NavLink
-            to={`/${props.profile.tenant}/request`}
-            className="navitem"
-            activeClassName="active"
-          >
-            Requests
-          </NavLink>
-          <NavLink
-            to={`/${props.profile.tenant}/useradministration`}
-            className="navitem"
-            activeClassName="active"
-          >
-            Manage User
-          </NavLink>
-          <NavLink
-            to={`/${props.profile.tenant}/settings`}
-            className="navitem"
-            activeClassName="active"
-          >
-            Settings
+          <NavLink to="/manageapp" className="navitem" activeClassName="active">
+            Manage App
           </NavLink>
         </>
       )}

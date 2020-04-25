@@ -12,3 +12,8 @@ export const FETCH_ARTICLE = 'FETCH_ARTICLE';
 export const FETCH_REQUEST = 'FETCH_REQUEST';
 export const FETCH_STAGE = 'FETCH_STAGE';
 export const FETCH_ALL_USERS = 'FETCH_ALL_USERS';
+
+export const UPDATE_SPACE = 'UPDATE_SPACE';
+export const UPDATE_APP = 'UPDATE_APP';
+export const UPDATE_SPACE_ADMIN = 'UPDATE_SPACE_ADMIN';
+export const UPDATE_ROLE = 'UPDATE_ROLE';
