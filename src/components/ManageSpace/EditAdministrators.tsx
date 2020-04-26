@@ -114,13 +114,15 @@ const EditAdministrators = (props: Props) => {
               <div className="title typography-6">{item.email}</div>
               <div className="typography-6">{`${item.lastName}, ${item.firstName}`}</div>
               <div className="item-delete">
-                <i
-                  data-test="article-delete"
-                  onClick={() => confirmDeleteRole(item._id)}
-                  className="material-icons"
-                >
-                  delete
-                </i>
+                {authorization.email !== item.email && (
+                  <i
+                    data-test="article-delete"
+                    onClick={() => confirmDeleteRole(item._id)}
+                    className="material-icons"
+                  >
+                    delete
+                  </i>
+                )}
               </div>
             </div>
           ))}
