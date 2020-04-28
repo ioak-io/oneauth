@@ -60,34 +60,44 @@ const OakModal = (props: Props) => {
   };
 
   return (
-    <div className={`oak-modal ${getmodalStyle()}`}>
+    <>
       {visible && (
         <div
           className={
             props.visible
-              ? `modal show ${getmodalStyle()}`
-              : `modal hide ${getmodalStyle()}`
+              ? `oak-modal show ${getmodalStyle()}`
+              : `oak-modal hide ${getmodalStyle()}`
           }
         >
-          <div className={props.visible ? 'container' : 'container hidetext'}>
-            <div className="modal-header">
-              <div className="container" data-test="toggle-visibility">
-                <div className="title">{props.label}</div>
-                <div>
-                  <i
-                    className="material-icons"
-                    onClick={props.toggleVisibility}
-                  >
-                    close
-                  </i>
+          {/* {visible && ( */}
+          <div
+            className={
+              props.visible
+                ? `modal show ${getmodalStyle()}`
+                : `modal hide ${getmodalStyle()}`
+            }
+          >
+            <div className={props.visible ? 'container' : 'container hidetext'}>
+              <div className="modal-header">
+                <div className="container" data-test="toggle-visibility">
+                  <div className="title">{props.label}</div>
+                  <div>
+                    <i
+                      className="material-icons"
+                      onClick={props.toggleVisibility}
+                    >
+                      close
+                    </i>
+                  </div>
                 </div>
               </div>
+              {props.children}
             </div>
-            {props.children}
           </div>
+          {/* )} */}
         </div>
       )}
-    </div>
+    </>
   );
 };
 
