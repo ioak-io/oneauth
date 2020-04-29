@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getAuth } from '../../actions/AuthActions';
 import { Authorization } from '../Types/GeneralTypes';
 import AuthInit from './AuthInit';
-import Home from '../Home';
 
 interface Props {
   authorization: Authorization;
@@ -15,31 +13,31 @@ interface Props {
   setProfile: Function;
   getProfile: Function;
   component: any;
+  match: any;
+  history: any;
+  middleware: string[];
 }
 
-const OakRoute = ({
-  profile,
-  getProfile,
-  setProfile,
-  component: ChildComponent,
-  ...rest
-}) => {
+const OakRoute = (props: Props) => {
   useEffect(() => {
-    console.log(profile.appStatus, profile.loginPage);
-    if (profile.appStatus === 'notmounted' && !profile.loginPage) {
-      setProfile({ tenant: rest.match.params.tenant, appStatus: 'mounted' });
+    console.log(props.profile.appStatus, props.profile.loginPage);
+    if (props.profile.appStatus === 'notmounted' && !props.profile.loginPage) {
+      props.setProfile({
+        tenant: props.match.params.tenant,
+        appStatus: 'mounted',
+      });
     } else {
-      setProfile({ tenant: rest.match.params.tenant });
+      props.setProfile({ tenant: props.match.params.tenant });
     }
-    middlewares(rest.middleware);
+    middlewares(props.middleware);
   }, []);
 
   useEffect(() => {
-    middlewares(rest.middleware);
-  }, [profile.appStatus]);
+    middlewares(props.middleware);
+  }, [props.profile.appStatus]);
 
   const middlewares = layers => {
-    if (profile.appStatus === 'authenticated') {
+    if (props.profile.appStatus === 'authenticated') {
       layers?.forEach(middlewareName => {
         runMidleware(middlewareName);
       });
@@ -47,17 +45,18 @@ const OakRoute = ({
   };
 
   const runMidleware = middlewareName => {
-    console.log(middlewareName);
     switch (middlewareName) {
       case 'isAuthenticated':
         return isAuthenticated();
       case 'isAdmin':
         return isAdmin();
+      default:
+        return true;
     }
   };
 
   const isAuthenticated = () => {
-    if (rest.authorization.isAuth) {
+    if (props.authorization.isAuth) {
       return true;
     }
     redirectToLogin();
@@ -74,26 +73,26 @@ const OakRoute = ({
   };
 
   const redirectToUnauthorized = () => {
-    rest.history.push(`/${profile.tenant}/unauthorized`);
+    props.history.push(`/${props.profile.tenant}/unauthorized`);
   };
 
   return (
     <>
       <AuthInit
-        profile={profile}
+        profile={props.profile}
         redirectIfNotAuthenticated={
-          rest.middleware && rest.middleware.indexOf('isAuthenticated') !== -1
+          props.middleware && props.middleware.indexOf('isAuthenticated') !== -1
         }
       />
-      {(!rest.middleware ||
-        rest.middleware.indexOf('isAuthenticated') === -1 ||
-        (profile.appStatus === 'authenticated' &&
-          rest.authorization.isAuth)) && (
-        <ChildComponent
-          {...rest}
-          profile={profile}
-          getProfile={getProfile}
-          setProfile={setProfile}
+      {(!props.middleware ||
+        props.middleware.indexOf('isAuthenticated') === -1 ||
+        (props.profile.appStatus === 'authenticated' &&
+          props.authorization.isAuth)) && (
+        <props.component
+          {...props}
+          profile={props.profile}
+          getProfile={props.getProfile}
+          setProfile={props.setProfile}
         />
       )}
     </>
