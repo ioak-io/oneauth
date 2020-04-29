@@ -136,7 +136,7 @@ const ManageApp = (props: Props) => {
           <div className="oaapp-list">
             {view?.map(item => (
               <div key={item._id}>
-                <AppItem id={item._id} app={item} />
+                <AppItem app={item} />
               </div>
             ))}
           </div>

@@ -16,7 +16,6 @@ const roleDomain = 'role';
 
 interface Props {
   app: any;
-  id: string;
 }
 const AppItem = (props: Props) => {
   const dispatch = useDispatch();
@@ -68,6 +67,7 @@ const AppItem = (props: Props) => {
     );
 
     setCountofAdmins(existingAdmins?.length);
+    console.log(oaRoles);
   }, [oaRoles.data.data]);
 
   const editApp = () => {
