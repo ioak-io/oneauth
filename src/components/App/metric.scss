@@ -222,11 +222,3 @@
 .typography-1 {
   font-size: var(--metric-typography-1);
 }
-
-.one-liner {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box !important;
-  -webkit-line-clamp: 1; /* number of lines to show */
-  -webkit-box-orient: vertical;
-}

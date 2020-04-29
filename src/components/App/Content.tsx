@@ -13,6 +13,7 @@ import AuthInit from '../Auth/AuthInit';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
 import { getProfile, setProfile } from '../../actions/ProfileActions';
 
+import Backdrop from './Backdrop';
 import Notification from '../Notification';
 import Navigation from '../Navigation';
 import { httpGet } from '../Lib/RestTemplate';
@@ -94,6 +95,7 @@ const Content = (props: Props) => {
     >
       <HashRouter>
         <AuthInit />
+        <Backdrop />
         <div className="body">
           <div className="body-content">
             <Notification />

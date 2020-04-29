@@ -1,3 +1,5 @@
+
+
 a {
   text-decoration: none;
   color: var(--color-primary-1);
@@ -28,13 +30,12 @@ a {
   width: 100%;
   margin: auto;
 
-  .actionbar,
-  .actionbar-1 {
+  .actionbar, .actionbar-1 {
     display: grid;
     grid-template-columns: auto;
     justify-items: center;
   }
-
+  
   .actionbar-2 {
     display: grid;
     grid-template-columns: auto auto;
@@ -72,6 +73,18 @@ a {
       padding-top: calc(var(--height-nav));
     }
   }
+
+  .backdrop-fade {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--color-background-1);
+    background-color: #080909;
+    opacity: 0.8;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
 }
 
 //   &.icon {
@@ -88,8 +101,7 @@ a {
 //   }
 // }
 
-.MuiInputLabel-root,
-.MuiInputBase-root {
+.MuiInputLabel-root, .MuiInputBase-root {
   color: white;
 }
 

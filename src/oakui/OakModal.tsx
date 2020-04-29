@@ -1,27 +1,37 @@
 import React, { useEffect, ReactNode, useState } from 'react';
 import './styles/oak-modal.scss';
+import { sendMessage } from '../events/MessageService';
 
 interface Props {
   visible: boolean;
   toggleVisibility: any;
-  label?: string;
-  children?: ReactNode;
+  small?: boolean;
   fullscreen?: boolean;
+  children?: ReactNode;
+  label?: string;
   noheader?: boolean;
-  donotMobilize?: boolean;
 }
 
 const OakModal = (props: Props) => {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
+    sendMessage('modal', props.visible);
     if (visible !== props.visible) {
       if (props.visible) {
         setVisible(props.visible);
       } else {
-        setTimeout(() => setVisible(props.visible), 250);
+        setTimeout(() => setVisible(props.visible), 200);
       }
     }
   }, [props.visible]);
+
+  // useEffect(() => {
+  //   if (props.visible) {
+  //     setVisible(props.visible);
+  //   } else {
+  //     setTimeout(() => setVisible(props.visible), 2000);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (visible) {
@@ -43,9 +53,9 @@ const OakModal = (props: Props) => {
 
   const getmodalStyle = () => {
     let style = '';
+    style += props.small ? ' small' : '';
     style += props.noheader ? ' noheader' : '';
     style += props.fullscreen ? ' fullscreen' : '';
-    style += props.donotMobilize ? '' : ' mobilize';
     return style;
   };
 
@@ -55,39 +65,36 @@ const OakModal = (props: Props) => {
         <div
           className={
             props.visible
-              ? `modal-root show ${getmodalStyle()}`
-              : `modal-root hide ${getmodalStyle()}`
+              ? `oak-modal show ${getmodalStyle()}`
+              : `oak-modal hide ${getmodalStyle()}`
           }
         >
-          <div className="backdrop-fade" onClick={props.toggleVisibility} />
-          <div className="oak-modal">
-            {/* {visible && ( */}
-            <div className="modal">
-              <div
-                className={props.visible ? 'container' : 'container hidetext'}
-              >
-                <div className="modal-header">
-                  {/* <div className="container" data-test="toggle-visibility"> */}
-
-                  <div className="left">
-                    <div className="icon">
-                      {/* <i className="material-icons">blur_on</i> */}N
-                    </div>
-                    <div className="label one-liner">{props.label}</div>
+          {/* {visible && ( */}
+          <div
+            className={
+              props.visible
+                ? `modal show ${getmodalStyle()}`
+                : `modal hide ${getmodalStyle()}`
+            }
+          >
+            <div className={props.visible ? 'container' : 'container hidetext'}>
+              <div className="modal-header">
+                <div className="container" data-test="toggle-visibility">
+                  <div className="title">{props.label}</div>
+                  <div>
+                    <i
+                      className="material-icons"
+                      onClick={props.toggleVisibility}
+                    >
+                      close
+                    </i>
                   </div>
-                  <div className="right">
-                    <div onClick={props.toggleVisibility}>
-                      <i className="material-icons">close</i>
-                      <div className="text-esc">esc</div>
-                    </div>
-                  </div>
-                  {/* </div> */}
                 </div>
-                {props.children}
               </div>
+              {props.children}
             </div>
-            {/* )} */}
           </div>
+          {/* )} */}
         </div>
       )}
     </>
