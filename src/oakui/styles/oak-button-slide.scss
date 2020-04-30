@@ -8,6 +8,8 @@ button {
       height: var(--metric-formelement-height-mobile);
     }
 
+    display: flex;
+
     // Initialize colors based on theme
     &.default {
       --color-bg: var(--color-btn-bg-default);

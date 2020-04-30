@@ -136,13 +136,13 @@
   column-gap: 20px;
 }
 
-.test-icon {
-  // font-size: 200px;;
+.connected-apps {
   display: flex;
   align-items: center;
-}
-
-.test-icon-comp {
-  display: inline;
-  font-size: 200px;
+  // align-items: center;
+  .test-icon {
+    // font-size: 200px;;
+    // display: flex;
+    // align-items: center;
+  }
 }

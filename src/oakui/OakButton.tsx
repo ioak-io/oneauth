@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import './styles/oak-button-slide.scss';
+import OakIcon from './OakIcon';
 
 interface Props {
   icon?: string;
@@ -40,7 +41,7 @@ const OakButton = (props: Props) => {
   return (
     // eslint-disable-next-line react/button-has-type
     <button className={`oak-button ${getStyle()}`} onClick={props.action}>
-      {props.icon && <i className="material-icons">{props.icon}</i>}
+      {props.icon && <OakIcon mat={props.icon} />}
       {props.children && props.children}
     </button>
   );
