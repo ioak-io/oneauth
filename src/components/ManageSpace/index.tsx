@@ -165,35 +165,33 @@ const ManageSpace = (props: Props) => {
         toggleVisibility={() => setDialogOpen(!dialogOpen)}
       >
         <div className="modal-body">
-          <div className="two-column">
-            <div className="typography-5">Name</div>
-            <OakText
-              data={data}
-              id="name"
-              handleChange={e => handleChange(e)}
-            />
-            <div className="typography-5">Administrator Email</div>
-            <OakText
-              data={data}
-              id="email"
-              disabled
-              handleChange={e => handleChange(e)}
-            />
-            <div className="typography-5">Administrator Password</div>
-            <OakText
-              data={data}
-              id="password"
-              type="password"
-              handleChange={e => handleChange(e)}
-            />
-            <div className="typography-5">Repeat Password</div>
-            <OakText
-              data={data}
-              id="repeatPassword"
-              type="password"
-              handleChange={e => handleChange(e)}
-            />
-          </div>
+          <OakText
+            data={data}
+            id="name"
+            label="Space name"
+            handleChange={e => handleChange(e)}
+          />
+          <OakText
+            data={data}
+            id="email"
+            label="Administrator Email"
+            disabled
+            handleChange={e => handleChange(e)}
+          />
+          <OakText
+            data={data}
+            id="password"
+            label="Administrator Password"
+            type="password"
+            handleChange={e => handleChange(e)}
+          />
+          <OakText
+            data={data}
+            id="repeatPassword"
+            label="Repeat Password"
+            type="password"
+            handleChange={e => handleChange(e)}
+          />
         </div>
         <div className="modal-footer">
           <OakButton

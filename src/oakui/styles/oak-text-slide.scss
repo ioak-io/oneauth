@@ -4,24 +4,21 @@
   input,
   textarea {
     font-family: 'Open Sans', sans-serif;
-    border-radius: 3px;
     width: 100%;
     color: var(--color-formelement-fg);
     font-size: 1em;
     outline: none;
     border: none;
-    background-color: var(--color-formelement-bg-1);
-    // margin-bottom: 20px;
-    box-sizing: border-box;
-    padding: var(--metric-formelement-padding);
-    // border: 2px solid;
-    // border-color: var(--color-background-2);
-
+    background-color: transparent;
+    border-bottom: 1px solid var(--color-foreground-1);
     &:focus {
-      // background-color: var(--color-foreground-2);
-      // border-color: var(--color-foreground-2);
-      // color: var(--color-background-1);
+      border-bottom: 1px solid var(--color-primary-1);
     }
+    box-sizing: border-box;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+      -webkit-box-shadow 0.15s ease-in-out;
+    height: auto;
+    padding: 10px 0;
 
     &.error {
       // border-color: var(--color-failure);
@@ -38,29 +35,47 @@
     }
   }
 
-  input {
-    height: var(--metric-formelement-height);
-    @media (max-width: 767px) {
-      height: var(--metric-formelement-height-mobile);
+  textarea {
+    height: 100px;
+    overflow-y: auto;
+    resize: vertical;
+    // max-height: 200px;
+  }
+  // margin-top: 1.5rem;
+  // margin-bottom: 1.5rem;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  text-align: left;
+  position: relative;
+  label {
+    white-space: nowrap;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    position: absolute;
+    font-size: 1rem;
+    cursor: text;
+    top: 0;
+    left: 0;
+    color: #757575;
+    display: inline-block;
+    margin-bottom: -0.5rem;
+    transition: transform 0.2s ease-out, color 0.2s ease-out,
+      -webkit-transform 0.2s ease-out;
+    transform-origin: 0 100%;
+    padding: 10px 0;
+    pointer-events: none;
+
+    &.active {
+      color: var(--color-foreground-3);
+      font-size: 1rem;
+      transform: translateY(-26px) scale(0.8);
+      padding: 10px 0;
     }
   }
 
-  textarea {
-    // height: 500px;
-    overflow-y: auto;
-    resize: none;
-    max-height: 200px;
-  }
-
-  label {
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    display: block;
-    // bottom: 8px;
-    left: 10px;
-    position: relative;
-    font-size: 0.8em;
-    margin-bottom: 6px;
-    color: var(--color-foreground-1);
-    text-transform: capitalize;
+  input:focus + label.active,
+  textarea:focus + label.active {
+    color: var(--color-primary-1);
   }
 }

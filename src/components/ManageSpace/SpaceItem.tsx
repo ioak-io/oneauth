@@ -9,6 +9,7 @@ import EditAdministrators from './EditAdministrators';
 import OakModal from '../../oakui/OakModal';
 import EditSpace from './EditSpace';
 import { fetchRoles } from '../../actions/OaRoleActions';
+import OakIcon from '../../oakui/OakIcon';
 
 const spaceDomain = 'space';
 const roleDomain = 'role';
@@ -116,7 +117,13 @@ const SpaceItem = (props: Props) => {
             <div className="administrators" onClick={editAdmin}>
               {countOfAdmins} Administrators
             </div>
-            <div>2 Connected Apps</div>
+            <div className="connected-apps">
+              2 Connected Apps
+              {/* <i className="material-icons test-icon">vpn_key</i>
+              <div className="test-icon-comp">
+                <OakIcon icon="vpn_key" />
+              </div> */}
+            </div>
           </div>
         </div>
         <div className="action space-top-0">
