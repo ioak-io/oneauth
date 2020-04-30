@@ -144,7 +144,6 @@ const ManageApp = (props: Props) => {
       </div>
 
       <OakModal
-        small
         label="New App"
         visible={dialogOpen}
         toggleVisibility={() => setDialogOpen(!dialogOpen)}

@@ -160,35 +160,40 @@ const ManageSpace = (props: Props) => {
       </div>
 
       <OakModal
-        small
         label="New space"
         visible={dialogOpen}
         toggleVisibility={() => setDialogOpen(!dialogOpen)}
       >
-        <div className="modal-body two-column">
-          <div className="typography-5">Name</div>
-          <OakText data={data} id="name" handleChange={e => handleChange(e)} />
-          <div className="typography-5">Administrator Email</div>
-          <OakText
-            data={data}
-            id="email"
-            disabled
-            handleChange={e => handleChange(e)}
-          />
-          <div className="typography-5">Administrator Password</div>
-          <OakText
-            data={data}
-            id="password"
-            type="password"
-            handleChange={e => handleChange(e)}
-          />
-          <div className="typography-5">Repeat Password</div>
-          <OakText
-            data={data}
-            id="repeatPassword"
-            type="password"
-            handleChange={e => handleChange(e)}
-          />
+        <div className="modal-body">
+          <div className="two-column">
+            <div className="typography-5">Name</div>
+            <OakText
+              data={data}
+              id="name"
+              handleChange={e => handleChange(e)}
+            />
+            <div className="typography-5">Administrator Email</div>
+            <OakText
+              data={data}
+              id="email"
+              disabled
+              handleChange={e => handleChange(e)}
+            />
+            <div className="typography-5">Administrator Password</div>
+            <OakText
+              data={data}
+              id="password"
+              type="password"
+              handleChange={e => handleChange(e)}
+            />
+            <div className="typography-5">Repeat Password</div>
+            <OakText
+              data={data}
+              id="repeatPassword"
+              type="password"
+              handleChange={e => handleChange(e)}
+            />
+          </div>
         </div>
         <div className="modal-footer">
           <OakButton
