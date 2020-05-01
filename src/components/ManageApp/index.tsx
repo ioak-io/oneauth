@@ -9,6 +9,7 @@ import { createApp } from '../../actions/AppActions';
 import AppItem from './AppItem';
 import OakText from '../../oakui/OakText';
 import OakModal from '../../oakui/OakModal';
+import OakCheckbox from '../../oakui/OakCheckbox';
 
 const domain = 'app';
 
@@ -23,6 +24,8 @@ const ManageApp = (props: Props) => {
   const [data, setData] = useState({
     name: '',
     redirect: '',
+    jwtpassword: '',
+    protected: '',
   });
   const [searchCriteria, setSearchCriteria] = useState({ text: '' });
   const [view, setView] = useState<Array<any> | undefined>(undefined);
@@ -37,6 +40,8 @@ const ManageApp = (props: Props) => {
         ...data,
         name: '',
         redirect: '',
+        jwtpassword: '',
+        protected: '',
       });
     }
   }, [dialogOpen]);
@@ -80,13 +85,16 @@ const ManageApp = (props: Props) => {
 
   const addApp = () => {
     if (
-      validateEmptyText(data.name, 'App name cannot be empty') &&
-      validateEmptyText(data.redirect, 'Redirect url is not provided')
+      validateEmptyText(data.name, 'App name can not be empty') &&
+      validateEmptyText(data.redirect, 'Redirect url is not provided') &&
+      validateEmptyText(data.jwtpassword, 'JWT Password can not be empty')
     ) {
       dispatch(
         createApp(auth, {
           name: data.name,
           redirect: data.redirect,
+          jwtpassword: data.jwtpassword,
+          protected: data.protected,
         })
       );
     }
@@ -155,6 +163,18 @@ const ManageApp = (props: Props) => {
           <OakText
             data={data}
             id="redirect"
+            handleChange={e => handleChange(e)}
+          />
+          <div className="typography-5">JWT Password</div>
+          <OakText
+            data={data}
+            id="jwtpassword"
+            handleChange={e => handleChange(e)}
+          />
+          <div className="typography-5">Protected</div>
+          <OakCheckbox
+            data={data}
+            id="protected"
             handleChange={e => handleChange(e)}
           />
         </div>

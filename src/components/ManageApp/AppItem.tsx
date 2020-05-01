@@ -85,28 +85,56 @@ const AppItem = (props: Props) => {
     setDeleteDialogOpen(true);
   };
 
-  const actionElements = [
-    {
-      label: 'Details',
-      action: editApp,
-      icon: 'edit',
-    },
-    {
-      label: 'Administrators',
-      action: editAdmin,
-      icon: 'people_alt',
-    },
-    {
-      label: 'Roles',
-      action: editAdmin,
-      icon: 'vpn_key',
-    },
-    {
-      label: 'Delete App',
-      action: confirmDeleteApp,
-      icon: 'delete',
-    },
-  ];
+  const actionElements = props.app.protected
+    ? [
+        {
+          label: 'Permitted Space',
+          // action: space,
+          icon: 'edit',
+        },
+        {
+          label: 'Details',
+          action: editApp,
+          icon: 'edit',
+        },
+        {
+          label: 'Administrators',
+          action: editAdmin,
+          icon: 'people_alt',
+        },
+        {
+          label: 'Roles',
+          action: editAdmin,
+          icon: 'vpn_key',
+        },
+        {
+          label: 'Delete App',
+          action: confirmDeleteApp,
+          icon: 'delete',
+        },
+      ]
+    : [
+        {
+          label: 'Details',
+          action: editApp,
+          icon: 'edit',
+        },
+        {
+          label: 'Administrators',
+          action: editAdmin,
+          icon: 'people_alt',
+        },
+        {
+          label: 'Roles',
+          action: editAdmin,
+          icon: 'vpn_key',
+        },
+        {
+          label: 'Delete App',
+          action: confirmDeleteApp,
+          icon: 'delete',
+        },
+      ];
 
   return (
     <>

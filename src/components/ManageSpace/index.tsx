@@ -25,6 +25,9 @@ const ManageSpace = (props: Props) => {
     email: '',
     password: '',
     repeatPassword: '',
+    day: '',
+    hour: '',
+    minutes: '',
   });
   const [searchCriteria, setSearchCriteria] = useState({ text: '' });
   const [view, setView] = useState<Array<any> | undefined>(undefined);
@@ -40,6 +43,9 @@ const ManageSpace = (props: Props) => {
         name: '',
         password: '',
         repeatPassword: '',
+        day: '',
+        hour: '',
+        minutes: '',
       });
     }
   }, [dialogOpen]);
@@ -88,7 +94,11 @@ const ManageSpace = (props: Props) => {
   const addSpace = () => {
     if (
       validateEmptyText(data.name, 'Space name cannot be empty') &&
-      validateEmptyText(data.password, 'Password is not provided')
+      validateEmptyText(data.password, 'Password is not provided') &&
+      validateEmptyText(
+        data.day || data.hour || data.minutes,
+        'Session Expiry is not provided'
+      )
     ) {
       if (data.password !== data.repeatPassword) {
         sendMessage('notification', true, {
@@ -97,11 +107,14 @@ const ManageSpace = (props: Props) => {
           duration: 5000,
         });
       } else {
+        const sessionExpiry =
+          +data.day * 24 * 60 + +data.hour * 60 + +data.minutes;
         dispatch(
           createSpace(auth, {
             name: data.name,
             email: data.email,
             password: data.password,
+            sessionExpiry,
           })
         );
       }
@@ -192,6 +205,27 @@ const ManageSpace = (props: Props) => {
             type="password"
             handleChange={e => handleChange(e)}
           />
+          <div className="typography-5">Session Expiry</div>
+          <div className="session-expiry">
+            <OakText
+              data={data}
+              id="day"
+              type="number"
+              handleChange={e => handleChange(e)}
+            />
+            <OakText
+              data={data}
+              id="hour"
+              type="number"
+              handleChange={e => handleChange(e)}
+            />
+            <OakText
+              data={data}
+              id="minutes"
+              type="number"
+              handleChange={e => handleChange(e)}
+            />
+          </div>
         </div>
         <div className="modal-footer">
           <OakButton

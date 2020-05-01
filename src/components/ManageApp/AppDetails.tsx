@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import OakText from '../../oakui/OakText';
 import OakButton from '../../oakui/OakButton';
+import OakCheckbox from '../../oakui/OakCheckbox';
 
 interface Props {
   app: any;
@@ -46,6 +47,19 @@ const AppDetails = (props: Props) => {
           data={appData}
           id="redirect"
           disabled
+          handleChange={e => handleChange(e)}
+        />
+        <div className="typography-5">JWT Password</div>
+        <OakText
+          data={appData}
+          id="jwtpassword"
+          disabled
+          handleChange={e => handleChange(e)}
+        />
+        <div className="typography-5">Protected</div>
+        <OakCheckbox
+          data={appData}
+          id="protected"
           handleChange={e => handleChange(e)}
         />
       </div>

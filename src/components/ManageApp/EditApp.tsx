@@ -5,6 +5,7 @@ import OakButton from '../../oakui/OakButton';
 import { updateApp } from '../../actions/AppActions';
 import { isEmptyOrSpaces } from '../Utils';
 import { sendMessage } from '../../events/MessageService';
+import OakCheckbox from '../../oakui/OakCheckbox';
 
 interface Props {
   app: any;
@@ -17,6 +18,7 @@ const EditApp = (props: Props) => {
   const [appData, setAppData] = useState({
     name: '',
     redirect: '',
+    protected: '',
   });
 
   useEffect(() => {
@@ -60,6 +62,18 @@ const EditApp = (props: Props) => {
         <OakText
           data={appData}
           id="redirect"
+          handleChange={e => handleChange(e)}
+        />
+        <div className="typography-5">JWT Password</div>
+        <OakText
+          data={appData}
+          id="jwtpassword"
+          handleChange={e => handleChange(e)}
+        />
+        <div className="typography-5">Protected</div>
+        <OakCheckbox
+          data={appData}
+          id="protected"
           handleChange={e => handleChange(e)}
         />
       </div>
