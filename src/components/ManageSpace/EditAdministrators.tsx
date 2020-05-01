@@ -8,6 +8,7 @@ import {
 } from '../../actions/OaRoleActions';
 import OakPrompt from '../../oakui/OakPrompt';
 import OakButton from '../../oakui/OakButton';
+import Member from '../ManageApp/Member';
 
 interface Props {
   space: any;
@@ -110,21 +111,11 @@ const EditAdministrators = (props: Props) => {
             <div className="label" />
           </div>
           {items?.map(item => (
-            <div className="list-view-item" key={item._id}>
-              <div className="title typography-6">{item.email}</div>
-              <div className="typography-6">{`${item.lastName}, ${item.firstName}`}</div>
-              <div className="item-delete">
-                {authorization.email !== item.email && (
-                  <i
-                    data-test="article-delete"
-                    onClick={() => confirmDeleteRole(item._id)}
-                    className="material-icons"
-                  >
-                    delete
-                  </i>
-                )}
-              </div>
-            </div>
+            <Member
+              domainType="space"
+              domainId={props.space._id}
+              member={item}
+            />
           ))}
         </div>
       </div>

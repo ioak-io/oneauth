@@ -1,5 +1,6 @@
 import React, { useEffect, ReactNode, useState } from 'react';
 import './styles/oak-modal.scss';
+import OakIcon from './OakIcon';
 
 interface Props {
   visible: boolean;

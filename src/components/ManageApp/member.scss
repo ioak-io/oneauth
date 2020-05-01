@@ -1,0 +1,23 @@
+.member {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) auto;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-background-5);
+  .action {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 6px;
+    .action-item {
+      padding: 4px 10px;
+      cursor: pointer;
+      border-radius: 4px;
+      background-color: var(--color-background-5);
+      display: flex;
+      align-items: center;
+
+      &.confirm {
+        background-color: var(--color-failure);
+      }
+    }
+  }
+}

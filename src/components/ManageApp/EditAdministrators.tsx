@@ -8,6 +8,8 @@ import {
 } from '../../actions/OaRoleActions';
 import OakPrompt from '../../oakui/OakPrompt';
 import OakButton from '../../oakui/OakButton';
+import OakIcon from '../../oakui/OakIcon';
+import Member from './Member';
 
 interface Props {
   app: any;
@@ -82,7 +84,6 @@ const EditAdministrators = (props: Props) => {
   };
 
   const confirmDeleteRole = userId => {
-    console.log(userId, props.app._id);
     setAdministrators({
       ...administrators,
       userId,
@@ -111,19 +112,12 @@ const EditAdministrators = (props: Props) => {
             <div className="label" />
           </div>
           {items?.map(item => (
-            <div className="list-view-item" key={item._id}>
-              <div className="title typography-6">{item.email}</div>
-              <div className="typography-6">{`${item.lastName}, ${item.firstName}`}</div>
-              <div className="item-delete">
-                <i
-                  data-test="article-delete"
-                  onClick={() => confirmDeleteRole(item._id)}
-                  className="material-icons"
-                >
-                  delete
-                </i>
-              </div>
-            </div>
+            <Member
+              member={item}
+              domainId={props.app._id}
+              domainType="app"
+              key={item._id}
+            />
           ))}
         </div>
       </div>

@@ -24,7 +24,7 @@ function OakCheckbox(props: Props) {
 
   return (
     <div className={`oak-check-box ${getStyle()}`}>
-      <div className="container">
+      <div className="checkbox-container">
         {/* {props.label && props.labelPosition === 'left' && <div>
                     {props.label}
                 </div>} */}

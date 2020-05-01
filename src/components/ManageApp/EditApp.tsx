@@ -56,24 +56,29 @@ const EditApp = (props: Props) => {
   return (
     <>
       <div className="modal-body two-column">
-        <div className="typography-5">App Name</div>
-        <OakText data={appData} id="name" handleChange={e => handleChange(e)} />
-        <div className="typography-5">Redirect url</div>
+        <OakText
+          data={appData}
+          id="name"
+          label="Application Name"
+          handleChange={e => handleChange(e)}
+        />
         <OakText
           data={appData}
           id="redirect"
+          label="Redirect URL"
           handleChange={e => handleChange(e)}
         />
-        <div className="typography-5">JWT Password</div>
         <OakText
           data={appData}
           id="jwtpassword"
+          label="JWT Password"
           handleChange={e => handleChange(e)}
         />
-        <div className="typography-5">Protected</div>
         <OakCheckbox
           data={appData}
+          theme="primary"
           id="protected"
+          label="Protected"
           handleChange={e => handleChange(e)}
         />
       </div>

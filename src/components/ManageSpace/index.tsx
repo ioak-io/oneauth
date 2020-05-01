@@ -145,7 +145,7 @@ const ManageSpace = (props: Props) => {
           <div className="top-actions">
             <div className="search-bar">
               <OakText
-                placeholder="Type to search"
+                label="Type to search"
                 handleChange={handleSearchCriteriaChange}
                 id="text"
                 data={searchCriteria}
@@ -205,24 +205,26 @@ const ManageSpace = (props: Props) => {
             type="password"
             handleChange={e => handleChange(e)}
           />
-          <div className="typography-5">Session Expiry</div>
           <div className="session-expiry">
             <OakText
               data={data}
               id="day"
               type="number"
+              label="Expiry in days"
               handleChange={e => handleChange(e)}
             />
             <OakText
               data={data}
               id="hour"
               type="number"
+              label="Expiry in hours"
               handleChange={e => handleChange(e)}
             />
             <OakText
               data={data}
               id="minutes"
               type="number"
+              label="Expiry in minutes"
               handleChange={e => handleChange(e)}
             />
           </div>

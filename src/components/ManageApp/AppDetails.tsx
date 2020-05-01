@@ -28,38 +28,38 @@ const AppDetails = (props: Props) => {
   return (
     <>
       <div className="modal-body two-column">
-        <div className="typography-5">App Id</div>
         <OakText
           data={appData}
           id="_id"
+          label="Application Id"
           disabled
           handleChange={e => handleChange(e)}
         />
-        <div className="typography-5">App Name</div>
         <OakText
           data={appData}
           id="name"
+          label="Application name"
           disabled
           handleChange={e => handleChange(e)}
         />
-        <div className="typography-5">Redirect url</div>
         <OakText
           data={appData}
           id="redirect"
+          label="Redirect url"
           disabled
           handleChange={e => handleChange(e)}
         />
-        <div className="typography-5">JWT Password</div>
         <OakText
           data={appData}
           id="jwtpassword"
+          label="JWT Password"
           disabled
           handleChange={e => handleChange(e)}
         />
-        <div className="typography-5">Protected</div>
         <OakCheckbox
           data={appData}
           id="protected"
+          label="Protected"
           handleChange={e => handleChange(e)}
         />
       </div>

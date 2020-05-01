@@ -124,7 +124,7 @@ const ManageApp = (props: Props) => {
           <div className="top-actions">
             <div className="search-bar">
               <OakText
-                placeholder="Type to search"
+                label="Type to search"
                 handleChange={handleSearchCriteriaChange}
                 id="text"
                 data={searchCriteria}
@@ -157,8 +157,12 @@ const ManageApp = (props: Props) => {
         toggleVisibility={() => setDialogOpen(!dialogOpen)}
       >
         <div className="modal-body two-column">
-          <div className="typography-5">Name</div>
-          <OakText data={data} id="name" handleChange={e => handleChange(e)} />
+          <OakText
+            data={data}
+            id="name"
+            label="Application Name"
+            handleChange={e => handleChange(e)}
+          />
           <div className="typography-5">Redirect url</div>
           <OakText
             data={data}
