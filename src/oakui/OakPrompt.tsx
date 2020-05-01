@@ -52,8 +52,9 @@ const OakPrompt = (props: Props) => {
               theme="default"
               variant="animate in"
               align="left"
+              fa="fas fa-times"
             >
-              <i className="material-icons">close</i>No
+              No
             </OakButton>
             <OakButton
               data-test="action-proceed"
@@ -61,8 +62,9 @@ const OakPrompt = (props: Props) => {
               theme="primary"
               variant="animate out"
               align="right"
+              fa="fas fa-check"
             >
-              <i className="material-icons">double_arrow</i>Yes
+              Yes
             </OakButton>
           </>
         )}

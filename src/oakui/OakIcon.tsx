@@ -9,6 +9,7 @@ interface Props {
   mat?: string;
   // svg for custom svg icon names
   svg?: string;
+  fa?: string;
   size?: string;
   color?: string; // theme names and actual color codes or names or variables
   accent?: string;
@@ -56,6 +57,14 @@ const OakIcon = (props: Props) => {
       {props.mat && (
         <i
           className="material-icons"
+          style={{ ...getStyle(props.color), ...getDimension() }}
+        >
+          {props.mat}
+        </i>
+      )}
+      {props.fa && (
+        <i
+          className={`fontawesome-icons ${props.fa}`}
           style={{ ...getStyle(props.color), ...getDimension() }}
         >
           {props.mat}

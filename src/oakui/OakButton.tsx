@@ -4,6 +4,7 @@ import OakIcon from './OakIcon';
 
 interface Props {
   icon?: string; // points to "mat" material icon
+  fa?: string;
   svg?: string;
   action?: any;
   variant?:
@@ -44,6 +45,7 @@ const OakButton = (props: Props) => {
     <button className={`oak-button ${getStyle()}`} onClick={props.action}>
       <div className="button-label-container">
         {props.icon && <OakIcon mat={props.icon} size="1.2em" />}
+        {props.fa && <OakIcon fa={props.fa} size="1.2em" />}
         {props.svg && <OakIcon svg={props.svg} size="1.2em" />}
         {props.children && props.children}
       </div>

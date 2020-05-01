@@ -143,7 +143,7 @@ const ManageSpace = (props: Props) => {
                 theme="primary"
                 action={() => setDialogOpen(!dialogOpen)}
                 variant="animate none"
-                icon="close"
+                icon="blur_on"
               >
                 New space
               </OakButton>

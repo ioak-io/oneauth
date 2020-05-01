@@ -1,8 +1,8 @@
 .oak-icon {
   display: flex;
   align-items: center;
-  .material-icons {
-    color: var(--color-foreground-1);
+  .material-icons,
+  .fontawesome-icons {
     display: flex;
     align-items: center;
   }
