@@ -143,7 +143,7 @@ const ManageSpace = (props: Props) => {
                 theme="primary"
                 action={() => setDialogOpen(!dialogOpen)}
                 variant="animate none"
-                icon="blur_on"
+                icon="close"
               >
                 New space
               </OakButton>
@@ -199,16 +199,18 @@ const ManageSpace = (props: Props) => {
             theme="default"
             variant="animate in"
             align="left"
+            icon="close"
           >
-            <i className="material-icons">close</i>Cancel
+            Cancel
           </OakButton>
           <OakButton
             action={addSpace}
             theme="primary"
             variant="animate out"
             align="right"
+            icon="double_arrow"
           >
-            <i className="material-icons">double_arrow</i>Create
+            Create
           </OakButton>
         </div>
       </OakModal>

@@ -9,6 +9,7 @@ import EditAdministrators from './EditAdministrators';
 import OakModal from '../../oakui/OakModal';
 import EditSpace from './EditSpace';
 import { fetchRoles } from '../../actions/OaRoleActions';
+import OakIcon from '../../oakui/OakIcon';
 
 const spaceDomain = 'space';
 const roleDomain = 'role';

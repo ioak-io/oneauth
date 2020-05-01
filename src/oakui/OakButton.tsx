@@ -3,7 +3,8 @@ import './styles/oak-button-slide.scss';
 import OakIcon from './OakIcon';
 
 interface Props {
-  icon?: string;
+  icon?: string; // points to "mat" material icon
+  svg?: string;
   action?: any;
   variant?:
     | 'block'
@@ -41,8 +42,11 @@ const OakButton = (props: Props) => {
   return (
     // eslint-disable-next-line react/button-has-type
     <button className={`oak-button ${getStyle()}`} onClick={props.action}>
-      {props.icon && <OakIcon mat={props.icon} />}
-      {props.children && props.children}
+      <div className="button-label-container">
+        {props.icon && <OakIcon mat={props.icon} size="1.2em" />}
+        {props.svg && <OakIcon svg={props.svg} size="1.2em" />}
+        {props.children && props.children}
+      </div>
     </button>
   );
 };

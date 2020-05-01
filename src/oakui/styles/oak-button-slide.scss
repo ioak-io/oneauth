@@ -8,7 +8,12 @@ button {
       height: var(--metric-formelement-height-mobile);
     }
 
-    display: flex;
+    .button-label-container {
+      display: grid;
+      grid-auto-flow: column;
+      align-items: center;
+      column-gap: 4px;
+    }
 
     // Initialize colors based on theme
     &.default {
@@ -65,10 +70,10 @@ button {
     z-index: 0;
     border: 2px solid var(--color-bg);
 
-    padding: 8px 16px;
+    padding: 0 16px;
 
     &.small {
-      padding: 4px 8px;
+      padding: 0 8px;
     }
 
     &.align-left {
@@ -147,7 +152,6 @@ button {
 
     .material-icons {
       vertical-align: middle;
-      margin-right: 5px;
       font-size: 1.2em;
     }
   }
