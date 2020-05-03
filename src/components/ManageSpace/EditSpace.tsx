@@ -15,12 +15,13 @@ interface Props {
 const EditSpace = (props: Props) => {
   const dispatch = useDispatch();
   const authorization = useSelector(state => state.authorization);
-  const [spaceData, setSpaceData] = useState({
-    name: '',
+  const [view, setView] = useState({
     day: '',
     hour: '',
     minutes: '',
+    name: '',
   });
+  const [spaceData, setSpaceData] = useState({});
 
   useEffect(() => {
     setSpaceData(props.space);
@@ -28,12 +29,12 @@ const EditSpace = (props: Props) => {
 
   useEffect(() => {
     const expiry = convertor(props.space.sessionExpiry);
-    setSpaceData({
-      ...spaceData,
+    setView({
+      ...view,
+      day: `${expiry.day}`,
+      hour: `${expiry.hour}`,
+      minutes: `${expiry.minutes}`,
       name: props.space.name,
-      day: String(expiry.day),
-      hour: String(expiry.hour),
-      minutes: String(expiry.minutes),
     });
   }, [props.space.sessionExpiry]);
 
@@ -45,8 +46,8 @@ const EditSpace = (props: Props) => {
   };
 
   const handleChange = event => {
-    setSpaceData({
-      ...spaceData,
+    setView({
+      ...view,
       [event.target.name]: event.target.value,
     });
   };
@@ -64,38 +65,54 @@ const EditSpace = (props: Props) => {
   };
 
   const editSpace = () => {
-    if (validateEmptyText(spaceData.name, 'Space name cannot be empty')) {
+    if (
+      validateEmptyText(view.name, 'Space name cannot be empty') &&
+      validateEmptyText(
+        view.day || view.hour || view.minutes,
+        'Session Expiry is not provided'
+      )
+    ) {
+      const localSessionExpiry = `${+view.day * 24 * 60 +
+        +view.hour * 60 +
+        +view.minutes}`;
+      setSpaceData({
+        ...spaceData,
+        name: view.name,
+        sessionExpiry: localSessionExpiry,
+      });
       dispatch(updateSpace(authorization, spaceData));
     }
   };
 
   return (
     <>
-      <div className="modal-body two-column">
-        <div className="typography-5">Space Name</div>
+      <div className="modal-body">
         <OakText
-          data={spaceData}
+          data={view}
           id="name"
+          label="Space Name"
           handleChange={e => handleChange(e)}
         />
-        <div className="typography-5 session-expiry">Session Expiry</div>
         <div className="session-expiry">
           <OakText
-            data={spaceData}
+            data={view}
             id="day"
             type="number"
+            label="Expiry in days"
             handleChange={e => handleChange(e)}
           />
           <OakText
-            data={spaceData}
+            data={view}
             id="hour"
             type="number"
+            label="Expiry in hours"
             handleChange={e => handleChange(e)}
           />
           <OakText
-            data={spaceData}
+            data={view}
             id="minutes"
             type="number"
+            label="Expiry in minutes"
             handleChange={e => handleChange(e)}
           />
         </div>

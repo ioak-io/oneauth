@@ -6,6 +6,7 @@ import { fetchSpace } from '../../actions/SpaceActions';
 import { fetchApp } from '../../actions/AppActions';
 import fetchUsers from '../../actions/OaUserAction';
 import { fetchRoles } from '../../actions/OaRoleActions';
+import { fetchAppSpace } from '../../actions/AppSpaceAction';
 import './OaLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import OakText from '../../oakui/OakText';
@@ -30,6 +31,7 @@ interface Props {
   fetchUsers: Function;
   fetchSpace: Function;
   fetchApp: Function;
+  fetchAppSpace: Function;
   setProfile: Function;
   getAuth: Function;
   addAuth: Function;
@@ -290,6 +292,7 @@ const Login = (props: Props) => {
     props.fetchApp(data);
     props.fetchUsers(data);
     props.fetchRoles(data);
+    props.fetchAppSpace(data);
     props.setProfile({ appStatus: 'authenticated' });
     sendMessage('loggedin', true);
     props.cookies.set(`oneauth`, data.authKey);
@@ -419,6 +422,7 @@ const mapStateToProps = state => ({
   fetchUsers: state.fetchUsers,
   existingAdmins: state.fetchRoles,
   fetchApp: state.fetchApp,
+  fetchAppSpace: state.fetchAppSpace,
 });
 
 export default connect(mapStateToProps, {
@@ -429,4 +433,5 @@ export default connect(mapStateToProps, {
   fetchUsers,
   fetchRoles,
   fetchApp,
+  fetchAppSpace,
 })(withCookies(Login));

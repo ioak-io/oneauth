@@ -10,6 +10,7 @@ import EditApp from './EditApp';
 import { fetchRoles } from '../../actions/OaRoleActions';
 import { deleteApp } from '../../actions/AppActions';
 import AppDetails from './AppDetails';
+import MapSpace from './MapSpace';
 
 const appDomain = 'app';
 const roleDomain = 'role';
@@ -25,6 +26,7 @@ const AppItem = (props: Props) => {
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
   const [adminDialogOpen, setAdminDialogOpen] = useState(false);
+  const [spaceMapDialogOpen, setSpaceMapDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [countOfAdmins, setCountofAdmins] = useState<undefined | number>(0);
 
@@ -81,6 +83,10 @@ const AppItem = (props: Props) => {
     setAdminDialogOpen(true);
   };
 
+  const mapSpace = () => {
+    setSpaceMapDialogOpen(true);
+  };
+
   const confirmDeleteApp = () => {
     setDeleteDialogOpen(true);
   };
@@ -89,7 +95,7 @@ const AppItem = (props: Props) => {
     ? [
         {
           label: 'Permitted Space',
-          // action: space,
+          action: mapSpace,
           icon: 'edit',
         },
         {
@@ -160,6 +166,17 @@ const AppItem = (props: Props) => {
           </OakPopoverMenu>
         </div>
       </div>
+
+      <OakModal
+        label="Map Space"
+        visible={spaceMapDialogOpen}
+        toggleVisibility={() => setSpaceMapDialogOpen(!spaceMapDialogOpen)}
+      >
+        <MapSpace
+          app={props.app}
+          toggleVisibilityHandler={() => setEditDialogOpen(!editDialogOpen)}
+        />
+      </OakModal>
 
       <OakModal
         label="Edit App"
