@@ -21,7 +21,7 @@ const OakText = (props: Props) => {
     }
   };
   return (
-    <div className="oak-text-field">
+    <div className="oak-text">
       {!props.multiline && (
         <input
           disabled={props.disabled}

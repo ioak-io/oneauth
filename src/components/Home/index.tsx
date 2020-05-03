@@ -12,9 +12,9 @@ const Home = (props: Props) => {
       <div>
         <Navigation {...props} logout={props.logout} />
       </div>
-      <div className="app-container">
+      <div className="app-container smooth-page">
         <div className="home">
-          <div className="typography-2 space-bottom-2">
+          <div className="typography-10 space-bottom-2">
             Home page and Landing page
           </div>
           <div className="typography-5">

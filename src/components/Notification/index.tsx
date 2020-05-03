@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './style.scss';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
+import OakSpinner from '../../oakui/OakSpinner';
 
 const Notification = () => {
   const [spinner, setSpinner] = useState(false);
@@ -39,7 +40,8 @@ const Notification = () => {
           <div className="message">{notification?.message}</div>
         </div>
       )}
-      {spinner && <div data-test="spinner" className="lds-dual-ring" />}
+      {/* {spinner && <div data-test="spinner" className="lds-dual-ring" />} */}
+      {spinner && <OakSpinner />}
     </>
   );
 };

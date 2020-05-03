@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react';
 import './style.scss';
 import mirrorWhite from '../../images/ioak_white.svg';
 import mirrorBlack from '../../images/ioak_black.svg';
-import Links from './Links';
+import OaLinks from './OaLinks';
+import SpaceLinks from './SpaceLinks';
 import { Authorization, Profile } from '../Types/GeneralTypes';
 // import SearchBar from '../Ux/SearchBar';
 import { receiveMessage } from '../../events/MessageService';
@@ -23,6 +24,7 @@ interface Props {
   transparent: boolean;
   logout: Function;
   toggleSettings: any;
+  space: string;
 }
 
 const Desktop = (props: Props) => {
@@ -57,7 +59,19 @@ const Desktop = (props: Props) => {
         {(props.transparent || props.profile.theme === 'theme_dark') && (
           <img className="logo" src={mirrorWhite} alt="Mirror logo" />
         )}
-        <Links authorization={props.authorization} profile={props.profile} />
+        {!props.space && (
+          <OaLinks
+            authorization={props.authorization}
+            profile={props.profile}
+          />
+        )}
+        {props.space && (
+          <SpaceLinks
+            authorization={props.authorization}
+            profile={props.profile}
+            space={props.space}
+          />
+        )}
         {showSearchBar && <SearchBar alt />}
       </div>
       <div className="right">
@@ -67,7 +81,7 @@ const Desktop = (props: Props) => {
               theme="primary"
               variant="disabled"
               small
-              action={props.logout()}
+              action={props.logout}
             >
               <i className="material-icons">power_settings_new</i>Logout
             </OakButton>

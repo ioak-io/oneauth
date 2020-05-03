@@ -14,14 +14,14 @@ interface Props {
   handleFocus?: Function;
   placeholder?: string;
 }
-const OakText = (props: Props) => {
+const OakTextPlain = (props: Props) => {
   const handleFocus = () => {
     if (props.handleFocus) {
       props.handleFocus();
     }
   };
   return (
-    <div className="oak-text-field">
+    <div className="oak-text-plain">
       {props.label && <label htmlFor={props.id}>{props.label}</label>}
       {!props.multiline && (
         <input
@@ -61,4 +61,4 @@ const OakText = (props: Props) => {
   );
 };
 
-export default OakText;
+export default OakTextPlain;

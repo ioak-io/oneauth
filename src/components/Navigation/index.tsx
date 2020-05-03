@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { withCookies } from 'react-cookie';
 import { getProfile, setProfile } from '../../actions/ProfileActions';
@@ -9,7 +9,8 @@ import Desktop from './Desktop';
 import Mobile from './Mobile';
 
 import { Authorization, Profile } from '../Types/GeneralTypes';
-import { receiveMessage } from '../../events/MessageService';
+import { receiveMessage, sendMessage } from '../../events/MessageService';
+import { httpPost } from '../Lib/RestTemplate';
 
 interface Props {
   sendEvent: Function;
@@ -28,9 +29,13 @@ interface Props {
   cookies: any;
   location: any;
   match: any;
+  isSpace: boolean;
+  space: string;
 }
 
 const Navigation = (props: Props) => {
+  const dispatch = useDispatch();
+  const profile = useSelector(state => state.profile);
   const [data, setData] = useState({
     visible: false,
     mobilemenu: 'hide',
@@ -77,7 +82,45 @@ const Navigation = (props: Props) => {
   };
 
   const login = type => {
-    props.history.push(`/login?type=${type}`);
+    if (props.isSpace) {
+      props.history.push(`/space/${props.space}/login?type=${type}`);
+    } else {
+      props.history.push(`/login?type=${type}`);
+    }
+  };
+
+  const logout = () => {
+    let baseAuthUrl = '/auth';
+    let authKey = props.cookies.get('oneauth');
+    if (props.isSpace) {
+      authKey = props.cookies.get(props.space);
+      baseAuthUrl = `/auth/${props.space}`;
+    }
+
+    httpPost(`${baseAuthUrl}/session/${authKey}/invalidate`, null, null).then(
+      (response: any) => {
+        if (response.status === 200 || response.status === 404) {
+          props.removeAuth();
+          if (props.isSpace) {
+            props.cookies.remove(props.space);
+            props.history.push(`/space/${props.space}/home`);
+            sendMessage('notification', true, {
+              type: 'success',
+              message: `Signed out of space ${props.space}`,
+              duration: 3000,
+            });
+          } else {
+            props.cookies.remove('oneauth');
+            props.history.push(`/home`);
+            sendMessage('notification', true, {
+              type: 'success',
+              message: `Signed out of oneauth`,
+              duration: 3000,
+            });
+          }
+        }
+      }
+    );
   };
 
   const toggleSettings = () => {
@@ -88,7 +131,7 @@ const Navigation = (props: Props) => {
     <div className="nav">
       <Desktop
         {...props}
-        logout={props.logout}
+        logout={logout}
         login={login}
         toggleSettings={toggleSettings}
         transparent={data.transparentNavBar}
@@ -96,7 +139,7 @@ const Navigation = (props: Props) => {
       />
       <Mobile
         {...props}
-        logout={props.logout}
+        logout={logout}
         login={login}
         toggleSettings={toggleSettings}
         transparent={data.transparentNavBar}

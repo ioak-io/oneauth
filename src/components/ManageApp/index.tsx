@@ -117,10 +117,10 @@ const ManageApp = (props: Props) => {
   return (
     <>
       <div className="app-page">
-        <div className="header-image">
+        <div className="header-image-app">
           <Navigation {...props} logout={props.logout} />
         </div>
-        <div className="oaapp-container">
+        <div className="oaapp-container smooth-page">
           <div className="top-actions">
             <div className="search-bar">
               <OakText

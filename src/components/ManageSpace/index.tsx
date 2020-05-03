@@ -138,10 +138,10 @@ const ManageSpace = (props: Props) => {
   return (
     <>
       <div className="app-page">
-        <div className="header-image">
+        <div className="header-image-space">
           <Navigation {...props} logout={props.logout} />
         </div>
-        <div className="space-container">
+        <div className="space-container smooth-page">
           <div className="top-actions">
             <div className="search-bar">
               <OakText

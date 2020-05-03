@@ -32,7 +32,7 @@ body.oak-dialog-open {
 }
 
 .body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background-color: var(--color-background-1);
   color: var(--color-foreground-1);
 }
@@ -66,7 +66,7 @@ code {
   .themecolor1 {
     --color-dark-primary-1: rgba(1, 169, 130, 0.9);
     --color-dark-primary-2: rgba(1, 169, 130, 1);
-    --color-dark-secondary-1: #69a7bf;
+    --color-dark-secondary-1: #81d6e3; // 69a7bf
     --color-dark-tertiary-1: #376b8c;
     --color-dark-tertiary-1-trans: rgba(55, 107, 140, 0.2);
     --color-light-primary-1: rgba(1, 169, 130, 0.9);
@@ -237,6 +237,10 @@ code {
     --color-tag: #e6e6e6;
     --color-box-shadow: rgba(0, 0, 0, 0.3);
   }
+
+  .smooth-page {
+    animation: opacity-in 3s cubic-bezier(0, 1, 0.5, 1);
+  }
 }
 
 // /* Color Theme Swatches in Hex */
@@ -259,3 +263,30 @@ code {
 // .Vintage-blue-background.-Rough-painted-wall-of-sapphire-color.-Imperfect-plane-of-blue-colored.-Uneven-old-decorative-toned-backdrop-of-cyan-tint.-Texture-of-sapphirine-hue.-Ornamental-stony-surface.-3-hsla { color: hsla(202, 41, 38, 1); }
 // .Vintage-blue-background.-Rough-painted-wall-of-sapphire-color.-Imperfect-plane-of-blue-colored.-Uneven-old-decorative-toned-backdrop-of-cyan-tint.-Texture-of-sapphirine-hue.-Ornamental-stony-surface.-4-hsla { color: hsla(196, 36, 60, 1); }
 // .Vintage-blue-background.-Rough-painted-wall-of-sapphire-color.-Imperfect-plane-of-blue-colored.-Uneven-old-decorative-toned-backdrop-of-cyan-tint.-Texture-of-sapphirine-hue.-Ornamental-stony-surface.-5-hsla { color: hsla(185, 44, 73, 1); }
+
+@keyframes slideUpIn {
+  0% {
+    transform: translateY(30vh);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes opacity-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -3,7 +3,8 @@ import './style.scss';
 import mirrorWhite from '../../images/ioak_white.svg';
 import mirrorWhiteSmall from '../../images/mirror_white_small.svg';
 import mirrorBlack from '../../images/ioak_black.svg';
-import Links from './Links';
+import OaLinks from './OaLinks';
+import SpaceLinks from './SpaceLinks';
 import { Authorization, Profile } from '../Types/GeneralTypes';
 import SearchBar from '../../oakui/SearchBar';
 import { receiveMessage } from '../../events/MessageService';
@@ -23,6 +24,7 @@ interface Props {
   transparent: boolean;
   logout: Function;
   toggleSettings: any;
+  space: string;
 }
 
 const Mobile = (props: Props) => {
@@ -105,7 +107,7 @@ const Mobile = (props: Props) => {
                     </div> */}
             <div className="buttons">
               {props.authorization.isAuth && (
-                <OakButton variant="animate in" small action={props.logout()}>
+                <OakButton variant="animate in" small action={props.logout}>
                   <i className="material-icons">power_settings_new</i>Logout
                 </OakButton>
               )}
@@ -129,7 +131,19 @@ const Mobile = (props: Props) => {
               )}
             </div>
           </div>
-          <Links authorization={props.authorization} profile={props.profile} />
+          {!props.space && (
+            <OaLinks
+              authorization={props.authorization}
+              profile={props.profile}
+            />
+          )}
+          {props.space && (
+            <SpaceLinks
+              authorization={props.authorization}
+              profile={props.profile}
+              space={props.space}
+            />
+          )}
         </div>
       </div>
     </>
