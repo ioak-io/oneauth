@@ -25,8 +25,8 @@ const ManageSpace = (props: Props) => {
     email: '',
     password: '',
     repeatPassword: '',
-    day: '',
-    hour: '',
+    days: '',
+    hours: '',
     minutes: '',
   });
   const [searchCriteria, setSearchCriteria] = useState({ text: '' });
@@ -43,8 +43,8 @@ const ManageSpace = (props: Props) => {
         name: '',
         password: '',
         repeatPassword: '',
-        day: '',
-        hour: '',
+        days: '',
+        hours: '',
         minutes: '',
       });
     }
@@ -96,7 +96,7 @@ const ManageSpace = (props: Props) => {
       validateEmptyText(data.name, 'Space name cannot be empty') &&
       validateEmptyText(data.password, 'Password is not provided') &&
       validateEmptyText(
-        data.day || data.hour || data.minutes,
+        data.days || data.hours || data.minutes,
         'Session Expiry is not provided'
       )
     ) {
@@ -107,15 +107,19 @@ const ManageSpace = (props: Props) => {
           duration: 5000,
         });
       } else {
-        const sessionExpiry =
-          +data.day * 24 * 60 + +data.hour * 60 + +data.minutes;
+        // const sessionExpiry =
+        //   +data.day * 24 * 60 + +data.hour * 60 + +data.minutes;
         dispatch(
-          createSpace(auth, {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-            sessionExpiry,
-          })
+          createSpace(
+            auth,
+            //   {
+            //   name: data.name,
+            //   email: data.email,
+            //   password: data.password,
+            //   sessionExpiry,
+            // }
+            data
+          )
         );
       }
     }
@@ -208,14 +212,14 @@ const ManageSpace = (props: Props) => {
           <div className="session-expiry">
             <OakText
               data={data}
-              id="day"
+              id="days"
               type="number"
               label="Expiry in days"
               handleChange={e => handleChange(e)}
             />
             <OakText
               data={data}
-              id="hour"
+              id="hours"
               type="number"
               label="Expiry in hours"
               handleChange={e => handleChange(e)}

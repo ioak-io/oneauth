@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import OakAutoComplete from '../../oakui/OakAutoComplete';
 import OakButton from '../../oakui/OakButton';
 import { updateAppSpace } from '../../actions/AppSpaceAction';
-import Member from './Member';
+import MapSpaceItem from './MapSpaceItem';
 
 interface Props {
   app: any;
@@ -51,7 +51,7 @@ const MapSpace = (props: Props) => {
 
   return (
     <>
-      <div className="modal-body">
+      <div className="">
         <div className="autocomplete-space space-bottom-2">
           <OakAutoComplete
             placeholder="Search by space name"
@@ -69,11 +69,10 @@ const MapSpace = (props: Props) => {
             <div className="label" />
           </div>
           {items?.map(item => (
-            <Member
-              member={item}
-              domainId={props.app._id}
-              key={props.app._id}
-              owner={props.app.createdBy}
+            <MapSpaceItem
+              appSpaceItem={item}
+              appId={props.app._id}
+              key={item._id}
             />
           ))}
         </div>
