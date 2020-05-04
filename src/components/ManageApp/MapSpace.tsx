@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import OakAutoComplete from '../../oakui/OakAutoComplete';
-import { updateRoles, fetchRoles } from '../../actions/OaRoleActions';
 import OakButton from '../../oakui/OakButton';
+import { updateAppSpace } from '../../actions/AppSpaceAction';
 import Member from './Member';
 
 interface Props {
@@ -10,64 +10,41 @@ interface Props {
   toggleVisibilityHandler: Function;
 }
 
-const EditAdministrators = (props: Props) => {
+const MapSpace = (props: Props) => {
   const dispatch = useDispatch();
   const authorization = useSelector(state => state.authorization);
-  const oaUsers = useSelector(state => state.oaUsers);
-  const oaRoles = useSelector(state => state.oaRoles);
+  const oaSpace = useSelector(state => state.space);
+  const appSpace = useSelector(state => state.appSpace);
   const [items, setItems] = useState<undefined | any[]>([{}]);
   const [data, setData] = useState({
     autoCompleteDropdownData: [{}],
   });
 
   useEffect(() => {
-    dispatch(fetchRoles(authorization));
-  }, [authorization]);
-
-  useEffect(() => {
-    const oaRole = oaRoles.data.data?.filter(
-      item => item.domainId === props.app._id
+    const spaceList: any[] = [];
+    appSpace.data?.filter(item =>
+      item.appId === props.app._id ? spaceList.push({ id: item.spaceId }) : ''
     );
-    const oaUser = diff(oaRole, oaUsers.data);
-    setItems(oaUser);
-  }, [oaRoles.data.data]);
 
-  const diff = (arr, arr2) => {
-    const ret: any[] = [];
-    arr2.map(item1 => {
-      arr.map(item => {
-        if (item1._id.indexOf(item.userId) > -1) {
-          ret.push(item1);
-        }
-      });
-    });
-    return ret;
-  };
-
-  useEffect(() => {
-    let list: any[] = [];
-    oaUsers.data?.map(item => {
-      list.push({ key: item._id, value: item.email });
+    const existingSpacelist: any[] = [];
+    const availableSpaceList: any[] = [];
+    oaSpace?.data.filter(val => {
+      return spaceList.some(item => {
+        return val.spaceId === item.id;
+      })
+        ? existingSpacelist.push(val)
+        : availableSpaceList.push({ key: val.spaceId, value: val.name });
     });
 
-    const adminList: any[] = [];
-    if (items) {
-      items.map(item => adminList.push({ id: item._id }));
-    }
-    list = list.filter(val => {
-      return !adminList.some(item => {
-        return val.key === item.id;
-      });
-    });
-    setData({ autoCompleteDropdownData: list });
-  }, [oaUsers.data, items]);
+    setItems(existingSpacelist);
+    setData({ autoCompleteDropdownData: availableSpaceList });
+  }, [appSpace.data, oaSpace.data]);
 
   const handleAutoCompleteChange = (value: string) => {
     dispatch(
-      updateRoles(authorization, {
-        type: 'app',
-        userId: value,
-        domainId: props.app._id,
+      updateAppSpace(authorization, {
+        appId: props.app._id,
+        spaceId: value,
       })
     );
   };
@@ -75,28 +52,27 @@ const EditAdministrators = (props: Props) => {
   return (
     <>
       <div className="modal-body">
-        <div className="autocomplete-users space-bottom-2">
+        <div className="autocomplete-space space-bottom-2">
           <OakAutoComplete
-            placeholder="Search by user name"
+            placeholder="Search by space name"
             handleChange={handleAutoCompleteChange}
             objects={data.autoCompleteDropdownData}
           />
         </div>
         <div
           className="oaapp-view space-top-2 space-bottom-4"
-          key={oaUsers._id}
+          key={oaSpace._id}
         >
           <div className="list-view-header typography-5">
-            <div className="label">Email</div>
             <div className="label">Name</div>
+            <div className="label">SpaceId</div>
             <div className="label" />
           </div>
           {items?.map(item => (
             <Member
               member={item}
               domainId={props.app._id}
-              domainType="app"
-              key={item._id}
+              key={props.app._id}
               owner={props.app.createdBy}
             />
           ))}
@@ -116,4 +92,4 @@ const EditAdministrators = (props: Props) => {
   );
 };
 
-export default EditAdministrators;
+export default MapSpace;

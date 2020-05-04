@@ -10,6 +10,7 @@ import { fetchSpace } from '../../actions/SpaceActions';
 import fetchUsers from '../../actions/OaUserAction';
 import { fetchRoles } from '../../actions/OaRoleActions';
 import { fetchApp } from '../../actions/AppActions';
+import { fetchAppSpace } from '../../actions/AppSpaceAction';
 
 interface Props {
   authorization: Authorization;
@@ -127,6 +128,7 @@ const OakRoute = (props: Props) => {
               dispatch(fetchUsers(sessionResponse.data));
               dispatch(fetchRoles(sessionResponse.data));
               dispatch(fetchApp(sessionResponse.data));
+              dispatch(fetchAppSpace(sessionResponse.data));
             }
             // dispatch(setProfile({ ...profile, appStatus: 'authenticated' }));
           }

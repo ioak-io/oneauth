@@ -163,22 +163,23 @@ const ManageApp = (props: Props) => {
             label="Application Name"
             handleChange={e => handleChange(e)}
           />
-          <div className="typography-5">Redirect url</div>
           <OakText
             data={data}
             id="redirect"
+            label="Redirect url"
             handleChange={e => handleChange(e)}
           />
-          <div className="typography-5">JWT Password</div>
           <OakText
             data={data}
             id="jwtpassword"
+            label="JWT Password"
             handleChange={e => handleChange(e)}
           />
-          <div className="typography-5">Protected</div>
           <OakCheckbox
-            data={data}
+            key={data.name}
+            data={data.protected}
             id="protected"
+            label="Protected"
             handleChange={e => handleChange(e)}
           />
         </div>

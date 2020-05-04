@@ -17,3 +17,4 @@ export const UPDATE_SPACE = 'UPDATE_SPACE';
 export const UPDATE_APP = 'UPDATE_APP';
 export const UPDATE_SPACE_ADMIN = 'UPDATE_SPACE_ADMIN';
 export const UPDATE_ROLE = 'UPDATE_ROLE';
+export const UPDATE_APP_SPACE = 'UPDATE_APP_SPACE';
