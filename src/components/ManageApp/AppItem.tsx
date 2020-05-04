@@ -174,7 +174,9 @@ const AppItem = (props: Props) => {
       >
         <MapSpace
           app={props.app}
-          toggleVisibilityHandler={() => setEditDialogOpen(!editDialogOpen)}
+          toggleVisibilityHandler={() =>
+            setSpaceMapDialogOpen(!spaceMapDialogOpen)
+          }
         />
       </OakModal>
 

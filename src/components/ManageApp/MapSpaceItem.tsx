@@ -1,44 +1,28 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteRoles } from '../../actions/OaRoleActions';
-import './member.scss';
+import './mapspace.scss';
 import { deleteAppSpace } from '../../actions/AppSpaceAction';
 
 interface Props {
-  member: any;
-  domainId: string;
-  domainType: string;
-  owner: string;
+  appSpaceItem: any;
+  appId: string;
 }
 
-const Member = (props: Props) => {
+const MapSpaceItem = (props: Props) => {
   const dispatch = useDispatch();
   const authorization = useSelector(state => state.authorization);
   const [confirmPromptOpen, setConfirmPromptOpen] = useState(false);
 
   const remove = () => {
-    if (
-      props.member.email === props.owner ||
-      props.member._id === props.owner
-    ) {
-      return;
-    }
     dispatch(
-      deleteRoles(
-        authorization,
-        props.domainType,
-        props.member._id,
-        props.domainId
-      )
+      deleteAppSpace(authorization, props.appSpaceItem.spaceId, props.appId)
     );
   };
 
   return (
-    <div className="member" id={props.member._id}>
-      <>
-        <div className="title typography-6">{props.member.email}</div>
-        <div className="typography-6">{`${props.member.lastName}, ${props.member.firstName}`}</div>
-      </>
+    <div className="mapspace" id={props.appSpaceItem._id}>
+      <div className="title typography-6">{props.appSpaceItem.spaceId}</div>
+      <div className="typography-6">{props.appSpaceItem.name}</div>
       <div className="action">
         {!confirmPromptOpen && (
           <div
@@ -66,4 +50,4 @@ const Member = (props: Props) => {
   );
 };
 
-export default Member;
+export default MapSpaceItem;

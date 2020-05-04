@@ -6,7 +6,7 @@ import { sendMessage } from '../events/MessageService';
 const domain = 'appspace';
 
 export const fetchAppSpace = authorization => dispatch => {
-  httpGet(`${constants.API_APP_SPACE_FETCH}/`, {
+  httpGet(`${constants.API_APP_SPACE}/`, {
     headers: {
       Authorization: authorization.token,
     },
@@ -19,7 +19,7 @@ export const fetchAppSpace = authorization => dispatch => {
 };
 
 export const updateAppSpace = (authorization, payload) => dispatch => {
-  return httpPut(`${constants.API_APP_SPACE_FETCH}/`, payload, {
+  return httpPut(`${constants.API_APP_SPACE}/`, payload, {
     headers: {
       Authorization: authorization.token,
     },
@@ -38,7 +38,7 @@ export const updateAppSpace = (authorization, payload) => dispatch => {
 };
 
 export const deleteAppSpace = (authorization, spaceId, appId) => dispatch => {
-  httpDelete(`${constants.API_APP_SPACE_FETCH}/${spaceId}/${appId}`, {
+  httpDelete(`${constants.API_APP_SPACE}/${spaceId}/${appId}`, {
     headers: {
       Authorization: authorization.token,
     },

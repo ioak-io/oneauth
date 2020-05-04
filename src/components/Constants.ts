@@ -29,7 +29,7 @@ const constants = {
   API_APP_FETCH: '/app',
   API_APP_DELETE: '/app/delete',
   API_ROLE_FETCH: '/role',
-  API_APP_SPACE_FETCH: '/appspace',
+  API_APP_SPACE: '/appspace',
 };
 
 export default constants;

@@ -15,39 +15,38 @@ interface Props {
 const EditSpace = (props: Props) => {
   const dispatch = useDispatch();
   const authorization = useSelector(state => state.authorization);
-  const [view, setView] = useState({
-    day: '',
-    hour: '',
+  const [spaceData, setSpaceData] = useState({
+    days: '',
+    hours: '',
     minutes: '',
     name: '',
   });
-  const [spaceData, setSpaceData] = useState({});
 
   useEffect(() => {
     setSpaceData(props.space);
   }, [props.space]);
 
-  useEffect(() => {
-    const expiry = convertor(props.space.sessionExpiry);
-    setView({
-      ...view,
-      day: `${expiry.day}`,
-      hour: `${expiry.hour}`,
-      minutes: `${expiry.minutes}`,
-      name: props.space.name,
-    });
-  }, [props.space.sessionExpiry]);
+  // useEffect(() => {
+  //   const expiry = convertor(props.space.sessionExpiry);
+  //   setView({
+  //     ...view,
+  //     day: `${expiry.day}`,
+  //     hour: `${expiry.hour}`,
+  //     minutes: `${expiry.minutes}`,
+  //     name: props.space.name,
+  //   });
+  // }, [props.space.sessionExpiry]);
 
-  const convertor = data => {
-    const day = Math.floor(data / (60 * 24));
-    const hour = Math.floor((data - day * 1440) / 60);
-    const minutes = data % 60;
-    return { day, hour, minutes };
-  };
+  // const convertor = data => {
+  //   const day = Math.floor(data / (60 * 24));
+  //   const hour = Math.floor((data - day * 1440) / 60);
+  //   const minutes = data % 60;
+  //   return { day, hour, minutes };
+  // };
 
   const handleChange = event => {
-    setView({
-      ...view,
+    setSpaceData({
+      ...spaceData,
       [event.target.name]: event.target.value,
     });
   };
@@ -66,20 +65,12 @@ const EditSpace = (props: Props) => {
 
   const editSpace = () => {
     if (
-      validateEmptyText(view.name, 'Space name cannot be empty') &&
+      validateEmptyText(spaceData.name, 'Space name cannot be empty') &&
       validateEmptyText(
-        view.day || view.hour || view.minutes,
+        spaceData.days || spaceData.hours || spaceData.minutes,
         'Session Expiry is not provided'
       )
     ) {
-      const localSessionExpiry = `${+view.day * 24 * 60 +
-        +view.hour * 60 +
-        +view.minutes}`;
-      setSpaceData({
-        ...spaceData,
-        name: view.name,
-        sessionExpiry: localSessionExpiry,
-      });
       dispatch(updateSpace(authorization, spaceData));
     }
   };
@@ -88,28 +79,28 @@ const EditSpace = (props: Props) => {
     <>
       <div className="modal-body">
         <OakText
-          data={view}
+          data={spaceData}
           id="name"
           label="Space Name"
           handleChange={e => handleChange(e)}
         />
         <div className="session-expiry">
           <OakText
-            data={view}
-            id="day"
+            data={spaceData}
+            id="days"
             type="number"
             label="Expiry in days"
             handleChange={e => handleChange(e)}
           />
           <OakText
-            data={view}
-            id="hour"
+            data={spaceData}
+            id="hours"
             type="number"
             label="Expiry in hours"
             handleChange={e => handleChange(e)}
           />
           <OakText
-            data={view}
+            data={spaceData}
             id="minutes"
             type="number"
             label="Expiry in minutes"
