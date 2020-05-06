@@ -6,8 +6,6 @@
 
   font-family: 'Open Sans', sans-serif;
   // font-family: 'Open Sans Condensed', sans-serif;
-  height: var(--height-nav);
-  line-height: var(--height-nav);
 
   .navbar {
     &.desktop {
@@ -38,8 +36,11 @@
     grid-template-columns: auto auto;
     align-items: center;
     font-size: calc(10px + 2vmin);
-    
+
     position: fixed;
+    height: var(--height-nav);
+    line-height: var(--height-nav);
+    background-color: var(--color-background-3);
     width: 100%;
     // box-shadow: 0 0 5px var(--color-background-1);
     // border-bottom: 1px solid var(--color-background-1);
@@ -74,7 +75,6 @@
         &.active {
           color: var(--color-primary-1);
         }
-
 
         &::before {
           transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1);

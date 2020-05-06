@@ -8,7 +8,7 @@ interface Props {
 }
 const Home = (props: Props) => {
   return (
-    <div className="app-page">
+    <div className="app-page-home">
       <div>
         <Navigation {...props} logout={props.logout} />
       </div>
