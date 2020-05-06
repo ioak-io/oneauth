@@ -25,7 +25,7 @@ const ManageApp = (props: Props) => {
     name: '',
     redirect: '',
     jwtpassword: '',
-    protected: '',
+    protected: false,
   });
   const [searchCriteria, setSearchCriteria] = useState({ text: '' });
   const [view, setView] = useState<Array<any> | undefined>(undefined);
@@ -41,7 +41,7 @@ const ManageApp = (props: Props) => {
         name: '',
         redirect: '',
         jwtpassword: '',
-        protected: '',
+        protected: false,
       });
     }
   }, [dialogOpen]);
@@ -104,6 +104,13 @@ const ManageApp = (props: Props) => {
     setData({
       ...data,
       [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleChangeCheckbox = event => {
+    setData({
+      ...data,
+      [event.target.name]: event.target.checked,
     });
   };
 
@@ -179,8 +186,10 @@ const ManageApp = (props: Props) => {
             key={data.name}
             data={data.protected}
             id="protected"
-            label="Protected"
-            handleChange={e => handleChange(e)}
+            label="Protected application"
+            theme="primary"
+            variant="circle"
+            handleChange={e => handleChangeCheckbox(e)}
           />
         </div>
         <div className="modal-footer">

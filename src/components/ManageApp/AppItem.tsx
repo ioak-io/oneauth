@@ -69,7 +69,6 @@ const AppItem = (props: Props) => {
     );
 
     setCountofAdmins(existingAdmins?.length);
-    console.log(oaRoles);
   }, [oaRoles.data.data]);
 
   const editApp = () => {

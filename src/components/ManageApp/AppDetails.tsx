@@ -10,8 +10,11 @@ interface Props {
 
 const AppDetails = (props: Props) => {
   const [appData, setAppData] = useState({
+    _id: '',
     name: '',
     redirect: '',
+    jwtpassword: '',
+    protected: false,
   });
 
   useEffect(() => {
@@ -22,6 +25,13 @@ const AppDetails = (props: Props) => {
     setAppData({
       ...appData,
       [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleChangeCheckbox = event => {
+    setAppData({
+      ...appData,
+      [event.target.name]: event.target.checked,
     });
   };
 
@@ -59,8 +69,10 @@ const AppDetails = (props: Props) => {
         <OakCheckbox
           data={appData}
           id="protected"
-          label="Protected"
-          handleChange={e => handleChange(e)}
+          label="Protected application"
+          theme="primary"
+          disabled
+          handleChange={e => handleChangeCheckbox(e)}
         />
       </div>
       <div className="modal-footer">

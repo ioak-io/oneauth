@@ -1,6 +1,7 @@
 .oak-check-box {
   --ocb-variant-radius: 4px;
   --ocb-theme-bg: var(--color-default);
+  user-select: none;
 
   &.circle {
     --ocb-variant-radius: 50%;
@@ -25,6 +26,8 @@
   &.default {
     --ocb-theme-bg: var(--color-default);
   }
+  margin-top: 16px;
+  margin-bottom: 16px;
 
   .checkbox-container {
     .checkbox input[type='checkbox'] {
@@ -38,6 +41,7 @@
       /*20px width of fake checkbox + 6px distance between fake checkbox and text*/
       padding-left: 26px;
       padding-top: 2.5px;
+      padding-top: 3.5px;
     }
 
     .checkbox label::before,
@@ -63,7 +67,7 @@
        *to vertically center it.
        */
       top: 3px;
-      background-color: var(--color-background-1);
+      // background-color: var(--color-background-1);
     }
 
     /*Checkmark of the fake checkbox*/
@@ -87,7 +91,7 @@
     /*Unhide on the checked state*/
     .checkbox input[type='checkbox']:checked + label::after {
       content: '';
-      color: var(--color-background-1);
+      color: var(--color-foreground-1);
     }
 
     /*Adding focus styles on the outer-box of the fake checkbox*/
@@ -99,6 +103,10 @@
       // outline: rgb(59, 153, 252) auto 5px;
       background-color: var(--ocb-theme-bg);
       border: 1.5px solid var(--ocb-theme-bg);
+    }
+
+    .checkbox input[disabled] + label::before {
+      opacity: 0.5;
     }
   }
 }

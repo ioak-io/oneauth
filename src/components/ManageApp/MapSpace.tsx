@@ -51,7 +51,7 @@ const MapSpace = (props: Props) => {
 
   return (
     <>
-      <div className="">
+      <div className="modal-body">
         <div className="autocomplete-space space-bottom-2">
           <OakAutoComplete
             placeholder="Search by space name"

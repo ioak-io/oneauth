@@ -32,6 +32,13 @@ const EditApp = (props: Props) => {
     });
   };
 
+  const handleChangeCheckbox = event => {
+    setAppData({
+      ...appData,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   const validateEmptyText = (text, message) => {
     if (isEmptyOrSpaces(text)) {
       sendMessage('notification', true, {
@@ -78,8 +85,8 @@ const EditApp = (props: Props) => {
           data={appData}
           theme="primary"
           id="protected"
-          label="Protected"
-          handleChange={e => handleChange(e)}
+          label="Protected application"
+          handleChange={e => handleChangeCheckbox(e)}
         />
       </div>
       <div className="modal-footer">
