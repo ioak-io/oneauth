@@ -164,58 +164,58 @@ const AppItem = (props: Props) => {
             </div>
           </OakPopoverMenu>
         </div>
+
+        <OakModal
+          label="Map Space"
+          visible={spaceMapDialogOpen}
+          toggleVisibility={() => setSpaceMapDialogOpen(!spaceMapDialogOpen)}
+        >
+          <MapSpace
+            app={props.app}
+            toggleVisibilityHandler={() =>
+              setSpaceMapDialogOpen(!spaceMapDialogOpen)
+            }
+          />
+        </OakModal>
+
+        <OakModal
+          label="Edit App"
+          visible={editDialogOpen}
+          toggleVisibility={() => setEditDialogOpen(!editDialogOpen)}
+        >
+          <EditApp
+            app={props.app}
+            toggleVisibilityHandler={() => setEditDialogOpen(!editDialogOpen)}
+          />
+        </OakModal>
+        <OakModal
+          label="App Details"
+          visible={detailsDialogOpen}
+          toggleVisibility={() => setDetailsDialogOpen(!detailsDialogOpen)}
+        >
+          <AppDetails
+            app={props.app}
+            toggleVisibilityHandler={() =>
+              setDetailsDialogOpen(!detailsDialogOpen)
+            }
+          />
+        </OakModal>
+        <OakModal
+          label="App Administrators"
+          visible={adminDialogOpen}
+          toggleVisibility={() => setAdminDialogOpen(!adminDialogOpen)}
+        >
+          <EditAdministrators
+            app={props.app}
+            toggleVisibilityHandler={() => setAdminDialogOpen(!adminDialogOpen)}
+          />
+        </OakModal>
+        <OakPrompt
+          action={() => dispatch(deleteApp(authorization, props.app.appId))}
+          visible={deleteDialogOpen}
+          toggleVisibility={() => setDeleteDialogOpen(!deleteDialogOpen)}
+        />
       </div>
-
-      <OakModal
-        label="Map Space"
-        visible={spaceMapDialogOpen}
-        toggleVisibility={() => setSpaceMapDialogOpen(!spaceMapDialogOpen)}
-      >
-        <MapSpace
-          app={props.app}
-          toggleVisibilityHandler={() =>
-            setSpaceMapDialogOpen(!spaceMapDialogOpen)
-          }
-        />
-      </OakModal>
-
-      <OakModal
-        label="Edit App"
-        visible={editDialogOpen}
-        toggleVisibility={() => setEditDialogOpen(!editDialogOpen)}
-      >
-        <EditApp
-          app={props.app}
-          toggleVisibilityHandler={() => setEditDialogOpen(!editDialogOpen)}
-        />
-      </OakModal>
-      <OakModal
-        label="App Details"
-        visible={detailsDialogOpen}
-        toggleVisibility={() => setDetailsDialogOpen(!detailsDialogOpen)}
-      >
-        <AppDetails
-          app={props.app}
-          toggleVisibilityHandler={() =>
-            setDetailsDialogOpen(!detailsDialogOpen)
-          }
-        />
-      </OakModal>
-      <OakModal
-        label="App Administrators"
-        visible={adminDialogOpen}
-        toggleVisibility={() => setAdminDialogOpen(!adminDialogOpen)}
-      >
-        <EditAdministrators
-          app={props.app}
-          toggleVisibilityHandler={() => setAdminDialogOpen(!adminDialogOpen)}
-        />
-      </OakModal>
-      <OakPrompt
-        action={() => dispatch(deleteApp(authorization, props.app.appId))}
-        visible={deleteDialogOpen}
-        toggleVisibility={() => setDeleteDialogOpen(!deleteDialogOpen)}
-      />
     </>
   );
 };

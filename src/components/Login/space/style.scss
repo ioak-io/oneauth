@@ -1,10 +1,16 @@
 .login {
   .form-signup,
-  .form-signin {
+  .form-signin, .form-reset {
     display: grid;
     grid-auto-flow: row;
     row-gap: 20px;
     margin-top: 20px;
+
+    &.message {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     input {
       // padding: 0 40px 0 10px;
@@ -43,6 +49,13 @@
         align-items: center;
         color: var(--color-warning);
       }
+      .link {
+        color: var(--color-secondary-1);
+        cursor: pointer;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
 
     label {
@@ -64,10 +77,10 @@
   button {
     width: 100%;
     margin: 0px;
-    height: 50px;
+    height: 50px !important;
     font-size: 16px;
     @media (max-width: 767px) {
-      height: 40px;
+      height: 40px !important;
     }
   }
 

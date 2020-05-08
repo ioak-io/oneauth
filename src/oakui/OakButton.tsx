@@ -10,10 +10,11 @@ interface Props {
   variant?:
     | 'block'
     | 'outline'
-    | 'animate in'
-    | 'animate out'
-    | 'animate none'
-    | 'disabled';
+    | 'appear'
+    | 'disappear'
+    | 'regular'
+    | 'disabled'
+    | 'drama';
   theme?: 'primary' | 'secondary' | 'tertiary' | 'default';
   align?: 'left' | 'right' | 'center';
   small?: boolean;

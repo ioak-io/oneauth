@@ -112,7 +112,7 @@ const EditSpace = (props: Props) => {
         <OakButton
           action={props.toggleVisibilityHandler}
           theme="default"
-          variant="animate in"
+          variant="appear"
           align="left"
         >
           <i className="material-icons">close</i>Cancel
@@ -120,7 +120,7 @@ const EditSpace = (props: Props) => {
         <OakButton
           theme="primary"
           action={editSpace}
-          variant="animate none"
+          variant="regular"
           align="right"
         >
           <i className="material-icons">double_arrow</i>Update

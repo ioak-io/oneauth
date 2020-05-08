@@ -48,8 +48,10 @@ const OakIcon = (props: Props) => {
   const getDimension = () => {
     const dimension: any = {};
     dimension.fontSize = props.size ? props.size : '24px';
-    dimension.height = props.size ? props.size : '24px';
-    dimension.width = 'auto';
+    if (props.svg) {
+      dimension.height = props.size ? props.size : '24px';
+      dimension.width = 'auto';
+    }
     return dimension;
   };
   return (

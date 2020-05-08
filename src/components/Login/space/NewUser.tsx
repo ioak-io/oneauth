@@ -87,7 +87,6 @@ const NewUser = (props: Props) => {
       error = true;
       errorState.repeatpassword = 'Password does not match';
     }
-    setErrors(errorState);
     if (!error) {
       httpPost(
         `${baseAuthUrl}/signup`,
@@ -98,17 +97,43 @@ const NewUser = (props: Props) => {
           password: data.password,
         },
         null
-      ).then((response: any) => {
-        if (response.status === 200) {
-          sendMessage('notification', true, {
-            type: 'success',
-            message: 'Your account has been setup',
-            duration: 3000,
-          });
-        }
-      });
+      )
+        .then((response: any) => {
+          if (response.status === 200) {
+            sendMessage('notification', true, {
+              type: 'success',
+              message: 'Your account has been setup',
+              duration: 3000,
+            });
+            props.switchToSigninPage();
+          } else {
+            sendMessage('notification', true, {
+              type: 'failure',
+              message: 'Unknown error',
+              duration: 3000,
+            });
+          }
+        })
+        .catch(e => {
+          if (e.response.status === 403) {
+            error = true;
+            errorState.email = 'User account already exists';
+          } else {
+            sendMessage('notification', true, {
+              type: 'failure',
+              message: 'Unknown error',
+              duration: 3000,
+            });
+          }
+        })
+        .finally(() => {
+          setErrors(errorState);
+          sendMessage('spinner', false);
+        });
+    } else {
+      setErrors(errorState);
+      sendMessage('spinner', false);
     }
-    sendMessage('spinner', false);
   };
 
   const handleChange = event => {
@@ -208,7 +233,7 @@ const NewUser = (props: Props) => {
       </div>
 
       <div className="action">
-        <OakButton variant="animate none" theme="primary" action={signupAction}>
+        <OakButton variant="regular" theme="primary" action={signupAction}>
           Create Account
         </OakButton>
         <p className="hr">or</p>

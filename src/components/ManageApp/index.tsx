@@ -31,6 +31,10 @@ const ManageApp = (props: Props) => {
   const [view, setView] = useState<Array<any> | undefined>(undefined);
 
   useEffect(() => {
+    sendMessage('navbar', true);
+  }, []);
+
+  useEffect(() => {
     setView(search(app.data, searchCriteria.text));
   }, [app.data, searchCriteria]);
 
@@ -123,10 +127,7 @@ const ManageApp = (props: Props) => {
 
   return (
     <>
-      <div className="app-page">
-        <div className="header-image-app">
-          <Navigation {...props} logout={props.logout} />
-        </div>
+      <div className="app-page manage-app">
         <div className="oaapp-container smooth-page">
           <div className="top-actions">
             <div className="search-bar">
@@ -141,7 +142,7 @@ const ManageApp = (props: Props) => {
               <OakButton
                 theme="primary"
                 action={() => setDialogOpen(!dialogOpen)}
-                variant="animate none"
+                variant="regular"
                 icon="blur_on"
               >
                 New App
@@ -150,9 +151,7 @@ const ManageApp = (props: Props) => {
           </div>
           <div className="oaapp-list">
             {view?.map(item => (
-              <div key={item._id}>
-                <AppItem app={item} />
-              </div>
+              <AppItem app={item} key={item._id} />
             ))}
           </div>
         </div>
@@ -196,7 +195,7 @@ const ManageApp = (props: Props) => {
           <OakButton
             action={() => setDialogOpen(!dialogOpen)}
             theme="default"
-            variant="animate in"
+            variant="appear"
             align="left"
           >
             <i className="material-icons">close</i>Cancel
@@ -204,7 +203,7 @@ const ManageApp = (props: Props) => {
           <OakButton
             action={addApp}
             theme="primary"
-            variant="animate out"
+            variant="disappear"
             align="right"
           >
             <i className="material-icons">double_arrow</i>Create

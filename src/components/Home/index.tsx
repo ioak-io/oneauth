@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './style.scss';
 import Navigation from '../Navigation';
+import { sendMessage } from '../../events/MessageService';
 
 interface Props {
   label?: string;
   logout: Function;
 }
 const Home = (props: Props) => {
+  useEffect(() => {
+    sendMessage('navbar', true);
+  }, []);
   return (
-    <div className="app-page-home">
-      <div>
-        <Navigation {...props} logout={props.logout} />
-      </div>
+    <div className="page-home">
       <div className="app-container smooth-page">
         <div className="home">
           <div className="typography-10 space-bottom-2">

@@ -103,17 +103,17 @@ const Mobile = (props: Props) => {
         >
           <div className="action">
             {/* <div className="settings-icon" onClick={props.toggleSettings}>
-                        {props.authorization.isAuth && <OakButton invert variant="animate in" small action={props.toggleSettings}><i className="material-icons">brush</i>Action 1</OakButton>}
+                        {props.authorization.isAuth && <OakButton invert variant="appear" small action={props.toggleSettings}><i className="material-icons">brush</i>Action 1</OakButton>}
                     </div> */}
             <div className="buttons">
               {props.authorization.isAuth && (
-                <OakButton variant="animate in" small action={props.logout}>
+                <OakButton variant="appear" small action={props.logout}>
                   <i className="material-icons">power_settings_new</i>Logout
                 </OakButton>
               )}
               {!props.authorization.isAuth && (
                 <OakButton
-                  variant="animate in"
+                  variant="appear"
                   small
                   action={() => signin('signin')}
                 >
@@ -122,7 +122,7 @@ const Mobile = (props: Props) => {
               )}
               {!props.authorization.isAuth && (
                 <OakButton
-                  variant="animate in"
+                  variant="appear"
                   small
                   action={() => signin('signup')}
                 >

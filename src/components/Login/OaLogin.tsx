@@ -17,6 +17,7 @@ import mirrorBlack from '../../images/ioak_black.svg';
 import SigninPage from './space/SigninPage';
 import NewUser from './space/NewUser';
 import VerifySession from './space/VerifySession';
+import ResetPassword from './space/ResetPassword';
 
 const queryString = require('query-string');
 
@@ -39,34 +40,28 @@ interface Props {
   space: string;
 }
 
-interface State {
-  newuser: boolean;
-  name: string;
-  email: string;
-  password: string;
-  repeatpassword: string;
-}
-
 const Login = (props: Props) => {
   const authorization = useSelector(state => state.authorization);
-  const [data, setData] = useState({
-    newuser: false,
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    repeatpassword: '',
-    resetCode: '',
-  });
+  const [type, setType] = useState('signin');
+  const [resetCode, setResetCode] = useState('');
 
   const [appId, setAppId] = useState('');
   const [verificationStep, setVerificationStep] = useState(false);
 
   useEffect(() => {
+    sendMessage('navbar', false);
+  }, []);
+
+  useEffect(() => {
     if (props.location.search) {
       const query = queryString.parse(props.location.search);
       if (query && query.type === 'signup') {
-        setData({ ...data, newuser: true });
+        setType('signup');
+      } else if (query && query.type === 'reset') {
+        setType('reset');
+      }
+      if (query && query.auth) {
+        setResetCode(query.auth);
       }
       if (query && query.appId) {
         setAppId(query.appId);
@@ -85,60 +80,6 @@ const Login = (props: Props) => {
     }
   }, []);
 
-  const sentEmailWithCode = () => {
-    if (isEmptyOrSpaces(data.email)) {
-      sendMessage('notification', true, {
-        message: 'Email cannot be empty',
-        type: 'failure',
-        duration: 5000,
-      });
-      return;
-    }
-
-    sentPasswordChangeEmailAction('password');
-  };
-
-  const sentPasswordChangeEmailAction = type => {
-    const min = 1;
-    const max = 100;
-    const rand = min + Math.random() * (max - min);
-    sentPasswordChangeEmail(
-      {
-        email: data.email,
-        resetCode: rand,
-      },
-      type
-    )
-      .then((response: any) => {
-        if (response === 200) {
-          if (type === 'password') {
-            sendMessage('notification', true, {
-              message: 'Password sent successfully',
-              type: 'success',
-              duration: 3000,
-            });
-          }
-        } else {
-          sendMessage('notification', true, {
-            type: 'failure',
-            message: 'Invalid Email error',
-            duration: 3000,
-          });
-        }
-      })
-      .catch(error => {
-        sendMessage('notification', true, {
-          type: 'failure',
-          message: 'Bad request',
-          duration: 3000,
-        });
-      });
-  };
-
-  const toggle = () => {
-    setData({ ...data, newuser: !data.newuser });
-  };
-
   return (
     <>
       <div className="oa-login smooth-page">
@@ -151,14 +92,31 @@ const Login = (props: Props) => {
             {props.profile.theme === 'theme_dark' && (
               <img className="logo" src={mirrorWhite} alt="Mirror logo" />
             )}
-            {!verificationStep && !data.newuser && (
+            {!verificationStep && type === 'signin' && (
               <div className="wrapper">
-                <SigninPage switchToSignupPage={toggle} {...props} />
+                <SigninPage
+                  switchToSignupPage={() => setType('signup')}
+                  switchToResetPage={() => setType('reset')}
+                  {...props}
+                />
               </div>
             )}
-            {!verificationStep && data.newuser && (
+            {!verificationStep && type === 'signup' && (
               <div className="wrapper">
-                <NewUser switchToSigninPage={toggle} {...props} />
+                <NewUser
+                  switchToSigninPage={() => setType('signin')}
+                  {...props}
+                />
+              </div>
+            )}
+
+            {!verificationStep && type === 'reset' && (
+              <div className="wrapper">
+                <ResetPassword
+                  {...props}
+                  resetCode={resetCode}
+                  switchToSigninPage={() => setType('signin')}
+                />
               </div>
             )}
 

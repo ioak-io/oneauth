@@ -1,4 +1,4 @@
-.app-page {
+.manage-space {
   height: 100vh;
   // CHANGETBD uncomment below two lines
   // background: url('../../images/1.svg') no-repeat center center;
@@ -10,7 +10,7 @@
   row-gap: 20px;
 
   .space-container {
-    width: 80%;
+    // width: 80%;
     display: grid;
     justify-self: center;
     align-items: flex-start;
@@ -36,15 +36,6 @@
         align-items: center;
       }
     }
-  }
-
-  .header-image-space {
-    height: 40vh;
-    background: url('../../images/managespace.jpg') no-repeat center center;
-    background-size: cover;
-    display: flex;
-    align-items: flex-start;
-    // justify-content: center;
   }
 
   .space-view {

@@ -1,0 +1,28 @@
+.oak-avatar {
+    display: flex;
+    align-items: center;
+    .avatar-icon {
+      background-color: var(--color-primary-1);
+      width: 36px;
+      height: 36px;
+      line-height: 36px;
+      display: flex;
+      justify-content: center;
+      border-radius: 100%;
+  
+      &.large {
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+      }
+  
+      &.small {
+        width: 28px;
+        height: 28px;
+        line-height: 28px;
+      }
+    }
+    .avatar-name {
+      margin-left: 6px;
+    }
+  }

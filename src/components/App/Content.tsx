@@ -100,6 +100,7 @@ const Content = (props: Props) => {
           <div className="body-content">
             <Notification />
             <MuiThemeProvider theme={themes.themecolor1}>
+              <Navigation {...props} logout={logout} />
               <Route
                 exact
                 path="/home"

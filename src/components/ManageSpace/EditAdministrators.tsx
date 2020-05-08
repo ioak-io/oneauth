@@ -104,7 +104,7 @@ const EditAdministrators = (props: Props) => {
         <OakButton
           action={props.toggleVisibilityHandler}
           theme="default"
-          variant="animate in"
+          variant="appear"
           align="left"
         >
           <i className="material-icons">close</i>Close

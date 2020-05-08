@@ -11,6 +11,9 @@ import Mobile from './Mobile';
 import { Authorization, Profile } from '../Types/GeneralTypes';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
+import OakModal from '../../oakui/OakModal';
+import OakTab from '../../oakui/OakTab';
+import ProfileSettings from './ProfileSettings';
 
 interface Props {
   sendEvent: Function;
@@ -29,8 +32,6 @@ interface Props {
   cookies: any;
   location: any;
   match: any;
-  isSpace: boolean;
-  space: string;
 }
 
 const Navigation = (props: Props) => {
@@ -43,16 +44,24 @@ const Navigation = (props: Props) => {
     showSettings: false,
     transparentNavBar: false,
     firstLoad: true,
+    showNavbar: false,
+    editProfileDialog: false,
   });
 
+  const [space, setSpace] = useState('');
+
   useEffect(() => {
-    props.getProfile();
+    receiveMessage().subscribe(event => {
+      if (event.name === 'spaceChange') {
+        setSpace(event.data);
+      }
+    });
   }, []);
 
   useEffect(() => {
     receiveMessage().subscribe(message => {
-      if (message.name === 'navbar-transparency') {
-        setData({ ...data, transparentNavBar: message.signal });
+      if (message.name === 'navbar') {
+        setData({ ...data, showNavbar: message.signal });
       }
       if (message.name === 'loggedin') {
         // props.reloadProfile(nextProps.authorization);
@@ -82,8 +91,8 @@ const Navigation = (props: Props) => {
   };
 
   const login = type => {
-    if (props.isSpace) {
-      props.history.push(`/space/${props.space}/login?type=${type}`);
+    if (space) {
+      props.history.push(`/space/${space}/login?type=${type}`);
     } else {
       props.history.push(`/login?type=${type}`);
     }
@@ -92,21 +101,21 @@ const Navigation = (props: Props) => {
   const logout = () => {
     let baseAuthUrl = '/auth';
     let authKey = props.cookies.get('oneauth');
-    if (props.isSpace) {
-      authKey = props.cookies.get(props.space);
-      baseAuthUrl = `/auth/${props.space}`;
+    if (space) {
+      authKey = props.cookies.get(space);
+      baseAuthUrl = `/auth/${space}`;
     }
 
     httpPost(`${baseAuthUrl}/session/${authKey}/invalidate`, null, null).then(
       (response: any) => {
         if (response.status === 200 || response.status === 404) {
           props.removeAuth();
-          if (props.isSpace) {
-            props.cookies.remove(props.space);
-            props.history.push(`/space/${props.space}/home`);
+          if (space) {
+            props.cookies.remove(space);
+            props.history.push(`/space/${space}/home`);
             sendMessage('notification', true, {
               type: 'success',
-              message: `Signed out of space ${props.space}`,
+              message: `Signed out of space ${space}`,
               duration: 3000,
             });
           } else {
@@ -128,24 +137,43 @@ const Navigation = (props: Props) => {
   };
 
   return (
-    <div className="nav">
-      <Desktop
-        {...props}
-        logout={logout}
-        login={login}
-        toggleSettings={toggleSettings}
-        transparent={data.transparentNavBar}
-        toggleDarkMode={toggleDarkMode}
-      />
-      <Mobile
-        {...props}
-        logout={logout}
-        login={login}
-        toggleSettings={toggleSettings}
-        transparent={data.transparentNavBar}
-        toggleDarkMode={toggleDarkMode}
-      />
-    </div>
+    <>
+      {data.showNavbar && (
+        <div className="nav">
+          <Desktop
+            {...props}
+            logout={logout}
+            login={login}
+            toggleSettings={toggleSettings}
+            transparent={data.transparentNavBar}
+            toggleDarkMode={toggleDarkMode}
+            space={space}
+            editProfile={() => setData({ ...data, editProfileDialog: true })}
+          />
+          <Mobile
+            {...props}
+            logout={logout}
+            login={login}
+            toggleSettings={toggleSettings}
+            transparent={data.transparentNavBar}
+            toggleDarkMode={toggleDarkMode}
+            space={space}
+          />
+          <OakModal
+            fullscreen
+            label="User profile settings"
+            visible={data.editProfileDialog}
+            toggleVisibility={() =>
+              setData({ ...data, editProfileDialog: !data.editProfileDialog })
+            }
+          >
+            <div className="modal-body">
+              <ProfileSettings space={space} />
+            </div>
+          </OakModal>
+        </div>
+      )}
+    </>
   );
 };
 

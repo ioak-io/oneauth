@@ -31,16 +31,13 @@
       }
     }
 
-    // background-color: var(--color-nav);
+    background-color: var(--color-nav);
     display: grid;
     grid-template-columns: auto auto;
     align-items: center;
     font-size: calc(10px + 2vmin);
-
-    position: fixed;
     height: var(--height-nav);
-    line-height: var(--height-nav);
-    background-color: var(--color-background-3);
+    position: fixed;
     width: 100%;
     // box-shadow: 0 0 5px var(--color-background-1);
     // border-bottom: 1px solid var(--color-background-1);
@@ -55,7 +52,7 @@
     .links {
       display: flex;
       a {
-        color: var(--color-foreground-1);
+        color: var(--color-foreground-2);
         position: relative;
         transition: all 0.5s;
         text-decoration: none;
@@ -64,20 +61,43 @@
         padding-left: 2px;
         padding-right: 2px;
         // text-transform: uppercase;
-        &:hover {
-          // color: var(--color-foreground-1);
-          color: var(--color-foreground-2);
-          &::after {
-            //   width: 95%;
-          }
-        }
-
-        &.active {
-          color: var(--color-primary-1);
-        }
 
         &::before {
           transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        &::after {
+          position: absolute;
+          bottom: -20%;
+          left: 0;
+          right: 0;
+          margin: auto;
+          width: 0%;
+          content: '.';
+          color: transparent;
+          background: var(--color-foreground-1);
+          height: 4px;
+          transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+
+        &.active {
+          color: var(--color-foreground-1);
+
+          &::after {
+            width: 95%;
+            background: var(--color-primary-1);
+            // height: 4px;
+            transition: all 0.3s cubic-bezier(0.7, 0, 0.3, 1);
+            // transition-delay: 1s;
+          }
+        }
+
+        &:hover {
+          // color: var(--color-foreground-1);
+          color: var(--color-primary-1);
+          &::after {
+            //   width: 95%;
+          }
         }
       }
     }
@@ -108,6 +128,30 @@
       .menu {
         // margin: 1em;
         width: 25px;
+      }
+
+      .menu:after,
+      .menu:before,
+      .menu div {
+        background-color: var(--color-foreground-1);
+        border-radius: 3px;
+        content: '';
+        display: block;
+        height: 2px;
+        margin: 7px 0;
+        transition: all 0.2s ease-in-out;
+      }
+
+      .menu.active:before {
+        transform: translateY(9px) rotate(135deg);
+      }
+
+      .menu.active:after {
+        transform: translateY(-9px) rotate(-135deg);
+      }
+
+      .menu.active div {
+        transform: scale(0);
       }
     }
 

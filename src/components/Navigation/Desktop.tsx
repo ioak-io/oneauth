@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import './style.scss';
 import mirrorWhite from '../../images/ioak_white.svg';
@@ -10,6 +11,8 @@ import { Authorization, Profile } from '../Types/GeneralTypes';
 import { receiveMessage } from '../../events/MessageService';
 import SearchBar from '../../oakui/SearchBar';
 import OakButton from '../../oakui/OakButton';
+import OakAvatar from '../../oakui/OakAvatar';
+import OakPopoverMenu from '../../oakui/OakPopoverMenu';
 
 interface Props {
   sendEvent: Function;
@@ -25,14 +28,44 @@ interface Props {
   logout: Function;
   toggleSettings: any;
   space: string;
+  editProfile: Function;
 }
 
 const Desktop = (props: Props) => {
   const [showSearchBar, setShowSearchBar] = useState(false);
+  const authorization = useSelector(state => state.authorization);
+  const [userProfileActions, setUserProfileActions] = useState<any[] | []>([]);
 
   useEffect(() => {
-    props.getProfile();
-  }, []);
+    if (authorization.isAuth) {
+      setUserProfileActions([
+        {
+          label: 'Profile settings',
+          action: props.editProfile,
+          icon: 'settings',
+        },
+        {
+          label: 'Sign out',
+          action: props.logout,
+          icon: 'exit_to_app',
+        },
+      ]);
+    } else {
+      console.log(props.space);
+      setUserProfileActions([
+        {
+          label: 'Sign in',
+          action: () => signin('signin'),
+          icon: 'person',
+        },
+        {
+          label: 'Sign up',
+          action: () => signin('signup'),
+          icon: 'person_add',
+        },
+      ]);
+    }
+  }, [authorization.isAuth, props.space]);
 
   useEffect(() => {
     receiveMessage().subscribe(message => {
@@ -72,42 +105,22 @@ const Desktop = (props: Props) => {
             space={props.space}
           />
         )}
-        {showSearchBar && <SearchBar alt />}
       </div>
       <div className="right">
         <div className="action">
-          {props.authorization.isAuth && (
-            <OakButton
-              theme="primary"
-              variant="disabled"
-              small
-              action={props.logout}
-            >
-              <i className="material-icons">power_settings_new</i>Logout
-            </OakButton>
-          )}
-          {!props.authorization.isAuth && (
-            <OakButton
-              theme="primary"
-              variant="animate in"
-              align="left"
-              small
-              action={() => signin('signin')}
-            >
-              <i className="material-icons">person</i>Login
-            </OakButton>
-          )}
-          {!props.authorization.isAuth && (
-            <OakButton
-              theme="primary"
-              variant="animate in"
-              align="right"
-              small
-              action={() => signin('signup')}
-            >
-              <i className="material-icons">person_add</i>Signup
-            </OakButton>
-          )}
+          <OakPopoverMenu elements={userProfileActions} theme="primary" right>
+            <div slot="label" className="action-item">
+              {authorization?.isAuth && (
+                <OakAvatar
+                  firstName={authorization?.firstName}
+                  lastName={authorization?.lastName}
+                />
+              )}
+              {!authorization?.isAuth && (
+                <i className="material-icons">person</i>
+              )}
+            </div>
+          </OakPopoverMenu>
         </div>
       </div>
     </div>

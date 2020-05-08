@@ -178,7 +178,7 @@ const Tenant = (props: Props) => {
               errorFields={errorFields}
             />
             <div className="action">
-              <OakButton theme="primary" variant="animate in" action={submit}>
+              <OakButton theme="primary" variant="appear" action={submit}>
                 Create Tenant
               </OakButton>
             </div>
@@ -192,7 +192,7 @@ const Tenant = (props: Props) => {
           </div>
           <OakButton
             theme="primary"
-            variant="animate out"
+            variant="disappear"
             action={gotoTenantPage}
           >
             Take me to my tenant

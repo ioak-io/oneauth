@@ -15,6 +15,7 @@ import { fetchApp } from '../../../actions/AppActions';
 import fetchUsers from '../../../actions/OaUserAction';
 import { fetchRoles } from '../../../actions/OaRoleActions';
 import { setProfile } from '../../../actions/ProfileActions';
+import OakIcon from '../../../oakui/OakIcon';
 
 interface Props {
   setProfile: Function;
@@ -26,6 +27,7 @@ interface Props {
   authorization: Authorization;
   appId: string;
   switchToSignupPage: any;
+  switchToResetPage: any;
   isSpaceLogin: boolean;
   space: string;
 }
@@ -38,15 +40,38 @@ const SigninPage = (props: Props) => {
     password: '',
   });
 
+  const [errors, setErrors] = useState({
+    email: '',
+    password: '',
+  });
+
   const signinAction = event => {
     event.preventDefault();
     let baseAuthUrl = '/auth';
     if (props.isSpaceLogin) {
       baseAuthUrl = `/auth/${props.space}`;
     }
+    const errorState = {
+      email: '',
+      password: '',
+    };
+    let error = false;
     sendMessage('notification', false);
     sendMessage('spinner');
-    if (data.email && data.password) {
+    if (isEmptyOrSpaces(data.email)) {
+      error = true;
+      errorState.email = 'Cannot be empty';
+    } else if (
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)
+    ) {
+      error = true;
+      errorState.email = 'Invalid email';
+    }
+    if (isEmptyOrSpaces(data.password)) {
+      error = true;
+      errorState.password = 'Cannot be empty';
+    }
+    if (!error) {
       httpPost(
         `${baseAuthUrl}/authorize`,
         {
@@ -75,13 +100,11 @@ const SigninPage = (props: Props) => {
                     );
                     redirectToRequestedApp(authorizeResponse, sessionResponse);
                   } else {
-                    console.log('proceed to token fetch');
                     success(authorizeResponse, sessionResponse);
                   }
                 }
               })
               .catch((error: any) => {
-                console.log(error);
                 if (error.response.status === 404) {
                   sendMessage('notification', true, {
                     type: 'failure',
@@ -100,25 +123,18 @@ const SigninPage = (props: Props) => {
         })
         .catch((error: any) => {
           if (error.response.status === 404) {
-            sendMessage('notification', true, {
-              type: 'failure',
-              message: 'User account does not exist',
-              duration: 3000,
-            });
+            errorState.email = 'User account does not exist';
           } else if (error.response.status === 401) {
-            sendMessage('notification', true, {
-              type: 'failure',
-              message: 'User name / Password incorrect',
-              duration: 3000,
-            });
+            errorState.password = 'Incorrect password';
           }
+        })
+        .finally(() => {
+          setErrors(errorState);
+          sendMessage('spinner', false);
         });
     } else {
-      sendMessage('notification', true, {
-        type: 'failure',
-        message: 'Username/password cannot be empty',
-        duration: 3000,
-      });
+      setErrors(errorState);
+      sendMessage('spinner', false);
     }
   };
 
@@ -187,18 +203,6 @@ const SigninPage = (props: Props) => {
   };
 
   const success = (authorizeResponse, sessionResponse) => {
-    // const data = {
-    //   isAuth: true,
-    //   token: sessionResponse.data.token,
-    //   secret: '',
-    //   firstName: sessionResponse.data.firstName,
-    //   lastName: sessionResponse.data.lastName,
-    //   email: sessionResponse.data.email,
-    //   authKey: authorizeResponse.data.auth_key,
-    // };
-    console.log(data);
-    // props.addAuth(data);
-    // dispatch(setProfile({ appStatus: 'authenticated' }));
     sendMessage('loggedin', true);
     if (props.isSpaceLogin) {
       props.cookies.set(props.space, authorizeResponse.data.auth_key);
@@ -226,22 +230,44 @@ const SigninPage = (props: Props) => {
   return (
     <form method="GET" onSubmit={signinAction} noValidate className="login">
       <div className="form-signin">
-        <OakTextPlain
-          id="email"
-          label="E-mail"
-          data={data}
-          handleChange={e => handleChange(e)}
-        />
-        <OakTextPlain
-          type="password"
-          id="password"
-          label="Password"
-          data={data}
-          handleChange={e => handleChange(e)}
-        />
+        <div>
+          <div className="label">
+            {!errors.email && <div className="label-text">Email</div>}
+            {errors.email && (
+              <div className="error-text">
+                <OakIcon mat="warning" color="warning" size="20px" />
+                {errors.email}
+              </div>
+            )}
+          </div>
+          <OakTextPlain
+            id="email"
+            data={data}
+            handleChange={e => handleChange(e)}
+          />
+        </div>
+        <div>
+          <div className="label">
+            {!errors.password && <div className="label-text">Password</div>}
+            {errors.password && (
+              <div className="error-text">
+                <OakIcon mat="warning" color="warning" size="20px" />
+                {errors.password}
+              </div>
+            )}
+            <div className="link" onClick={props.switchToResetPage}>
+              Forgot Password?
+            </div>
+          </div>
+          <OakTextPlain
+            id="password"
+            data={data}
+            handleChange={e => handleChange(e)}
+          />
+        </div>
       </div>
       <div className="action">
-        <OakButton variant="animate none" theme="primary" action={signinAction}>
+        <OakButton variant="regular" theme="primary" action={signinAction}>
           Log In
         </OakButton>
         <p className="hr">or</p>

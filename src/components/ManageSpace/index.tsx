@@ -33,6 +33,10 @@ const ManageSpace = (props: Props) => {
   const [view, setView] = useState<Array<any> | undefined>(undefined);
 
   useEffect(() => {
+    sendMessage('navbar', true);
+  }, []);
+
+  useEffect(() => {
     setView(search(space.data, searchCriteria.text));
   }, [space.data, searchCriteria]);
 
@@ -141,10 +145,7 @@ const ManageSpace = (props: Props) => {
 
   return (
     <>
-      <div className="app-page">
-        <div className="header-image-space">
-          <Navigation {...props} logout={props.logout} />
-        </div>
+      <div className="app-page manage-space">
         <div className="space-container smooth-page">
           <div className="top-actions">
             <div className="search-bar">
@@ -159,7 +160,7 @@ const ManageSpace = (props: Props) => {
               <OakButton
                 theme="primary"
                 action={() => setDialogOpen(!dialogOpen)}
-                variant="animate none"
+                variant="regular"
                 icon="blur_on"
               >
                 New space
@@ -237,7 +238,7 @@ const ManageSpace = (props: Props) => {
           <OakButton
             action={() => setDialogOpen(!dialogOpen)}
             theme="default"
-            variant="animate in"
+            variant="appear"
             align="left"
             icon="close"
           >
@@ -246,7 +247,7 @@ const ManageSpace = (props: Props) => {
           <OakButton
             action={addSpace}
             theme="primary"
-            variant="animate out"
+            variant="disappear"
             align="right"
             icon="double_arrow"
           >

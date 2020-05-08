@@ -67,8 +67,8 @@ const OakSidebar = (props: Props) => {
         data-test="content-holder"
         className={
           show
-            ? `content show ${props.animate ? 'animate in' : 'static'}`
-            : `content hide ${props.animate ? 'animate in' : 'static'}`
+            ? `content show ${props.animate ? 'appear' : 'static'}`
+            : `content hide ${props.animate ? 'appear' : 'static'}`
         }
       >
         {elements}

@@ -67,6 +67,7 @@ const OakRoute = (props: Props) => {
   };
 
   const runMidleware = middlewareName => {
+    sendMessage('spaceChange', true, '');
     switch (middlewareName) {
       case 'readAuthenticationSpace':
         return readAuthenticationSpace();
@@ -97,6 +98,9 @@ const OakRoute = (props: Props) => {
   };
 
   const authenticate = (type, redirect = true) => {
+    if (type === 'space') {
+      sendMessage('spaceChange', true, props.match.params.tenant);
+    }
     if (authorization.isAuth) {
       return true;
     }

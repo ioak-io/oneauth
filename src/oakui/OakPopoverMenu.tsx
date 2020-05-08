@@ -23,7 +23,7 @@ const OakPopoverMenu = (props: Props) => {
 
   useEffect(() => {
     initializeViews();
-  }, []);
+  }, [props.children]);
 
   const initializeViews = () => {
     let newSlots = {};

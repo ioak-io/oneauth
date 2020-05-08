@@ -25,11 +25,11 @@ const OakModal = (props: Props) => {
   }, [props.visible]);
 
   useEffect(() => {
-    if (visible) {
-      document.body.classList.add('oak-modal-open');
-    } else {
-      document.body.classList.remove('oak-modal-open');
-    }
+    // if (visible) {
+    //   document.body.classList.add('oak-modal-open');
+    // } else {
+    //   document.body.classList.remove('oak-modal-open');
+    // }
     document.addEventListener('keydown', escFunction, false);
     return () => document.removeEventListener('keydown', escFunction, false);
   }, [visible]);
