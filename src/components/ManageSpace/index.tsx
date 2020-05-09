@@ -107,20 +107,7 @@ const ManageSpace = (props: Props) => {
           duration: 5000,
         });
       } else {
-        // const sessionExpiry =
-        //   +data.day * 24 * 60 + +data.hour * 60 + +data.minutes;
-        dispatch(
-          createSpace(
-            auth,
-            //   {
-            //   name: data.name,
-            //   email: data.email,
-            //   password: data.password,
-            //   sessionExpiry,
-            // }
-            data
-          )
-        );
+        dispatch(createSpace(auth, data));
       }
     }
   };

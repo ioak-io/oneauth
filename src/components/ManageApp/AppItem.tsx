@@ -21,6 +21,7 @@ interface Props {
 const AppItem = (props: Props) => {
   const dispatch = useDispatch();
   const oaRoles = useSelector(state => state.oaRoles);
+  const appSpace = useSelector(state => state.appSpace);
   const authorization = useSelector(state => state.authorization);
 
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -29,6 +30,7 @@ const AppItem = (props: Props) => {
   const [spaceMapDialogOpen, setSpaceMapDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [countOfAdmins, setCountofAdmins] = useState<undefined | number>(0);
+  const [countOfSpaces, setCountOfSpaces] = useState<undefined | number>(0);
 
   useEffect(() => {
     const eventBus = receiveMessage().subscribe(message => {
@@ -67,10 +69,16 @@ const AppItem = (props: Props) => {
     const existingAdmins = oaRoles.data.data?.filter(
       item => item.domainId === props.app._id
     );
-
     setCountofAdmins(existingAdmins?.length);
-    console.log(oaRoles);
   }, [oaRoles.data.data]);
+
+  useEffect(() => {
+    const connectedSpace = appSpace.data?.filter(
+      item => item.appId === props.app._id
+    );
+    console.log(connectedSpace.length);
+    setCountOfSpaces(connectedSpace.length);
+  }, [appSpace.data]);
 
   const editApp = () => {
     setEditDialogOpen(true);
@@ -155,7 +163,11 @@ const AppItem = (props: Props) => {
             <div className="administrators" onClick={editAdmin}>
               {countOfAdmins} Administrators
             </div>
-            <div>2 Connected Space</div>
+            <div>
+              {props.app.protected
+                ? `${countOfSpaces} Connected Space(s)`
+                : `Open App`}
+            </div>
           </div>
         </div>
         <div className="action space-top-0">
