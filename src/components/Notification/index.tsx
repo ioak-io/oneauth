@@ -42,8 +42,8 @@ const Notification = () => {
         } else {
           removeNotification(message.data);
           addNotification(message.data);
-          // this.notification = message.data;
-          // this.spinner = false;
+          // turn off spinner when a notification arrives
+          setSpinner(false);
 
           // if (message.data && message.data.duration) {
           //   setTimeout(() => {
@@ -63,23 +63,21 @@ const Notification = () => {
   return (
     <>
       {notificationList && notificationList.length > 0 && (
-        <div>
-          <div className="notification">
-            {notificationList
-              .slice(0, 5)
-              .reverse()
-              .map(notification => (
-                <div key={notification.id || notification.message}>
-                  <NotificationMessage
-                    notification={notification}
-                    handleRemove={removeNotification}
-                  />
-                </div>
-              ))}
-          </div>
-          {spinner && <div className="lds-dual-ring" />}
+        <div className="notification">
+          {notificationList
+            .slice(0, 5)
+            .reverse()
+            .map(notification => (
+              <div key={notification.id || notification.message}>
+                <NotificationMessage
+                  notification={notification}
+                  handleRemove={removeNotification}
+                />
+              </div>
+            ))}
         </div>
       )}
+      {spinner && <div data-test="spinner" className="lds-dual-ring" />}
     </>
   );
 };
