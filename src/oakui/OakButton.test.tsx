@@ -46,8 +46,7 @@ describe('button component conditional styling', () => {
 
   it('should render the chosen variant', () => {
     const wrapper = shallow(<OakButton variant="appear" />);
-    expect(wrapper.hasClass('animate')).toBeTruthy();
-    expect(wrapper.hasClass('in')).toBeTruthy();
+    expect(wrapper.hasClass('appear')).toBeTruthy();
     expect(wrapper.hasClass('outline')).toBeFalsy();
   });
 

@@ -8,6 +8,7 @@ import OakTab from '../../oakui/OakTab';
 import OakText from '../../oakui/OakText';
 import OakButton from '../../oakui/OakButton';
 import { httpPost } from '../Lib/RestTemplate';
+import { sendMessage } from '../../events/MessageService';
 
 interface Props {
   space: string;
@@ -57,9 +58,29 @@ const ProfileSettings = (props: Props) => {
             repeatPassword: '',
           });
         } else {
+          sendMessage('notification', true, {
+            type: 'failure',
+            message: 'Failed with error',
+            duration: 3000,
+          });
         }
       })
-      .catch(() => {});
+      .catch(error => {
+        if (error.response.status === 401) {
+          sendMessage('notification', true, {
+            type: 'failure',
+            message:
+              'Password incorrect. Please enter your right credentials to update password',
+            duration: 3000,
+          });
+        } else {
+          sendMessage('notification', true, {
+            type: 'failure',
+            message: 'Failed with error',
+            duration: 3000,
+          });
+        }
+      });
   };
   return (
     <div className="profile-settings">

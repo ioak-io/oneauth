@@ -1,24 +1,86 @@
 .notification {
-  height: 60px;
-  @media (max-width: 767px) {
-    height: 50px;
-  }
-  width: 100%;
-  bottom: 0px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: auto;
+  left: 30px;
+  bottom: 30px;
   font-weight: 700;
-  font-size: 1.5em;
-  color: var(--color-foreground-1);
+  font-size: 1em;
+  color: var(--color-white);
   position: fixed;
   z-index: 11;
-  &.success {
-    background-color: var(--color-success);
+  height: 40px;
+  line-height: 40px;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-start;
+  .message {
+    // background-color: var(--color-notification-type);
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    position: relative;
+    background-color: var(--color-background-4);
+    padding: 10px 0px 10px 10px;
+    font-size: 0.9em;
+    border-left: 6px solid var(--color-notification-type);
+    margin-top: 6px;
+    box-shadow: var(--bs-lg);
+
+    --color-notification-type: var(--color-tertiary-1);
+    &.success {
+      --color-notification-type: var(--color-success);
+    }
+    &.warning {
+      --color-notification-type: var(--color-warning);
+    }
+    &.failure {
+      --color-notification-type: var(--color-failure);
+    }
+    .material-icons {
+      vertical-align: middle;
+      // font-size: 50px;
+    }
+
+    .message-icon {
+      margin-right: 8px;
+      // color: var(--color-notification-type);
+    }
+
+    .message-action {
+      cursor: pointer;
+      color: var(--color-foreground-2);
+      .material-icons {
+        font-size: 16px;
+        margin: 0px 10px;
+      }
+      &:hover {
+        color: var(--color-foreground-1);
+      }
+    }
   }
 
-  &.failure {
-    background-color: var(--color-failure);
+  .message-icon {
+    &.running {
+      .material-icons {
+        animation: rotating 2s linear infinite;
+      }
+    }
+  }
+
+  @keyframes rotating {
+    from {
+      -ms-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+    to {
+      -ms-transform: rotate(360deg);
+      -moz-transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+    }
   }
 
   &.show {
@@ -31,13 +93,6 @@
     transform: translateX(-150vw);
     // background-color: var(--color-foreground-2);
   }
-
-  .message {
-    font-size: 0.9em;
-    @media (max-width: 767px) {
-      font-size: 0.6em;
-    }
-  }
 }
 
 .spinner {
@@ -46,40 +101,6 @@
   z-index: 1031;
   top: 50%;
   right: 50%;
-}
-
-.spinner-2 {
-  display: block;
-  position: fixed;
-  z-index: 1031;
-  top: 50%;
-  right: 50%;
-  border: 10px solid var(--color-foreground-3);
-  border-radius: 50%;
-  border-top: 10px solid var(--color-primary-1);
-  width: 64px;
-  height: 64px;
-  -webkit-animation: spin 1s linear infinite; /* Safari */
-  animation: spin 1s linear infinite;
-}
-
-/* Safari */
-@-webkit-keyframes spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
 
 .lds-dual-ring {

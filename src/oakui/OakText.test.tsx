@@ -21,7 +21,7 @@ describe('text field component interaction', () => {
         handleChange={mockHandleChangeFucntion}
       />
     );
-    expect(wrapper.find('.oak-text-field')).toHaveLength(1);
+    expect(wrapper.find('.oak-text')).toHaveLength(1);
   });
 
   it('should show textarea if multiline is set', () => {
