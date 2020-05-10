@@ -27,6 +27,8 @@ const SpaceItem = (props: Props) => {
   const [adminDialogOpen, setAdminDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [countOfAdmins, setCountofAdmins] = useState<undefined | number>(0);
+  const appSpace = useSelector(state => state.appSpace);
+  const [countOfApps, setCountOfApps] = useState<undefined | number>(0);
 
   useEffect(() => {
     const eventBus = receiveMessage().subscribe(message => {
@@ -73,6 +75,16 @@ const SpaceItem = (props: Props) => {
     setCountofAdmins(existingAdmins?.length);
   }, [oaRoles.data.data]);
 
+  useEffect(() => {
+    console.log(appSpace);
+    console.log(props.space.spaceId);
+    const connectedApp = appSpace.data?.filter(
+      item => item.spaceId === props.space.spaceId
+    );
+    console.log(connectedApp);
+    setCountOfApps(connectedApp.length);
+  }, [appSpace.data]);
+
   const editSpace = () => {
     setEditDialogOpen(true);
   };
@@ -115,9 +127,13 @@ const SpaceItem = (props: Props) => {
           <div className="title typography-8">{`${props.space.name} (${props.space.spaceId})`}</div>
           <div className="statistics typography-4">
             <div className="administrators" onClick={editAdmin}>
-              {countOfAdmins} Administrators
+              {countOfAdmins} Administrator(s)
             </div>
-            <div className="connected-apps">2 Connected Apps</div>
+            <div className="connected-apps">
+              {countOfApps && countOfApps !== 0
+                ? `${countOfApps} Connected App(s)`
+                : `Connected to Open Apps`}
+            </div>
           </div>
         </div>
         <div className="action space-top-0">

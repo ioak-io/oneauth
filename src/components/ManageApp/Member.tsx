@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteRoles } from '../../actions/OaRoleActions';
 import './member.scss';
-import { deleteAppSpace } from '../../actions/AppSpaceAction';
 
 interface Props {
   member: any;
@@ -40,14 +39,16 @@ const Member = (props: Props) => {
         <div className="typography-6">{`${props.member.lastName}, ${props.member.firstName}`}</div>
       </>
       <div className="action">
-        {!confirmPromptOpen && (
-          <div
-            className="action-item delete"
-            onClick={() => setConfirmPromptOpen(!confirmPromptOpen)}
-          >
-            X
-          </div>
-        )}
+        {!confirmPromptOpen &&
+          props.member.email !== props.owner &&
+          props.member._id !== props.owner && (
+            <div
+              className="action-item delete"
+              onClick={() => setConfirmPromptOpen(!confirmPromptOpen)}
+            >
+              X
+            </div>
+          )}
         {confirmPromptOpen && (
           <>
             <div
