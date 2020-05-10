@@ -1,12 +1,14 @@
 .member {
   display: grid;
-  grid-template-columns: repeat(2, 1fr) auto;
+  grid-template-columns: repeat(3, minmax(10px, 1fr));
   padding: 10px 0;
   border-bottom: 1px solid var(--color-background-5);
   .action {
     display: grid;
     grid-auto-flow: column;
     column-gap: 6px;
+    justify-content: flex-end;
+    align-items: flex-start;
     .action-item {
       padding: 4px 10px;
       cursor: pointer;
