@@ -5,6 +5,7 @@ import OakButton from '../../oakui/OakButton';
 import { updateApp } from '../../actions/AppActions';
 import { isEmptyOrSpaces } from '../Utils';
 import { sendMessage } from '../../events/MessageService';
+import OakCheckbox from '../../oakui/OakCheckbox';
 
 interface Props {
   app: any;
@@ -17,6 +18,7 @@ const EditApp = (props: Props) => {
   const [appData, setAppData] = useState({
     name: '',
     redirect: '',
+    protected: '',
   });
 
   useEffect(() => {
@@ -27,6 +29,13 @@ const EditApp = (props: Props) => {
     setAppData({
       ...appData,
       [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleChangeCheckbox = event => {
+    setAppData({
+      ...appData,
+      [event.target.name]: event.target.checked,
     });
   };
 
@@ -54,20 +63,37 @@ const EditApp = (props: Props) => {
   return (
     <>
       <div className="modal-body two-column">
-        <div className="typography-5">App Name</div>
-        <OakText data={appData} id="name" handleChange={e => handleChange(e)} />
-        <div className="typography-5">Redirect url</div>
+        <OakText
+          data={appData}
+          id="name"
+          label="Application Name"
+          handleChange={e => handleChange(e)}
+        />
         <OakText
           data={appData}
           id="redirect"
+          label="Redirect URL"
           handleChange={e => handleChange(e)}
+        />
+        <OakText
+          data={appData}
+          id="jwtpassword"
+          label="JWT Password"
+          handleChange={e => handleChange(e)}
+        />
+        <OakCheckbox
+          data={appData}
+          theme="primary"
+          id="protected"
+          label="Protected application"
+          handleChange={e => handleChangeCheckbox(e)}
         />
       </div>
       <div className="modal-footer">
         <OakButton
           action={props.toggleVisibilityHandler}
           theme="default"
-          variant="animate in"
+          variant="appear"
           align="left"
         >
           <i className="material-icons">close</i>Cancel
@@ -75,7 +101,7 @@ const EditApp = (props: Props) => {
         <OakButton
           theme="primary"
           action={editSpace}
-          variant="animate none"
+          variant="regular"
           align="right"
         >
           <i className="material-icons">double_arrow</i>Update

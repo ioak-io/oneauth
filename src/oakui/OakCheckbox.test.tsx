@@ -28,7 +28,7 @@ describe('checkbox component interaction', () => {
     wrapper.find('input').simulate('change', mockEventToTurnOn);
     expect(mockHandleChange.mock.calls.length).toBe(1);
     expect(mockHandleChange).toBeCalledWith({
-      target: { checked: true, value: true },
+      target: { checked: true },
     });
   });
 
@@ -42,7 +42,7 @@ describe('checkbox component interaction', () => {
     wrapper.find('input').simulate('change', mockEventToTurnOff);
     expect(mockHandleChange.mock.calls.length).toBe(1);
     expect(mockHandleChange).toBeCalledWith({
-      target: { checked: false, value: '' },
+      target: { checked: false },
     });
   });
 

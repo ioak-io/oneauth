@@ -9,10 +9,10 @@ interface Props {
   labelPosition?: 'left' | 'right';
   variant?: 'circle' | 'square';
   theme?: 'primary' | 'secondary' | 'tertiary' | 'default';
+  disabled?: boolean;
 }
 function OakCheckbox(props: Props) {
   function handleChange(event) {
-    event.target.value = event.target.checked ? true : '';
     props.handleChange(event);
   }
 
@@ -24,7 +24,7 @@ function OakCheckbox(props: Props) {
 
   return (
     <div className={`oak-check-box ${getStyle()}`}>
-      <div className="container">
+      <div className="checkbox-container">
         {/* {props.label && props.labelPosition === 'left' && <div>
                     {props.label}
                 </div>} */}
@@ -37,6 +37,7 @@ function OakCheckbox(props: Props) {
             checked={props.data[props.id]}
             id={props.id}
             onChange={e => handleChange(e)}
+            disabled={props.disabled}
           />
           <label className="typography-5" htmlFor={props.id}>
             {props.label}

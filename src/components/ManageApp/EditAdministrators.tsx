@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import OakAutoComplete from '../../oakui/OakAutoComplete';
-import {
-  updateRoles,
-  fetchRoles,
-  deleteRoles,
-} from '../../actions/OaRoleActions';
-import OakPrompt from '../../oakui/OakPrompt';
+import { updateRoles, fetchRoles } from '../../actions/OaRoleActions';
 import OakButton from '../../oakui/OakButton';
+import Member from './Member';
 
 interface Props {
   app: any;
@@ -19,12 +15,7 @@ const EditAdministrators = (props: Props) => {
   const authorization = useSelector(state => state.authorization);
   const oaUsers = useSelector(state => state.oaUsers);
   const oaRoles = useSelector(state => state.oaRoles);
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [items, setItems] = useState<undefined | any[]>([{}]);
-  const [administrators, setAdministrators] = useState({
-    userId: '',
-    domainId: '',
-  });
   const [data, setData] = useState({
     autoCompleteDropdownData: [{}],
   });
@@ -81,16 +72,6 @@ const EditAdministrators = (props: Props) => {
     );
   };
 
-  const confirmDeleteRole = userId => {
-    console.log(userId, props.app._id);
-    setAdministrators({
-      ...administrators,
-      userId,
-      domainId: props.app._id,
-    });
-    setDeleteDialogOpen(true);
-  };
-
   return (
     <>
       <div className="modal-body">
@@ -111,19 +92,13 @@ const EditAdministrators = (props: Props) => {
             <div className="label" />
           </div>
           {items?.map(item => (
-            <div className="list-view-item" key={item._id}>
-              <div className="title typography-6">{item.email}</div>
-              <div className="typography-6">{`${item.lastName}, ${item.firstName}`}</div>
-              <div className="item-delete">
-                <i
-                  data-test="article-delete"
-                  onClick={() => confirmDeleteRole(item._id)}
-                  className="material-icons"
-                >
-                  delete
-                </i>
-              </div>
-            </div>
+            <Member
+              member={item}
+              domainId={props.app._id}
+              domainType="app"
+              key={item._id}
+              owner={props.app.createdBy}
+            />
           ))}
         </div>
       </div>
@@ -131,28 +106,12 @@ const EditAdministrators = (props: Props) => {
         <OakButton
           action={props.toggleVisibilityHandler}
           theme="default"
-          variant="animate in"
+          variant="appear"
           align="left"
         >
           <i className="material-icons">close</i>Close
         </OakButton>
       </div>
-      {deleteDialogOpen && (
-        <OakPrompt
-          action={() =>
-            dispatch(
-              deleteRoles(
-                authorization,
-                'app',
-                administrators.userId,
-                administrators.domainId
-              )
-            )
-          }
-          visible={deleteDialogOpen}
-          toggleVisibility={() => setDeleteDialogOpen(!deleteDialogOpen)}
-        />
-      )}
     </>
   );
 };

@@ -9,6 +9,7 @@ import { createApp } from '../../actions/AppActions';
 import AppItem from './AppItem';
 import OakText from '../../oakui/OakText';
 import OakModal from '../../oakui/OakModal';
+import OakCheckbox from '../../oakui/OakCheckbox';
 
 const domain = 'app';
 
@@ -23,9 +24,15 @@ const ManageApp = (props: Props) => {
   const [data, setData] = useState({
     name: '',
     redirect: '',
+    jwtpassword: '',
+    protected: false,
   });
   const [searchCriteria, setSearchCriteria] = useState({ text: '' });
   const [view, setView] = useState<Array<any> | undefined>(undefined);
+
+  useEffect(() => {
+    sendMessage('navbar', true);
+  }, []);
 
   useEffect(() => {
     setView(search(app.data, searchCriteria.text));
@@ -37,6 +44,8 @@ const ManageApp = (props: Props) => {
         ...data,
         name: '',
         redirect: '',
+        jwtpassword: '',
+        protected: false,
       });
     }
   }, [dialogOpen]);
@@ -80,13 +89,16 @@ const ManageApp = (props: Props) => {
 
   const addApp = () => {
     if (
-      validateEmptyText(data.name, 'App name cannot be empty') &&
-      validateEmptyText(data.redirect, 'Redirect url is not provided')
+      validateEmptyText(data.name, 'App name can not be empty') &&
+      validateEmptyText(data.redirect, 'Redirect url is not provided') &&
+      validateEmptyText(data.jwtpassword, 'JWT Password can not be empty')
     ) {
       dispatch(
         createApp(auth, {
           name: data.name,
           redirect: data.redirect,
+          jwtpassword: data.jwtpassword,
+          protected: data.protected,
         })
       );
     }
@@ -99,6 +111,13 @@ const ManageApp = (props: Props) => {
     });
   };
 
+  const handleChangeCheckbox = event => {
+    setData({
+      ...data,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   const handleSearchCriteriaChange = event => {
     setSearchCriteria({
       ...searchCriteria,
@@ -108,15 +127,12 @@ const ManageApp = (props: Props) => {
 
   return (
     <>
-      <div className="app-page">
-        <div className="header-image">
-          <Navigation {...props} logout={props.logout} />
-        </div>
-        <div className="oaapp-container">
+      <div className="app-page manage-app">
+        <div className="oaapp-container smooth-page">
           <div className="top-actions">
             <div className="search-bar">
               <OakText
-                placeholder="Type to search"
+                label="Type to search"
                 handleChange={handleSearchCriteriaChange}
                 id="text"
                 data={searchCriteria}
@@ -126,7 +142,7 @@ const ManageApp = (props: Props) => {
               <OakButton
                 theme="primary"
                 action={() => setDialogOpen(!dialogOpen)}
-                variant="animate none"
+                variant="regular"
                 icon="blur_on"
               >
                 New App
@@ -135,35 +151,51 @@ const ManageApp = (props: Props) => {
           </div>
           <div className="oaapp-list">
             {view?.map(item => (
-              <div key={item._id}>
-                <AppItem id={item._id} app={item} />
-              </div>
+              <AppItem app={item} key={item._id} />
             ))}
           </div>
         </div>
       </div>
 
       <OakModal
-        small
         label="New App"
         visible={dialogOpen}
         toggleVisibility={() => setDialogOpen(!dialogOpen)}
       >
         <div className="modal-body two-column">
-          <div className="typography-5">Name</div>
-          <OakText data={data} id="name" handleChange={e => handleChange(e)} />
-          <div className="typography-5">Redirect url</div>
+          <OakText
+            data={data}
+            id="name"
+            label="Application Name"
+            handleChange={e => handleChange(e)}
+          />
           <OakText
             data={data}
             id="redirect"
+            label="Redirect url"
             handleChange={e => handleChange(e)}
+          />
+          <OakText
+            data={data}
+            id="jwtpassword"
+            label="JWT Password"
+            handleChange={e => handleChange(e)}
+          />
+          <OakCheckbox
+            key={data.name}
+            data={data.protected}
+            id="protected"
+            label="Protected application"
+            theme="primary"
+            variant="circle"
+            handleChange={e => handleChangeCheckbox(e)}
           />
         </div>
         <div className="modal-footer">
           <OakButton
             action={() => setDialogOpen(!dialogOpen)}
             theme="default"
-            variant="animate in"
+            variant="appear"
             align="left"
           >
             <i className="material-icons">close</i>Cancel
@@ -171,7 +203,7 @@ const ManageApp = (props: Props) => {
           <OakButton
             action={addApp}
             theme="primary"
-            variant="animate out"
+            variant="disappear"
             align="right"
           >
             <i className="material-icons">double_arrow</i>Create

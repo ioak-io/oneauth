@@ -44,16 +44,16 @@ const Landing = () => {
       </div>
       <div className="action">
         <NavLink to="/tenant" className="navitem" activeClassName="active">
-          <OakButton theme="primary" variant="animate out">
+          <OakButton theme="primary" variant="disappear">
             Create Tenant
           </OakButton>
         </NavLink>
       </div>
       {/* <OakSubMenu data = {this.state.data} variant="secondary"/>
       <div>
-        <OakButton align="left" theme="primary" variant="animate out" icon="open_in_new" action="">animate out</OakButton>
-        <OakButton align="right" theme="default" variant="animate in" icon="open_in_new" action="">animate in</OakButton>
-        <OakButton align="right" theme="secondary" variant="animate none" icon="open_in_new" action="">animate none</OakButton>
+        <OakButton align="left" theme="primary" variant="disappear" icon="open_in_new" action="">disappear</OakButton>
+        <OakButton align="right" theme="default" variant="appear" icon="open_in_new" action="">appear</OakButton>
+        <OakButton align="right" theme="secondary" variant="regular" icon="open_in_new" action="">regular</OakButton>
         <OakButton align="right" theme="secondary" variant="block" icon="open_in_new" action="">block</OakButton>
         <OakButton align="right" theme="secondary" variant="outline" icon="open_in_new" action="">outline</OakButton>
         <OakButton align="right" theme="secondary" variant="block" icon="open_in_new" action=""></OakButton>

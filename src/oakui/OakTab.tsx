@@ -11,11 +11,13 @@ const OakTab = (props: Props) => {
   const [slots, setSlots] = useState<any | {}>({});
 
   useEffect(() => {
-    setActiveTab(
-      props.meta && props.meta.length > 0 ? props.meta[0].slotName : ''
-    );
+    if (!activeTab) {
+      setActiveTab(
+        props.meta && props.meta.length > 0 ? props.meta[0].slotName : ''
+      );
+    }
     initializeViews();
-  }, [props.meta]);
+  }, [props.meta, props.children]);
 
   const initializeViews = () => {
     let newSlots = {};
@@ -34,6 +36,7 @@ const OakTab = (props: Props) => {
       <div className="header">
         {props.meta.map(item => (
           <div
+            key={item.slotName}
             className={`tab typography-6 ${
               activeTab === item.slotName ? 'active' : ''
             }`}

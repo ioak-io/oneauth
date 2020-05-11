@@ -13,7 +13,6 @@ import AuthInit from '../Auth/AuthInit';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
 import { getProfile, setProfile } from '../../actions/ProfileActions';
 
-import Backdrop from './Backdrop';
 import Notification from '../Notification';
 import Navigation from '../Navigation';
 import { httpGet } from '../Lib/RestTemplate';
@@ -25,6 +24,8 @@ import OaLogin from '../Login/OaLogin';
 import OakRoute from '../Auth/OakRoute';
 import ManageSpace from '../ManageSpace';
 import ManageApp from '../ManageApp';
+import SpaceHome from '../SpaceHome';
+import TestPage from '../SpacePages/TestPage';
 
 const themes = {
   themecolor1: getTheme('#69A7BF'),
@@ -94,13 +95,14 @@ const Content = (props: Props) => {
       className={`App ${props.profile.theme} ${props.profile.textSize} ${props.profile.themeColor}`}
     >
       <HashRouter>
-        <AuthInit />
-        <Backdrop />
+        {/* <AuthInit /> */}
         <div className="body">
           <div className="body-content">
             <Notification />
             <MuiThemeProvider theme={themes.themecolor1}>
+              <Navigation {...props} logout={logout} />
               <Route
+                exact
                 path="/home"
                 render={propsLocal => (
                   <OakRoute
@@ -108,32 +110,91 @@ const Content = (props: Props) => {
                     {...props}
                     logout={() => logout}
                     component={Home}
+                    middleware={['readAuthenticationOa']}
                   />
                 )}
               />
               <Route
-                path="/:tenant/login"
-                render={(propsLocal: any) => (
-                  <SpaceLogin
+                exact
+                path="/"
+                render={propsLocal => (
+                  <OakRoute
                     {...propsLocal}
                     {...props}
                     logout={() => logout}
+                    component={Home}
+                    middleware={['readAuthenticationOa']}
+                  />
+                )}
+              />
+              <Route
+                path="/space/:tenant/login"
+                render={(propsLocal: any) => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={SpaceLogin}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/space/:tenant/home"
+                render={(propsLocal: any) => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={SpaceHome}
+                    middleware={['readAuthenticationSpace']}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/space/:tenant"
+                render={(propsLocal: any) => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={SpaceHome}
+                    middleware={['readAuthenticationSpace']}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/space/:tenant/test"
+                render={(propsLocal: any) => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={TestPage}
+                    middleware={['authenticateSpace']}
                   />
                 )}
               />
               <Route
                 path="/login"
                 render={(propsLocal: any) => (
-                  <OaLogin {...propsLocal} {...props} logout={() => logout} />
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={OaLogin}
+                  />
                 )}
               />
-              <Route
+              {/* <Route
                 path="/"
                 exact
                 render={(propsLocal: any) => (
                   <Home {...propsLocal} {...props} logout={() => logout} />
                 )}
-              />
+              /> */}
               <Route
                 path="/managespace"
                 exact
@@ -143,7 +204,7 @@ const Content = (props: Props) => {
                     {...props}
                     logout={() => logout}
                     component={ManageSpace}
-                    middleware={['isAuthenticated']}
+                    middleware={['authenticateOa']}
                   />
                 )}
               />
@@ -156,7 +217,7 @@ const Content = (props: Props) => {
                     {...props}
                     logout={() => logout}
                     component={ManageApp}
-                    middleware={['isAuthenticated']}
+                    middleware={['authenticateOa']}
                   />
                 )}
               />

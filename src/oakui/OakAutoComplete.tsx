@@ -65,7 +65,7 @@ const OakAutoComplete = (props: Props) => {
           placeholder={props.placeholder}
         />
       </div>
-      {searchOn && (
+      {searchOn && dropdownFiltered && dropdownFiltered.length > 0 && (
         <div className="results">
           {dropdownFiltered?.map(item => (
             <div

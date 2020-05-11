@@ -1,5 +1,3 @@
-
-
 a {
   text-decoration: none;
   color: var(--color-primary-1);
@@ -10,32 +8,31 @@ a {
   color: var(--color-foreground-1);
 }
 
-// ::-webkit-scrollbar
-// {
-//   width: 6px;  /* for vertical scrollbars */
-//   height: 6px; /* for horizontal scrollbars */
-// }
+::-webkit-scrollbar {
+  width: 6px; /* for vertical scrollbars */
+  height: 6px; /* for horizontal scrollbars */
+}
 
-// ::-webkit-scrollbar-track
-// {
-//   background: rgba(0, 0, 0, 0.1);
-// }
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  background: var(--color-foreground-1);
+}
 
-// ::-webkit-scrollbar-thumb
-// {
-//   background: rgba(0, 0, 0, 0.3);
-// }
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+}
 
 .App {
   width: 100%;
   margin: auto;
 
-  .actionbar, .actionbar-1 {
+  .actionbar,
+  .actionbar-1 {
     display: grid;
     grid-template-columns: auto;
     justify-items: center;
   }
-  
+
   .actionbar-2 {
     display: grid;
     grid-template-columns: auto auto;
@@ -73,16 +70,6 @@ a {
       padding-top: calc(var(--height-nav));
     }
   }
-
-  .backdrop-fade {
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    background-color: var(--color-background-5);
-    z-index: 2;
-    opacity: 0.5;
-    overflow: hidden;
-  }
 }
 
 //   &.icon {
@@ -99,7 +86,8 @@ a {
 //   }
 // }
 
-.MuiInputLabel-root, .MuiInputBase-root {
+.MuiInputLabel-root,
+.MuiInputBase-root {
   color: white;
 }
 
@@ -111,20 +99,20 @@ a {
   color: var(--color-secondary-1);
 }
 
-input {
-  display: block;
-  font-size: 16px;
-  line-height: 25px;
-  // margin-top: 0;
-  font-weight: 300;
-  border: none;
-  border-radius: 2px;
-  background: #fff;
-  color: #1a1a1a;
-  padding: 14.4px 16px;
-  width: 100%;
-  outline: none;
-}
+// input {
+//   display: block;
+//   font-size: 16px;
+//   line-height: 25px;
+//   // margin-top: 0;
+//   font-weight: 300;
+//   border: none;
+//   border-radius: 2px;
+//   background: #fff;
+//   color: #1a1a1a;
+//   padding: 14.4px 16px;
+//   width: 100%;
+//   outline: none;
+// }
 
 form {
   width: 100%;

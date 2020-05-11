@@ -38,22 +38,6 @@ describe('button component conditional styling', () => {
     expect(wrapper.text()).toEqual('Test label');
   });
 
-  it('should render material icon as label when icon property is passed', () => {
-    const wrapper = shallow(<OakButton icon="search" />);
-    expect(
-      wrapper
-        .find('.oak-button')
-        .children()
-        .hasClass('material-icons')
-    ).toBeTruthy();
-    expect(
-      wrapper
-        .find('.material-icons')
-        .children()
-        .text()
-    ).toEqual('search');
-  });
-
   it('should align the text to direction passed as input', () => {
     const wrapper = shallow(<OakButton align="left" />);
     expect(wrapper.hasClass('align-left')).toBeTruthy();
@@ -61,9 +45,8 @@ describe('button component conditional styling', () => {
   });
 
   it('should render the chosen variant', () => {
-    const wrapper = shallow(<OakButton variant="animate in" />);
-    expect(wrapper.hasClass('animate')).toBeTruthy();
-    expect(wrapper.hasClass('in')).toBeTruthy();
+    const wrapper = shallow(<OakButton variant="appear" />);
+    expect(wrapper.hasClass('appear')).toBeTruthy();
     expect(wrapper.hasClass('outline')).toBeFalsy();
   });
 

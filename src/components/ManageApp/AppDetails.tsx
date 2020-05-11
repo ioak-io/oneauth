@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import OakText from '../../oakui/OakText';
 import OakButton from '../../oakui/OakButton';
+import OakCheckbox from '../../oakui/OakCheckbox';
 
 interface Props {
   app: any;
@@ -9,8 +10,11 @@ interface Props {
 
 const AppDetails = (props: Props) => {
   const [appData, setAppData] = useState({
+    _id: '',
     name: '',
     redirect: '',
+    jwtpassword: '',
+    protected: false,
   });
 
   useEffect(() => {
@@ -24,36 +28,58 @@ const AppDetails = (props: Props) => {
     });
   };
 
+  const handleChangeCheckbox = event => {
+    setAppData({
+      ...appData,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
   return (
     <>
       <div className="modal-body two-column">
-        <div className="typography-5">App Id</div>
         <OakText
           data={appData}
           id="_id"
+          label="Application Id"
           disabled
           handleChange={e => handleChange(e)}
         />
-        <div className="typography-5">App Name</div>
         <OakText
           data={appData}
           id="name"
+          label="Application name"
           disabled
           handleChange={e => handleChange(e)}
         />
-        <div className="typography-5">Redirect url</div>
         <OakText
           data={appData}
           id="redirect"
+          label="Redirect url"
           disabled
           handleChange={e => handleChange(e)}
+        />
+        <OakText
+          data={appData}
+          id="jwtpassword"
+          label="JWT Password"
+          disabled
+          handleChange={e => handleChange(e)}
+        />
+        <OakCheckbox
+          data={appData}
+          id="protected"
+          label="Protected application"
+          theme="primary"
+          disabled
+          handleChange={e => handleChangeCheckbox(e)}
         />
       </div>
       <div className="modal-footer">
         <OakButton
           action={props.toggleVisibilityHandler}
           theme="default"
-          variant="animate in"
+          variant="appear"
           align="left"
         >
           <i className="material-icons">close</i>Close

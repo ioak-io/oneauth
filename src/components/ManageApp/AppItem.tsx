@@ -10,24 +10,27 @@ import EditApp from './EditApp';
 import { fetchRoles } from '../../actions/OaRoleActions';
 import { deleteApp } from '../../actions/AppActions';
 import AppDetails from './AppDetails';
+import MapSpace from './MapSpace';
 
 const appDomain = 'app';
 const roleDomain = 'role';
 
 interface Props {
   app: any;
-  id: string;
 }
 const AppItem = (props: Props) => {
   const dispatch = useDispatch();
   const oaRoles = useSelector(state => state.oaRoles);
+  const appSpace = useSelector(state => state.appSpace);
   const authorization = useSelector(state => state.authorization);
 
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
   const [adminDialogOpen, setAdminDialogOpen] = useState(false);
+  const [spaceMapDialogOpen, setSpaceMapDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [countOfAdmins, setCountofAdmins] = useState<undefined | number>(0);
+  const [countOfSpaces, setCountOfSpaces] = useState<undefined | number>(0);
 
   useEffect(() => {
     const eventBus = receiveMessage().subscribe(message => {
@@ -66,9 +69,16 @@ const AppItem = (props: Props) => {
     const existingAdmins = oaRoles.data.data?.filter(
       item => item.domainId === props.app._id
     );
-
     setCountofAdmins(existingAdmins?.length);
   }, [oaRoles.data.data]);
+
+  useEffect(() => {
+    const connectedSpace = appSpace.data?.filter(
+      item => item.appId === props.app._id
+    );
+    console.log(connectedSpace.length);
+    setCountOfSpaces(connectedSpace.length);
+  }, [appSpace.data]);
 
   const editApp = () => {
     setEditDialogOpen(true);
@@ -81,32 +91,64 @@ const AppItem = (props: Props) => {
     setAdminDialogOpen(true);
   };
 
+  const mapSpace = () => {
+    setSpaceMapDialogOpen(true);
+  };
+
   const confirmDeleteApp = () => {
     setDeleteDialogOpen(true);
   };
 
-  const actionElements = [
-    {
-      label: 'Details',
-      action: editApp,
-      icon: 'edit',
-    },
-    {
-      label: 'Administrators',
-      action: editAdmin,
-      icon: 'people_alt',
-    },
-    {
-      label: 'Roles',
-      action: editAdmin,
-      icon: 'vpn_key',
-    },
-    {
-      label: 'Delete App',
-      action: confirmDeleteApp,
-      icon: 'delete',
-    },
-  ];
+  const actionElements = props.app.protected
+    ? [
+        {
+          label: 'Permitted Space',
+          action: mapSpace,
+          icon: 'edit',
+        },
+        {
+          label: 'Details',
+          action: editApp,
+          icon: 'edit',
+        },
+        {
+          label: 'Administrators',
+          action: editAdmin,
+          icon: 'people_alt',
+        },
+        {
+          label: 'Roles',
+          action: editAdmin,
+          icon: 'vpn_key',
+        },
+        {
+          label: 'Delete App',
+          action: confirmDeleteApp,
+          icon: 'delete',
+        },
+      ]
+    : [
+        {
+          label: 'Details',
+          action: editApp,
+          icon: 'edit',
+        },
+        {
+          label: 'Administrators',
+          action: editAdmin,
+          icon: 'people_alt',
+        },
+        {
+          label: 'Roles',
+          action: editAdmin,
+          icon: 'vpn_key',
+        },
+        {
+          label: 'Delete App',
+          action: confirmDeleteApp,
+          icon: 'delete',
+        },
+      ];
 
   return (
     <>
@@ -121,7 +163,11 @@ const AppItem = (props: Props) => {
             <div className="administrators" onClick={editAdmin}>
               {countOfAdmins} Administrators
             </div>
-            <div>2 Connected Space</div>
+            <div>
+              {props.app.protected
+                ? `${countOfSpaces} Connected Space(s)`
+                : `Open App`}
+            </div>
           </div>
         </div>
         <div className="action space-top-0">
@@ -131,45 +177,58 @@ const AppItem = (props: Props) => {
             </div>
           </OakPopoverMenu>
         </div>
-      </div>
 
-      <OakModal
-        label="Edit App"
-        visible={editDialogOpen}
-        toggleVisibility={() => setEditDialogOpen(!editDialogOpen)}
-      >
-        <EditApp
-          app={props.app}
-          toggleVisibilityHandler={() => setEditDialogOpen(!editDialogOpen)}
+        <OakModal
+          label="Map Space"
+          visible={spaceMapDialogOpen}
+          toggleVisibility={() => setSpaceMapDialogOpen(!spaceMapDialogOpen)}
+        >
+          <MapSpace
+            app={props.app}
+            toggleVisibilityHandler={() =>
+              setSpaceMapDialogOpen(!spaceMapDialogOpen)
+            }
+          />
+        </OakModal>
+
+        <OakModal
+          label="Edit App"
+          visible={editDialogOpen}
+          toggleVisibility={() => setEditDialogOpen(!editDialogOpen)}
+        >
+          <EditApp
+            app={props.app}
+            toggleVisibilityHandler={() => setEditDialogOpen(!editDialogOpen)}
+          />
+        </OakModal>
+        <OakModal
+          label="App Details"
+          visible={detailsDialogOpen}
+          toggleVisibility={() => setDetailsDialogOpen(!detailsDialogOpen)}
+        >
+          <AppDetails
+            app={props.app}
+            toggleVisibilityHandler={() =>
+              setDetailsDialogOpen(!detailsDialogOpen)
+            }
+          />
+        </OakModal>
+        <OakModal
+          label="App Administrators"
+          visible={adminDialogOpen}
+          toggleVisibility={() => setAdminDialogOpen(!adminDialogOpen)}
+        >
+          <EditAdministrators
+            app={props.app}
+            toggleVisibilityHandler={() => setAdminDialogOpen(!adminDialogOpen)}
+          />
+        </OakModal>
+        <OakPrompt
+          action={() => dispatch(deleteApp(authorization, props.app.appId))}
+          visible={deleteDialogOpen}
+          toggleVisibility={() => setDeleteDialogOpen(!deleteDialogOpen)}
         />
-      </OakModal>
-      <OakModal
-        label="App Details"
-        visible={detailsDialogOpen}
-        toggleVisibility={() => setDetailsDialogOpen(!detailsDialogOpen)}
-      >
-        <AppDetails
-          app={props.app}
-          toggleVisibilityHandler={() =>
-            setDetailsDialogOpen(!detailsDialogOpen)
-          }
-        />
-      </OakModal>
-      <OakModal
-        label="App Administrators"
-        visible={adminDialogOpen}
-        toggleVisibility={() => setAdminDialogOpen(!adminDialogOpen)}
-      >
-        <EditAdministrators
-          app={props.app}
-          toggleVisibilityHandler={() => setAdminDialogOpen(!adminDialogOpen)}
-        />
-      </OakModal>
-      <OakPrompt
-        action={() => dispatch(deleteApp(authorization, props.app.appId))}
-        visible={deleteDialogOpen}
-        toggleVisibility={() => setDeleteDialogOpen(!deleteDialogOpen)}
-      />
+      </div>
     </>
   );
 };

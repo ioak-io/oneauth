@@ -21,8 +21,7 @@ const OakText = (props: Props) => {
     }
   };
   return (
-    <div className="oak-text-field">
-      {props.label && <label htmlFor={props.id}>{props.label}</label>}
+    <div className="oak-text">
       {!props.multiline && (
         <input
           disabled={props.disabled}
@@ -37,10 +36,8 @@ const OakText = (props: Props) => {
           value={props.data[props.id]}
           onChange={props.handleChange}
           onFocus={handleFocus}
-          placeholder={props.placeholder}
         />
       )}
-      {/* rows={props.rows ? props.rows : 4} */}
       {props.multiline && (
         <textarea
           disabled={props.disabled}
@@ -54,9 +51,12 @@ const OakText = (props: Props) => {
           onChange={props.handleChange}
         />
       )}
-      {/* {props.multiline && <div contentEditable={props.disabled ? false : true} suppressContentEditableWarning={true}
-                className={"textarea " + (props.errorFields && props.errorFields[props.id] ? "error" : "") + (props.disabled ? " disabled" : "")}
-                onBlur={handleChange}>{props.data[props.id]}</div>} */}
+      <label
+        htmlFor={props.id}
+        className={props.data[props.id] ? 'active' : ''}
+      >
+        {props.label}
+      </label>
     </div>
   );
 };

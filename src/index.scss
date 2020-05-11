@@ -32,7 +32,7 @@ body.oak-dialog-open {
 }
 
 .body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background-color: var(--color-background-1);
   color: var(--color-foreground-1);
 }
@@ -60,18 +60,24 @@ code {
     0 3px 8px rgba(0, 0, 0, 0.09);
   --bs-lg: 0 1px 4px rgba(0, 0, 0, 0.09), 0 3px 8px rgba(0, 0, 0, 0.09),
     0 4px 13px rgba(0, 0, 0, 0.13);
+  // --bs-xl: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12);
+  --bs-xl: 0 12px 15px 0 rgba(0, 0, 0, 0.25);
 
   .themecolor1 {
-    --color-dark-primary-1: rgba(1,169,130,.9);
-    --color-dark-primary-2: rgba(1,169,130,1);
-    --color-dark-secondary-1: #69a7bf;
+    --color-dark-primary-1: rgba(1, 169, 130, 0.9);
+    --color-dark-primary-2: rgba(1, 169, 130, 1);
+    --color-dark-secondary-1: #81d6e3; // 69a7bf
     --color-dark-tertiary-1: #376b8c;
-    --color-dark-tertiary-1-trans: rgba(55, 107, 140, 0.2);
-    --color-light-primary-1: rgba(1,169,130,.9);
-    --color-light-primary-2: rgba(1,169,130,1);
+    --color-dark-tertiary-2: rgba(55, 107, 140, 0.2);
+    --color-dark-default-1: #5a5766;
+    --color-dark-default-2: #7b7885;
+    --color-light-primary-1: rgba(1, 169, 130, 0.9);
+    --color-light-primary-2: rgba(1, 169, 130, 1);
     --color-light-secondary-1: #69a7bf;
     --color-light-tertiary-1: #91ccd9;
-    --color-light-tertiary-1-trans: rgba(145, 204, 217, 0.2);
+    --color-light-tertiary-2: rgba(145, 204, 217, 0.2);
+    --color-light-default-1: #5a5766;
+    --color-light-default-2: #7b7885;
   }
 
   .themecolor2 {
@@ -117,30 +123,35 @@ code {
     --color-background-transparent-7: rgba(0, 0, 0, 0.7);
     --color-background-transparent-8: rgba(0, 0, 0, 0.8);
     --color-background-transparent-9: rgba(0, 0, 0, 0.9);
-    --color-background-1: #121212;
-    --color-background-2: #1e1e1e;
-    --color-background-3: #272727;
-    --color-background-4: #2e2e2e;
-    --color-background-5: #3c3c3c;
+
+    --color-background-1: #202225;
+    --color-background-2: #292b2f;
+    --color-background-3: #2f3136;
+    --color-background-4: #36393f;
+    --color-background-5: #53575d;
+
     --color-foreground-1: #ffffff;
     --color-foreground-2: #f5f5f5;
     --color-foreground-3: #f0f0f0;
     --color-foreground-4: rgba(255, 255, 255, 0.6);
     --color-foreground-5: rgba(255, 255, 255, 0.5);
+
     --color-primary-1: var(--color-dark-primary-1);
     --color-primary-2: var(--color-dark-primary-2);
     --color-secondary-1: var(--color-dark-secondary-1);
+    --color-secondary-2: var(--color-dark-secondary-2);
     --color-tertiary-1: var(--color-dark-tertiary-1);
-    --color-tertiary-1-trans: var(--color-dark-tertiary-1-trans);
+    --color-tertiary-2: var(--color-dark-tertiary-2);
+    --color-default-1: var(--color-dark-default-1);
+    --color-default-2: var(--color-dark-default-2);
+
     --color-formelement-bg-1: var(--color-background-5);
     --color-formelement-bg-2: var(--color-background-4);
     --color-formelement-fg: var(--color-foreground-1);
-    --color-default: rgba(217, 217, 217, 1);
-    --color-selected: rgba(217, 217, 217, 1);
     --color-hover: rgba(217, 217, 217, 0.2);
-    --color-success: #437a34;
-    --color-warning: #49a078;
-    --color-failure: #8c030e;
+    --color-success: #279a43;
+    --color-warning: #e0ca3c;
+    --color-failure: #da5656;
 
     --color-sidebar-header: #444444;
     --color-sidebar-header-active: var(--color-tertiary-1-trans);
@@ -156,20 +167,6 @@ code {
     --color-nav-slider: var(--color-background-1);
     --color-navitem-mobile: var(--color-foreground-1);
 
-    --color-btn-bg-primary: var(--color-primary-1);
-    --color-btn-bg-primary-hover: var(--color-primary-2);
-    --color-btn-fg-primary: var(--color-foreground-1);
-    --color-btn-fg-primary-hover: black;
-    --color-btn-bg-secondary: var(--color-secondary-1);
-    --color-btn-fg-secondary: var(--color-foreground-1);
-    --color-btn-fg-secondary-hover: black;
-    --color-btn-bg-tertiary: var(--color-tertiary-1);
-    --color-btn-fg-tertiary: var(--color-foreground-1);
-    --color-btn-fg-tertiary-hover: black;
-    --color-btn-bg-default: var(--color-default);
-    --color-btn-fg-default: var(--color-foreground-1);
-    --color-btn-fg-default-hover: black;
-
     --color-btn-action-danger-bg: #dc758f;
 
     --color-dialog: var(--color-nav);
@@ -179,16 +176,37 @@ code {
   }
 
   .theme_light {
-    --color-background-1: #fcfcfc;
-    --color-background-2: #e6e6e6;
-    --color-foreground-1: #252525;
-    --color-foreground-2: #6e6e6e;
+    --color-background-transparent-1: rgba(255, 255, 255, 0.1);
+    --color-background-transparent-2: rgba(255, 255, 255, 0.2);
+    --color-background-transparent-3: rgba(255, 255, 255, 0.3);
+    --color-background-transparent-4: rgba(255, 255, 255, 0.4);
+    --color-background-transparent-5: rgba(255, 255, 255, 0.5);
+    --color-background-transparent-6: rgba(255, 255, 255, 0.6);
+    --color-background-transparent-7: rgba(255, 255, 255, 0.7);
+    --color-background-transparent-8: rgba(255, 255, 255, 0.8);
+    --color-background-transparent-9: rgba(255, 255, 255, 0.9);
+
+    --color-background-1: #ffffff;
+    --color-background-2: #f5f5f5;
+    --color-background-3: #f0f0f0;
+    --color-background-4: #f0f0f0;
+    --color-background-5: #f0f0f0;
+
+    --color-foreground-1: #202225;
+    --color-foreground-2: #292b2f;
+    --color-foreground-3: #2f3136;
+    --color-foreground-4: #2f3136;
+    --color-foreground-5: #2f3136;
+
     --color-primary-1: var(--color-light-primary-1);
+    --color-primary-2: var(--color-light-primary-2);
     --color-secondary-1: var(--color-light-secondary-1);
+    --color-secondary-2: var(--color-light-secondary-2);
     --color-tertiary-1: var(--color-light-tertiary-1);
-    --color-tertiary-1-trans: var(--color-light-tertiary-1-trans);
-    --color-default: rgba(64, 64, 64, 1);
-    --color-selected: rgba(64, 64, 64, 1);
+    --color-tertiary-2: var(--color-light-tertiary-2);
+    --color-default-1: var(--color-light-default-1);
+    --color-default-2: var(--color-light-default-2);
+
     --color-hover: rgba(64, 64, 64, 0.2);
     --color-success: #437a34;
     --color-warning: #49a078;
@@ -208,25 +226,30 @@ code {
     --color-nav-slider: var(--color-background-1);
     --color-navitem-mobile: var(--color-foreground-1);
 
-    --color-btn-bg-primary: var(--color-primary-1);
-    --color-btn-fg-primary: var(--color-foreground-1);
-    --color-btn-fg-primary-hover: white;
-    --color-btn-bg-secondary: var(--color-secondary-1);
-    --color-btn-fg-secondary: var(--color-foreground-1);
-    --color-btn-fg-secondary-hover: white;
-    --color-btn-bg-tertiary: var(--color-tertiary-1);
-    --color-btn-fg-tertiary: var(--color-foreground-1);
-    --color-btn-fg-tertiary-hover: white;
-    --color-btn-bg-default: var(--color-default);
-    --color-btn-fg-default: var(--color-foreground-1);
-    --color-btn-fg-default-hover: white;
-
     --color-btn-action-danger-bg: #b33951;
 
     --color-dialog: var(--color-background-1);
 
     --color-tag: #e6e6e6;
     --color-box-shadow: rgba(0, 0, 0, 0.3);
+  }
+
+  .smooth-page {
+    animation: opacity-in 1s cubic-bezier(0, 1, 0.5, 1);
+  }
+
+  .app-page {
+    height: calc(100vh - var(--height-nav));
+    min-height: calc(100vh - var(--height-nav));
+    // height: 100vh;
+    // min-height: 100vh;
+    overflow: auto;
+    padding: 0px 100px;
+    padding-top: calc(var(--height-nav));
+    @media (max-width: 767px) {
+      padding: 0 10px;
+      padding-top: calc(var(--height-nav));
+    }
   }
 }
 
@@ -250,3 +273,30 @@ code {
 // .Vintage-blue-background.-Rough-painted-wall-of-sapphire-color.-Imperfect-plane-of-blue-colored.-Uneven-old-decorative-toned-backdrop-of-cyan-tint.-Texture-of-sapphirine-hue.-Ornamental-stony-surface.-3-hsla { color: hsla(202, 41, 38, 1); }
 // .Vintage-blue-background.-Rough-painted-wall-of-sapphire-color.-Imperfect-plane-of-blue-colored.-Uneven-old-decorative-toned-backdrop-of-cyan-tint.-Texture-of-sapphirine-hue.-Ornamental-stony-surface.-4-hsla { color: hsla(196, 36, 60, 1); }
 // .Vintage-blue-background.-Rough-painted-wall-of-sapphire-color.-Imperfect-plane-of-blue-colored.-Uneven-old-decorative-toned-backdrop-of-cyan-tint.-Texture-of-sapphirine-hue.-Ornamental-stony-surface.-5-hsla { color: hsla(185, 44, 73, 1); }
+
+@keyframes slideUpIn {
+  0% {
+    transform: translateY(30vh);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes opacity-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes opacity-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

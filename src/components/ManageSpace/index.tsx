@@ -25,9 +25,16 @@ const ManageSpace = (props: Props) => {
     email: '',
     password: '',
     repeatPassword: '',
+    days: '',
+    hours: '',
+    minutes: '',
   });
   const [searchCriteria, setSearchCriteria] = useState({ text: '' });
   const [view, setView] = useState<Array<any> | undefined>(undefined);
+
+  useEffect(() => {
+    sendMessage('navbar', true);
+  }, []);
 
   useEffect(() => {
     setView(search(space.data, searchCriteria.text));
@@ -40,6 +47,9 @@ const ManageSpace = (props: Props) => {
         name: '',
         password: '',
         repeatPassword: '',
+        days: '',
+        hours: '',
+        minutes: '',
       });
     }
   }, [dialogOpen]);
@@ -88,7 +98,11 @@ const ManageSpace = (props: Props) => {
   const addSpace = () => {
     if (
       validateEmptyText(data.name, 'Space name cannot be empty') &&
-      validateEmptyText(data.password, 'Password is not provided')
+      validateEmptyText(data.password, 'Password is not provided') &&
+      validateEmptyText(
+        data.days || data.hours || data.minutes,
+        'Session Expiry is not provided'
+      )
     ) {
       if (data.password !== data.repeatPassword) {
         sendMessage('notification', true, {
@@ -97,13 +111,7 @@ const ManageSpace = (props: Props) => {
           duration: 5000,
         });
       } else {
-        dispatch(
-          createSpace(auth, {
-            name: data.name,
-            email: data.email,
-            password: data.password,
-          })
-        );
+        dispatch(createSpace(auth, data));
       }
     }
   };
@@ -124,15 +132,12 @@ const ManageSpace = (props: Props) => {
 
   return (
     <>
-      <div className="app-page">
-        <div className="header-image">
-          <Navigation {...props} logout={props.logout} />
-        </div>
-        <div className="space-container">
+      <div className="app-page manage-space">
+        <div className="space-container smooth-page">
           <div className="top-actions">
             <div className="search-bar">
               <OakText
-                placeholder="Type to search"
+                label="Type to search"
                 handleChange={handleSearchCriteriaChange}
                 id="text"
                 data={searchCriteria}
@@ -142,7 +147,7 @@ const ManageSpace = (props: Props) => {
               <OakButton
                 theme="primary"
                 action={() => setDialogOpen(!dialogOpen)}
-                variant="animate none"
+                variant="regular"
                 icon="blur_on"
               >
                 New space
@@ -160,52 +165,80 @@ const ManageSpace = (props: Props) => {
       </div>
 
       <OakModal
-        small
         label="New space"
         visible={dialogOpen}
         toggleVisibility={() => setDialogOpen(!dialogOpen)}
       >
-        <div className="modal-body two-column">
-          <div className="typography-5">Name</div>
-          <OakText data={data} id="name" handleChange={e => handleChange(e)} />
-          <div className="typography-5">Administrator Email</div>
+        <div className="modal-body">
+          <OakText
+            data={data}
+            id="name"
+            label="Space name"
+            handleChange={e => handleChange(e)}
+          />
           <OakText
             data={data}
             id="email"
+            label="Administrator Email"
             disabled
             handleChange={e => handleChange(e)}
           />
-          <div className="typography-5">Administrator Password</div>
           <OakText
             data={data}
             id="password"
+            label="Administrator Password"
             type="password"
             handleChange={e => handleChange(e)}
           />
-          <div className="typography-5">Repeat Password</div>
           <OakText
             data={data}
             id="repeatPassword"
+            label="Repeat Password"
             type="password"
             handleChange={e => handleChange(e)}
           />
+          <div className="session-expiry">
+            <OakText
+              data={data}
+              id="days"
+              type="number"
+              label="Expiry in days"
+              handleChange={e => handleChange(e)}
+            />
+            <OakText
+              data={data}
+              id="hours"
+              type="number"
+              label="Expiry in hours"
+              handleChange={e => handleChange(e)}
+            />
+            <OakText
+              data={data}
+              id="minutes"
+              type="number"
+              label="Expiry in minutes"
+              handleChange={e => handleChange(e)}
+            />
+          </div>
         </div>
         <div className="modal-footer">
           <OakButton
             action={() => setDialogOpen(!dialogOpen)}
             theme="default"
-            variant="animate in"
+            variant="appear"
             align="left"
+            icon="close"
           >
-            <i className="material-icons">close</i>Cancel
+            Cancel
           </OakButton>
           <OakButton
             action={addSpace}
             theme="primary"
-            variant="animate out"
+            variant="disappear"
             align="right"
+            icon="double_arrow"
           >
-            <i className="material-icons">double_arrow</i>Create
+            Create
           </OakButton>
         </div>
       </OakModal>

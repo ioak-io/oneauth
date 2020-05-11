@@ -1,0 +1,66 @@
+.oak-text-plain {
+  // width: 100%;
+
+  input,
+  textarea {
+    font-family: 'Open Sans', sans-serif;
+    border-radius: 3px;
+    width: 100%;
+    color: var(--color-formelement-fg);
+    font-size: 1em;
+    outline: none;
+    border: none;
+    background-color: var(--color-formelement-bg-1);
+    // margin-bottom: 20px;
+    box-sizing: border-box;
+    padding: var(--metric-formelement-padding);
+    // border: 2px solid;
+    // border-color: var(--color-background-2);
+
+    &:focus {
+      // background-color: var(--color-foreground-2);
+      // border-color: var(--color-foreground-2);
+      // color: var(--color-background-1);
+    }
+
+    &.error {
+      // border-color: var(--color-failure);
+      background-color: var(--color-failure-dim);
+
+      &:focus {
+        color: var(--color-foreground-1);
+      }
+    }
+
+    &.disabled {
+      background-color: var(--color-formelement-bg-2);
+      color: var(--color-foreground-4);
+    }
+  }
+
+  input {
+    height: var(--metric-formelement-height);
+    @media (max-width: 767px) {
+      height: var(--metric-formelement-height-mobile);
+    }
+  }
+
+  textarea {
+    // height: 500px;
+    overflow-y: auto;
+    resize: none;
+    max-height: 200px;
+  }
+
+  label {
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    display: block;
+    // bottom: 8px;
+    left: 10px;
+    position: relative;
+    font-size: 0.8em;
+    margin-bottom: 6px;
+    color: var(--color-foreground-1);
+    text-transform: capitalize;
+  }
+}

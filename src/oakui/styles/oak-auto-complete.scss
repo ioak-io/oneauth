@@ -1,8 +1,7 @@
-
 .oak-auto-complete {
   position: relative;
   .results {
-    position: fixed;
+    position: relative;
     z-index: 1;
     // margin-top: -20px;
     padding: 6px 0px;
@@ -15,7 +14,7 @@
       height: var(--metric-formelement-height);
       line-height: var(--metric-formelement-height);
       &:hover {
-        background-color: var(--color-formelement-bg-2);
+        background-color: var(--color-primary-1);
       }
     }
   }
