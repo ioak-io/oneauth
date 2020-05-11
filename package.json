@@ -1,8 +1,8 @@
 {
-  "name": "mirror",
+  "name": "oneauth",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mirror.ioak.org",
+  "homepage": "https://oneauth.ioak.org",
   "dependencies": {
     "@material-ui/core": "^4.2.0",
     "@types/jest": "^25.1.3",
