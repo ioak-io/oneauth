@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss';
-import mirrorWhite from '../../images/ioak_white.svg';
-import mirrorWhiteSmall from '../../images/mirror_white_small.svg';
-import mirrorBlack from '../../images/ioak_black.svg';
+import oneauthWhite from '../../images/oneauth_white.svg';
+import oneauthWhiteSmall from '../../images/oneauth_white_small.svg';
+import oneauthBlack from '../../images/oneauth_black.svg';
 import OaLinks from './OaLinks';
 import SpaceLinks from './SpaceLinks';
 import { Authorization, Profile } from '../Types/GeneralTypes';
@@ -64,20 +64,20 @@ const Mobile = (props: Props) => {
           {!data.showSearchBar &&
             !props.transparent &&
             props.profile.theme === 'theme_light' && (
-              <img className="logo" src={mirrorBlack} alt="Mirror logo" />
+              <img className="logo" src={oneauthBlack} alt="Mirror logo" />
             )}
           {!data.showSearchBar &&
             (props.transparent || props.profile.theme === 'theme_dark') && (
-              <img className="logo" src={mirrorWhite} alt="Mirror logo" />
+              <img className="logo" src={oneauthWhite} alt="Mirror logo" />
             )}
           {data.showSearchBar &&
             !props.transparent &&
             props.profile.theme === 'theme_light' && (
-              <img className="logo" src={mirrorWhiteSmall} alt="Mirror logo" />
+              <img className="logo" src={oneauthWhiteSmall} alt="Mirror logo" />
             )}
           {data.showSearchBar &&
             (props.transparent || props.profile.theme === 'theme_dark') && (
-              <img className="logo" src={mirrorWhiteSmall} alt="Mirror logo" />
+              <img className="logo" src={oneauthWhiteSmall} alt="Mirror logo" />
             )}
           {data.showSearchBar && <SearchBar alt />}
           {/* links */}

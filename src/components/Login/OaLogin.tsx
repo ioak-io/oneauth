@@ -12,8 +12,8 @@ import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage } from '../../events/MessageService';
 import { sentPasswordChangeEmail } from '../Auth/AuthService';
 import { isEmptyOrSpaces } from '../Utils';
-import mirrorWhite from '../../images/ioak_white.svg';
-import mirrorBlack from '../../images/ioak_black.svg';
+import oneauthWhite from '../../images/oneauth_white.svg';
+import oneauthBlack from '../../images/oneauth_black.svg';
 import SigninPage from './space/SigninPage';
 import NewUser from './space/NewUser';
 import VerifySession from './space/VerifySession';
@@ -87,10 +87,10 @@ const Login = (props: Props) => {
         <div className="main">
           <div className="container">
             {props.profile.theme === 'theme_light' && (
-              <img className="logo" src={mirrorBlack} alt="Mirror logo" />
+              <img className="logo" src={oneauthBlack} alt="Oneauth logo" />
             )}
             {props.profile.theme === 'theme_dark' && (
-              <img className="logo" src={mirrorWhite} alt="Mirror logo" />
+              <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
             )}
             {!verificationStep && type === 'signin' && (
               <div className="wrapper">

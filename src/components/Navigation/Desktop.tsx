@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import './style.scss';
-import mirrorWhite from '../../images/ioak_white.svg';
-import mirrorBlack from '../../images/ioak_black.svg';
+import oneauthWhite from '../../images/oneauth_white.svg';
+import oneauthBlack from '../../images/oneauth_black.svg';
 import OaLinks from './OaLinks';
 import SpaceLinks from './SpaceLinks';
 import { Authorization, Profile } from '../Types/GeneralTypes';
@@ -87,10 +87,10 @@ const Desktop = (props: Props) => {
     >
       <div className="left">
         {!props.transparent && props.profile.theme === 'theme_light' && (
-          <img className="logo" src={mirrorBlack} alt="Mirror logo" />
+          <img className="logo" src={oneauthBlack} alt="Oneauth logo" />
         )}
         {(props.transparent || props.profile.theme === 'theme_dark') && (
-          <img className="logo" src={mirrorWhite} alt="Mirror logo" />
+          <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
         )}
         {!props.space && (
           <OaLinks
