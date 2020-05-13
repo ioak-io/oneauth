@@ -36,7 +36,7 @@
         color: var(--color-forerground-1);
       }
       &.active {
-        color: var(--color-primary-1);
+        color: var(--color-secondary-1);
       }
     }
     .label {
@@ -46,6 +46,7 @@
     }
   }
   .content {
+    overflow-y: hidden;
     &.active {
       display: block;
       animation: slide-up 0.3s ease;
