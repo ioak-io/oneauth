@@ -26,8 +26,8 @@
   &.default {
     --ocb-theme-bg: var(--color-default);
   }
-  margin-top: 16px;
-  margin-bottom: 16px;
+  // margin-top: 16px;
+  // margin-bottom: 16px;
 
   .checkbox-container {
     .checkbox input[type='checkbox'] {
@@ -36,7 +36,7 @@
 
     .checkbox label {
       position: relative;
-      display: inline-block;
+      display: inline;
 
       /*20px width of fake checkbox + 6px distance between fake checkbox and text*/
       padding-left: 26px;

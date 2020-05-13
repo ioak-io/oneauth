@@ -78,8 +78,8 @@ const OakModal = (props: Props) => {
                   </div>
                   <div className="right">
                     <div onClick={props.toggleVisibility}>
-                      <i className="material-icons">close</i>
-                      <div className="text-esc">esc</div>
+                      <i className="material-icons modal-close-icon">close</i>
+                      {/* <div className="text-esc">esc</div> */}
                     </div>
                   </div>
                   {/* </div> */}

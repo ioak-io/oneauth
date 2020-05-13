@@ -6,7 +6,7 @@
     font-family: 'Open Sans', sans-serif;
     width: 100%;
     color: var(--color-formelement-fg);
-    font-size: 1em;
+    font-size: 16px;
     outline: none;
     border: none;
     background-color: transparent;
@@ -17,8 +17,9 @@
     box-sizing: border-box;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
       -webkit-box-shadow 0.15s ease-in-out;
-    height: auto;
-    padding: 10px 0;
+    // height: auto;
+    // padding: 10px 0;
+    height: 42px;
 
     &.error {
       // border-color: var(--color-failure);
@@ -53,7 +54,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     position: absolute;
-    font-size: 1rem;
+    // font-size: 1rem;
     cursor: text;
     top: 0;
     left: 0;
@@ -68,7 +69,7 @@
 
     &.active {
       color: var(--color-foreground-3);
-      font-size: 1rem;
+      // font-size: 1rem;
       transform: translateY(-26px) scale(0.8);
       padding: 10px 0;
     }
