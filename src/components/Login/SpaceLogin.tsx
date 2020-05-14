@@ -14,6 +14,7 @@ import SigninPage from './space/SigninPage';
 import VerifySession from './space/VerifySession';
 import { httpGet } from '../Lib/RestTemplate';
 import ResetPassword from './space/ResetPassword';
+import ConfirmEmail from './space/ConfirmEmail';
 
 const queryString = require('query-string');
 
@@ -34,7 +35,7 @@ interface Props {
 const Login = (props: Props) => {
   const authorization = useSelector(state => state.authorization);
   const [type, setType] = useState('signin');
-  const [resetCode, setResetCode] = useState('');
+  const [authCode, setAuthCode] = useState('');
 
   const [appId, setAppId] = useState('');
   const [verificationStep, setVerificationStep] = useState(false);
@@ -48,13 +49,11 @@ const Login = (props: Props) => {
     let appIdRef = null;
     if (props.location.search) {
       const query = queryString.parse(props.location.search);
-      if (query && query.type === 'signup') {
-        setType('signup');
-      } else if (query && query.type === 'reset') {
-        setType('reset');
+      if (query && query.type) {
+        setType(query.type);
       }
       if (query && query.auth) {
-        setResetCode(query.auth);
+        setAuthCode(query.auth);
       }
       if (query && query.appId) {
         setAppId(query.appId);
@@ -141,7 +140,18 @@ const Login = (props: Props) => {
               <ResetPassword
                 isSpaceLogin
                 {...props}
-                resetCode={resetCode}
+                resetCode={authCode}
+                switchToSigninPage={() => setType('signin')}
+              />
+            </div>
+          )}
+
+          {!verificationStep && type === 'confirmemail' && (
+            <div className="wrapper">
+              <ConfirmEmail
+                isSpaceLogin
+                {...props}
+                authCode={authCode}
                 switchToSigninPage={() => setType('signin')}
               />
             </div>
