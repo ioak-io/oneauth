@@ -72,36 +72,62 @@
   }
 
   .social-signin {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-columns: 1fr;
-    align-items: center;
-    column-gap: 10px;
-    .social-google {
-      display: flex;
-      justify-content: flex-end;
-      justify-content: center;
-      button {
-        background-color: transparent !important;
-        border: 1.2px solid #f0f0f0 !important;
-        color: #f0f0f0 !important;
-        width: auto;
-        height: auto !important;
-        padding: 0;
-        border-radius: 4px !important;
+    display: flex;
+    justify-content: center;
+    .social-signin-container {
+      display: grid;
+      grid-template-columns: auto auto;
+      align-items: center;
+      column-gap: 10px;
+      .social-google,
+      .social-facebook {
+        user-select: none;
+        display: flex;
+        button {
+          outline: none;
+          background-color: transparent !important;
+          border: 1.2px solid #53575d !important;
+          color: #53575d !important;
+          width: auto;
+          padding: 0 10px !important;
+          border-radius: 4px !important;
+          box-shadow: rgba(0, 0, 0, 0.24) 0px 2px 2px 0px,
+            rgba(0, 0, 0, 0.24) 0px 0px 1px 0px;
+          font-family: Roboto, sans-serif;
+          font-size: 16px;
+          height: 36px !important;
+          &:hover {
+            border: 1.2px solid #f0f0f0 !important;
+            color: #f0f0f0 !important;
+          }
+        }
+      }
+      .social-google {
+        justify-content: flex-end;
         div {
           background-color: transparent !important;
           display: flex;
-          padding: 0 10px !important;
+          padding: 0 !important;
           margin: 0 !important;
+          margin-right: 10px !important;
         }
         span {
-          //   display: none;
+          padding: 0 !important;
+          font-size: 16px;
         }
       }
-    }
-    .social-facebook {
-      display: flex;
+      .social-facebook {
+        button {
+          text-transform: capitalize;
+          font-weight: 500;
+          // padding: 10px 0px !important;
+          .fa {
+            // padding: 10px;
+            margin-right: 10px !important;
+            color: #4c69ba;
+          }
+        }
+      }
     }
   }
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { GoogleLogin } from 'react-google-login';
+import FacebookLogin from 'react-facebook-login';
 import { getAuth, addAuth } from '../../../actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../../Types/GeneralTypes';
@@ -186,6 +187,11 @@ const SigninPage = (props: Props) => {
     setEmailConfirmationLink('showSent');
   };
 
+  const onFacebookSignIn = facebookProfile => {
+    console.log('****fb login****');
+    console.log(facebookProfile);
+  };
+
   const onGoogleSignIn = googleProfile => {
     if (googleProfile?.tokenId) {
       let baseAuthUrl = '/auth';
@@ -270,16 +276,28 @@ const SigninPage = (props: Props) => {
         </div>
       </div>
       <div className="space-top-3 social-signin">
-        <div className="social-google">
-          <GoogleLogin
-            clientId="81306451496-fg67eb502dvfb50c31huhkbn481bi29h.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={onGoogleSignIn}
-            onFailure={onGoogleSignIn}
-            onAutoLoadFinished={onGoogleSignIn}
-          />
+        <div className="social-signin-container">
+          <div className="social-google">
+            <GoogleLogin
+              clientId="81306451496-fg67eb502dvfb50c31huhkbn481bi29h.apps.googleusercontent.com"
+              buttonText="Google"
+              onSuccess={onGoogleSignIn}
+              onFailure={onGoogleSignIn}
+              onAutoLoadFinished={onGoogleSignIn}
+            />
+          </div>
+          <div className="social-facebook">
+            <FacebookLogin
+              appId="696666571109190"
+              autoLoad
+              textButton="Facebook"
+              fields="name,email,picture"
+              onClick={onFacebookSignIn}
+              callback={onFacebookSignIn}
+              icon="fa-facebook"
+            />
+          </div>
         </div>
-        {/* <div className="social-facebook">facebook</div> */}
       </div>
     </form>
   );
