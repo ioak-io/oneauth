@@ -40,6 +40,8 @@ const SigninPage = (props: Props) => {
     password: '',
   });
 
+  const [emailConfirmationLink, setEmailConfirmationLink] = useState('hide');
+
   const [errors, setErrors] = useState({
     email: '',
     password: '',
@@ -58,6 +60,7 @@ const SigninPage = (props: Props) => {
     let error = false;
     sendMessage('notification', false);
     sendMessage('spinner');
+    setEmailConfirmationLink('hide');
     if (isEmptyOrSpaces(data.email)) {
       error = true;
       errorState.email = 'Cannot be empty';
@@ -126,6 +129,9 @@ const SigninPage = (props: Props) => {
             errorState.email = 'User account does not exist';
           } else if (error.response.status === 401) {
             errorState.password = 'Incorrect password';
+          } else if (error.response.status === 403) {
+            errorState.email = 'Email not confirmed';
+            setEmailConfirmationLink('showLink');
           }
         })
         .finally(() => {
@@ -146,56 +152,6 @@ const SigninPage = (props: Props) => {
     }).then(appResponse => {
       window.location.href = `${appResponse.data.data.redirect}?authKey=${authorizeResponse.data.auth_key}&space=${props.space}`;
     });
-  };
-
-  const sentEmailWithCode = () => {
-    if (isEmptyOrSpaces(data.email)) {
-      sendMessage('notification', true, {
-        message: 'Email cannot be empty',
-        type: 'failure',
-        duration: 5000,
-      });
-      return;
-    }
-
-    sentPasswordChangeEmailAction('password');
-  };
-
-  const sentPasswordChangeEmailAction = type => {
-    const min = 1;
-    const max = 100;
-    const rand = min + Math.random() * (max - min);
-    sentPasswordChangeEmail(
-      {
-        email: data.email,
-        resetCode: rand,
-      },
-      type
-    )
-      .then((response: any) => {
-        if (response === 200) {
-          if (type === 'password') {
-            sendMessage('notification', true, {
-              message: 'Password sent successfully',
-              type: 'success',
-              duration: 3000,
-            });
-          }
-        } else {
-          sendMessage('notification', true, {
-            type: 'failure',
-            message: 'Invalid Email error',
-            duration: 3000,
-          });
-        }
-      })
-      .catch(error => {
-        sendMessage('notification', true, {
-          type: 'failure',
-          message: 'Bad request',
-          duration: 3000,
-        });
-      });
   };
 
   const handleChange = event => {
@@ -227,6 +183,11 @@ const SigninPage = (props: Props) => {
     }
   };
 
+  const resendActivationLink = () => {
+    console.log(data.email);
+    setEmailConfirmationLink('showSent');
+  };
+
   return (
     <form method="GET" onSubmit={signinAction} noValidate className="login">
       <div className="form-signin">
@@ -239,6 +200,12 @@ const SigninPage = (props: Props) => {
                 {errors.email}
               </div>
             )}
+            {emailConfirmationLink === 'showLink' && (
+              <div className="link" onClick={resendActivationLink}>
+                Resend confirmation link
+              </div>
+            )}
+            {emailConfirmationLink === 'showSent' && <>Activation link sent</>}
           </div>
           <OakTextPlain
             id="email"
