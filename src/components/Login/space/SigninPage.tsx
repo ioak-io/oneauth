@@ -289,7 +289,6 @@ const SigninPage = (props: Props) => {
           <div className="social-facebook">
             <FacebookLogin
               appId="696666571109190"
-              autoLoad
               textButton="Facebook"
               fields="name,email,picture"
               onClick={onFacebookSignIn}
