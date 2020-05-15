@@ -1,6 +1,7 @@
 .login {
   .form-signup,
-  .form-signin, .form-reset {
+  .form-signin,
+  .form-reset {
     display: grid;
     grid-auto-flow: row;
     row-gap: 20px;
@@ -67,6 +68,40 @@
       left: 10px;
       margin-bottom: 6px;
       color: var(--color-foreground-1);
+    }
+  }
+
+  .social-signin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    align-items: center;
+    column-gap: 10px;
+    .social-google {
+      display: flex;
+      justify-content: flex-end;
+      justify-content: center;
+      button {
+        background-color: transparent !important;
+        border: 1.2px solid #f0f0f0 !important;
+        color: #f0f0f0 !important;
+        width: auto;
+        height: auto !important;
+        padding: 0;
+        border-radius: 4px !important;
+        div {
+          background-color: transparent !important;
+          display: flex;
+          padding: 0 10px !important;
+          margin: 0 !important;
+        }
+        span {
+          //   display: none;
+        }
+      }
+    }
+    .social-facebook {
+      display: flex;
     }
   }
 

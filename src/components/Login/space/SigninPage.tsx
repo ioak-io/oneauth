@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
+import { GoogleLogin } from 'react-google-login';
 import { getAuth, addAuth } from '../../../actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../../Types/GeneralTypes';
@@ -39,7 +40,6 @@ const SigninPage = (props: Props) => {
     email: '',
     password: '',
   });
-
   const [emailConfirmationLink, setEmailConfirmationLink] = useState('hide');
 
   const [errors, setErrors] = useState({
@@ -84,45 +84,7 @@ const SigninPage = (props: Props) => {
         null
       )
         .then((authorizeResponse: any) => {
-          if (authorizeResponse.status === 200) {
-            httpGet(
-              `${baseAuthUrl}/session/${authorizeResponse.data.auth_key}`,
-              null
-            )
-              .then(sessionResponse => {
-                if (sessionResponse.status === 200) {
-                  console.log(sessionResponse);
-                  sendMessage('notification', true, {
-                    type: 'success',
-                    message: 'logged in',
-                  });
-                  if (props.isSpaceLogin && props.appId) {
-                    props.cookies.set(
-                      props.space,
-                      authorizeResponse.data.auth_key
-                    );
-                    redirectToRequestedApp(authorizeResponse, sessionResponse);
-                  } else {
-                    success(authorizeResponse, sessionResponse);
-                  }
-                }
-              })
-              .catch((error: any) => {
-                if (error.response.status === 404) {
-                  sendMessage('notification', true, {
-                    type: 'failure',
-                    message: 'Invalid session token',
-                    duration: 3000,
-                  });
-                } else if (error.response.status === 401) {
-                  sendMessage('notification', true, {
-                    type: 'failure',
-                    message: 'Session expired',
-                    duration: 3000,
-                  });
-                }
-              });
-          }
+          getSession(baseAuthUrl, authorizeResponse);
         })
         .catch((error: any) => {
           if (error.response.status === 404) {
@@ -141,6 +103,42 @@ const SigninPage = (props: Props) => {
     } else {
       setErrors(errorState);
       sendMessage('spinner', false);
+    }
+  };
+
+  const getSession = (baseAuthUrl, authorizeResponse) => {
+    if (authorizeResponse.status === 200) {
+      httpGet(`${baseAuthUrl}/session/${authorizeResponse.data.auth_key}`, null)
+        .then(sessionResponse => {
+          if (sessionResponse.status === 200) {
+            console.log(sessionResponse);
+            sendMessage('notification', true, {
+              type: 'success',
+              message: 'logged in',
+            });
+            if (props.isSpaceLogin && props.appId) {
+              props.cookies.set(props.space, authorizeResponse.data.auth_key);
+              redirectToRequestedApp(authorizeResponse, sessionResponse);
+            } else {
+              success(authorizeResponse, sessionResponse);
+            }
+          }
+        })
+        .catch((error: any) => {
+          if (error.response.status === 404) {
+            sendMessage('notification', true, {
+              type: 'failure',
+              message: 'Invalid session token',
+              duration: 3000,
+            });
+          } else if (error.response.status === 401) {
+            sendMessage('notification', true, {
+              type: 'failure',
+              message: 'Session expired',
+              duration: 3000,
+            });
+          }
+        });
     }
   };
 
@@ -186,6 +184,33 @@ const SigninPage = (props: Props) => {
   const resendActivationLink = () => {
     console.log(data.email);
     setEmailConfirmationLink('showSent');
+  };
+
+  const onGoogleSignIn = googleProfile => {
+    if (googleProfile?.tokenId) {
+      let baseAuthUrl = '/auth';
+      if (props.isSpaceLogin) {
+        baseAuthUrl = `/auth/${props.space}`;
+      }
+      const errorState = {
+        email: '',
+        password: '',
+      };
+      sendMessage('notification', false);
+      sendMessage('spinner');
+      httpPost(
+        `${baseAuthUrl}/authorize/google/${googleProfile.tokenId}`,
+        null,
+        null
+      )
+        .then((authorizeResponse: any) => {
+          getSession(baseAuthUrl, authorizeResponse);
+        })
+        .finally(() => {
+          sendMessage('notification', false);
+          sendMessage('spinner', false);
+        });
+    }
   };
 
   return (
@@ -243,6 +268,18 @@ const SigninPage = (props: Props) => {
             Create an account
           </div>
         </div>
+      </div>
+      <div className="space-top-3 social-signin">
+        <div className="social-google">
+          <GoogleLogin
+            clientId="81306451496-fg67eb502dvfb50c31huhkbn481bi29h.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={onGoogleSignIn}
+            onFailure={onGoogleSignIn}
+            onAutoLoadFinished={onGoogleSignIn}
+          />
+        </div>
+        {/* <div className="social-facebook">facebook</div> */}
       </div>
     </form>
   );
