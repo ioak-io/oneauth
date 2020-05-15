@@ -290,7 +290,7 @@ const SigninPage = (props: Props) => {
             <FacebookLogin
               appId="696666571109190"
               textButton="Facebook"
-              fields="name,email,picture"
+              fields="name,email,picture,first_name,last_name"
               onClick={onFacebookSignIn}
               callback={onFacebookSignIn}
               icon="fa-facebook"
