@@ -3,13 +3,15 @@ import './styles/oak-spinner.scss';
 
 const OakSpinner = () => {
   return (
-    <div className="oak-spinner">
-      <div className="spinner-wrapper">
-        <span />
-        <span />
-        <span />
-        <span />
-        <span />
+    <div>
+      <div className="oak-spinner">
+        <div className="spinner-wrapper">
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
       </div>
     </div>
   );

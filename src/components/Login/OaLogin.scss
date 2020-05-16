@@ -80,6 +80,7 @@
     }
 
     img.logo {
+      user-select: none;
       width: auto;
       height: 40px;
       margin: auto;
@@ -151,4 +152,20 @@
   100% {
     opacity: 1;
   }
+}
+
+.notification-message {
+  display: flex;
+  justify-content: center;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  &.success {
+    // color: var(--color-success);
+  }
+  &.main {
+    // color: var(--color-success);
+  }
+  // display: flex;
+  // justify-content: center;
+  // flex-direction: column;
+  // align-items: center;
 }
