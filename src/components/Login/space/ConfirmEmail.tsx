@@ -44,6 +44,7 @@ const ConfirmEmail = (props: Props) => {
       if (props.isSpaceLogin) {
         baseAuthUrl = `/auth/${props.space}`;
       }
+      sendMessage('login-spinner');
       httpPost(
         `${baseAuthUrl}/verifyemailconfirmationlink/${props.authCode}`,
         null,
@@ -52,13 +53,27 @@ const ConfirmEmail = (props: Props) => {
         .then((response: any) => {
           if (response.status === 200) {
             setStage('confirmed');
+            sendMessage('login-notification', true, {
+              type: 'success-main',
+              message:
+                'Thank you for confirming your email. Your account is active. You can login now',
+            });
           } else {
             setStage('invalidLink');
+            sendMessage('login-notification', true, {
+              type: 'failure-main',
+              message: 'Email confirmation link you have entered is not valid',
+            });
           }
         })
         .catch(() => {
           setStage('invalidLink');
-        });
+          sendMessage('login-notification', true, {
+            type: 'failure-main',
+            message: 'Email confirmation link you have entered is not valid',
+          });
+        })
+        .finally(() => sendMessage('login-spinner', false));
     }
   }, []);
 
@@ -77,7 +92,7 @@ const ConfirmEmail = (props: Props) => {
     };
     let error = false;
     sendMessage('notification', false);
-    sendMessage('spinner');
+    sendMessage('login-spinner');
     if (isEmptyOrSpaces(data.email)) {
       error = true;
       errorState.email = 'Cannot be empty';
@@ -98,10 +113,10 @@ const ConfirmEmail = (props: Props) => {
         .then((response: any) => {
           if (response.status === 200) {
             setStage('linkSent');
-            sendMessage('notification', true, {
-              type: 'success',
-              message: 'Email confirmation link sent to your email',
-              duration: 3000,
+            sendMessage('login-notification', true, {
+              type: 'email-main',
+              message:
+                'Account activation link has been sent to your email. Your account will be activated, post email confirmation. Please check your email for further instructions',
             });
           } else {
             errorState.email = 'Invalid user email';
@@ -113,11 +128,12 @@ const ConfirmEmail = (props: Props) => {
         })
         .finally(() => {
           setErrors(errorState);
+          sendMessage('login-spinner', false);
         });
     } else {
       setErrors(errorState);
+      sendMessage('login-spinner', false);
     }
-    sendMessage('spinner', false);
   };
 
   const handleChange = event => {
@@ -133,24 +149,24 @@ const ConfirmEmail = (props: Props) => {
   return (
     <>
       <form method="GET" onSubmit={handleSubmit} noValidate className="login">
-        {stage === 'invalidLink' && (
+        {/* {stage === 'invalidLink' && (
           <div className="form-reset message typography-8">
             <OakIcon mat="warning" color="warning" size="2em" />
             Email confirmation link is invalid
           </div>
-        )}
-        {stage === 'confirmed' && (
+        )} */}
+        {/* {stage === 'confirmed' && (
           <div className="form-reset message typography-8">
             <OakIcon mat="check_circle" color="success" size="2em" />
             Your email is confirmed. You can login now
           </div>
-        )}
-        {stage === 'linkSent' && (
+        )} */}
+        {/* {stage === 'linkSent' && (
           <div className="form-reset message typography-8">
             <OakIcon mat="check_circle" color="success" size="2em" />
             Account activation link has been sent to your email
           </div>
-        )}
+        )} */}
         {stage === 'requestLink' && (
           <div className="form-reset">
             <div>

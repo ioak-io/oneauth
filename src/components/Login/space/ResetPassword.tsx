@@ -23,7 +23,7 @@ interface Props {
   location: any;
   authorization: Authorization;
   isSpaceLogin: boolean;
-  resetCode: string;
+  authCode: string;
   switchToSigninPage: any;
   space: string;
 }
@@ -39,13 +39,14 @@ const ResetPassword = (props: Props) => {
 
   //   const [] = useState('');
   useEffect(() => {
-    if (props.resetCode) {
+    if (props.authCode) {
       let baseAuthUrl = '/auth';
       if (props.isSpaceLogin) {
         baseAuthUrl = `/auth/${props.space}`;
       }
+      sendMessage('login-spinner');
       httpPost(
-        `${baseAuthUrl}/verifypasswordlink/${props.resetCode}`,
+        `${baseAuthUrl}/verifypasswordlink/${props.authCode}`,
         {
           password: data.password,
         },
@@ -56,11 +57,20 @@ const ResetPassword = (props: Props) => {
             setStage('setPassword');
           } else {
             setStage('invalidLink');
+            sendMessage('login-notification', true, {
+              type: 'failure-main',
+              message: 'Password reset link you have entered is invalid',
+            });
           }
         })
         .catch(() => {
           setStage('invalidLink');
-        });
+          sendMessage('login-notification', true, {
+            type: 'failure-main',
+            message: 'Password reset link you have entered is invalid',
+          });
+        })
+        .finally(() => sendMessage('login-spinner', false));
     }
   }, []);
 
@@ -83,7 +93,7 @@ const ResetPassword = (props: Props) => {
     };
     let error = false;
     sendMessage('notification', false);
-    sendMessage('spinner');
+    sendMessage('login-spinner');
     if (isEmptyOrSpaces(data.email)) {
       error = true;
       errorState.email = 'Cannot be empty';
@@ -104,10 +114,10 @@ const ResetPassword = (props: Props) => {
         .then((response: any) => {
           if (response.status === 200) {
             setStage('linkSent');
-            sendMessage('notification', true, {
-              type: 'success',
-              message: 'Password reset link sent to your email',
-              duration: 3000,
+            sendMessage('login-notification', true, {
+              type: 'email-main',
+              message:
+                'Link to reset your password has been sent to your email. Please check your email for further instructions',
             });
           } else {
             errorState.email = 'Invalid user email';
@@ -119,15 +129,17 @@ const ResetPassword = (props: Props) => {
         })
         .finally(() => {
           setErrors(errorState);
+          sendMessage('login-spinner', false);
         });
     } else {
       setErrors(errorState);
+      sendMessage('login-spinner', false);
     }
-    sendMessage('spinner', false);
   };
 
   const resetPassword = event => {
     event.preventDefault();
+    sendMessage('login-spinner');
     let baseAuthUrl = '/auth';
     if (props.isSpaceLogin) {
       baseAuthUrl = `/auth/${props.space}`;
@@ -138,8 +150,6 @@ const ResetPassword = (props: Props) => {
       repeatpassword: '',
     };
     let error = false;
-    sendMessage('notification', false);
-    sendMessage('spinner');
     if (isEmptyOrSpaces(data.password)) {
       error = true;
       errorState.password = 'Cannot be empty';
@@ -151,23 +161,26 @@ const ResetPassword = (props: Props) => {
     setErrors(errorState);
     if (!error) {
       httpPost(
-        `${baseAuthUrl}/resetpassword/${props.resetCode}`,
+        `${baseAuthUrl}/resetpassword/${props.authCode}`,
         {
           password: data.password,
         },
         null
-      ).then((response: any) => {
-        if (response.status === 200) {
-          setStage('passwordUpdated');
-          sendMessage('notification', true, {
-            type: 'success',
-            message: 'Password updated',
-            duration: 3000,
-          });
-        }
-      });
+      )
+        .then((response: any) => {
+          if (response.status === 200) {
+            setStage('passwordUpdated');
+            sendMessage('login-notification', true, {
+              type: 'success-main',
+              message:
+                'Password has been updated. You can login with your new password now',
+            });
+          }
+        })
+        .finally(() => sendMessage('login-spinner', false));
+    } else {
+      sendMessage('login-spinner', false);
     }
-    sendMessage('spinner', false);
   };
 
   const handleChange = event => {
@@ -185,24 +198,24 @@ const ResetPassword = (props: Props) => {
   return (
     <>
       <form method="GET" onSubmit={handleSubmit} noValidate className="login">
-        {stage === 'invalidLink' && (
+        {/* {stage === 'invalidLink' && (
           <div className="form-reset message typography-8">
             <OakIcon mat="warning" color="warning" size="2em" />
             Password reset link is invalid
           </div>
-        )}
-        {stage === 'passwordUpdated' && (
+        )} */}
+        {/* {stage === 'passwordUpdated' && (
           <div className="form-reset message typography-8">
             <OakIcon mat="check_circle" color="success" size="2em" />
             Password updated
           </div>
-        )}
-        {stage === 'linkSent' && (
+        )} */}
+        {/* {stage === 'linkSent' && (
           <div className="form-reset message typography-8">
             <OakIcon mat="check_circle" color="success" size="2em" />
             Link to reset your password has been sent to your email
           </div>
-        )}
+        )} */}
         {stage === 'requestLink' && (
           <div className="form-reset">
             <div>

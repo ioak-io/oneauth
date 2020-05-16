@@ -60,7 +60,7 @@ const SigninPage = (props: Props) => {
     };
     let error = false;
     sendMessage('notification', false);
-    sendMessage('spinner');
+    sendMessage('login-spinner');
     setEmailConfirmationLink('hide');
     if (isEmptyOrSpaces(data.email)) {
       error = true;
@@ -88,22 +88,22 @@ const SigninPage = (props: Props) => {
           getSession(baseAuthUrl, authorizeResponse);
         })
         .catch((error: any) => {
-          if (error.response.status === 404) {
+          if (error.response?.status === 404) {
             errorState.email = 'User account does not exist';
-          } else if (error.response.status === 401) {
+          } else if (error.response?.status === 401) {
             errorState.password = 'Incorrect password';
-          } else if (error.response.status === 403) {
+          } else if (error.response?.status === 403) {
             errorState.email = 'Email not confirmed';
             setEmailConfirmationLink('showLink');
           }
         })
         .finally(() => {
           setErrors(errorState);
-          sendMessage('spinner', false);
+          sendMessage('login-spinner', false);
         });
     } else {
       setErrors(errorState);
-      sendMessage('spinner', false);
+      sendMessage('login-spinner', false);
     }
   };
 
@@ -112,11 +112,6 @@ const SigninPage = (props: Props) => {
       httpGet(`${baseAuthUrl}/session/${authorizeResponse.data.auth_key}`, null)
         .then(sessionResponse => {
           if (sessionResponse.status === 200) {
-            console.log(sessionResponse);
-            sendMessage('notification', true, {
-              type: 'success',
-              message: 'logged in',
-            });
             if (props.isSpaceLogin && props.appId) {
               props.cookies.set(props.space, authorizeResponse.data.auth_key);
               redirectToRequestedApp(authorizeResponse, sessionResponse);
@@ -162,11 +157,6 @@ const SigninPage = (props: Props) => {
     if (props.isSpaceLogin) {
       props.cookies.set(props.space, authorizeResponse.data.auth_key);
       props.history.push(`/space/${props.space}/home`);
-      sendMessage('notification', true, {
-        type: 'success',
-        message: 'logged in to space',
-        duration: 3000,
-      });
     } else {
       // dispatch(fetchSpace(data));
       // dispatch(fetchApp(data));
@@ -174,22 +164,39 @@ const SigninPage = (props: Props) => {
       // dispatch(fetchRoles(data));
       props.cookies.set('oneauth', authorizeResponse.data.auth_key);
       props.history.push('/');
-      sendMessage('notification', true, {
-        type: 'success',
-        message: 'logged in to oneauth',
-        duration: 3000,
-      });
     }
   };
 
   const resendActivationLink = () => {
-    console.log(data.email);
     setEmailConfirmationLink('showSent');
   };
 
   const onFacebookSignIn = facebookProfile => {
     console.log('****fb login****');
     console.log(facebookProfile);
+    if (facebookProfile?.accessToken) {
+      sendMessage('spinner');
+      let baseAuthUrl = '/auth';
+      if (props.isSpaceLogin) {
+        baseAuthUrl = `/auth/${props.space}`;
+      }
+      httpPost(
+        `${baseAuthUrl}/authorize/facebook`,
+        {
+          email: facebookProfile.email,
+          firstName: facebookProfile.first_name,
+          lastName: facebookProfile.last_name,
+        },
+        null
+      )
+        .then((authorizeResponse: any) => {
+          getSession(baseAuthUrl, authorizeResponse);
+        })
+        .finally(() => {
+          sendMessage('notification', false);
+          sendMessage('spinner', false);
+        });
+    }
   };
 
   const onGoogleSignIn = googleProfile => {
@@ -198,10 +205,6 @@ const SigninPage = (props: Props) => {
       if (props.isSpaceLogin) {
         baseAuthUrl = `/auth/${props.space}`;
       }
-      const errorState = {
-        email: '',
-        password: '',
-      };
       sendMessage('notification', false);
       sendMessage('spinner');
       httpPost(
@@ -289,12 +292,11 @@ const SigninPage = (props: Props) => {
           <div className="social-facebook">
             <FacebookLogin
               appId="696666571109190"
-              autoLoad
               textButton="Facebook"
               fields="name,email,picture"
               onClick={onFacebookSignIn}
               callback={onFacebookSignIn}
-              icon="fa-facebook"
+              icon="fa-facebook-square"
             />
           </div>
         </div>

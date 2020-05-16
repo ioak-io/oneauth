@@ -9,7 +9,7 @@ import { fetchRoles } from '../../actions/OaRoleActions';
 import { fetchAppSpace } from '../../actions/AppSpaceAction';
 import './OaLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
-import { sendMessage } from '../../events/MessageService';
+import { sendMessage, receiveMessage } from '../../events/MessageService';
 import { sentPasswordChangeEmail } from '../Auth/AuthService';
 import { isEmptyOrSpaces } from '../Utils';
 import oneauthWhite from '../../images/oneauth_white.svg';
@@ -19,6 +19,8 @@ import NewUser from './space/NewUser';
 import VerifySession from './space/VerifySession';
 import ResetPassword from './space/ResetPassword';
 import ConfirmEmail from './space/ConfirmEmail';
+import OakSpinner from '../../oakui/OakSpinner';
+import NotificationMessage from './space/NotificationMessage';
 
 const queryString = require('query-string');
 
@@ -45,13 +47,38 @@ const Login = (props: Props) => {
   const authorization = useSelector(state => state.authorization);
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
+  const [spinner, setSpinner] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState({
+    type: '',
+    message: '',
+  });
 
   const [appId, setAppId] = useState('');
   const [verificationStep, setVerificationStep] = useState(false);
 
   useEffect(() => {
     sendMessage('navbar', false);
+
+    const eventBus = receiveMessage().subscribe(message => {
+      if (message.name === 'login-spinner') {
+        setSpinner(message.signal);
+        if (message.signal) {
+          setNotificationMessage({
+            type: '',
+            message: '',
+          });
+        }
+      } else if (message.name === 'login-notification') {
+        setNotificationMessage(message.data);
+        setSpinner(false);
+      }
+    });
+    return () => eventBus.unsubscribe();
   }, []);
+
+  useEffect(() => {
+    setNotificationMessage({ type: '', message: '' });
+  }, [type]);
 
   useEffect(() => {
     if (props.location.search) {
@@ -61,6 +88,7 @@ const Login = (props: Props) => {
       }
       if (query && query.auth) {
         setAuthCode(query.auth);
+        console.log(query.auth);
       }
       if (query && query.appId) {
         setAppId(query.appId);
@@ -91,6 +119,10 @@ const Login = (props: Props) => {
             {props.profile.theme === 'theme_dark' && (
               <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
             )}
+
+            {spinner && <OakSpinner />}
+            <NotificationMessage notification={notificationMessage} />
+
             {!verificationStep && type === 'signin' && (
               <div className="wrapper">
                 <SigninPage

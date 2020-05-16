@@ -62,7 +62,7 @@ const NewUser = (props: Props) => {
     };
     let error = false;
     sendMessage('notification', false);
-    sendMessage('spinner');
+    sendMessage('login-spinner');
     if (isEmptyOrSpaces(data.firstName)) {
       error = true;
       errorState.firstName = 'Cannot be empty';
@@ -100,39 +100,43 @@ const NewUser = (props: Props) => {
       )
         .then((response: any) => {
           if (response.status === 200) {
-            sendMessage('notification', true, {
-              type: 'success',
-              message: 'Your account has been setup',
-              duration: 3000,
+            // sendMessage('notification', true, {
+            //   type: 'success',
+            //   message: 'Your account has been setup',
+            //   duration: 3000,
+            // });
+            // props.switchToSigninPage();
+            setStage('created');
+            sendMessage('login-notification', true, {
+              type: 'email-main',
+              message:
+                'Your account has been setup. Your account will be activated after you confirm your email. Please check your email for further instructions',
             });
-            props.switchToSigninPage();
           } else {
-            sendMessage('notification', true, {
+            sendMessage('login-notification', true, {
               type: 'failure',
               message: 'Unknown error',
-              duration: 3000,
             });
           }
         })
         .catch(e => {
-          if (e.response.status === 403) {
+          if (e.response?.status === 403) {
             error = true;
             errorState.email = 'User account already exists';
           } else {
-            sendMessage('notification', true, {
+            sendMessage('login-notification', true, {
               type: 'failure',
               message: 'Unknown error',
-              duration: 3000,
             });
           }
         })
         .finally(() => {
           setErrors(errorState);
-          sendMessage('spinner', false);
+          sendMessage('login-spinner', false);
         });
     } else {
       setErrors(errorState);
-      sendMessage('spinner', false);
+      sendMessage('login-spinner', false);
     }
   };
 
@@ -140,103 +144,117 @@ const NewUser = (props: Props) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
+  const handleSubmit = event => {
+    if (stage === 'userdetails') {
+      signupAction(event);
+    }
+  };
+
   return (
-    <form method="GET" onSubmit={signupAction} noValidate className="login">
-      <div className="form-signup">
-        <div>
-          <div className="label">
-            {!errors.firstName && <div className="label-text">First Name</div>}
-            {errors.firstName && (
-              <div className="error-text">
-                <OakIcon mat="warning" color="warning" size="20px" />
-                {errors.firstName}
-              </div>
-            )}
+    <form method="GET" onSubmit={handleSubmit} noValidate className="login">
+      {stage === 'userdetails' && (
+        <div className="form-signup">
+          <div>
+            <div className="label">
+              {!errors.firstName && (
+                <div className="label-text">First Name</div>
+              )}
+              {errors.firstName && (
+                <div className="error-text">
+                  <OakIcon mat="warning" color="warning" size="20px" />
+                  {errors.firstName}
+                </div>
+              )}
+            </div>
+            <OakTextPlain
+              id="firstName"
+              data={data}
+              handleChange={e => handleChange(e)}
+            />
           </div>
-          <OakTextPlain
-            id="firstName"
-            data={data}
-            handleChange={e => handleChange(e)}
-          />
-        </div>
-        <div>
-          <div className="label">
-            {!errors.lastName && <div className="label-text">Last Name</div>}
-            {errors.lastName && (
-              <div className="error-text">
-                <OakIcon mat="warning" color="warning" size="20px" />
-                {errors.lastName}
-              </div>
-            )}
+          <div>
+            <div className="label">
+              {!errors.lastName && <div className="label-text">Last Name</div>}
+              {errors.lastName && (
+                <div className="error-text">
+                  <OakIcon mat="warning" color="warning" size="20px" />
+                  {errors.lastName}
+                </div>
+              )}
+            </div>
+            <OakTextPlain
+              id="lastName"
+              data={data}
+              handleChange={e => handleChange(e)}
+            />
           </div>
-          <OakTextPlain
-            id="lastName"
-            data={data}
-            handleChange={e => handleChange(e)}
-          />
-        </div>
-        <div>
-          <div className="label">
-            {!errors.email && <div className="label-text">E-mail</div>}
-            {errors.email && (
-              <div className="error-text">
-                <OakIcon mat="warning" color="warning" size="20px" />
-                {errors.email}
-              </div>
-            )}
+          <div>
+            <div className="label">
+              {!errors.email && <div className="label-text">E-mail</div>}
+              {errors.email && (
+                <div className="error-text">
+                  <OakIcon mat="warning" color="warning" size="20px" />
+                  {errors.email}
+                </div>
+              )}
+            </div>
+            <OakTextPlain
+              id="email"
+              placeholder="example@domain.com"
+              data={data}
+              handleChange={e => handleChange(e)}
+            />
           </div>
-          <OakTextPlain
-            id="email"
-            placeholder="example@domain.com"
-            data={data}
-            handleChange={e => handleChange(e)}
-          />
-        </div>
-        <div>
-          <div className="label">
-            {!errors.password && <div className="label-text">Password</div>}
-            {errors.password && (
-              <div className="error-text">
-                <OakIcon mat="warning" color="warning" size="20px" />
-                {errors.password}
-              </div>
-            )}
+          <div>
+            <div className="label">
+              {!errors.password && <div className="label-text">Password</div>}
+              {errors.password && (
+                <div className="error-text">
+                  <OakIcon mat="warning" color="warning" size="20px" />
+                  {errors.password}
+                </div>
+              )}
+            </div>
+            <OakTextPlain
+              type="password"
+              id="password"
+              placeholder="Choose a strong password"
+              data={data}
+              handleChange={e => handleChange(e)}
+            />
           </div>
-          <OakTextPlain
-            type="password"
-            id="password"
-            placeholder="Choose a strong password"
-            data={data}
-            handleChange={e => handleChange(e)}
-          />
-        </div>
-        <div>
-          <div className="label">
-            {!errors.repeatpassword && (
-              <div className="label-text">Retype password</div>
-            )}
-            {errors.repeatpassword && (
-              <div className="error-text">
-                <OakIcon mat="warning" color="warning" size="20px" />
-                {errors.repeatpassword}
-              </div>
-            )}
+          <div>
+            <div className="label">
+              {!errors.repeatpassword && (
+                <div className="label-text">Retype password</div>
+              )}
+              {errors.repeatpassword && (
+                <div className="error-text">
+                  <OakIcon mat="warning" color="warning" size="20px" />
+                  {errors.repeatpassword}
+                </div>
+              )}
+            </div>
+            <OakTextPlain
+              type="password"
+              id="repeatpassword"
+              placeholder="Don't forget it"
+              data={data}
+              handleChange={e => handleChange(e)}
+            />
           </div>
-          <OakTextPlain
-            type="password"
-            id="repeatpassword"
-            placeholder="Don't forget it"
-            data={data}
-            handleChange={e => handleChange(e)}
-          />
         </div>
-      </div>
+      )}
 
       <div className="action">
-        <OakButton variant="regular" theme="primary" action={signupAction}>
-          Create Account
-        </OakButton>
-        <p className="hr">or</p>
+        {stage === 'userdetails' && (
+          <>
+            <OakButton variant="regular" theme="primary" action={signupAction}>
+              Create Account
+            </OakButton>
+            <p className="hr">or</p>
+          </>
+        )}
         <div className="button-link">
           <div className="link" onClick={props.switchToSigninPage}>
             Log In
