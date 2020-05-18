@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { getAuth, addAuth } from '../../actions/AuthActions';
 import { Authorization } from '../Types/GeneralTypes';
-import AuthInit from './AuthInit';
 import { httpGet } from '../Lib/RestTemplate';
 import { setProfile } from '../../actions/ProfileActions';
 import { sendMessage } from '../../events/MessageService';
@@ -188,12 +187,6 @@ const OakRoute = (props: Props) => {
 
   return (
     <>
-      {/* <AuthInit
-        profile={props.profile}
-        redirectIfNotAuthenticated={
-          props.middleware && props.middleware.indexOf('isAuthenticated') !== -1
-        }
-      /> */}
       {middlewares() && (
         <props.component
           {...props}

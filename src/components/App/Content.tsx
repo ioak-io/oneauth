@@ -7,19 +7,13 @@ import { connect } from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import Home from '../Home';
 import SpaceLogin from '../Login/SpaceLogin';
-import Landing from '../Landing';
-import PrivateRoute from '../Auth/PrivateRoute';
-import AuthInit from '../Auth/AuthInit';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
 import { getProfile, setProfile } from '../../actions/ProfileActions';
 
 import Notification from '../Notification';
 import Navigation from '../Navigation';
-import { httpGet } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
-import Tenant from '../Tenant';
-import constants from '../Constants';
 import OaLogin from '../Login/OaLogin';
 import OakRoute from '../Auth/OakRoute';
 import ManageSpace from '../ManageSpace';
@@ -95,7 +89,6 @@ const Content = (props: Props) => {
       className={`App ${props.profile.theme} ${props.profile.textSize} ${props.profile.themeColor}`}
     >
       <HashRouter>
-        {/* <AuthInit /> */}
         <div className="body">
           <div className="body-content">
             <Notification />
