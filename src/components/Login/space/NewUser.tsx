@@ -75,7 +75,11 @@ const NewUser = (props: Props) => {
       error = true;
       errorState.email = 'Cannot be empty';
     }
-    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)) {
+    if (
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        data.email.trim().toLowerCase()
+      )
+    ) {
       error = true;
       errorState.email = 'Invalid email';
     }
@@ -91,9 +95,9 @@ const NewUser = (props: Props) => {
       httpPost(
         `${baseAuthUrl}/signup`,
         {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
+          firstName: data.firstName.trim(),
+          lastName: data.lastName.trim(),
+          email: data.email.trim().toLowerCase(),
           password: data.password,
         },
         null

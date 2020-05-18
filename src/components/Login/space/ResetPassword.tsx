@@ -98,7 +98,9 @@ const ResetPassword = (props: Props) => {
       error = true;
       errorState.email = 'Cannot be empty';
     } else if (
-      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        data.email.trim().toLowerCase()
+      )
     ) {
       error = true;
       errorState.email = 'Invalid email';
@@ -107,7 +109,7 @@ const ResetPassword = (props: Props) => {
       httpPost(
         `${baseAuthUrl}/resetpasswordlink`,
         {
-          email: data.email,
+          email: data.email.trim().toLowerCase(),
         },
         null
       )

@@ -97,7 +97,9 @@ const ConfirmEmail = (props: Props) => {
       error = true;
       errorState.email = 'Cannot be empty';
     } else if (
-      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        data.email.trim().toLowerCase()
+      )
     ) {
       error = true;
       errorState.email = 'Invalid email';
@@ -106,7 +108,7 @@ const ConfirmEmail = (props: Props) => {
       httpPost(
         `${baseAuthUrl}/emailconfirmationlink`,
         {
-          email: data.email,
+          email: data.email.trim().toLowerCase(),
         },
         null
       )

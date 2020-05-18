@@ -66,7 +66,9 @@ const SigninPage = (props: Props) => {
       error = true;
       errorState.email = 'Cannot be empty';
     } else if (
-      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(data.email)
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+        data.email.trim().toLowerCase()
+      )
     ) {
       error = true;
       errorState.email = 'Invalid email';
@@ -79,7 +81,7 @@ const SigninPage = (props: Props) => {
       httpPost(
         `${baseAuthUrl}/authorize`,
         {
-          email: data.email,
+          email: data.email.trim().toLowerCase(),
           password: data.password,
         },
         null
@@ -172,8 +174,6 @@ const SigninPage = (props: Props) => {
   };
 
   const onFacebookSignIn = facebookProfile => {
-    console.log('****fb login****');
-    console.log(facebookProfile);
     if (facebookProfile?.accessToken) {
       sendMessage('spinner');
       let baseAuthUrl = '/auth';

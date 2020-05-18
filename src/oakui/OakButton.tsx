@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import './styles/oak-button-slide.scss';
+import './styles/oak-button.scss';
 import OakIcon from './OakIcon';
 
 interface Props {
