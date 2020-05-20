@@ -124,6 +124,8 @@ const OakRoute = (props: Props) => {
                 firstName: sessionResponse.data.firstName,
                 lastName: sessionResponse.data.lastName,
                 email: sessionResponse.data.email,
+                type: sessionResponse.data.type,
+                userId: sessionResponse.data.userId,
               })
             );
             if (type === 'oa') {

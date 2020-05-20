@@ -76,26 +76,32 @@ const Login = (props: Props) => {
     return () => eventBus.unsubscribe();
   }, []);
 
-  useEffect(() => {
+  const changeRoute = routeType => {
     setNotificationMessage({ type: '', message: '' });
-  }, [type]);
+    props.history.push(`/login?type=${routeType}`);
+  };
 
   useEffect(() => {
     if (props.location.search) {
       const query = queryString.parse(props.location.search);
       if (query && query.type) {
         setType(query.type);
+      } else {
+        setType('signin');
       }
       if (query && query.auth) {
         setAuthCode(query.auth);
-        console.log(query.auth);
+      } else {
+        setAuthCode('');
       }
       if (query && query.appId) {
         setAppId(query.appId);
+      } else {
+        setAppId('');
       }
     }
     // props.setProfile({ ...props.profile, tenant: props.match.params.tenant });
-  }, []);
+  }, [props.location.search]);
 
   useEffect(() => {
     setVerificationStep(true);
@@ -126,8 +132,8 @@ const Login = (props: Props) => {
             {!verificationStep && type === 'signin' && (
               <div className="wrapper">
                 <SigninPage
-                  switchToSignupPage={() => setType('signup')}
-                  switchToResetPage={() => setType('reset')}
+                  switchToSignupPage={() => changeRoute('signup')}
+                  switchToResetPage={() => changeRoute('reset')}
                   {...props}
                 />
               </div>
@@ -135,7 +141,7 @@ const Login = (props: Props) => {
             {!verificationStep && type === 'signup' && (
               <div className="wrapper">
                 <NewUser
-                  switchToSigninPage={() => setType('signin')}
+                  switchToSigninPage={() => changeRoute('signin')}
                   {...props}
                 />
               </div>
@@ -146,7 +152,7 @@ const Login = (props: Props) => {
                 <ResetPassword
                   {...props}
                   authCode={authCode}
-                  switchToSigninPage={() => setType('signin')}
+                  switchToSigninPage={() => changeRoute('signin')}
                 />
               </div>
             )}
@@ -156,7 +162,7 @@ const Login = (props: Props) => {
                 <ConfirmEmail
                   {...props}
                   authCode={authCode}
-                  switchToSigninPage={() => setType('signin')}
+                  switchToSigninPage={() => changeRoute('signin')}
                 />
               </div>
             )}
