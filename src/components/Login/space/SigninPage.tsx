@@ -262,6 +262,7 @@ const SigninPage = (props: Props) => {
           </div>
           <OakTextPlain
             id="password"
+            type="password"
             data={data}
             handleChange={e => handleChange(e)}
           />
