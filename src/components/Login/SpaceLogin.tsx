@@ -67,9 +67,10 @@ const Login = (props: Props) => {
     return () => eventBus.unsubscribe();
   }, []);
 
-  useEffect(() => {
+  const changeRoute = routeType => {
     setNotificationMessage({ type: '', message: '' });
-  }, [type]);
+    props.history.push(`/space/${props.space}/login?type=${routeType}`);
+  };
 
   useEffect(() => {
     setVerificationStep(true);
@@ -78,13 +79,19 @@ const Login = (props: Props) => {
       const query = queryString.parse(props.location.search);
       if (query && query.type) {
         setType(query.type);
+      } else {
+        setType('signin');
       }
       if (query && query.auth) {
         setAuthCode(query.auth);
+      } else {
+        setAuthCode('');
       }
       if (query && query.appId) {
         setAppId(query.appId);
         appIdRef = query.appId;
+      } else {
+        setAppId('');
       }
     }
     const authKey = props.cookies.get(props.space);
@@ -97,7 +104,7 @@ const Login = (props: Props) => {
     } else {
       setVerificationStep(false);
     }
-  }, []);
+  }, [props.location.search]);
 
   const redirectToRequestedAppIfTokenIsValid = (appIdRef, authKey) => {
     console.log(appIdRef, authKey);
@@ -147,8 +154,8 @@ const Login = (props: Props) => {
             <div className="wrapper">
               <SigninPage
                 appId={appId}
-                switchToSignupPage={() => setType('signup')}
-                switchToResetPage={() => setType('reset')}
+                switchToSignupPage={() => changeRoute('signup')}
+                switchToResetPage={() => changeRoute('reset')}
                 isSpaceLogin
                 {...props}
               />
@@ -158,7 +165,7 @@ const Login = (props: Props) => {
           {!verificationStep && type === 'signup' && (
             <div className="wrapper">
               <NewUser
-                switchToSigninPage={() => setType('signin')}
+                switchToSigninPage={() => changeRoute('signin')}
                 isSpaceLogin
                 {...props}
               />
@@ -170,8 +177,8 @@ const Login = (props: Props) => {
               <ResetPassword
                 isSpaceLogin
                 {...props}
-                resetCode={authCode}
-                switchToSigninPage={() => setType('signin')}
+                authCode={authCode}
+                switchToSigninPage={() => changeRoute('signin')}
               />
             </div>
           )}
@@ -182,7 +189,7 @@ const Login = (props: Props) => {
                 isSpaceLogin
                 {...props}
                 authCode={authCode}
-                switchToSigninPage={() => setType('signin')}
+                switchToSigninPage={() => changeRoute('signin')}
               />
             </div>
           )}

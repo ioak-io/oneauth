@@ -37,6 +37,10 @@ const ManageSpace = (props: Props) => {
   }, []);
 
   useEffect(() => {
+    console.log(auth);
+  }, [auth]);
+
+  useEffect(() => {
     setView(search(space.data, searchCriteria.text));
   }, [space.data, searchCriteria]);
 
@@ -98,7 +102,8 @@ const ManageSpace = (props: Props) => {
   const addSpace = () => {
     if (
       validateEmptyText(data.name, 'Space name cannot be empty') &&
-      validateEmptyText(data.password, 'Password is not provided') &&
+      (auth.type !== 'oneauth' ||
+        validateEmptyText(data.password, 'Password is not provided')) &&
       validateEmptyText(
         data.days || data.hours || data.minutes,
         'Session Expiry is not provided'
@@ -111,7 +116,17 @@ const ManageSpace = (props: Props) => {
           duration: 5000,
         });
       } else {
-        dispatch(createSpace(auth, data));
+        const payload: any = {
+          name: data.name,
+          days: data.days,
+          hours: data.hours,
+          minutes: data.minutes,
+          userId: auth.userId,
+        };
+        if (auth.type === 'oneauth') {
+          payload.password = data.password;
+        }
+        dispatch(createSpace(auth, payload));
       }
     }
   };
@@ -176,27 +191,51 @@ const ManageSpace = (props: Props) => {
             label="Space name"
             handleChange={e => handleChange(e)}
           />
-          <OakText
-            data={data}
-            id="email"
-            label="Administrator Email"
-            disabled
-            handleChange={e => handleChange(e)}
-          />
-          <OakText
-            data={data}
-            id="password"
-            label="Administrator Password"
-            type="password"
-            handleChange={e => handleChange(e)}
-          />
-          <OakText
-            data={data}
-            id="repeatPassword"
-            label="Repeat Password"
-            type="password"
-            handleChange={e => handleChange(e)}
-          />
+          {auth.type === 'oneauth' && (
+            <OakText
+              data={data}
+              id="email"
+              label="Administrator Email"
+              disabled
+              handleChange={e => handleChange(e)}
+            />
+          )}
+          {auth.type === 'google' && (
+            <OakText
+              data={data}
+              id="email"
+              label="Administrator (Google)"
+              disabled
+              handleChange={e => handleChange(e)}
+            />
+          )}
+          {auth.type === 'facebook' && (
+            <OakText
+              data={data}
+              id="email"
+              label="Administrator (Facebook)"
+              disabled
+              handleChange={e => handleChange(e)}
+            />
+          )}
+          {auth.type === 'oneauth' && (
+            <>
+              <OakText
+                data={data}
+                id="password"
+                label="Administrator Password"
+                type="password"
+                handleChange={e => handleChange(e)}
+              />
+              <OakText
+                data={data}
+                id="repeatPassword"
+                label="Repeat Password"
+                type="password"
+                handleChange={e => handleChange(e)}
+              />
+            </>
+          )}
           <div className="session-expiry">
             <OakText
               data={data}
