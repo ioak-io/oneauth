@@ -45,9 +45,14 @@ const HomeLink = (props: Props) => {
     props.history.push(`/space/${props.space}/home?type=${routeType}`);
   };
 
-  const login = type => {
+  const login = () => {
     props.history.push(`/space/${props.space}/login?type=signin`);
   };
+
+  const signup = () => {
+    props.history.push(`/space/${props.space}/login?type=signup`);
+  };
+
   const logout = () => {
     let baseAuthUrl = '/auth';
     let authKey = props.cookies.get('oneauth');
@@ -104,9 +109,14 @@ const HomeLink = (props: Props) => {
               </>
             )}
             {!authorization.isAuth && (
-              <OakButton variant="regular" theme="primary" action={login}>
-                Sign in
-              </OakButton>
+              <>
+                <OakButton variant="appear" theme="primary" action={login}>
+                  Sign in
+                </OakButton>
+                <OakButton variant="appear" theme="primary" action={signup}>
+                  Sign up
+                </OakButton>
+              </>
             )}
           </div>
           {/* {['requestLink'].includes(stage) && <p className="hr">or</p>}
