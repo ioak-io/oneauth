@@ -32,6 +32,7 @@ interface Props {
   switchToResetPage: any;
   isSpaceLogin: boolean;
   space: string;
+  queryParam: any;
 }
 
 const SigninPage = (props: Props) => {
@@ -146,7 +147,13 @@ const SigninPage = (props: Props) => {
         Authorization: sessionResponse.data.token,
       },
     }).then(appResponse => {
-      window.location.href = `${appResponse.data.data.redirect}?authKey=${authorizeResponse.data.auth_key}&space=${props.space}`;
+      let appendString = '';
+      Object.keys(props.queryParam).forEach(key => {
+        if (['appId', 'type'].includes(key)) {
+          appendString += `&${key}=${props.queryParam[key]}`;
+        }
+      });
+      window.location.href = `${appResponse.data.data.redirect}?authKey=${authorizeResponse.data.auth_key}&space=${props.space}${appendString}`;
     });
   };
 

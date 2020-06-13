@@ -45,6 +45,7 @@ const Login = (props: Props) => {
   });
 
   const [appId, setAppId] = useState('');
+  const [queryParam, setQueryParam] = useState<any>();
   const [verificationStep, setVerificationStep] = useState(false);
 
   useEffect(() => {
@@ -77,6 +78,8 @@ const Login = (props: Props) => {
     let appIdRef = null;
     if (props.location.search) {
       const query = queryString.parse(props.location.search);
+      setQueryParam({ ...query });
+      console.log(query);
       if (query && query.type) {
         setType(query.type);
       } else {
@@ -97,7 +100,11 @@ const Login = (props: Props) => {
     const authKey = props.cookies.get(props.space);
     if (authorization.isAuth || authKey) {
       if (appIdRef) {
-        redirectToRequestedAppIfTokenIsValid(appIdRef, authKey);
+        redirectToRequestedAppIfTokenIsValid(
+          appIdRef,
+          authKey,
+          queryString.parse(props.location.search)
+        );
       } else {
         props.history.push(`/space/${props.space}/home`);
       }
@@ -106,14 +113,23 @@ const Login = (props: Props) => {
     }
   }, [props.location.search]);
 
-  const redirectToRequestedAppIfTokenIsValid = (appIdRef, authKey) => {
+  const redirectToRequestedAppIfTokenIsValid = (
+    appIdRef,
+    authKey,
+    queryString
+  ) => {
     console.log(appIdRef, authKey);
     const baseAuthUrl = `/auth/${props.space}`;
 
     httpGet(`${baseAuthUrl}/session/${authKey}`, null)
       .then(sessionResponse => {
         if (sessionResponse.status === 200) {
-          redirectToRequestedApp(appIdRef, authKey, sessionResponse.data.token);
+          redirectToRequestedApp(
+            appIdRef,
+            authKey,
+            sessionResponse.data.token,
+            queryString
+          );
         } else {
           props.cookies.remove(props.space);
 
@@ -126,13 +142,19 @@ const Login = (props: Props) => {
       });
   };
 
-  const redirectToRequestedApp = (appId, authKey, token) => {
+  const redirectToRequestedApp = (appId, authKey, token, queryString) => {
     httpGet(`/app/${appId}`, {
       headers: {
         Authorization: token,
       },
     }).then(appResponse => {
-      window.location.href = `${appResponse.data.data.redirect}?authKey=${authKey}&space=${props.space}`;
+      let appendString = '';
+      Object.keys(queryString).forEach(key => {
+        if (['appId', 'type'].includes(key)) {
+          appendString += `&${key}=${queryString[key]}`;
+        }
+      });
+      window.location.href = `${appResponse.data.data.redirect}?authKey=${authKey}&space=${props.space}${appendString}`;
     });
   };
 
@@ -157,6 +179,7 @@ const Login = (props: Props) => {
                 switchToSignupPage={() => changeRoute('signup')}
                 switchToResetPage={() => changeRoute('reset')}
                 isSpaceLogin
+                queryParam={queryParam}
                 {...props}
               />
             </div>
