@@ -150,7 +150,7 @@ const Login = (props: Props) => {
     }).then(appResponse => {
       let appendString = '';
       Object.keys(queryString).forEach(key => {
-        if (['appId', 'type'].includes(key)) {
+        if (!['appId', 'type'].includes(key)) {
           appendString += `&${key}=${queryString[key]}`;
         }
       });
