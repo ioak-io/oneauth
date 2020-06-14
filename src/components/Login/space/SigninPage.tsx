@@ -149,7 +149,7 @@ const SigninPage = (props: Props) => {
     }).then(appResponse => {
       let appendString = '';
       Object.keys(props.queryParam).forEach(key => {
-        if (['appId', 'type'].includes(key)) {
+        if (!['appId', 'type'].includes(key)) {
           appendString += `&${key}=${props.queryParam[key]}`;
         }
       });
