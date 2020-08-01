@@ -45,6 +45,15 @@
       width: 80vw;
     }
 
+    .admin-console-header {
+      display: grid;
+      grid-auto-flow: column;
+      // column-gap: 10px;
+      // align-items: center;
+      justify-content: center;
+      color: var(--color-foreground-5);
+    }
+
     .hr {
       margin: 20px 0px;
       display: flex;
