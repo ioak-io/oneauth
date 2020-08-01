@@ -125,7 +125,10 @@ const Login = (props: Props) => {
             {props.profile.theme === 'theme_dark' && (
               <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
             )}
-
+            <div className="admin-console-header">
+              <i className="material-icons">settings</i>
+              <div>Admin Console</div>
+            </div>
             {spinner && <OakSpinner />}
             <NotificationMessage notification={notificationMessage} />
 
