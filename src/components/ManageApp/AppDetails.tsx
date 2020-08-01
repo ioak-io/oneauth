@@ -40,7 +40,7 @@ const AppDetails = (props: Props) => {
       <div className="modal-body two-column">
         <OakText
           data={appData}
-          id="_id"
+          id="appId"
           label="Application Id"
           disabled
           handleChange={e => handleChange(e)}
