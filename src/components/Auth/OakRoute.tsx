@@ -29,17 +29,17 @@ const OakRoute = (props: Props) => {
   const dispatch = useDispatch();
 
   // useEffect(() => {
-  //   console.log(props.match.params.tenant);
+  //   console.log(props.match.params.space);
   // }, []);
   // useEffect(() => {
   //   console.log(props.profile.appStatus, props.profile.loginPage);
   //   if (props.profile.appStatus === 'notmounted' && !props.profile.loginPage) {
   //     props.setProfile({
-  //       tenant: props.match.params.tenant,
+  //       space: props.match.params.space,
   //       appStatus: 'mounted',
   //     });
   //   } else {
-  //     props.setProfile({ tenant: props.match.params.tenant });
+  //     props.setProfile({ space: props.match.params.space });
   //   }
   //   middlewares(props.middleware);
   // }, []);
@@ -70,10 +70,14 @@ const OakRoute = (props: Props) => {
     switch (middlewareName) {
       case 'readAuthenticationSpace':
         return readAuthenticationSpace();
+      case 'readAuthenticationAppspace':
+        return readAuthenticationAppspace();
       case 'readAuthenticationOa':
         return readAuthenticationOa();
       case 'authenticateSpace':
         return authenticateSpace();
+      case 'authenticateAppspace':
+        return authenticateAppspace();
       case 'authenticateOa':
         return authenticateOa();
       case 'isAdmin':
@@ -89,16 +93,24 @@ const OakRoute = (props: Props) => {
   const authenticateSpace = () => {
     return authenticate('space');
   };
+  const authenticateAppspace = () => {
+    return authenticate('appspace');
+  };
   const readAuthenticationOa = () => {
     return authenticate('oa', false);
   };
   const readAuthenticationSpace = () => {
     return authenticate('space', false);
   };
+  const readAuthenticationAppspace = () => {
+    return authenticate('appspace', false);
+  };
 
   const authenticate = (type, redirect = true) => {
     if (type === 'space') {
-      sendMessage('spaceChange', true, props.match.params.tenant);
+      sendMessage('spaceChange', true, props.match.params.space);
+    } else if (type === 'appspace') {
+      sendMessage('appspaceChange', true, props.match.params.space);
     }
     if (authorization.isAuth) {
       return true;
@@ -107,9 +119,13 @@ const OakRoute = (props: Props) => {
     let authKey = props.cookies.get('oneauth');
     let cookieKey = 'oneauth';
     if (type === 'space') {
-      authKey = props.cookies.get(props.match.params.tenant);
-      cookieKey = props.match.params.tenant;
-      baseAuthUrl = `/auth/${props.match.params.tenant}`;
+      authKey = props.cookies.get(props.match.params.space);
+      cookieKey = props.match.params.space;
+      baseAuthUrl = `/auth/${props.match.params.space}`;
+    } else if (type === 'appspace') {
+      authKey = props.cookies.get(props.match.params.appspace);
+      cookieKey = props.match.params.appspace;
+      baseAuthUrl = `/auth/${props.match.params.appspace}`;
     }
 
     if (authKey) {
@@ -146,27 +162,34 @@ const OakRoute = (props: Props) => {
               message: 'Invalid session token',
               duration: 3000,
             });
-            type === 'space'
-              ? redirectToSpaceLogin(props.match.params.tenant)
-              : redirectToOaLogin();
+            redirectHandler(type);
           } else if (redirect && error.response.status === 401) {
             sendMessage('notification', true, {
               type: 'failure',
               message: 'Session expired',
               duration: 3000,
             });
-            type === 'space'
-              ? redirectToSpaceLogin(props.match.params.tenant)
-              : redirectToOaLogin();
+            redirectHandler(type);
           }
         });
     } else if (redirect) {
       // dispatch(setProfile({ ...profile, appStatus: 'authenticated' }));
-      type === 'space'
-        ? redirectToSpaceLogin(props.match.params.tenant)
-        : redirectToOaLogin();
+      redirectHandler(type);
     } else {
       return true;
+    }
+  };
+
+  const redirectHandler = type => {
+    switch (type) {
+      case 'space':
+        redirectToSpaceLogin(props.match.params.space);
+        break;
+      case 'appspace':
+        redirectToAppspaceLogin(props.match.params.appspace);
+        break;
+      default:
+        redirectToOaLogin();
     }
   };
 
@@ -176,15 +199,22 @@ const OakRoute = (props: Props) => {
   };
 
   const redirectToOaLogin = () => {
-    window.location.href = `http://localhost:3010/#/login`;
+    // window.location.href = `http://localhost:3010/#/login`;
+    props.history.push(`/login`);
   };
 
   const redirectToSpaceLogin = spaceId => {
-    window.location.href = `http://localhost:3010/#/space/${spaceId}/login`;
+    // window.location.href = `http://localhost:3010/#/space/${spaceId}/login`;
+    props.history.push(`/space/${spaceId}/login`);
+  };
+
+  const redirectToAppspaceLogin = appspaceId => {
+    // window.location.href = `http://localhost:3010/#/appspace/${appspaceId}/login`;
+    props.history.push(`/appspace/${appspaceId}/login`);
   };
 
   const redirectToUnauthorized = () => {
-    props.history.push(`/${profile.tenant}/unauthorized`);
+    props.history.push(`/${profile.space}/unauthorized`);
   };
 
   return (
@@ -193,7 +223,8 @@ const OakRoute = (props: Props) => {
         <props.component
           {...props}
           profile={profile}
-          space={props.match.params.tenant}
+          space={props.match.params.space}
+          appspace={props.match.params.appspace}
           // getProfile={getProfile}
           // setProfile={props.setProfile}
         />
