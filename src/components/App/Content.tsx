@@ -20,6 +20,8 @@ import ManageSpace from '../ManageSpace';
 import ManageApp from '../ManageApp';
 import SpaceHome from '../SpaceHome';
 import TestPage from '../SpacePages/TestPage';
+import AppspaceLogin from '../Login/AppspaceLogin';
+import AppspaceHome from '../AppspaceHome';
 
 const themes = {
   themecolor1: getTheme('#69A7BF'),
