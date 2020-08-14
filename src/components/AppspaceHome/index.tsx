@@ -9,7 +9,7 @@ import oneauthWhite from '../../images/oneauth_white.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
 import { httpGet } from '../Lib/RestTemplate';
 import OakSpinner from '../../oakui/OakSpinner';
-import NotificationMessage from '../Login/appspace/NotificationMessage';
+import NotificationMessage from '../Login/form/NotificationMessage';
 import HomeLink from './HomeLink';
 import ChangePassword from './ChangePassword';
 import UpdateProfile from './UpdateProfile';
@@ -31,6 +31,7 @@ interface Props {
 }
 
 const Login = (props: Props) => {
+  const loginType = 'appspace';
   const authorization = useSelector(state => state.authorization);
   const [type, setType] = useState('home');
   const [spinner, setSpinner] = useState(false);
@@ -61,7 +62,9 @@ const Login = (props: Props) => {
 
   const changeRoute = routeType => {
     setNotificationMessage({ type: '', message: '' });
-    props.history.push(`/appspace/${props.appspace}/home?type=${routeType}`);
+    props.history.push(
+      `/${loginType}/${props.appspace}/home?type=${routeType}`
+    );
   };
 
   useEffect(() => {

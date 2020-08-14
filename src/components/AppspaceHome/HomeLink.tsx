@@ -18,6 +18,7 @@ interface Props {
 }
 
 const HomeLink = (props: Props) => {
+  const loginType = 'appspace';
   const authorization = useSelector(state => state.authorization);
   const [data, setData] = useState({
     email: '',
@@ -54,11 +55,11 @@ const HomeLink = (props: Props) => {
   };
 
   const logout = () => {
-    let baseAuthUrl = '/auth/app';
+    let baseAuthUrl = `/auth/${loginType}`;
     let authKey = props.cookies.get('oneauth');
     if (props.appspace) {
       authKey = props.cookies.get(props.appspace);
-      baseAuthUrl = `/auth/app/${props.appspace}`;
+      baseAuthUrl = `${baseAuthUrl}/${props.appspace}`;
     }
 
     httpPost(`${baseAuthUrl}/session/${authKey}/invalidate`, null, null).then(

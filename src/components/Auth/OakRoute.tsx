@@ -115,17 +115,17 @@ const OakRoute = (props: Props) => {
     if (authorization.isAuth) {
       return true;
     }
-    let baseAuthUrl = '/auth';
+    let baseAuthUrl = `/auth/${type}`;
     let authKey = props.cookies.get('oneauth');
     let cookieKey = 'oneauth';
     if (type === 'space') {
       authKey = props.cookies.get(props.match.params.space);
       cookieKey = props.match.params.space;
-      baseAuthUrl = `/auth/${props.match.params.space}`;
+      baseAuthUrl = `${baseAuthUrl}/${props.match.params.space}`;
     } else if (type === 'appspace') {
       authKey = props.cookies.get(props.match.params.appspace);
       cookieKey = props.match.params.appspace;
-      baseAuthUrl = `/auth/${props.match.params.appspace}`;
+      baseAuthUrl = `${baseAuthUrl}/${props.match.params.appspace}`;
     }
 
     if (authKey) {

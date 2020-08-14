@@ -9,14 +9,14 @@ import { sentPasswordChangeEmail } from '../Auth/AuthService';
 import { isEmptyOrSpaces } from '../Utils';
 import oneauthWhite from '../../images/oneauth_white.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
-import NewUser from './space/NewUser';
-import SigninPage from './space/SigninPage';
-import VerifySession from './space/VerifySession';
+import NewUser from './form/NewUser';
+import SigninPage from './form/SigninPage';
+import VerifySession from './form/VerifySession';
 import { httpGet } from '../Lib/RestTemplate';
-import ResetPassword from './space/ResetPassword';
-import ConfirmEmail from './space/ConfirmEmail';
+import ResetPassword from './form/ResetPassword';
+import ConfirmEmail from './form/ConfirmEmail';
 import OakSpinner from '../../oakui/OakSpinner';
-import NotificationMessage from './space/NotificationMessage';
+import NotificationMessage from './form/NotificationMessage';
 
 const queryString = require('query-string');
 
@@ -35,6 +35,7 @@ interface Props {
 }
 
 const Login = (props: Props) => {
+  const loginType = 'space';
   const authorization = useSelector(state => state.authorization);
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
@@ -178,7 +179,7 @@ const Login = (props: Props) => {
                 appId={appId}
                 switchToSignupPage={() => changeRoute('signup')}
                 switchToResetPage={() => changeRoute('reset')}
-                isSpaceLogin
+                loginType={loginType}
                 queryParam={queryParam}
                 {...props}
               />
@@ -189,7 +190,7 @@ const Login = (props: Props) => {
             <div className="wrapper">
               <NewUser
                 switchToSigninPage={() => changeRoute('signin')}
-                isSpaceLogin
+                loginType={loginType}
                 {...props}
               />
             </div>
@@ -198,7 +199,7 @@ const Login = (props: Props) => {
           {!verificationStep && type === 'reset' && (
             <div className="wrapper">
               <ResetPassword
-                isSpaceLogin
+                loginType={loginType}
                 {...props}
                 authCode={authCode}
                 switchToSigninPage={() => changeRoute('signin')}
@@ -209,7 +210,7 @@ const Login = (props: Props) => {
           {!verificationStep && type === 'confirmemail' && (
             <div className="wrapper">
               <ConfirmEmail
-                isSpaceLogin
+                loginType={loginType}
                 {...props}
                 authCode={authCode}
                 switchToSigninPage={() => changeRoute('signin')}

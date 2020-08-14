@@ -22,13 +22,13 @@ interface Props {
   match: any;
   location: any;
   authorization: Authorization;
-  isAppSpaceLogin: boolean;
+  loginType: string;
   authCode: string;
   switchToSigninPage: any;
-  appspace: string;
+  space: string;
 }
 
-const ConfirmEmail = (props: Props) => {
+const ResetPassword = (props: Props) => {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -40,29 +40,26 @@ const ConfirmEmail = (props: Props) => {
   //   const [] = useState('');
   useEffect(() => {
     if (props.authCode) {
-      let baseAuthUrl = '/auth/app';
-      if (props.isAppSpaceLogin) {
-        baseAuthUrl = `/auth/app/${props.appspace}`;
+      let baseAuthUrl = `/auth/${props.loginType}`;
+      if (props.space) {
+        baseAuthUrl = `${baseAuthUrl}/${props.space}`;
       }
       sendMessage('login-spinner');
       httpPost(
-        `${baseAuthUrl}/verifyemailconfirmationlink/${props.authCode}`,
-        null,
+        `${baseAuthUrl}/verifypasswordlink/${props.authCode}`,
+        {
+          password: data.password,
+        },
         null
       )
         .then((response: any) => {
           if (response.status === 200) {
-            setStage('confirmed');
-            sendMessage('login-notification', true, {
-              type: 'success-main',
-              message:
-                'Thank you for confirming your email. Your account is active. You can login now',
-            });
+            setStage('setPassword');
           } else {
             setStage('invalidLink');
             sendMessage('login-notification', true, {
               type: 'failure-main',
-              message: 'Email confirmation link you have entered is not valid',
+              message: 'Password reset link you have entered is invalid',
             });
           }
         })
@@ -70,7 +67,7 @@ const ConfirmEmail = (props: Props) => {
           setStage('invalidLink');
           sendMessage('login-notification', true, {
             type: 'failure-main',
-            message: 'Email confirmation link you have entered is not valid',
+            message: 'Password reset link you have entered is invalid',
           });
         })
         .finally(() => sendMessage('login-spinner', false));
@@ -79,16 +76,20 @@ const ConfirmEmail = (props: Props) => {
 
   const [errors, setErrors] = useState({
     email: '',
+    password: '',
+    repeatpassword: '',
   });
 
   const requestLink = event => {
     event.preventDefault();
-    let baseAuthUrl = '/auth/app';
-    if (props.isAppSpaceLogin) {
-      baseAuthUrl = `/auth/app/${props.appspace}`;
+    let baseAuthUrl = `/auth/${props.loginType}`;
+    if (props.space) {
+      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
     }
     const errorState = {
       email: '',
+      password: '',
+      repeatpassword: '',
     };
     let error = false;
     sendMessage('notification', false);
@@ -106,7 +107,7 @@ const ConfirmEmail = (props: Props) => {
     }
     if (!error) {
       httpPost(
-        `${baseAuthUrl}/emailconfirmationlink`,
+        `${baseAuthUrl}/resetpasswordlink`,
         {
           email: data.email.trim().toLowerCase(),
         },
@@ -118,7 +119,7 @@ const ConfirmEmail = (props: Props) => {
             sendMessage('login-notification', true, {
               type: 'email-main',
               message:
-                'Account activation link has been sent to your email. Your account will be activated, post email confirmation. Please check your email for further instructions',
+                'Link to reset your password has been sent to your email. Please check your email for further instructions',
             });
           } else {
             errorState.email = 'Invalid user email';
@@ -138,12 +139,60 @@ const ConfirmEmail = (props: Props) => {
     }
   };
 
+  const resetPassword = event => {
+    event.preventDefault();
+    sendMessage('login-spinner');
+    let baseAuthUrl = `/auth/${props.loginType}`;
+    if (props.space) {
+      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
+    }
+    const errorState = {
+      email: '',
+      password: '',
+      repeatpassword: '',
+    };
+    let error = false;
+    if (isEmptyOrSpaces(data.password)) {
+      error = true;
+      errorState.password = 'Cannot be empty';
+    }
+    if (data.password !== data.repeatpassword) {
+      error = true;
+      errorState.repeatpassword = 'Password does not match';
+    }
+    setErrors(errorState);
+    if (!error) {
+      httpPost(
+        `${baseAuthUrl}/resetpassword/${props.authCode}`,
+        {
+          password: data.password,
+        },
+        null
+      )
+        .then((response: any) => {
+          if (response.status === 200) {
+            setStage('passwordUpdated');
+            sendMessage('login-notification', true, {
+              type: 'success-main',
+              message:
+                'Password has been updated. You can login with your new password now',
+            });
+          }
+        })
+        .finally(() => sendMessage('login-spinner', false));
+    } else {
+      sendMessage('login-spinner', false);
+    }
+  };
+
   const handleChange = event => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const handleSubmit = event => {
-    if (stage === 'requestLink') {
+    if (stage === 'setPassword') {
+      resetPassword(event);
+    } else if (stage === 'requestLink') {
       requestLink(event);
     }
   };
@@ -154,19 +203,19 @@ const ConfirmEmail = (props: Props) => {
         {/* {stage === 'invalidLink' && (
           <div className="form-reset message typography-8">
             <OakIcon mat="warning" color="warning" size="2em" />
-            Email confirmation link is invalid
+            Password reset link is invalid
           </div>
         )} */}
-        {/* {stage === 'confirmed' && (
+        {/* {stage === 'passwordUpdated' && (
           <div className="form-reset message typography-8">
             <OakIcon mat="check_circle" color="success" size="2em" />
-            Your email is confirmed. You can login now
+            Password updated
           </div>
         )} */}
         {/* {stage === 'linkSent' && (
           <div className="form-reset message typography-8">
             <OakIcon mat="check_circle" color="success" size="2em" />
-            Account activation link has been sent to your email
+            Link to reset your password has been sent to your email
           </div>
         )} */}
         {stage === 'requestLink' && (
@@ -183,7 +232,51 @@ const ConfirmEmail = (props: Props) => {
               </div>
               <OakTextPlain
                 id="email"
-                placeholder="Email to activate"
+                placeholder="Email to send reset link"
+                data={data}
+                handleChange={e => handleChange(e)}
+              />
+            </div>
+          </div>
+        )}
+        {stage === 'setPassword' && (
+          <div className="form-reset">
+            <div>
+              <div className="label">
+                {!errors.password && (
+                  <div className="label-text">Set new password</div>
+                )}
+                {errors.password && (
+                  <div className="error-text">
+                    <OakIcon mat="warning" color="warning" size="20px" />
+                    {errors.password}
+                  </div>
+                )}
+              </div>
+              <OakTextPlain
+                type="password"
+                id="password"
+                placeholder="Choose a strong password"
+                data={data}
+                handleChange={e => handleChange(e)}
+              />
+            </div>
+            <div>
+              <div className="label">
+                {!errors.repeatpassword && (
+                  <div className="label-text">Retype password</div>
+                )}
+                {errors.repeatpassword && (
+                  <div className="error-text">
+                    <OakIcon mat="warning" color="warning" size="20px" />
+                    {errors.repeatpassword}
+                  </div>
+                )}
+              </div>
+              <OakTextPlain
+                type="password"
+                id="repeatpassword"
+                placeholder="Don't forget it"
                 data={data}
                 handleChange={e => handleChange(e)}
               />
@@ -196,7 +289,14 @@ const ConfirmEmail = (props: Props) => {
               Send Link
             </OakButton>
           )}
-          {['requestLink'].includes(stage) && <p className="hr">or</p>}
+          {stage === 'setPassword' && (
+            <OakButton variant="regular" theme="primary" action={resetPassword}>
+              Update Password
+            </OakButton>
+          )}
+          {['setPassword', 'requestLink'].includes(stage) && (
+            <p className="hr">or</p>
+          )}
           <div className="button-link">
             <div className="link" onClick={props.switchToSigninPage}>
               Log In
@@ -213,5 +313,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { getAuth, addAuth, removeAuth })(
-  withCookies(ConfirmEmail)
+  withCookies(ResetPassword)
 );

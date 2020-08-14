@@ -9,7 +9,7 @@ import oneauthWhite from '../../images/oneauth_white.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
 import { httpGet } from '../Lib/RestTemplate';
 import OakSpinner from '../../oakui/OakSpinner';
-import NotificationMessage from '../Login/space/NotificationMessage';
+import NotificationMessage from '../Login/form/NotificationMessage';
 import HomeLink from './HomeLink';
 import ChangePassword from './ChangePassword';
 import UpdateProfile from './UpdateProfile';

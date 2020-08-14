@@ -54,11 +54,11 @@ const HomeLink = (props: Props) => {
   };
 
   const logout = () => {
-    let baseAuthUrl = '/auth';
+    let baseAuthUrl = '/auth/oa';
     let authKey = props.cookies.get('oneauth');
     if (props.space) {
       authKey = props.cookies.get(props.space);
-      baseAuthUrl = `/auth/${props.space}`;
+      baseAuthUrl = `/auth/space/${props.space}`;
     }
 
     httpPost(`${baseAuthUrl}/session/${authKey}/invalidate`, null, null).then(

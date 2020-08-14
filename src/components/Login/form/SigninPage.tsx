@@ -30,7 +30,7 @@ interface Props {
   appId: string;
   switchToSignupPage: any;
   switchToResetPage: any;
-  isSpaceLogin: boolean;
+  loginType: string;
   space: string;
   queryParam: any;
 }
@@ -51,10 +51,11 @@ const SigninPage = (props: Props) => {
 
   const signinAction = event => {
     event.preventDefault();
-    let baseAuthUrl = '/auth';
-    if (props.isSpaceLogin) {
-      baseAuthUrl = `/auth/${props.space}`;
+    let baseAuthUrl = `/auth/${props.loginType}`;
+    if (props.space) {
+      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
     }
+    console.log(baseAuthUrl);
     const errorState = {
       email: '',
       password: '',
@@ -115,7 +116,7 @@ const SigninPage = (props: Props) => {
       httpGet(`${baseAuthUrl}/session/${authorizeResponse.data.auth_key}`, null)
         .then(sessionResponse => {
           if (sessionResponse.status === 200) {
-            if (props.isSpaceLogin && props.appId) {
+            if (props.space && props.appId) {
               props.cookies.set(props.space, authorizeResponse.data.auth_key);
               redirectToRequestedApp(authorizeResponse, sessionResponse);
             } else {
@@ -163,9 +164,9 @@ const SigninPage = (props: Props) => {
 
   const success = (authorizeResponse, sessionResponse) => {
     sendMessage('loggedin', true);
-    if (props.isSpaceLogin) {
+    if (props.space) {
       props.cookies.set(props.space, authorizeResponse.data.auth_key);
-      props.history.push(`/space/${props.space}/home`);
+      props.history.push(`/${props.loginType}/${props.space}/home`);
     } else {
       // dispatch(fetchSpace(data));
       // dispatch(fetchApp(data));
@@ -183,9 +184,9 @@ const SigninPage = (props: Props) => {
   const onFacebookSignIn = facebookProfile => {
     if (facebookProfile?.accessToken) {
       sendMessage('spinner');
-      let baseAuthUrl = '/auth';
-      if (props.isSpaceLogin) {
-        baseAuthUrl = `/auth/${props.space}`;
+      let baseAuthUrl = `/auth/${props.loginType}`;
+      if (props.space) {
+        baseAuthUrl = `${baseAuthUrl}/${props.space}`;
       }
       httpPost(
         `${baseAuthUrl}/authorize/facebook`,
@@ -208,9 +209,9 @@ const SigninPage = (props: Props) => {
 
   const onGoogleSignIn = googleProfile => {
     if (googleProfile?.tokenId) {
-      let baseAuthUrl = '/auth';
-      if (props.isSpaceLogin) {
-        baseAuthUrl = `/auth/${props.space}`;
+      let baseAuthUrl = `/auth/${props.loginType}`;
+      if (props.space) {
+        baseAuthUrl = `${baseAuthUrl}/${props.space}`;
       }
       sendMessage('notification', false);
       sendMessage('spinner');

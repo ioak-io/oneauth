@@ -5,18 +5,16 @@ import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
 import './AppspaceLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage, receiveMessage } from '../../events/MessageService';
-import { sentPasswordChangeEmail } from '../Auth/AuthService';
-import { isEmptyOrSpaces } from '../Utils';
 import oneauthWhite from '../../images/oneauth_white.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
-import NewUser from './appspace/NewUser';
-import SigninPage from './appspace/SigninPage';
-import VerifySession from './appspace/VerifySession';
+import NewUser from './form/NewUser';
+import SigninPage from './form/SigninPage';
+import VerifySession from './form/VerifySession';
 import { httpGet } from '../Lib/RestTemplate';
-import ResetPassword from './appspace/ResetPassword';
-import ConfirmEmail from './appspace/ConfirmEmail';
+import ResetPassword from './form/ResetPassword';
+import ConfirmEmail from './form/ConfirmEmail';
+import NotificationMessage from './form/NotificationMessage';
 import OakSpinner from '../../oakui/OakSpinner';
-import NotificationMessage from './appspace/NotificationMessage';
 
 const queryString = require('query-string');
 
@@ -35,6 +33,7 @@ interface Props {
 }
 
 const Login = (props: Props) => {
+  const loginType = 'appspace';
   const authorization = useSelector(state => state.authorization);
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
@@ -181,6 +180,8 @@ const Login = (props: Props) => {
                 isAppSpaceLogin
                 queryParam={queryParam}
                 {...props}
+                loginType={loginType}
+                space={props.appspace}
               />
             </div>
           )}
@@ -191,6 +192,8 @@ const Login = (props: Props) => {
                 switchToSigninPage={() => changeRoute('signin')}
                 isAppSpaceLogin
                 {...props}
+                loginType={loginType}
+                space={props.appspace}
               />
             </div>
           )}
@@ -201,7 +204,9 @@ const Login = (props: Props) => {
                 isAppSpaceLogin
                 {...props}
                 authCode={authCode}
+                loginType={loginType}
                 switchToSigninPage={() => changeRoute('signin')}
+                space={props.appspace}
               />
             </div>
           )}
@@ -212,6 +217,8 @@ const Login = (props: Props) => {
                 isAppSpaceLogin
                 {...props}
                 authCode={authCode}
+                loginType={loginType}
+                space={props.appspace}
                 switchToSigninPage={() => changeRoute('signin')}
               />
             </div>
