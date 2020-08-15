@@ -6,7 +6,7 @@ import { fetchSpace } from '../../actions/SpaceActions';
 import { fetchApp } from '../../actions/AppActions';
 import fetchUsers from '../../actions/OaUserAction';
 import { fetchRoles } from '../../actions/OaRoleActions';
-import { fetchAppSpace } from '../../actions/AppSpaceAction';
+import { fetchPermittedSpace } from '../../actions/PermittedSpaceAction';
 import './OaLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage, receiveMessage } from '../../events/MessageService';
@@ -29,7 +29,7 @@ interface Props {
   fetchUsers: Function;
   fetchSpace: Function;
   fetchApp: Function;
-  fetchAppSpace: Function;
+  fetchPermittedSpace: Function;
   setProfile: Function;
   getAuth: Function;
   addAuth: Function;
@@ -188,7 +188,7 @@ const mapStateToProps = state => ({
   fetchUsers: state.fetchUsers,
   existingAdmins: state.fetchRoles,
   fetchApp: state.fetchApp,
-  fetchAppSpace: state.fetchAppSpace,
+  fetchPermittedSpace: state.fetchPermittedSpace,
 });
 
 export default connect(mapStateToProps, {
@@ -199,5 +199,5 @@ export default connect(mapStateToProps, {
   fetchUsers,
   fetchRoles,
   fetchApp,
-  fetchAppSpace,
+  fetchPermittedSpace,
 })(withCookies(Login));

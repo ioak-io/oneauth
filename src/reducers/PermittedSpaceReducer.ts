@@ -1,4 +1,4 @@
-import { UPDATE_APP_SPACE } from '../actions/types';
+import { UPDATE_PERMITTED_SPACE } from '../actions/types';
 
 const initialState = {
   data: [],
@@ -6,8 +6,8 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case UPDATE_APP_SPACE:
-      console.log('SET SPACE reducer');
+    case UPDATE_PERMITTED_SPACE:
+      console.log('SET PERMITTED SPACE reducer');
       return {
         ...state,
         ...action.payload,

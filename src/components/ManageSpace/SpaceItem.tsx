@@ -27,7 +27,7 @@ const SpaceItem = (props: Props) => {
   const [adminDialogOpen, setAdminDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [countOfAdmins, setCountofAdmins] = useState<undefined | number>(0);
-  const appSpace = useSelector(state => state.appSpace);
+  const permittedSpace = useSelector(state => state.permittedSpace);
   const [countOfApps, setCountOfApps] = useState<undefined | number>(0);
 
   useEffect(() => {
@@ -76,14 +76,14 @@ const SpaceItem = (props: Props) => {
   }, [oaRoles.data.data]);
 
   useEffect(() => {
-    console.log(appSpace);
+    console.log(permittedSpace);
     console.log(props.space.spaceId);
-    const connectedApp = appSpace.data?.filter(
+    const connectedApp = permittedSpace.data?.filter(
       item => item.spaceId === props.space.spaceId
     );
     console.log(connectedApp);
     setCountOfApps(connectedApp.length);
-  }, [appSpace.data]);
+  }, [permittedSpace.data]);
 
   const editSpace = () => {
     setEditDialogOpen(true);

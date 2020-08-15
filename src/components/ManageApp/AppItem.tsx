@@ -21,7 +21,7 @@ interface Props {
 const AppItem = (props: Props) => {
   const dispatch = useDispatch();
   const oaRoles = useSelector(state => state.oaRoles);
-  const appSpace = useSelector(state => state.appSpace);
+  const permittedSpace = useSelector(state => state.permittedSpace);
   const authorization = useSelector(state => state.authorization);
 
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -73,12 +73,12 @@ const AppItem = (props: Props) => {
   }, [oaRoles.data.data]);
 
   useEffect(() => {
-    const connectedSpace = appSpace.data?.filter(
+    const connectedSpace = permittedSpace.data?.filter(
       item => item.appId === props.app._id
     );
     console.log(connectedSpace.length);
     setCountOfSpaces(connectedSpace.length);
-  }, [appSpace.data]);
+  }, [permittedSpace.data]);
 
   const editApp = () => {
     setEditDialogOpen(true);
