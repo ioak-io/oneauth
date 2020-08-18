@@ -20,6 +20,8 @@ import ManageSpace from '../ManageSpace';
 import ManageApp from '../ManageApp';
 import SpaceHome from '../SpaceHome';
 import TestPage from '../SpacePages/TestPage';
+import AppspaceLogin from '../Login/AppspaceLogin';
+import AppspaceHome from '../AppspaceHome';
 
 const themes = {
   themecolor1: getTheme('#69A7BF'),
@@ -120,8 +122,9 @@ const Content = (props: Props) => {
                   />
                 )}
               />
+              {/* Space based routes */}
               <Route
-                path="/space/:tenant/login"
+                path="/space/:space/login"
                 render={(propsLocal: any) => (
                   <OakRoute
                     {...propsLocal}
@@ -133,7 +136,7 @@ const Content = (props: Props) => {
               />
               <Route
                 exact
-                path="/space/:tenant/home"
+                path="/space/:space/home"
                 render={(propsLocal: any) => (
                   <OakRoute
                     {...propsLocal}
@@ -146,7 +149,7 @@ const Content = (props: Props) => {
               />
               <Route
                 exact
-                path="/space/:tenant"
+                path="/space/:space"
                 render={(propsLocal: any) => (
                   <OakRoute
                     {...propsLocal}
@@ -159,7 +162,7 @@ const Content = (props: Props) => {
               />
               <Route
                 exact
-                path="/space/:tenant/test"
+                path="/space/:space/test"
                 render={(propsLocal: any) => (
                   <OakRoute
                     {...propsLocal}
@@ -170,6 +173,46 @@ const Content = (props: Props) => {
                   />
                 )}
               />
+
+              {/* Appspace based routes */}
+              <Route
+                path="/appspace/:appspace/login"
+                render={(propsLocal: any) => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={AppspaceLogin}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/appspace/:appspace/home"
+                render={(propsLocal: any) => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={AppspaceHome}
+                    middleware={['readAuthenticationAppspace']}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/appspace/:appspace"
+                render={(propsLocal: any) => (
+                  <OakRoute
+                    {...propsLocal}
+                    {...props}
+                    logout={() => logout}
+                    component={AppspaceHome}
+                    middleware={['readAuthenticationAppspace']}
+                  />
+                )}
+              />
+
               <Route
                 path="/login"
                 render={(propsLocal: any) => (

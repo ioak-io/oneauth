@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
-import './SpaceLogin.scss';
+import './AppspaceLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage, receiveMessage } from '../../events/MessageService';
-import { sentPasswordChangeEmail } from '../Auth/AuthService';
-import { isEmptyOrSpaces } from '../Utils';
 import oneauthWhite from '../../images/oneauth_white.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
 import NewUser from './form/NewUser';
@@ -15,8 +13,8 @@ import VerifySession from './form/VerifySession';
 import { httpGet } from '../Lib/RestTemplate';
 import ResetPassword from './form/ResetPassword';
 import ConfirmEmail from './form/ConfirmEmail';
-import OakSpinner from '../../oakui/OakSpinner';
 import NotificationMessage from './form/NotificationMessage';
+import OakSpinner from '../../oakui/OakSpinner';
 
 const queryString = require('query-string');
 
@@ -31,11 +29,11 @@ interface Props {
   match: any;
   location: any;
   authorization: Authorization;
-  space: string;
+  appspace: string;
 }
 
 const Login = (props: Props) => {
-  const loginType = 'space';
+  const loginType = 'appspace';
   const authorization = useSelector(state => state.authorization);
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
@@ -71,7 +69,7 @@ const Login = (props: Props) => {
 
   const changeRoute = routeType => {
     setNotificationMessage({ type: '', message: '' });
-    props.history.push(`/space/${props.space}/login?type=${routeType}`);
+    props.history.push(`/appspace/${props.appspace}/login?type=${routeType}`);
   };
 
   useEffect(() => {
@@ -98,7 +96,7 @@ const Login = (props: Props) => {
         setAppId('');
       }
     }
-    const authKey = props.cookies.get(props.space);
+    const authKey = props.cookies.get(props.appspace);
     if (authorization.isAuth || authKey) {
       if (appIdRef) {
         redirectToRequestedAppIfTokenIsValid(
@@ -107,7 +105,7 @@ const Login = (props: Props) => {
           queryString.parse(props.location.search)
         );
       } else {
-        props.history.push(`/space/${props.space}/home`);
+        props.history.push(`/appspace/${props.appspace}/home`);
       }
     } else {
       setVerificationStep(false);
@@ -120,13 +118,10 @@ const Login = (props: Props) => {
     queryString
   ) => {
     console.log(appIdRef, authKey);
-    const baseAuthUrl = `/auth/space/${props.space}`;
+    const baseAuthUrl = `/auth/appspace/${props.appspace}`;
 
-    console.log('***********');
-    console.log(authKey);
     httpGet(`${baseAuthUrl}/session/${authKey}`, null)
       .then(sessionResponse => {
-        console.log(sessionResponse);
         if (sessionResponse.status === 200) {
           redirectToRequestedApp(
             appIdRef,
@@ -135,13 +130,13 @@ const Login = (props: Props) => {
             queryString
           );
         } else {
-          props.cookies.remove(props.space);
+          props.cookies.remove(props.appspace);
 
           setVerificationStep(false);
         }
       })
       .catch((error: any) => {
-        props.cookies.remove(props.space);
+        props.cookies.remove(props.appspace);
         setVerificationStep(false);
       });
   };
@@ -158,12 +153,12 @@ const Login = (props: Props) => {
           appendString += `&${key}=${queryString[key]}`;
         }
       });
-      window.location.href = `${appResponse.data.data.redirect}?authKey=${authKey}&space=${props.space}${appendString}`;
+      window.location.href = `${appResponse.data.data.redirect}?authKey=${authKey}&appspace=${props.appspace}${appendString}`;
     });
   };
 
   return (
-    <div className="space-login">
+    <div className="appspace-login">
       <div className="overlay">
         <div className="container smooth-page">
           {props.profile.theme === 'theme_light' && (
@@ -182,9 +177,11 @@ const Login = (props: Props) => {
                 appId={appId}
                 switchToSignupPage={() => changeRoute('signup')}
                 switchToResetPage={() => changeRoute('reset')}
-                loginType={loginType}
+                isAppSpaceLogin
                 queryParam={queryParam}
                 {...props}
+                loginType={loginType}
+                space={props.appspace}
               />
             </div>
           )}
@@ -193,8 +190,10 @@ const Login = (props: Props) => {
             <div className="wrapper">
               <NewUser
                 switchToSigninPage={() => changeRoute('signin')}
-                loginType={loginType}
+                isAppSpaceLogin
                 {...props}
+                loginType={loginType}
+                space={props.appspace}
               />
             </div>
           )}
@@ -202,10 +201,12 @@ const Login = (props: Props) => {
           {!verificationStep && type === 'reset' && (
             <div className="wrapper">
               <ResetPassword
-                loginType={loginType}
+                isAppSpaceLogin
                 {...props}
                 authCode={authCode}
+                loginType={loginType}
                 switchToSigninPage={() => changeRoute('signin')}
+                space={props.appspace}
               />
             </div>
           )}
@@ -213,9 +214,11 @@ const Login = (props: Props) => {
           {!verificationStep && type === 'confirmemail' && (
             <div className="wrapper">
               <ConfirmEmail
-                loginType={loginType}
+                isAppSpaceLogin
                 {...props}
                 authCode={authCode}
+                loginType={loginType}
+                space={props.appspace}
                 switchToSigninPage={() => changeRoute('signin')}
               />
             </div>

@@ -22,7 +22,7 @@ interface Props {
   match: any;
   location: any;
   authorization: Authorization;
-  isSpaceLogin: boolean;
+  loginType: string;
   authCode: string;
   switchToSigninPage: any;
   space: string;
@@ -40,9 +40,9 @@ const ResetPassword = (props: Props) => {
   //   const [] = useState('');
   useEffect(() => {
     if (props.authCode) {
-      let baseAuthUrl = '/auth';
-      if (props.isSpaceLogin) {
-        baseAuthUrl = `/auth/${props.space}`;
+      let baseAuthUrl = `/auth/${props.loginType}`;
+      if (props.space) {
+        baseAuthUrl = `${baseAuthUrl}/${props.space}`;
       }
       sendMessage('login-spinner');
       httpPost(
@@ -82,9 +82,9 @@ const ResetPassword = (props: Props) => {
 
   const requestLink = event => {
     event.preventDefault();
-    let baseAuthUrl = '/auth';
-    if (props.isSpaceLogin) {
-      baseAuthUrl = `/auth/${props.space}`;
+    let baseAuthUrl = `/auth/${props.loginType}`;
+    if (props.space) {
+      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
     }
     const errorState = {
       email: '',
@@ -142,9 +142,9 @@ const ResetPassword = (props: Props) => {
   const resetPassword = event => {
     event.preventDefault();
     sendMessage('login-spinner');
-    let baseAuthUrl = '/auth';
-    if (props.isSpaceLogin) {
-      baseAuthUrl = `/auth/${props.space}`;
+    let baseAuthUrl = `/auth/${props.loginType}`;
+    if (props.space) {
+      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
     }
     const errorState = {
       email: '',

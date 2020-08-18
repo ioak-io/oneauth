@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './mapspace.scss';
-import { deleteAppSpace } from '../../actions/AppSpaceAction';
+import { deletePermittedSpace } from '../../actions/PermittedSpaceAction';
 
 interface Props {
   appSpaceItem: any;
@@ -15,7 +15,11 @@ const MapSpaceItem = (props: Props) => {
 
   const remove = () => {
     dispatch(
-      deleteAppSpace(authorization, props.appSpaceItem.spaceId, props.appId)
+      deletePermittedSpace(
+        authorization,
+        props.appSpaceItem.spaceId,
+        props.appId
+      )
     );
   };
 

@@ -27,10 +27,11 @@ interface Props {
   match: any;
   location: any;
   authorization: Authorization;
-  space: string;
+  appspace: string;
 }
 
 const Login = (props: Props) => {
+  const loginType = 'appspace';
   const authorization = useSelector(state => state.authorization);
   const [type, setType] = useState('home');
   const [spinner, setSpinner] = useState(false);
@@ -61,7 +62,9 @@ const Login = (props: Props) => {
 
   const changeRoute = routeType => {
     setNotificationMessage({ type: '', message: '' });
-    props.history.push(`/space/${props.space}/home?type=${routeType}`);
+    props.history.push(
+      `/${loginType}/${props.appspace}/home?type=${routeType}`
+    );
   };
 
   useEffect(() => {
@@ -78,7 +81,7 @@ const Login = (props: Props) => {
   }, [props.location.search]);
 
   return (
-    <div className="space-home">
+    <div className="appspace-home">
       <div className="overlay">
         <div className="container smooth-page">
           {props.profile.theme === 'theme_light' && (

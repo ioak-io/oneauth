@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import OakAutoComplete from '../../oakui/OakAutoComplete';
 import OakButton from '../../oakui/OakButton';
-import { updateAppSpace } from '../../actions/AppSpaceAction';
+import { updatePermittedSpace } from '../../actions/PermittedSpaceAction';
 import MapSpaceItem from './MapSpaceItem';
 
 interface Props {
@@ -14,7 +14,7 @@ const MapSpace = (props: Props) => {
   const dispatch = useDispatch();
   const authorization = useSelector(state => state.authorization);
   const oaSpace = useSelector(state => state.space);
-  const appSpace = useSelector(state => state.appSpace);
+  const permittedSpace = useSelector(state => state.permittedSpace);
   const [items, setItems] = useState<undefined | any[]>([{}]);
   const [data, setData] = useState({
     autoCompleteDropdownData: [{}],
@@ -22,7 +22,7 @@ const MapSpace = (props: Props) => {
 
   useEffect(() => {
     const spaceList: any[] = [];
-    appSpace.data?.filter(item =>
+    permittedSpace.data?.filter(item =>
       item.appId === props.app._id ? spaceList.push({ id: item.spaceId }) : ''
     );
 
@@ -38,11 +38,11 @@ const MapSpace = (props: Props) => {
 
     setItems(existingSpacelist);
     setData({ autoCompleteDropdownData: availableSpaceList });
-  }, [appSpace.data, oaSpace.data]);
+  }, [permittedSpace.data, oaSpace.data]);
 
   const handleAutoCompleteChange = (value: string) => {
     dispatch(
-      updateAppSpace(authorization, {
+      updatePermittedSpace(authorization, {
         appId: props.app._id,
         spaceId: value,
       })

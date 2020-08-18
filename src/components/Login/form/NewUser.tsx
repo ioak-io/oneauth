@@ -23,7 +23,7 @@ interface Props {
   location: any;
   authorization: Authorization;
   switchToSigninPage: any;
-  isSpaceLogin: boolean;
+  loginType: string;
   space: string;
 }
 
@@ -49,9 +49,9 @@ const NewUser = (props: Props) => {
 
   const signupAction = event => {
     event.preventDefault();
-    let baseAuthUrl = '/auth';
-    if (props.isSpaceLogin) {
-      baseAuthUrl = `/auth/${props.space}`;
+    let baseAuthUrl = `/auth/${props.loginType}`;
+    if (props.space) {
+      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
     }
     const errorState = {
       firstName: '',

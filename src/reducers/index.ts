@@ -5,7 +5,7 @@ import SpaceReducer from './SpaceReducer';
 import OaRoleReducer from './OaRoleReducer';
 import OaUserReducer from './OaUserReducer';
 import AppReducer from './AppReducer';
-import AppSpaceReducer from './AppSpaceReducer';
+import PermittedSpaceReducer from './PermittedSpaceReducer';
 
 export default combineReducers({
   authorization: AuthReducer,
@@ -14,5 +14,5 @@ export default combineReducers({
   app: AppReducer,
   oaUsers: OaUserReducer,
   oaRoles: OaRoleReducer,
-  appSpace: AppSpaceReducer,
+  permittedSpace: PermittedSpaceReducer,
 });

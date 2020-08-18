@@ -6,7 +6,7 @@ import { fetchSpace } from '../../actions/SpaceActions';
 import { fetchApp } from '../../actions/AppActions';
 import fetchUsers from '../../actions/OaUserAction';
 import { fetchRoles } from '../../actions/OaRoleActions';
-import { fetchAppSpace } from '../../actions/AppSpaceAction';
+import { fetchPermittedSpace } from '../../actions/PermittedSpaceAction';
 import './OaLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage, receiveMessage } from '../../events/MessageService';
@@ -14,13 +14,13 @@ import { sentPasswordChangeEmail } from '../Auth/AuthService';
 import { isEmptyOrSpaces } from '../Utils';
 import oneauthWhite from '../../images/oneauth_white.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
-import SigninPage from './space/SigninPage';
-import NewUser from './space/NewUser';
-import VerifySession from './space/VerifySession';
-import ResetPassword from './space/ResetPassword';
-import ConfirmEmail from './space/ConfirmEmail';
+import SigninPage from './form/SigninPage';
+import NewUser from './form/NewUser';
+import VerifySession from './form/VerifySession';
+import ResetPassword from './form/ResetPassword';
+import ConfirmEmail from './form/ConfirmEmail';
 import OakSpinner from '../../oakui/OakSpinner';
-import NotificationMessage from './space/NotificationMessage';
+import NotificationMessage from './form/NotificationMessage';
 
 const queryString = require('query-string');
 
@@ -29,7 +29,7 @@ interface Props {
   fetchUsers: Function;
   fetchSpace: Function;
   fetchApp: Function;
-  fetchAppSpace: Function;
+  fetchPermittedSpace: Function;
   setProfile: Function;
   getAuth: Function;
   addAuth: Function;
@@ -40,10 +40,10 @@ interface Props {
   match: any;
   location: any;
   authorization: Authorization;
-  space: string;
 }
 
 const Login = (props: Props) => {
+  const loginType = 'oa';
   const authorization = useSelector(state => state.authorization);
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
@@ -137,6 +137,7 @@ const Login = (props: Props) => {
                 <SigninPage
                   switchToSignupPage={() => changeRoute('signup')}
                   switchToResetPage={() => changeRoute('reset')}
+                  loginType={loginType}
                   {...props}
                 />
               </div>
@@ -145,6 +146,7 @@ const Login = (props: Props) => {
               <div className="wrapper">
                 <NewUser
                   switchToSigninPage={() => changeRoute('signin')}
+                  loginType={loginType}
                   {...props}
                 />
               </div>
@@ -156,6 +158,7 @@ const Login = (props: Props) => {
                   {...props}
                   authCode={authCode}
                   switchToSigninPage={() => changeRoute('signin')}
+                  loginType={loginType}
                 />
               </div>
             )}
@@ -166,6 +169,7 @@ const Login = (props: Props) => {
                   {...props}
                   authCode={authCode}
                   switchToSigninPage={() => changeRoute('signin')}
+                  loginType={loginType}
                 />
               </div>
             )}
@@ -184,7 +188,7 @@ const mapStateToProps = state => ({
   fetchUsers: state.fetchUsers,
   existingAdmins: state.fetchRoles,
   fetchApp: state.fetchApp,
-  fetchAppSpace: state.fetchAppSpace,
+  fetchPermittedSpace: state.fetchPermittedSpace,
 });
 
 export default connect(mapStateToProps, {
@@ -195,5 +199,5 @@ export default connect(mapStateToProps, {
   fetchUsers,
   fetchRoles,
   fetchApp,
-  fetchAppSpace,
+  fetchPermittedSpace,
 })(withCookies(Login));

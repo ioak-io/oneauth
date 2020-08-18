@@ -11,13 +11,14 @@ import OakIcon from '../../oakui/OakIcon';
 
 interface Props {
   switchToSigninPage: any;
-  space: string;
+  appspace: string;
   history: any;
   cookies: any;
   removeAuth: any;
 }
 
 const HomeLink = (props: Props) => {
+  const loginType = 'appspace';
   const authorization = useSelector(state => state.authorization);
   const [data, setData] = useState({
     email: '',
@@ -42,34 +43,34 @@ const HomeLink = (props: Props) => {
   };
 
   const changeRoute = routeType => {
-    props.history.push(`/space/${props.space}/home?type=${routeType}`);
+    props.history.push(`/appspace/${props.appspace}/home?type=${routeType}`);
   };
 
   const login = () => {
-    props.history.push(`/space/${props.space}/login?type=signin`);
+    props.history.push(`/appspace/${props.appspace}/login?type=signin`);
   };
 
   const signup = () => {
-    props.history.push(`/space/${props.space}/login?type=signup`);
+    props.history.push(`/appspace/${props.appspace}/login?type=signup`);
   };
 
   const logout = () => {
-    let baseAuthUrl = '/auth/oa';
+    let baseAuthUrl = `/auth/${loginType}`;
     let authKey = props.cookies.get('oneauth');
-    if (props.space) {
-      authKey = props.cookies.get(props.space);
-      baseAuthUrl = `/auth/space/${props.space}`;
+    if (props.appspace) {
+      authKey = props.cookies.get(props.appspace);
+      baseAuthUrl = `${baseAuthUrl}/${props.appspace}`;
     }
 
     httpPost(`${baseAuthUrl}/session/${authKey}/invalidate`, null, null).then(
       (response: any) => {
         if (response.status === 200 || response.status === 404) {
           props.removeAuth();
-          props.cookies.remove(props.space);
-          props.history.push(`/space/${props.space}/home`);
+          props.cookies.remove(props.appspace);
+          props.history.push(`/appspace/${props.appspace}/home`);
           sendMessage('notification', true, {
             type: 'success',
-            message: `Signed out of space ${props.space}`,
+            message: `Signed out of space ${props.appspace}`,
             duration: 3000,
           });
         }
