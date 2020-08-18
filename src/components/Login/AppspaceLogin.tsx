@@ -118,7 +118,7 @@ const Login = (props: Props) => {
     queryString
   ) => {
     console.log(appIdRef, authKey);
-    const baseAuthUrl = `/auth/app/${props.appspace}`;
+    const baseAuthUrl = `/auth/appspace/${props.appspace}`;
 
     httpGet(`${baseAuthUrl}/session/${authKey}`, null)
       .then(sessionResponse => {

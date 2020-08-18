@@ -120,10 +120,13 @@ const Login = (props: Props) => {
     queryString
   ) => {
     console.log(appIdRef, authKey);
-    const baseAuthUrl = `/auth/${props.space}`;
+    const baseAuthUrl = `/auth/space/${props.space}`;
 
+    console.log('***********');
+    console.log(authKey);
     httpGet(`${baseAuthUrl}/session/${authKey}`, null)
       .then(sessionResponse => {
+        console.log(sessionResponse);
         if (sessionResponse.status === 200) {
           redirectToRequestedApp(
             appIdRef,
