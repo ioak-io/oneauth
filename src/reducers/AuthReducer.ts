@@ -2,12 +2,11 @@ import { GET_AUTH, ADD_AUTH, REMOVE_AUTH } from '../actions/types';
 
 const initialState = {
   isAuth: false,
-  email: '',
-  firstName: '',
-  lastName: '',
+  firstname: '',
+  lastname: '',
 };
 
-export default function(state = initialState, action) {
+export default function AuthReducer(state = initialState, action: any) {
   switch (action.type) {
     case GET_AUTH:
       console.log('GET_AUTH reducer');
@@ -26,10 +25,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         isAuth: false,
-        firstName: '',
-        lastName: '',
-        email: '',
-        token: '',
+        firstname: '',
+        lastname: '',
       };
     default:
       return state;

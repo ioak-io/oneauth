@@ -6,18 +6,12 @@ import FacebookLogin from 'react-facebook-login';
 import { getAuth, addAuth } from '../../../actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../../Types/GeneralTypes';
-import OakTextPlain from '../../../oakui/OakTextPlain';
 import { sendMessage } from '../../../events/MessageService';
-import { sentPasswordChangeEmail } from '../../Auth/AuthService';
 import { isEmptyOrSpaces } from '../../Utils';
-import OakButton from '../../../oakui/OakButton';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
-import { fetchSpace } from '../../../actions/SpaceActions';
-import { fetchApp } from '../../../actions/AppActions';
-import fetchUsers from '../../../actions/OaUserAction';
-import { fetchRoles } from '../../../actions/OaRoleActions';
-import { setProfile } from '../../../actions/ProfileActions';
-import OakIcon from '../../../oakui/OakIcon';
+import OakButton from '../../../oakui/wc/OakButton';
+import OakInput from '../../../oakui/wc/OakInput';
+import { Warning } from '@material-ui/icons';
 
 interface Props {
   setProfile: Function;
@@ -37,7 +31,7 @@ interface Props {
 
 const SigninPage = (props: Props) => {
   const dispatch = useDispatch();
-  const profile = useSelector(state => state.profile);
+  const profile = useSelector((state) => state.profile);
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -49,7 +43,7 @@ const SigninPage = (props: Props) => {
     password: '',
   });
 
-  const signinAction = event => {
+  const signinAction = (event) => {
     event.preventDefault();
     let baseAuthUrl = `/auth/${props.loginType}`;
     if (props.space) {
@@ -114,7 +108,7 @@ const SigninPage = (props: Props) => {
   const getSession = (baseAuthUrl, authorizeResponse) => {
     if (authorizeResponse.status === 200) {
       httpGet(`${baseAuthUrl}/session/${authorizeResponse.data.auth_key}`, null)
-        .then(sessionResponse => {
+        .then((sessionResponse) => {
           if (sessionResponse.status === 200) {
             if (props.space && props.appId) {
               props.cookies.set(props.space, authorizeResponse.data.auth_key);
@@ -147,9 +141,9 @@ const SigninPage = (props: Props) => {
       headers: {
         Authorization: sessionResponse.data.token,
       },
-    }).then(appResponse => {
+    }).then((appResponse) => {
       let appendString = '';
-      Object.keys(props.queryParam).forEach(key => {
+      Object.keys(props.queryParam).forEach((key) => {
         if (!['appId', 'type'].includes(key)) {
           appendString += `&${key}=${props.queryParam[key]}`;
         }
@@ -158,8 +152,8 @@ const SigninPage = (props: Props) => {
     });
   };
 
-  const handleChange = event => {
-    setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
+  const handleChange = (detail: any) => {
+    setData({ ...data, [detail.name]: detail.value });
   };
 
   const success = (authorizeResponse, sessionResponse) => {
@@ -178,10 +172,21 @@ const SigninPage = (props: Props) => {
   };
 
   const resendActivationLink = () => {
+    let baseAuthUrl = `/auth/${props.loginType}`;
+    if (props.space) {
+      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
+    }
+    httpPost(
+      `${baseAuthUrl}/emailconfirmationlink`,
+      {
+        email: data.email.trim().toLowerCase(),
+      },
+      null
+    );
     setEmailConfirmationLink('showSent');
   };
 
-  const onFacebookSignIn = facebookProfile => {
+  const onFacebookSignIn = (facebookProfile) => {
     if (facebookProfile?.accessToken) {
       sendMessage('spinner');
       let baseAuthUrl = `/auth/${props.loginType}`;
@@ -207,7 +212,7 @@ const SigninPage = (props: Props) => {
     }
   };
 
-  const onGoogleSignIn = googleProfile => {
+  const onGoogleSignIn = (googleProfile) => {
     if (googleProfile?.tokenId) {
       let baseAuthUrl = `/auth/${props.loginType}`;
       if (props.space) {
@@ -238,7 +243,7 @@ const SigninPage = (props: Props) => {
             {!errors.email && <div className="label-text">Email</div>}
             {errors.email && (
               <div className="error-text">
-                <OakIcon mat="warning" color="warning" size="20px" />
+                <Warning />
                 {errors.email}
               </div>
             )}
@@ -249,10 +254,10 @@ const SigninPage = (props: Props) => {
             )}
             {emailConfirmationLink === 'showSent' && <>Activation link sent</>}
           </div>
-          <OakTextPlain
-            id="email"
-            data={data}
-            handleChange={e => handleChange(e)}
+          <OakInput
+            name="email"
+            value={data.email}
+            handleChange={(e) => handleChange(e)}
           />
         </div>
         <div>
@@ -260,7 +265,7 @@ const SigninPage = (props: Props) => {
             {!errors.password && <div className="label-text">Password</div>}
             {errors.password && (
               <div className="error-text">
-                <OakIcon mat="warning" color="warning" size="20px" />
+                <Warning />
                 {errors.password}
               </div>
             )}
@@ -268,16 +273,21 @@ const SigninPage = (props: Props) => {
               Forgot Password?
             </div>
           </div>
-          <OakTextPlain
-            id="password"
+          <OakInput
+            name="password"
             type="password"
-            data={data}
-            handleChange={e => handleChange(e)}
+            value={data.password}
+            handleChange={(e) => handleChange(e)}
           />
         </div>
       </div>
       <div className="action">
-        <OakButton variant="regular" theme="primary" action={signinAction}>
+        <OakButton
+          variant="regular"
+          theme="primary"
+          size="large"
+          handleClick={signinAction}
+        >
           Log In
         </OakButton>
         <p className="hr">or</p>
@@ -314,7 +324,7 @@ const SigninPage = (props: Props) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authorization: state.authorization,
 });
 

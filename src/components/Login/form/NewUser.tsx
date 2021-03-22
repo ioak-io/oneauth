@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
+import { Warning } from '@material-ui/icons';
 import { getAuth, addAuth, removeAuth } from '../../../actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../../Types/GeneralTypes';
-import OakTextPlain from '../../../oakui/OakTextPlain';
 import { sendMessage } from '../../../events/MessageService';
 import { isEmptyOrSpaces } from '../../Utils';
-import OakButton from '../../../oakui/OakButton';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
-import OakIcon from '../../../oakui/OakIcon';
+import OakInput from '../../../oakui/wc/OakInput';
+import OakButton from '../../../oakui/wc/OakButton';
 
 interface Props {
   setProfile: Function;
@@ -47,7 +47,7 @@ const NewUser = (props: Props) => {
 
   const [stage, setStage] = useState('userdetails');
 
-  const signupAction = event => {
+  const signupAction = (event) => {
     event.preventDefault();
     let baseAuthUrl = `/auth/${props.loginType}`;
     if (props.space) {
@@ -123,7 +123,7 @@ const NewUser = (props: Props) => {
             });
           }
         })
-        .catch(e => {
+        .catch((e) => {
           if (e.response?.status === 403) {
             error = true;
             errorState.email = 'User account already exists';
@@ -144,11 +144,11 @@ const NewUser = (props: Props) => {
     }
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     if (stage === 'userdetails') {
       signupAction(event);
     }
@@ -165,15 +165,15 @@ const NewUser = (props: Props) => {
               )}
               {errors.firstName && (
                 <div className="error-text">
-                  <OakIcon mat="warning" color="warning" size="20px" />
+                  <Warning />
                   {errors.firstName}
                 </div>
               )}
             </div>
-            <OakTextPlain
-              id="firstName"
-              data={data}
-              handleChange={e => handleChange(e)}
+            <OakInput
+              name="firstName"
+              value={data.firstName}
+              handleChange={(e) => handleChange(e)}
             />
           </div>
           <div>
@@ -181,15 +181,15 @@ const NewUser = (props: Props) => {
               {!errors.lastName && <div className="label-text">Last Name</div>}
               {errors.lastName && (
                 <div className="error-text">
-                  <OakIcon mat="warning" color="warning" size="20px" />
+                  <Warning />
                   {errors.lastName}
                 </div>
               )}
             </div>
-            <OakTextPlain
-              id="lastName"
-              data={data}
-              handleChange={e => handleChange(e)}
+            <OakInput
+              name="lastName"
+              value={data.lastName}
+              handleChange={(e) => handleChange(e)}
             />
           </div>
           <div>
@@ -197,16 +197,16 @@ const NewUser = (props: Props) => {
               {!errors.email && <div className="label-text">E-mail</div>}
               {errors.email && (
                 <div className="error-text">
-                  <OakIcon mat="warning" color="warning" size="20px" />
+                  <Warning />
                   {errors.email}
                 </div>
               )}
             </div>
-            <OakTextPlain
-              id="email"
+            <OakInput
+              name="email"
               placeholder="example@domain.com"
-              data={data}
-              handleChange={e => handleChange(e)}
+              value={data.email}
+              handleChange={(e) => handleChange(e)}
             />
           </div>
           <div>
@@ -214,17 +214,17 @@ const NewUser = (props: Props) => {
               {!errors.password && <div className="label-text">Password</div>}
               {errors.password && (
                 <div className="error-text">
-                  <OakIcon mat="warning" color="warning" size="20px" />
+                  <Warning />
                   {errors.password}
                 </div>
               )}
             </div>
-            <OakTextPlain
+            <OakInput
               type="password"
-              id="password"
+              name="password"
               placeholder="Choose a strong password"
-              data={data}
-              handleChange={e => handleChange(e)}
+              value={data.password}
+              handleChange={(e) => handleChange(e)}
             />
           </div>
           <div>
@@ -234,17 +234,17 @@ const NewUser = (props: Props) => {
               )}
               {errors.repeatpassword && (
                 <div className="error-text">
-                  <OakIcon mat="warning" color="warning" size="20px" />
+                  <Warning />
                   {errors.repeatpassword}
                 </div>
               )}
             </div>
-            <OakTextPlain
+            <OakInput
               type="password"
-              id="repeatpassword"
+              name="repeatpassword"
               placeholder="Don't forget it"
-              data={data}
-              handleChange={e => handleChange(e)}
+              value={data.repeatpassword}
+              handleChange={(e) => handleChange(e)}
             />
           </div>
         </div>
@@ -253,7 +253,11 @@ const NewUser = (props: Props) => {
       <div className="action">
         {stage === 'userdetails' && (
           <>
-            <OakButton variant="regular" theme="primary" action={signupAction}>
+            <OakButton
+              variant="regular"
+              theme="primary"
+              handleClick={signupAction}
+            >
               Create Account
             </OakButton>
             <p className="hr">or</p>
@@ -269,7 +273,7 @@ const NewUser = (props: Props) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authorization: state.authorization,
 });
 

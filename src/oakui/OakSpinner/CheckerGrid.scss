@@ -1,0 +1,80 @@
+.checker-grid {
+  position: absolute;
+  z-index: 99;
+  left: calc(50% - 20px);
+  top: calc(50% - 20px);
+
+  width: 40px;
+  height: 40px;
+
+  .checker-grid--item {
+    width: 33%;
+    height: 33%;
+    background-color: var(--color-1);
+    float: left;
+    -webkit-animation: checker-grid-delay 1.3s infinite ease-in-out;
+    animation: checker-grid-delay 1.3s infinite ease-in-out;
+  }
+  .checker-grid--child-1 {
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+  }
+  .checker-grid--child-2 {
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+  }
+  .checker-grid--child-3 {
+    -webkit-animation-delay: 0.4s;
+    animation-delay: 0.4s;
+  }
+  .checker-grid--child-4 {
+    -webkit-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+  }
+  .checker-grid--child-5 {
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+  }
+  .checker-grid--child-6 {
+    -webkit-animation-delay: 0.3s;
+    animation-delay: 0.3s;
+  }
+  .checker-grid--child-7 {
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+  }
+  .checker-grid--child-8 {
+    -webkit-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+  }
+  .checker-grid--child-9 {
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+  }
+
+  @-webkit-keyframes checker-grid-delay {
+    0%,
+    70%,
+    100% {
+      -webkit-transform: scale3D(1, 1, 1);
+      transform: scale3D(1, 1, 1);
+    }
+    35% {
+      -webkit-transform: scale3D(0, 0, 1);
+      transform: scale3D(0, 0, 1);
+    }
+  }
+
+  @keyframes checker-grid-delay {
+    0%,
+    70%,
+    100% {
+      -webkit-transform: scale3D(1, 1, 1);
+      transform: scale3D(1, 1, 1);
+    }
+    35% {
+      -webkit-transform: scale3D(0, 0, 1);
+      transform: scale3D(0, 0, 1);
+    }
+  }
+}

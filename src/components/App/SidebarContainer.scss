@@ -1,0 +1,11 @@
+.sidebar-container {
+  background-color: var(--color-sidebar);
+  color: var(--color-1);
+  // width: 250px;
+  height: 100%;
+  overflow-y: auto;
+  // border-right: 1px solid var(--global-border-color);
+  // @media (max-width: 767px) {
+  //   width: 90vw;
+  // }
+}

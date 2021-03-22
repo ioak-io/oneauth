@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
+import { Settings } from '@material-ui/icons';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
 import { fetchSpace } from '../../actions/SpaceActions';
 import { fetchApp } from '../../actions/AppActions';
@@ -44,7 +45,7 @@ interface Props {
 
 const Login = (props: Props) => {
   const loginType = 'oa';
-  const authorization = useSelector(state => state.authorization);
+  const authorization = useSelector((state) => state.authorization);
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
   const [spinner, setSpinner] = useState(false);
@@ -59,7 +60,7 @@ const Login = (props: Props) => {
   useEffect(() => {
     sendMessage('navbar', false);
 
-    const eventBus = receiveMessage().subscribe(message => {
+    const eventBus = receiveMessage().subscribe((message) => {
       if (message.name === 'login-spinner') {
         setSpinner(message.signal);
         if (message.signal) {
@@ -76,7 +77,7 @@ const Login = (props: Props) => {
     return () => eventBus.unsubscribe();
   }, []);
 
-  const changeRoute = routeType => {
+  const changeRoute = (routeType) => {
     setNotificationMessage({ type: '', message: '' });
     props.history.push(`/login?type=${routeType}`);
   };
@@ -126,7 +127,7 @@ const Login = (props: Props) => {
               <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
             )}
             <div className="admin-console-header">
-              <i className="material-icons">settings</i>
+              <Settings />
               <div>Admin Console</div>
             </div>
             {spinner && <OakSpinner />}
@@ -182,7 +183,7 @@ const Login = (props: Props) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authorization: state.authorization,
   fetchSpace: state.fetchSpace,
   fetchUsers: state.fetchUsers,

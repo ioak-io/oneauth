@@ -12,7 +12,6 @@ import { fetchApp } from '../../actions/AppActions';
 import { fetchPermittedSpace } from '../../actions/PermittedSpaceAction';
 
 interface Props {
-  authorization: Authorization;
   path?: string;
   render?: any;
   component: any;
@@ -20,12 +19,11 @@ interface Props {
   history: any;
   middleware?: string[];
   cookies: any;
-  logout: any;
 }
 
 const OakRoute = (props: Props) => {
-  const authorization = useSelector(state => state.authorization);
-  const profile = useSelector(state => state.profile);
+  const authorization = useSelector((state) => state.authorization);
+  const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
   // useEffect(() => {
@@ -56,7 +54,7 @@ const OakRoute = (props: Props) => {
   const middlewares = () => {
     // if (props.profile.appStatus === 'authenticated') {
     console.log(props.middleware);
-    props.middleware?.forEach(middlewareName => {
+    props.middleware?.forEach((middlewareName) => {
       if (!runMidleware(middlewareName)) {
         return false;
       }
@@ -65,7 +63,7 @@ const OakRoute = (props: Props) => {
     // }
   };
 
-  const runMidleware = middlewareName => {
+  const runMidleware = (middlewareName) => {
     sendMessage('spaceChange', true, '');
     switch (middlewareName) {
       case 'readAuthenticationSpace':
@@ -130,7 +128,7 @@ const OakRoute = (props: Props) => {
 
     if (authKey) {
       httpGet(`${baseAuthUrl}/session/${authKey}`, null)
-        .then(sessionResponse => {
+        .then((sessionResponse) => {
           if (sessionResponse.status === 200) {
             dispatch(
               addAuth({
@@ -180,7 +178,7 @@ const OakRoute = (props: Props) => {
     }
   };
 
-  const redirectHandler = type => {
+  const redirectHandler = (type) => {
     switch (type) {
       case 'space':
         redirectToSpaceLogin(props.match.params.space);
@@ -203,12 +201,12 @@ const OakRoute = (props: Props) => {
     props.history.push(`/login`);
   };
 
-  const redirectToSpaceLogin = spaceId => {
+  const redirectToSpaceLogin = (spaceId) => {
     // window.location.href = `http://localhost:3010/#/space/${spaceId}/login`;
     props.history.push(`/space/${spaceId}/login`);
   };
 
-  const redirectToAppspaceLogin = appspaceId => {
+  const redirectToAppspaceLogin = (appspaceId) => {
     // window.location.href = `http://localhost:3010/#/appspace/${appspaceId}/login`;
     props.history.push(`/appspace/${appspaceId}/login`);
   };

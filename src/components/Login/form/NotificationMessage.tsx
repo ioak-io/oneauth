@@ -1,6 +1,10 @@
+import {
+  CheckCircleOutline,
+  ErrorOutline,
+  MailOutline,
+} from '@material-ui/icons';
 import React from 'react';
 import './style.scss';
-import OakIcon from '../../../oakui/OakIcon';
 
 interface Props {
   notification: any;
@@ -14,7 +18,7 @@ const NotificationMessage = (props: Props) => {
           {props.notification.type === 'email-main' && (
             <div className="record-prominent email">
               <div>
-                <OakIcon mat="mail_outline" size="60px" />
+                <MailOutline />
               </div>
               <div>{props.notification.message}</div>
             </div>
@@ -22,11 +26,7 @@ const NotificationMessage = (props: Props) => {
           {props.notification.type === 'success-main' && (
             <div className="record-prominent success">
               <div>
-                <OakIcon
-                  mat="check_circle_outline"
-                  size="60px"
-                  color="success"
-                />
+                <CheckCircleOutline />
               </div>
               <div>{props.notification.message}</div>
             </div>
@@ -34,7 +34,7 @@ const NotificationMessage = (props: Props) => {
           {props.notification.type === 'failure-main' && (
             <div className="record-prominent failure">
               <div>
-                <OakIcon mat="error_outline" size="60px" color="failure" />
+                <ErrorOutline />
               </div>
               <div>{props.notification.message}</div>
             </div>
@@ -45,7 +45,7 @@ const NotificationMessage = (props: Props) => {
           {props.notification.type === 'failure' && (
             <div className="record failure">
               <div>
-                <OakIcon mat="error_outline" color="failure" />
+                <ErrorOutline />
               </div>
               <div>{props.notification.message}</div>
             </div>

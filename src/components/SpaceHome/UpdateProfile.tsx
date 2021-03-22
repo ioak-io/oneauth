@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Warning } from '@material-ui/icons';
 import './style.scss';
 import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
-import OakButton from '../../oakui/OakButton';
-import OakTextPlain from '../../oakui/OakTextPlain';
-import OakIcon from '../../oakui/OakIcon';
+import OakInput from '../../oakui/wc/OakInput';
+import OakButton from '../../oakui/wc/OakButton';
 
 interface Props {
   goHome: any;
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const UpdateProfile = (props: Props) => {
-  const authorization = useSelector(state => state.authorization);
+  const authorization = useSelector((state) => state.authorization);
   const [data, setData] = useState({
     firstName: '',
     lastName: '',
@@ -37,11 +37,11 @@ const UpdateProfile = (props: Props) => {
     });
   }, [authorization]);
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
-  const updateProfile = event => {
+  const updateProfile = (event) => {
     event.preventDefault();
     const baseUserUrl = `/user/${props.space}`;
     const errorState = {
@@ -91,7 +91,7 @@ const UpdateProfile = (props: Props) => {
             });
           }
         })
-        .catch(error => {
+        .catch((error) => {
           sendMessage('login-notification', true, {
             type: 'failure',
             message: 'Failed to update your profile',
@@ -108,7 +108,7 @@ const UpdateProfile = (props: Props) => {
     }
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     if (stage === 'form') {
       // requestLink(event);
       updateProfile(event);
@@ -133,15 +133,15 @@ const UpdateProfile = (props: Props) => {
                 )}
                 {errors.firstName && (
                   <div className="error-text">
-                    <OakIcon mat="warning" color="warning" size="20px" />
+                    <Warning />
                     {errors.firstName}
                   </div>
                 )}
               </div>
-              <OakTextPlain
-                id="firstName"
-                data={data}
-                handleChange={e => handleChange(e)}
+              <OakInput
+                name="firstName"
+                value={data.firstName}
+                handleChange={(e) => handleChange(e)}
               />
             </div>
             <div>
@@ -151,22 +151,26 @@ const UpdateProfile = (props: Props) => {
                 )}
                 {errors.lastName && (
                   <div className="error-text">
-                    <OakIcon mat="warning" color="warning" size="20px" />
+                    <Warning />
                     {errors.lastName}
                   </div>
                 )}
               </div>
-              <OakTextPlain
-                id="lastName"
-                data={data}
-                handleChange={e => handleChange(e)}
+              <OakInput
+                name="lastName"
+                value={data.lastName}
+                handleChange={(e) => handleChange(e)}
               />
             </div>
           </div>
         )}
         <div className="action">
           {['form'].includes(stage) && (
-            <OakButton variant="regular" theme="primary" action={handleSubmit}>
+            <OakButton
+              variant="regular"
+              theme="primary"
+              handleClick={handleSubmit}
+            >
               Save
             </OakButton>
           )}

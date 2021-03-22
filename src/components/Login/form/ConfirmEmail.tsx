@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
+import { Warning } from '@material-ui/icons';
 import { getAuth, addAuth, removeAuth } from '../../../actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../../Types/GeneralTypes';
-import OakTextPlain from '../../../oakui/OakTextPlain';
 import { sendMessage } from '../../../events/MessageService';
 import { isEmptyOrSpaces } from '../../Utils';
-import OakButton from '../../../oakui/OakButton';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
-import OakIcon from '../../../oakui/OakIcon';
+import OakInput from '../../../oakui/wc/OakInput';
+import OakButton from '../../../oakui/wc/OakButton';
 
 interface Props {
   setProfile: Function;
@@ -81,7 +81,7 @@ const ConfirmEmail = (props: Props) => {
     email: '',
   });
 
-  const requestLink = event => {
+  const requestLink = (event) => {
     event.preventDefault();
     let baseAuthUrl = `/auth/${props.loginType}`;
     if (props.space) {
@@ -138,11 +138,11 @@ const ConfirmEmail = (props: Props) => {
     }
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     if (stage === 'requestLink') {
       requestLink(event);
     }
@@ -176,23 +176,27 @@ const ConfirmEmail = (props: Props) => {
                 {!errors.email && <div className="label-text">Email</div>}
                 {errors.email && (
                   <div className="error-text">
-                    <OakIcon mat="warning" color="warning" size="20px" />
+                    <Warning />
                     {errors.email}
                   </div>
                 )}
               </div>
-              <OakTextPlain
-                id="email"
+              <OakInput
+                name="email"
                 placeholder="Email to activate"
-                data={data}
-                handleChange={e => handleChange(e)}
+                value={data.email}
+                handleChange={(e) => handleChange(e)}
               />
             </div>
           </div>
         )}
         <div className="action">
           {stage === 'requestLink' && (
-            <OakButton variant="regular" theme="primary" action={requestLink}>
+            <OakButton
+              variant="regular"
+              theme="primary"
+              handleClick={requestLink}
+            >
               Send Link
             </OakButton>
           )}
@@ -208,7 +212,7 @@ const ConfirmEmail = (props: Props) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authorization: state.authorization,
 });
 

@@ -1,13 +1,13 @@
-import { UPDATE_SPACE } from '../actions/types';
+import { REFRESH_SPACES } from '../actions/types';
 
 const initialState = {
-  data: [],
+  assets: [],
 };
 
-export default function(state = initialState, action) {
+export default function SpaceReducer(state = initialState, action: any) {
   switch (action.type) {
-    case UPDATE_SPACE:
-      console.log('SET SPACE reducer');
+    case REFRESH_SPACES:
+      console.log('GET_AUTH reducer');
       return {
         ...state,
         ...action.payload,

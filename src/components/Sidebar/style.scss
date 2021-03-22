@@ -1,0 +1,14 @@
+.sidebar {
+  display: grid;
+  grid-auto-flow: row;
+  align-content: flex-start;
+  align-items: flex-end;
+  // row-gap: 10px;
+  .sidebar--header {
+    // height: 70px;
+  }
+  .sidebar--nav {
+    // overflow-y: auto;
+    // overflow-x: hidden;
+  }
+}

@@ -1,0 +1,9 @@
+.oak-page {
+  // height: 100vh;
+  // overflow: hidden;
+  .oak-page-container {
+    margin-top: var(--height-nav);
+    // height: calc(100vh - var(--height-nav));
+    // overflow: auto;
+  }
+}

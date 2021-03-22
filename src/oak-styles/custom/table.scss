@@ -1,0 +1,88 @@
+.oak-table-extern {
+  // overflow-x: auto;
+  // overflow-y: visible;
+}
+.oak-table-extern table thead tr th,
+.oak-table-extern table tbody tr td {
+  padding: 12px 10px;
+}
+.oak-table-extern table thead tr th {
+  text-align: start;
+}
+.oak-table-extern--dense table thead tr th {
+  padding: 10px 6px;
+}
+.oak-table-extern--dense table tbody tr td {
+  padding: 4px 6px;
+}
+.oak-table-extern table tbody tr td {
+  max-width: 160px;
+  min-width: 100px;
+  white-space: normal;
+}
+table {
+  border-collapse: collapse;
+  width: 100%;
+  white-space: nowrap;
+}
+table thead tr th {
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  user-select: none;
+}
+table thead tr th span {
+  display: flex;
+  align-items: center;
+}
+.oak-table-extern--fill-none table tbody tr {
+  border-top: 1px solid var(--global-border-color);
+}
+.oak-table-extern--fill-global table tbody tr {
+  border-top: 1px solid var(--color-global-darker);
+}
+.oak-table-extern--fill-container table tbody tr {
+  border-top: 1px solid var(--color-container-darker);
+}
+.oak-table-extern--fill-surface table tbody tr {
+  border-top: 1px solid var(--color-surface-darker);
+}
+.oak-table-extern--fill-float table tbody tr {
+  border-top: 1px solid var(--color-float-darker);
+}
+
+.oak-table-extern--orphan.oak-table-extern--fill-none
+  table
+  tbody
+  tr:last-child {
+  border-bottom: 1px solid var(--global-border-color);
+}
+.oak-table-extern--orphan.oak-table-extern--fill-global
+  table
+  tbody
+  tr:last-child {
+  border-bottom: 1px solid var(--color-global-darker);
+}
+.oak-table-extern--orphan.oak-table-extern--fill-container
+  table
+  tbody
+  tr:last-child {
+  border-bottom: 1px solid var(--color-container-darker);
+}
+
+.oak-table-extern--fill-global table tbody tr:hover,
+.oak-table-extern--fill-global table tbody tr:hover td {
+  background-color: var(--color-global-darker);
+}
+.oak-table-extern--fill-container table tbody tr:hover,
+.oak-table-extern--fill-container table tbody tr:hover td {
+  background-color: var(--color-container-darker);
+}
+.oak-table-extern--fill-surface table tbody tr:hover,
+.oak-table-extern--fill-surface table tbody tr:hover td {
+  background-color: var(--color-surface-darker);
+}
+.oak-table-extern--fill-float table tbody tr:hover,
+.oak-table-extern--fill-float table tbody tr:hover td {
+  background-color: var(--color-float-darker);
+}

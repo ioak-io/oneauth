@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/oak-prompt.scss';
-import OakButton from './OakButton';
-import OakModal from './OakModal';
+import OakButton from './wc/OakButton';
+import OakModal from './wc/OakModal';
 
 interface Props {
   visible: boolean;
@@ -17,7 +17,7 @@ const OakPrompt = (props: Props) => {
   //     return () => document.removeEventListener("keydown", escFunction, false);
   // }, []);
 
-  // const escFunction = (event) => {
+  // const escFunction = (event: any) => {
   //     if(event.keyCode === 27) {
   //       if (props.visible) {
   //         props.toggleVisibility();
@@ -35,34 +35,34 @@ const OakPrompt = (props: Props) => {
 
   return (
     <OakModal
-      visible={props.visible}
-      toggleVisibility={props.toggleVisibility}
+      showModal={props.visible}
+      handleClose={props.toggleVisibility}
       noheader
     >
-      <div className="modal-body typography-8 space-top-4 space-bottom-4 confirmation-text">
-        {props.text ? props.text : 'Are you sure you want to continue?'}
+      <div slot="body">
+        <div className="modal-body typography-8 space-top-4 space-bottom-4 confirmation-text">
+          {props.text ? props.text : 'Are you sure you want to continue?'}
+        </div>
       </div>
-      <div className="modal-footer">
+      <div slot="footer">
         {props.children && props.children}
         {!props.children && (
           <>
             <OakButton
               data-test="action-close"
-              action={props.toggleVisibility}
+              handleClick={props.toggleVisibility}
               theme="default"
               variant="appear"
               align="left"
-              fa="fas fa-times"
             >
               No
             </OakButton>
             <OakButton
               data-test="action-proceed"
-              action={action}
+              handleClick={action}
               theme="primary"
               variant="disappear"
               align="right"
-              fa="fas fa-check"
             >
               Yes
             </OakButton>

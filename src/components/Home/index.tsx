@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import './style.scss';
-import Navigation from '../Navigation';
 import { sendMessage } from '../../events/MessageService';
 
 interface Props {

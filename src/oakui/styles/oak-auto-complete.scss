@@ -5,7 +5,7 @@
     z-index: 1;
     // margin-top: -20px;
     padding: 6px 0px;
-    background-color: var(--color-formelement-bg-1);
+    background-color: var(--formelement-color-bg);
     box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.15),
       0 5px 20px 0 rgba(21, 27, 38, 0.08);
     .element {
@@ -14,7 +14,7 @@
       height: var(--metric-formelement-height);
       line-height: var(--metric-formelement-height);
       &:hover {
-        background-color: var(--color-primary-1);
+        background-color: var(--color-primary);
       }
     }
   }

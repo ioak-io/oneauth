@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { Warning } from '@material-ui/icons';
 import './style.scss';
 import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
-import OakButton from '../../oakui/OakButton';
-import OakTextPlain from '../../oakui/OakTextPlain';
-import OakIcon from '../../oakui/OakIcon';
+import OakInput from '../../oakui/wc/OakInput';
+import OakButton from '../../oakui/wc/OakButton';
 
 interface Props {
   goHome: any;
@@ -17,7 +17,7 @@ interface Props {
 
 const ChangePassword = (props: Props) => {
   const loginType = 'appspace';
-  const authorization = useSelector(state => state.authorization);
+  const authorization = useSelector((state) => state.authorization);
   const [data, setData] = useState({
     oldpassword: '',
     password: '',
@@ -32,11 +32,11 @@ const ChangePassword = (props: Props) => {
     repeatpassword: '',
   });
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
-  const changePassword = event => {
+  const changePassword = (event) => {
     event.preventDefault();
     const baseAuthUrl = `/auth/${loginType}/${props.space}`;
     const errorState = {
@@ -94,7 +94,7 @@ const ChangePassword = (props: Props) => {
             });
           }
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response.status === 401) {
             errorState.oldpassword = 'Incorrect password';
           } else {
@@ -115,7 +115,7 @@ const ChangePassword = (props: Props) => {
     }
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     if (stage === 'form') {
       // requestLink(event);
       changePassword(event);
@@ -140,17 +140,17 @@ const ChangePassword = (props: Props) => {
                 )}
                 {errors.oldpassword && (
                   <div className="error-text">
-                    <OakIcon mat="warning" color="warning" size="20px" />
+                    <Warning />
                     {errors.oldpassword}
                   </div>
                 )}
               </div>
-              <OakTextPlain
-                id="oldpassword"
+              <OakInput
+                name="oldpassword"
                 type="password"
                 placeholder="Type your current password"
-                data={data}
-                handleChange={e => handleChange(e)}
+                value={data.oldpassword}
+                handleChange={(e) => handleChange(e)}
               />
             </div>
             <div>
@@ -160,17 +160,17 @@ const ChangePassword = (props: Props) => {
                 )}
                 {errors.password && (
                   <div className="error-text">
-                    <OakIcon mat="warning" color="warning" size="20px" />
+                    <Warning />
                     {errors.password}
                   </div>
                 )}
               </div>
-              <OakTextPlain
-                id="password"
+              <OakInput
+                name="password"
                 type="password"
                 placeholder="Make it a good one"
-                data={data}
-                handleChange={e => handleChange(e)}
+                value={data.password}
+                handleChange={(e) => handleChange(e)}
               />
             </div>
             <div>
@@ -180,24 +180,28 @@ const ChangePassword = (props: Props) => {
                 )}
                 {errors.repeatpassword && (
                   <div className="error-text">
-                    <OakIcon mat="warning" color="warning" size="20px" />
+                    <Warning />
                     {errors.repeatpassword}
                   </div>
                 )}
               </div>
-              <OakTextPlain
-                id="repeatpassword"
+              <OakInput
+                name="repeatpassword"
                 type="password"
                 placeholder="Don't forget it"
-                data={data}
-                handleChange={e => handleChange(e)}
+                value={data.repeatPassword}
+                handleChange={(e) => handleChange(e)}
               />
             </div>
           </div>
         )}
         <div className="action">
           {['form'].includes(stage) && (
-            <OakButton variant="regular" theme="primary" action={handleSubmit}>
+            <OakButton
+              variant="regular"
+              theme="primary"
+              handleClick={handleSubmit}
+            >
               Change Password
             </OakButton>
           )}

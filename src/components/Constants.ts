@@ -1,5 +1,6 @@
 const constants = {
   API_URL_TENANT: '/tenant',
+  API_URL_ASSET: '/asset',
   API_URL_TENANT_BANNER: '/tenant/banner',
   API_URL_TENANT_CREATE: '/tenant/create',
   API_TENANT_URL: '/tenant/sendURL',
@@ -12,7 +13,6 @@ const constants = {
   API_URL_STAGE: '/stage',
   API_URL_PREDICT: '/model/predict',
 
-  API_URL_ARTICLE: '/article',
   API_URL_CATEGORY: '/category',
   API_URL_FAQ: '/faq',
   API_URL_SR: '/servicerequests',
@@ -23,14 +23,12 @@ const constants = {
   API_KEYS: '/keys',
   API_JWT: '/signin/jwt',
 
-  API_SPACE_CREATE: '/space/create',
-  API_SPACE_FETCH: '/space',
-  API_SPACE_DELETE: '/space/delete',
-  API_APP_FETCH: '/app',
-  API_APP_DELETE: '/app/delete',
-  API_ROLE_FETCH: '/role',
-  API_PERMITTED_SPACE: '/permittedspace',
-  API_HEALTHCHECK_HELLO: '/healthcheck/hello',
+  API_URL_PROJECT: '/project',
+  API_URL_PROJECTMEMBER: '/projectmember',
+  API_URL_ENDPOINT_DOMAIN: '/endpoint/domain',
+  API_URL_ENDPOINT_CUSTOM: '/endpoint/custom',
+  API_URL_TEMPLATE: '/template',
+  API_URL_EMAIL_SERVER: '/email-server',
 };
 
 export default constants;

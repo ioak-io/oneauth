@@ -1,0 +1,63 @@
+* {
+  --oak-typography-body2-font-size: 0.875rem;
+  --oak-typography-body2-font-weight: 400;
+  --oak-typography-body2-line-height: 1.43;
+  --oak-typography-body2-letter-spacing: 0.01071em;
+
+  --oak-typography-body1-font-size: 1rem;
+  --oak-typography-body1-font-weight: 400;
+  --oak-typography-body1-line-height: 1.5;
+  --oak-typography-body1-letter-spacing: 0.00938em;
+
+  --oak-typography-caption-font-size: 0.75rem;
+  --oak-typography-caption-font-weight: 400;
+  --oak-typography-caption-line-height: 1.66;
+  --oak-typography-caption-letter-spacing: 0.03333em;
+
+  --oak-typography-h1-font-size: 3.052rem;
+  --oak-typography-h1-font-weight: 300;
+  --oak-typography-h1-line-height: 1.167;
+  --oak-typography-h1-letter-spacing: -0.01562em;
+
+  --oak-typography-h2-font-size: 2.441rem;
+  --oak-typography-h2-font-weight: 300;
+  --oak-typography-h2-line-height: 1.2;
+  --oak-typography-h2-letter-spacing: -0.00833em;
+
+  --oak-typography-h3-font-size: 1.953rem;
+  --oak-typography-h3-font-weight: 400;
+  --oak-typography-h3-line-height: 1.167;
+  --oak-typography-h3-letter-spacing: 0em;
+
+  --oak-typography-h4-font-size: 1.563rem;
+  --oak-typography-h4-font-weight: 400;
+  --oak-typography-h4-line-height: 1.235;
+  --oak-typography-h4-letter-spacing: 0.00735em;
+
+  --oak-typography-h5-font-size: 1.25rem;
+  --oak-typography-h5-font-weight: 400;
+  --oak-typography-h5-line-height: 1.334;
+  --oak-typography-h5-letter-spacing: 0em;
+
+  --oak-typography-h6-font-size: 1rem;
+  --oak-typography-h6-font-weight: 500;
+  --oak-typography-h6-line-height: 1.6;
+  --oak-typography-h6-letter-spacing: 0.0075em;
+
+  --oak-typography-subtitle1-font-size: 1rem;
+  --oak-typography-subtitle1-font-weight: 400;
+  --oak-typography-subtitle1-line-height: 1.75;
+  --oak-typography-subtitle1-letter-spacing: 0.00938em;
+
+  --oak-typography-subtitle2-font-size: 0.875rem;
+  --oak-typography-subtitle2-font-weight: 500;
+  --oak-typography-subtitle2-line-height: 1.57;
+  --oak-typography-subtitle2-letter-spacing: 0.00714em;
+
+  --oak-typography-overline-font-size: 0.75rem;
+  --oak-typography-overline-font-weight: 400;
+  --oak-typography-overline-line-height: 2.66;
+  --oak-typography-overline-letter-spacing: 0.08333em;
+
+  --oak-typography-paragraph-margin-bottom: 16px;
+}

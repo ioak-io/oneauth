@@ -1,121 +1,30 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto|Montserrat|Lato|Open+Sans|Open+Sans+Condensed:300&display=swap');
-
-a {
-  text-decoration: none;
-  color: var(--color-primary-1);
-}
-
-.dialog-container {
-  background-color: var(--color-dialog) !important;
-  color: var(--color-foreground-1);
-}
-
-// ::-webkit-scrollbar {
-//   width: 6px; /* for vertical scrollbars */
-//   height: 6px; /* for horizontal scrollbars */
-// }
-
-// ::-webkit-scrollbar-track {
-//   background: rgba(0, 0, 0, 0.1);
-//   background: var(--color-foreground-1);
-// }
-
-// ::-webkit-scrollbar-thumb {
-//   background: rgba(0, 0, 0, 0.3);
-// }
-
-.App {
-  width: 100%;
-  margin: auto;
-
-  .actionbar,
-  .actionbar-1 {
-    display: grid;
-    grid-template-columns: auto;
-    justify-items: center;
-  }
-
-  .actionbar-2 {
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-items: center;
-  }
-
-  .actionbar-3 {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    justify-items: center;
-  }
-
-  .body .body-content {
-    width: 100%;
-    margin: auto;
-    .boxed {
-      min-height: 100vh;
-      padding-top: calc(var(--height-nav) + 20px);
-      // padding-bottom: 40px;
-
-      @media (min-width: 768px) {
-        width: 60%;
-        margin: auto;
-      }
-      @media (max-width: 767px) {
-        padding-top: 0px;
-        // padding-left: 20px;
-        // padding-right: 20px;
-        // width: 70%;
-        // margin: auto;
-      }
-    }
-    .full {
-      min-height: 100vh;
-      padding-top: calc(var(--height-nav));
-    }
-  }
-}
-
-//   &.icon {
-//     font-size: 0.8em;
-//     padding: 0em 0em;
-//     background: transparent;
-//     border: none;
+// @media (min-width: 768px) {
+//   ::-webkit-scrollbar {
+//     width: 10px; /* for vertical scrollbars */
+//     height: 10px; /* for horizontal scrollbars */
 //   }
 
-//   .material-icons {
-//     vertical-align: bottom;
-//     font-size: 20px;
-//     margin-right: 5px;
+//   ::-webkit-scrollbar-track {
+//     background: var(--color-foreground-5);
+//     border-radius: 10px;
+//   }
+
+//   ::-webkit-scrollbar-thumb {
+//     background: var(--color-1);
+//     border-radius: 10px;
 //   }
 // }
 
-.MuiInputLabel-root,
-.MuiInputBase-root {
-  color: white;
-}
-
-.color-primary {
-  color: var(--color-primary-1);
-}
-
-.color-secondary {
-  color: var(--color-secondary-1);
-}
-
-// input {
-//   display: block;
-//   font-size: 16px;
-//   line-height: 25px;
-//   // margin-top: 0;
-//   font-weight: 300;
-//   border: none;
-//   border-radius: 2px;
-//   background: #fff;
-//   color: #1a1a1a;
-//   padding: 14.4px 16px;
+// .App {
 //   width: 100%;
-//   outline: none;
+//   margin: auto;
 // }
 
-form {
-  width: 100%;
+.drawer-left,
+.drawer-right {
+  height: 100%;
+}
+
+.tab-playground {
+  margin-top: 20px;
 }

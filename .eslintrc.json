@@ -1,28 +1,19 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "project": "./tsconfig.json",
-    "tsconfigRootDir": "."
-  },
-  "plugins": ["@typescript-eslint", "react-hooks", "jest", "prettier"],
-  "extends": [
-    "airbnb",
-    "plugin:import/typescript",
-    "plugin:@typescript-eslint/recommended",
-    "prettier",
-    "prettier/@typescript-eslint",
-    "plugin:prettier/recommended",
-    "prettier/react"
-  ],
   "env": {
     "browser": true,
-    "commonjs": true,
-    "es6": true,
-    "node": true,
-    "jest/globals": true
+    "es2021": true
   },
+  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint"],
   "rules": {
-    "prettier/prettier": "error",
     "react/destructuring-assignment": ["error", "never"],
     "react/jsx-filename-extension": [
       2,
@@ -55,16 +46,13 @@
     "no-unused-expressions": "off",
     "jsx-a11y/no-autofocus": "off",
     "react/button-has-type": "off",
-    "jsx-a11y/label-has-associated-control": "off"
-    // "import/extensions": [
-    //   "error",
-    //   "ignorePackages",
-    //   {
-    //     "js": "never",
-    //     "jsx": "never",
-    //     "ts": "never",
-    //     "tsx": "never"
-    //   }
-    // ]
+    "jsx-a11y/label-has-associated-control": "off",
+    "react/require-default-props": "off",
+    "react/no-unused-prop-types": "off",
+    "no-unused-vars": "off",
+    "no-undef": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-new": "off",
+    "react/style-prop-object": "off"
   }
 }

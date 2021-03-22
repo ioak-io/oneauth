@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withCookies } from 'react-cookie';
+import { Warning } from '@material-ui/icons';
 import { getAuth, addAuth, removeAuth } from '../../../actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../../Types/GeneralTypes';
-import OakTextPlain from '../../../oakui/OakTextPlain';
 import { sendMessage } from '../../../events/MessageService';
 import { isEmptyOrSpaces } from '../../Utils';
-import OakButton from '../../../oakui/OakButton';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
-import OakIcon from '../../../oakui/OakIcon';
+import OakInput from '../../../oakui/wc/OakInput';
+import OakButton from '../../../oakui/wc/OakButton';
 
 interface Props {
   setProfile: Function;
@@ -80,7 +80,7 @@ const ResetPassword = (props: Props) => {
     repeatpassword: '',
   });
 
-  const requestLink = event => {
+  const requestLink = (event) => {
     event.preventDefault();
     let baseAuthUrl = `/auth/${props.loginType}`;
     if (props.space) {
@@ -139,7 +139,7 @@ const ResetPassword = (props: Props) => {
     }
   };
 
-  const resetPassword = event => {
+  const resetPassword = (event) => {
     event.preventDefault();
     sendMessage('login-spinner');
     let baseAuthUrl = `/auth/${props.loginType}`;
@@ -185,11 +185,11 @@ const ResetPassword = (props: Props) => {
     }
   };
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     if (stage === 'setPassword') {
       resetPassword(event);
     } else if (stage === 'requestLink') {
@@ -225,16 +225,16 @@ const ResetPassword = (props: Props) => {
                 {!errors.email && <div className="label-text">Email</div>}
                 {errors.email && (
                   <div className="error-text">
-                    <OakIcon mat="warning" color="warning" size="20px" />
+                    <Warning />
                     {errors.email}
                   </div>
                 )}
               </div>
-              <OakTextPlain
-                id="email"
+              <OakInput
+                name="email"
                 placeholder="Email to send reset link"
-                data={data}
-                handleChange={e => handleChange(e)}
+                value={data.email}
+                handleChange={(e) => handleChange(e)}
               />
             </div>
           </div>
@@ -248,17 +248,17 @@ const ResetPassword = (props: Props) => {
                 )}
                 {errors.password && (
                   <div className="error-text">
-                    <OakIcon mat="warning" color="warning" size="20px" />
+                    <Warning />
                     {errors.password}
                   </div>
                 )}
               </div>
-              <OakTextPlain
+              <OakInput
                 type="password"
-                id="password"
+                name="password"
                 placeholder="Choose a strong password"
-                data={data}
-                handleChange={e => handleChange(e)}
+                value={data.password}
+                handleChange={(e) => handleChange(e)}
               />
             </div>
             <div>
@@ -268,29 +268,37 @@ const ResetPassword = (props: Props) => {
                 )}
                 {errors.repeatpassword && (
                   <div className="error-text">
-                    <OakIcon mat="warning" color="warning" size="20px" />
+                    <Warning />
                     {errors.repeatpassword}
                   </div>
                 )}
               </div>
-              <OakTextPlain
+              <OakInput
                 type="password"
-                id="repeatpassword"
+                name="repeatpassword"
                 placeholder="Don't forget it"
-                data={data}
-                handleChange={e => handleChange(e)}
+                value={data.repeatpassword}
+                handleChange={(e) => handleChange(e)}
               />
             </div>
           </div>
         )}
         <div className="action">
           {stage === 'requestLink' && (
-            <OakButton variant="regular" theme="primary" action={requestLink}>
+            <OakButton
+              variant="regular"
+              theme="primary"
+              handleClick={requestLink}
+            >
               Send Link
             </OakButton>
           )}
           {stage === 'setPassword' && (
-            <OakButton variant="regular" theme="primary" action={resetPassword}>
+            <OakButton
+              variant="regular"
+              theme="primary"
+              handleClick={resetPassword}
+            >
               Update Password
             </OakButton>
           )}
@@ -308,7 +316,7 @@ const ResetPassword = (props: Props) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authorization: state.authorization,
 });
 

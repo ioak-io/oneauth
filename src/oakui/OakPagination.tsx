@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './styles/oak-pagination.scss';
-import OakSelect from './OakSelect';
+import { KeyboardArrowLeft, KeyboardArrowRight } from '@material-ui/icons';
+import OakSelect from './wc/OakSelect';
 
 interface Props {
   onChangePage: any;
   totalRows: number;
   label?: string;
+  customActions?: any;
+  children?: any;
 }
 
 const OakPagination = (props: Props) => {
   const [data, setData] = useState({
-    rowsPerPage: 6,
+    rowsPerPage: 5,
     pageNo: 1,
   });
 
@@ -34,56 +37,52 @@ const OakPagination = (props: Props) => {
     }
   };
 
-  const handleChange = event => {
-    setData({ ...data, [event.target.name]: event.target.value });
+  const handleChange = (event: { target: { name: any; value: any } }) => {
+    setData({ ...data, [event.target.name]: event.target.value || 5 });
   };
 
   return (
     <div className="oak-pagination">
-      <div className="space-right-3">
-        {props.label ? props.label : 'Rows per page'}
-      </div>
-      <div className="space-right-3">
-        <OakSelect
-          data={data}
-          id="rowsPerPage"
-          handleChange={e => handleChange(e)}
-          elements={['6', '10', '20', '50']}
-        />
-      </div>
-      <div className="page-number space-right-3">
+      <div className="oak-pagination--left">{props.children}</div>
+      <div className="oak-pagination--right">
+        <div>{props.label ? props.label : 'Rows per page'}</div>
         <div>
-          {(data.pageNo - 1) * data.rowsPerPage + 1}-{' '}
-          {data.pageNo * data.rowsPerPage < props.totalRows
-            ? data.pageNo * data.rowsPerPage
-            : props.totalRows}
-          &nbsp;of&nbsp; {props.totalRows}{' '}
+          <OakSelect
+            value={data.rowsPerPage}
+            name="rowsPerPage"
+            handleChange={(e: any) => handleChange(e)}
+            options={['5', '10', '20', '50']}
+          />
         </div>
-      </div>
-      <div className="page-nav">
-        <div className="space-right-2">
-          <i
-            data-test="action-page-previous"
-            className={
-              data.pageNo === 1 ? 'material-icons disabled' : 'material-icons'
+        <div className="page-number">
+          <div>
+            {`${(data.pageNo - 1) * data.rowsPerPage + 1}-
+            ${
+              data.pageNo * data.rowsPerPage < props.totalRows
+                ? data.pageNo * data.rowsPerPage
+                : props.totalRows
             }
-            onClick={previousPage}
-          >
-            keyboard_arrow_left
-          </i>
+            &nbsp;of&nbsp;`}
+            {props.totalRows}
+          </div>
         </div>
-        <div>
-          <i
-            data-test="action-page-next"
-            className={
-              Math.ceil(props.totalRows / data.rowsPerPage) === data.pageNo
-                ? 'material-icons disabled'
-                : 'material-icons'
-            }
-            onClick={nextPage}
-          >
-            keyboard_arrow_right
-          </i>
+        <div className="page-nav">
+          <div>
+            <KeyboardArrowLeft
+              className={data.pageNo === 1 ? 'disabled' : ''}
+              onClick={previousPage}
+            />
+          </div>
+          <div>
+            <KeyboardArrowRight
+              className={
+                Math.ceil(props.totalRows / data.rowsPerPage) === data.pageNo
+                  ? 'disabled'
+                  : ''
+              }
+              onClick={nextPage}
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -5,9 +5,8 @@ import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
-import OakButton from '../../oakui/OakButton';
-import OakTextPlain from '../../oakui/OakTextPlain';
-import OakIcon from '../../oakui/OakIcon';
+import OakInput from '../../oakui/wc/OakInput';
+import OakButton from '../../oakui/wc/OakButton';
 
 interface Props {
   switchToSigninPage: any;
@@ -18,7 +17,7 @@ interface Props {
 }
 
 const HomeLink = (props: Props) => {
-  const authorization = useSelector(state => state.authorization);
+  const authorization = useSelector((state) => state.authorization);
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -31,17 +30,17 @@ const HomeLink = (props: Props) => {
     email: '',
   });
 
-  const handleChange = event => {
+  const handleChange = (event) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     if (stage === 'requestLink') {
       // requestLink(event);
     }
   };
 
-  const changeRoute = routeType => {
+  const changeRoute = (routeType) => {
     props.history.push(`/space/${props.space}/home?type=${routeType}`);
   };
 
@@ -92,28 +91,36 @@ const HomeLink = (props: Props) => {
                 <OakButton
                   variant="drama"
                   theme="primary"
-                  action={() => changeRoute('updateProfile')}
+                  handleClick={() => changeRoute('updateProfile')}
                 >
                   Edit Profile
                 </OakButton>
                 <OakButton
                   variant="drama"
                   theme="primary"
-                  action={() => changeRoute('changePassword')}
+                  handleClick={() => changeRoute('changePassword')}
                 >
                   Change Password
                 </OakButton>
-                <OakButton variant="appear" theme="tertiary" action={logout}>
+                <OakButton
+                  variant="appear"
+                  theme="tertiary"
+                  handleClick={logout}
+                >
                   Sign out
                 </OakButton>
               </>
             )}
             {!authorization.isAuth && (
               <>
-                <OakButton variant="appear" theme="primary" action={login}>
+                <OakButton variant="appear" theme="primary" handleClick={login}>
                   Sign in
                 </OakButton>
-                <OakButton variant="appear" theme="primary" action={signup}>
+                <OakButton
+                  variant="appear"
+                  theme="primary"
+                  handleClick={signup}
+                >
                   Sign up
                 </OakButton>
               </>
