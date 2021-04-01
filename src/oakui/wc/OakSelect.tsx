@@ -1,8 +1,8 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
-  INPUT_CHANGE_EVENT,
-  INPUT_INPUT_EVENT,
-} from '@oakui/core-stage/event/OakInputEvent';
+  SELECT_CHANGE_EVENT,
+  SELECT_INPUT_EVENT,
+} from '@oakui/core-stage/event/OakSelectEvent';
 
 interface Props {
   name: string;
@@ -44,25 +44,29 @@ const OakSelect = (props: Props) => {
 
   useEffect(() => {
     (elementRef as any).current.addEventListener(
-      INPUT_CHANGE_EVENT,
+      SELECT_CHANGE_EVENT,
       handleChange
     );
     (elementRef as any).current.addEventListener(
-      INPUT_INPUT_EVENT,
+      SELECT_INPUT_EVENT,
       handleInput
     );
 
     return () => {
       (elementRef as any).current?.removeEventListener(
-        INPUT_CHANGE_EVENT,
+        SELECT_CHANGE_EVENT,
         handleChange
       );
       (elementRef as any).current?.removeEventListener(
-        INPUT_INPUT_EVENT,
+        SELECT_INPUT_EVENT,
         handleInput
       );
     };
   });
+
+  useEffect(() => {
+    (elementRef.current as any)!.value = props.value;
+  }, [props.value]);
 
   useEffect(() => {
     (elementRef.current as any)!.multiple = props.multiple;
@@ -94,7 +98,6 @@ const OakSelect = (props: Props) => {
       formGroupName={props.formGroupName}
       label={props.label}
       name={props.name}
-      value={props.value}
       placeholder={props.placeholder}
       tooltip={props.tooltip}
       multiple={props.multiple}
