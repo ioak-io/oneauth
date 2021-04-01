@@ -10,4 +10,29 @@
       box-shadow: none;
     }
   }
+  --oak-global-outline-style: dotted;
+  --oak-global-outline-width: 1px;
+  --oak-global-outline-offset: -4px;
+  --oak-global-outline-color: invert;
+
+  // --oak-userinput-outline-style: dotted;
+  // --oak-userinput-outline-width: 1px;
+  // --oak-userinput-outline-offset: -4px;
+  // --oak-userinput-outline-color: invert;
+
+  .theme_dark {
+    --oak-userinput-outline-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    // --oak-userinput-outline-border-color should always be defined
+    --oak-userinput-outline-border-color: rgba(0, 123, 255, 1);
+    --oak-userinput-outline-box-shadow-error: 0 0 0 0.2rem
+      rgba(167, 40, 40, 0.25);
+  }
+
+  .theme_light {
+    --oak-userinput-outline-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    // --oak-userinput-outline-border-color should always be defined
+    --oak-userinput-outline-border-color: rgba(0, 123, 255, 1);
+    --oak-userinput-outline-box-shadow-error: 0 0 0 0.2rem
+      rgba(167, 40, 40, 0.25);
+  }
 }

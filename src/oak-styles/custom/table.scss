@@ -15,21 +15,24 @@
 .oak-table-extern--dense table tbody tr td {
   padding: 4px 6px;
 }
-.oak-table-extern table tbody tr td {
-  max-width: 160px;
-  min-width: 100px;
-  white-space: normal;
-}
+// .oak-table-extern table tbody tr td {
+//   max-width: 160px;
+//   min-width: 100px;
+//   white-space: normal;
+// }
 table {
   border-collapse: collapse;
   width: 100%;
   white-space: nowrap;
 }
 table thead tr th {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: normal;
   cursor: pointer;
   user-select: none;
+}
+table tbody tr td {
+  font-size: 14px;
 }
 table thead tr th span {
   display: flex;
@@ -72,17 +75,17 @@ table thead tr th span {
 
 .oak-table-extern--fill-global table tbody tr:hover,
 .oak-table-extern--fill-global table tbody tr:hover td {
-  background-color: var(--color-global-darker);
+  background-color: var(--color-global-dark);
 }
 .oak-table-extern--fill-container table tbody tr:hover,
 .oak-table-extern--fill-container table tbody tr:hover td {
-  background-color: var(--color-container-darker);
+  background-color: var(--color-container-dark);
 }
 .oak-table-extern--fill-surface table tbody tr:hover,
 .oak-table-extern--fill-surface table tbody tr:hover td {
-  background-color: var(--color-surface-darker);
+  background-color: var(--color-surface-dark);
 }
 .oak-table-extern--fill-float table tbody tr:hover,
 .oak-table-extern--fill-float table tbody tr:hover td {
-  background-color: var(--color-float-darker);
+  background-color: var(--color-float-dark);
 }

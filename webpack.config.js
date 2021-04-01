@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 
-module.exports = (env) => {
+module.exports = env => {
   console.log('NODE_ENV', env.NODE_ENV);
   return {
     entry: './src/app.tsx',
@@ -58,7 +58,7 @@ module.exports = (env) => {
       host: '0.0.0.0',
       compress: true,
       hot: true,
-      port: 3000,
+      port: 3010,
       publicPath: '/',
     },
     devtool: 'source-map',

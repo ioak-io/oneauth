@@ -7,6 +7,7 @@
 @import './custom/border.scss';
 @import './custom/box-shadow.scss';
 @import './custom/outline.scss';
+@import './custom/nav.scss';
 @import './custom/topbar.scss';
 @import './custom/sidebar.scss';
 @import './custom/toolbar.scss';
@@ -14,8 +15,8 @@
 @import './custom/table.scss';
 @import './custom/menu.scss';
 @import './custom/padding.scss';
-@import './custom/typography.css';
-@import './custom/oak-app-layout.css';
+@import './custom/typography.scss';
+@import './custom/oak-app-layout.scss';
 
 body {
   -webkit-font-smoothing: antialiased;

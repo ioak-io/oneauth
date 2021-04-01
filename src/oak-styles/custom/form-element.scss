@@ -2,7 +2,7 @@
   --formelement-height-xsmall: 25px;
   --formelement-height-small: 36px;
   --formelement-height-medium: 40px;
-  --formelement-height-large: 50px;
+  --formelement-height-large: 55px;
 
   --formelement-fontsize-xsmall: 12px;
   --formelement-fontsize-small: 14px;
@@ -26,9 +26,6 @@
     --formelement-color-fg-disabled: #ccc;
     --formelement-color-label: #f1f1f1;
     --formelement-color-placeholder: #f1f1f1;
-    --formelement-outline-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    --formelement-outline-border-color: rgba(0, 123, 255, 1);
-    --formelement-outline-box-shadow-error: 0 0 0 0.2rem rgba(167, 40, 40, 0.25);
   }
 
   .theme_light {
@@ -42,8 +39,5 @@
     --formelement-color-fg-disabled: #2f3136;
     --formelement-color-label: #292b2f;
     --formelement-color-placeholder: #292b2f;
-    --formelement-outline-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    --formelement-outline-border-color: rgba(0, 123, 255, 1);
-    --formelement-outline-box-shadow-error: 0 0 0 0.2rem rgba(167, 40, 40, 0.25);
   }
 }
