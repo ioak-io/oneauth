@@ -24,7 +24,7 @@ export const fetchAllSpaces = () => (dispatch) => {
     });
 };
 
-export const fetchSpace = (authorization) => (dispatch) => {
+export const fetchSpace = (authorization: any) => (dispatch: any) => {
   httpGet(`${constants.API_SPACE_FETCH}/`, {
     headers: {
       Authorization: authorization.token,

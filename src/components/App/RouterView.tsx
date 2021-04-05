@@ -10,6 +10,10 @@ import Unauthorized from '../Auth/Unauthorized';
 import PlayToolbar from '../PlayToolbar';
 import SpaceLogin from '../Login/SpaceLogin';
 import SpaceHome from '../SpaceHome';
+import ManageSpace from '../ManageSpace';
+import ManageApp from '../ManageApp';
+import AppspaceHome from '../AppspaceHome';
+import AppspaceLogin from '../Login/AppspaceLogin';
 
 interface Props {
   cookies: any;
@@ -87,6 +91,70 @@ const RouterView = (props: Props) => {
             {...props}
             component={Unauthorized}
             middleware={['isAuthenticated']}
+          />
+        )}
+      />
+      <Route
+        path="/managespace"
+        exact
+        render={(propsLocal) => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={ManageSpace}
+            middleware={['authenticateOa']}
+          />
+        )}
+      />
+      <Route
+        path="/manageapp"
+        exact
+        render={(propsLocal) => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            // logout={() => logout}
+            component={ManageApp}
+            middleware={['authenticateOa']}
+          />
+        )}
+      />
+
+      {/* Appspace based routes */}
+      <Route
+        path="/appspace/:appspace/login"
+        render={(propsLocal: any) => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            // logout={() => logout}
+            component={AppspaceLogin}
+          />
+        )}
+      />
+      <Route
+        exact
+        path="/appspace/:appspace/home"
+        render={(propsLocal: any) => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            //  logout={() => logout}
+            component={AppspaceHome}
+            middleware={['readAuthenticationAppspace']}
+          />
+        )}
+      />
+      <Route
+        exact
+        path="/appspace/:appspace"
+        render={(propsLocal: any) => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            //logout={() => logout}
+            component={AppspaceHome}
+            middleware={['readAuthenticationAppspace']}
           />
         )}
       />

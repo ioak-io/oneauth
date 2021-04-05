@@ -144,13 +144,13 @@ const NewUser = (props: Props) => {
     }
   };
 
-  const handleChange = (event) => {
-    setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
+  const handleChange = (detail: any) => {
+    setData({ ...data, [detail.name]: detail.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (detail: any) => {
     if (stage === 'userdetails') {
-      signupAction(event);
+      signupAction(detail);
     }
   };
 

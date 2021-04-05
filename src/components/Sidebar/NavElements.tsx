@@ -31,7 +31,7 @@ const NavElements = (props: Props) => {
         context="app-group"
       >
         <NavItem
-          to="/app/manage"
+          to="/manageapp"
           label="Manage App"
           closeAfterRouteChange={props.closeAfterRouteChange}
         />
@@ -43,7 +43,7 @@ const NavElements = (props: Props) => {
         context="space-group"
       >
         <NavItem
-          to="/space/manage"
+          to="/managespace"
           label="Manage Space"
           closeAfterRouteChange={props.closeAfterRouteChange}
         />
