@@ -231,6 +231,8 @@ const ResetPassword = (props: Props) => {
                 )}
               </div>
               <OakInput
+                fill="invert"
+                size="large"
                 name="email"
                 placeholder="Email to send reset link"
                 value={data.email}
@@ -254,6 +256,8 @@ const ResetPassword = (props: Props) => {
                 )}
               </div>
               <OakInput
+                fill="invert"
+                size="large"
                 type="password"
                 name="password"
                 placeholder="Choose a strong password"
@@ -274,6 +278,8 @@ const ResetPassword = (props: Props) => {
                 )}
               </div>
               <OakInput
+                fill="invert"
+                size="large"
                 type="password"
                 name="repeatpassword"
                 placeholder="Don't forget it"
@@ -286,6 +292,8 @@ const ResetPassword = (props: Props) => {
         <div className="action">
           {stage === 'requestLink' && (
             <OakButton
+              fullWidth
+              size="large"
               variant="regular"
               theme="primary"
               handleClick={requestLink}
@@ -295,6 +303,8 @@ const ResetPassword = (props: Props) => {
           )}
           {stage === 'setPassword' && (
             <OakButton
+              fullWidth
+              size="large"
               variant="regular"
               theme="primary"
               handleClick={resetPassword}

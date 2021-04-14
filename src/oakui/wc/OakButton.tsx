@@ -26,6 +26,7 @@ interface Props {
   semitransparent?: boolean;
   size?: 'xsmall' | 'small' | 'medium' | 'large';
   shape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf' | 'icon';
+  fullWidth?: boolean;
   align?: 'left' | 'right' | 'center';
   children?: ReactNode;
   type?: 'button' | 'submit' | 'reset';
@@ -50,6 +51,10 @@ const OakButton = (props: Props) => {
   useEffect(() => {
     (elementRef.current as any)!.semitransparent = props.semitransparent;
   }, [props.semitransparent]);
+
+  useEffect(() => {
+    (elementRef.current as any)!.fullWidth = props.fullWidth;
+  }, [props.fullWidth]);
 
   useEffect(() => {
     (elementRef as any).current.addEventListener(

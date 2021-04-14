@@ -255,6 +255,8 @@ const SigninPage = (props: Props) => {
             {emailConfirmationLink === 'showSent' && <>Activation link sent</>}
           </div>
           <OakInput
+            fill="invert"
+            size="large"
             name="email"
             value={data.email}
             handleChange={(e) => handleChange(e)}
@@ -274,6 +276,8 @@ const SigninPage = (props: Props) => {
             </div>
           </div>
           <OakInput
+            fill="invert"
+            size="large"
             name="password"
             type="password"
             value={data.password}
@@ -283,6 +287,7 @@ const SigninPage = (props: Props) => {
       </div>
       <div className="action">
         <OakButton
+          fullWidth
           variant="regular"
           theme="primary"
           size="large"

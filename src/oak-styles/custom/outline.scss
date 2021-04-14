@@ -21,18 +21,22 @@
   // --oak-userinput-outline-color: invert;
 
   .theme_dark {
-    --oak-userinput-outline-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    // --oak-userinput-outline-border-color should always be defined
-    --oak-userinput-outline-border-color: rgba(0, 123, 255, 1);
-    --oak-userinput-outline-box-shadow-error: 0 0 0 0.2rem
-      rgba(167, 40, 40, 0.25);
+    // Defines focus styles for accessibility
+    // --oak-userinput-box-shadow-focus: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    // --oak-userinput-box-shadow-error-focus: 0 0 0 0.2rem rgba(167, 40, 40, 0.25);
+    --oak-userinput-border: 3px solid transparent;
+    --oak-userinput-border-focus: 3px solid #81d6e3;
+    --oak-userinput-border-error: 3px solid var(--color-danger-transparent);
+    --oak-userinput-border-error-focus: 3px solid var(--color-danger);
   }
 
   .theme_light {
-    --oak-userinput-outline-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    // --oak-userinput-outline-border-color should always be defined
-    --oak-userinput-outline-border-color: rgba(0, 123, 255, 1);
-    --oak-userinput-outline-box-shadow-error: 0 0 0 0.2rem
-      rgba(167, 40, 40, 0.25);
+    // Defines focus styles for accessibility
+    // --oak-userinput-box-shadow-focus: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    // --oak-userinput-box-shadow-error-focus: 0 0 0 0.2rem rgba(167, 40, 40, 0.25);
+    --oak-userinput-border: 3px solid transparent;
+    --oak-userinput-border-focus: 3px solid #81d6e3;
+    --oak-userinput-border-error: 3px solid var(--color-danger-transparent);
+    --oak-userinput-border-error-focus: 3px solid var(--color-danger);
   }
 }

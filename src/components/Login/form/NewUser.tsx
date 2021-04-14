@@ -171,6 +171,9 @@ const NewUser = (props: Props) => {
               )}
             </div>
             <OakInput
+              disabled
+              fill="invert"
+              size="large"
               name="firstName"
               value={data.firstName}
               handleChange={(e) => handleChange(e)}
@@ -187,6 +190,8 @@ const NewUser = (props: Props) => {
               )}
             </div>
             <OakInput
+              fill="invert"
+              size="large"
               name="lastName"
               value={data.lastName}
               handleChange={(e) => handleChange(e)}
@@ -203,6 +208,8 @@ const NewUser = (props: Props) => {
               )}
             </div>
             <OakInput
+              fill="invert"
+              size="large"
               name="email"
               placeholder="example@domain.com"
               value={data.email}
@@ -220,6 +227,8 @@ const NewUser = (props: Props) => {
               )}
             </div>
             <OakInput
+              fill="invert"
+              size="large"
               type="password"
               name="password"
               placeholder="Choose a strong password"
@@ -240,6 +249,8 @@ const NewUser = (props: Props) => {
               )}
             </div>
             <OakInput
+              fill="invert"
+              size="large"
               type="password"
               name="repeatpassword"
               placeholder="Don't forget it"
@@ -254,6 +265,8 @@ const NewUser = (props: Props) => {
         {stage === 'userdetails' && (
           <>
             <OakButton
+              fullWidth
+              size="large"
               variant="regular"
               theme="primary"
               handleClick={signupAction}

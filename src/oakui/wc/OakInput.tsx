@@ -22,13 +22,14 @@ interface Props {
   regexp?: object;
   validatorFunction?: Function;
   tooltip?: string;
-  type?: 'text' | 'number' | 'password' | 'date' | 'file';
+  type?: 'text' | 'number' | 'password' | 'date' | 'file' | 'time' | 'datetime';
   multiple?: boolean;
   size?: 'xsmall' | 'small' | 'medium' | 'large';
   shape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf';
-  fill?: 'container' | 'surface' | 'float' | 'none';
+  fill?: 'global' | 'container' | 'surface' | 'float' | 'invert' | 'none';
   errorStyle?: 'outline' | 'fill';
   gutterBottom?: boolean;
+  disabled?: boolean;
 }
 const OakInput = (props: Props) => {
   const elementRef = useRef();
@@ -98,6 +99,10 @@ const OakInput = (props: Props) => {
       );
     };
   });
+
+  useEffect(() => {
+    (elementRef.current as any)!.disabled = props.disabled;
+  }, [props.disabled]);
 
   useEffect(() => {
     (elementRef.current as any)!.regexp = props.regexp;

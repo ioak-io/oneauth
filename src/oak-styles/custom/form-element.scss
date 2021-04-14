@@ -2,7 +2,11 @@
   --formelement-height-xsmall: 25px;
   --formelement-height-small: 36px;
   --formelement-height-medium: 40px;
-  --formelement-height-large: 55px;
+  --formelement-height-large: 50px;
+
+  @media (max-width: 767px) {
+    --formelement-height-large: 40px;
+  }
 
   --formelement-fontsize-xsmall: 12px;
   --formelement-fontsize-small: 14px;

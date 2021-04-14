@@ -182,6 +182,8 @@ const ConfirmEmail = (props: Props) => {
                 )}
               </div>
               <OakInput
+                fill="invert"
+                size="large"
                 name="email"
                 placeholder="Email to activate"
                 value={data.email}
@@ -193,6 +195,8 @@ const ConfirmEmail = (props: Props) => {
         <div className="action">
           {stage === 'requestLink' && (
             <OakButton
+              fullWidth
+              size="large"
               variant="regular"
               theme="primary"
               handleClick={requestLink}
