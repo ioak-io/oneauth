@@ -175,6 +175,7 @@ const EditSpace = (props: Props) => {
               theme="primary"
               variant="regular"
               type="submit"
+              elevation={4}
             >
               <Check />
               Update
@@ -183,7 +184,8 @@ const EditSpace = (props: Props) => {
               formGroupName={formId}
               handleClick={handleReset}
               theme="default"
-              variant="appear"
+              variant="regular"
+              elevation={4}
             >
               <Close />
               Reset
