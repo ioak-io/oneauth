@@ -6,12 +6,16 @@
 * .theme_dark {
   --oak-app-layout-sidebar-bg: #223843;
   --oak-app-layout-sidebar-fg: var(--color-1);
+  --oak-app-layout-topbar-bg: #3b62a5;
   --oak-app-layout-topbar-bg: #191d32;
   --oak-app-layout-topbar-fg: var(--color-1);
+  --oak-app-layout-topbar-border-color: green;
 }
 * .theme_light {
   --oak-app-layout-sidebar-bg: #eff1f3;
   --oak-app-layout-sidebar-fg: var(--color-1);
+  --oak-app-layout-topbar-bg: #3b62a5;
   --oak-app-layout-topbar-bg: #eff1f3;
   --oak-app-layout-topbar-fg: var(--color-1);
+  --oak-app-layout-topbar-border-color: green;
 }

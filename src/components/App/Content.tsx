@@ -15,6 +15,7 @@ import TopbarContainer from './TopbarContainer';
 import SidebarContainer from './SidebarContainer';
 import BodyContainer from './BodyContainer';
 import { receiveMessage } from '../../events/MessageService';
+import { loginPageSubject } from '../../events/LoginPageEvent';
 import OakNotification from '../../oakui/wc/OakNotification';
 import OakAppLayout from '../../oakui/wc/OakAppLayout';
 import { setProfile } from '../../actions/ProfileActions';
@@ -27,6 +28,7 @@ const Content = (props: Props) => {
   const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const [usingMouse, setUsingMouse] = useState(false);
+  const [loginPage, setLoginPage] = useState(false);
 
   useEffect(() => {
     receiveMessage().subscribe((message) => {
@@ -35,8 +37,9 @@ const Content = (props: Props) => {
       }
     });
 
-    dispatch(fetchAllSpaces());
-    dispatch(fetchAllAssets());
+    loginPageSubject.subscribe((message) => {
+      setLoginPage(message.state);
+    });
   }, []);
 
   useEffect(() => {
@@ -76,10 +79,13 @@ const Content = (props: Props) => {
         />
 
         <OakAppLayout
-          topbarVariant="static"
-          sidebarVariant="side"
-          topbarElevation={2}
-          sidebarElevation={2}
+          topbarVariant={loginPage ? 'none' : 'static'}
+          sidebarVariant={loginPage ? 'none' : 'side'}
+          sidebarColor="container"
+          topbarColor="container"
+          topbarOutlined
+          topbarElevation={0}
+          sidebarElevation={6}
         >
           <div slot="sidebar">
             <SidebarContainer />

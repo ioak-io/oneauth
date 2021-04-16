@@ -2,8 +2,8 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import OakAppLayoutEvent from '@oakui/core-stage/event/OakAppLayoutEvent';
 
 interface Props {
-  topbarVariant?: 'sticky' | 'static' | 'auto';
-  sidebarVariant?: 'side' | 'over' | 'push';
+  topbarVariant?: 'sticky' | 'static' | 'auto' | 'none';
+  sidebarVariant?: 'side' | 'over' | 'push' | 'none';
   topbarColor?:
     | 'global'
     | 'container'
@@ -86,10 +86,20 @@ interface Props {
     | 22
     | 23
     | 24;
+  topbarOutlined?: boolean;
+  sidebarOutlined?: boolean;
   children: any;
 }
 const OakAppLayout = (props: Props) => {
   const elementRef = useRef();
+
+  useEffect(() => {
+    (elementRef.current as any)!.topbarOutlined = props.topbarOutlined;
+  }, [props.topbarOutlined]);
+
+  useEffect(() => {
+    (elementRef.current as any)!.sidebarOutlined = props.sidebarOutlined;
+  }, [props.sidebarOutlined]);
 
   return (
     <oak-app-layout

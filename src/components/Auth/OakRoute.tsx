@@ -53,7 +53,6 @@ const OakRoute = (props: Props) => {
 
   const middlewares = () => {
     // if (props.profile.appStatus === 'authenticated') {
-    console.log(props.middleware);
     props.middleware?.forEach((middlewareName) => {
       if (!runMidleware(middlewareName)) {
         return false;

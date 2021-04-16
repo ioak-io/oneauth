@@ -38,8 +38,8 @@ const EditAdministrators = (props: Props) => {
 
   const diff = (arr, arr2) => {
     const ret: any[] = [];
-    arr2.map((item1) => {
-      arr.map((item) => {
+    arr2?.map((item1) => {
+      arr?.map((item) => {
         if (item1._id.indexOf(item.userId) > -1) {
           ret.push(item1);
         }

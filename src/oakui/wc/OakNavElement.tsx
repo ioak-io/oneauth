@@ -2,6 +2,8 @@ import { BUTTON_CLICK_EVENT } from '@oakui/core-stage/event/OakButtonEvent';
 import React, { useState, useEffect, ReactElement, useRef } from 'react';
 
 interface Props {
+  active?: boolean;
+  level?: 1 | 2 | 3;
   children: any;
   handleClick: any;
 }
@@ -12,6 +14,10 @@ const OakNavElement = (props: Props) => {
   const handleClick = (event: any) => {
     props.handleClick(event);
   };
+
+  useEffect(() => {
+    (elementRef.current as any)!.active = props.active;
+  }, [props.active]);
 
   useEffect(() => {
     (elementRef as any).current.addEventListener(
@@ -27,7 +33,11 @@ const OakNavElement = (props: Props) => {
     };
   });
 
-  return <oak-nav-element ref={elementRef}>{props.children}</oak-nav-element>;
+  return (
+    <oak-nav-element level={props.level} ref={elementRef}>
+      {props.children}
+    </oak-nav-element>
+  );
 };
 
 export default OakNavElement;

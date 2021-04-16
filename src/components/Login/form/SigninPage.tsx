@@ -236,7 +236,12 @@ const SigninPage = (props: Props) => {
   };
 
   return (
-    <form method="GET" onSubmit={signinAction} noValidate className="login">
+    <form
+      method="GET"
+      onSubmit={signinAction}
+      noValidate
+      className="login account-page"
+    >
       <div className="form-signin">
         <div>
           <div className="label">

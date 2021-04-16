@@ -155,7 +155,12 @@ const NewUser = (props: Props) => {
   };
 
   return (
-    <form method="GET" onSubmit={handleSubmit} noValidate className="login">
+    <form
+      method="GET"
+      onSubmit={handleSubmit}
+      noValidate
+      className="login account-page"
+    >
       {stage === 'userdetails' && (
         <div className="form-signup">
           <div>

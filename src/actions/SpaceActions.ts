@@ -12,16 +12,18 @@ import { sendMessage } from '../events/MessageService';
 
 const domain = 'space';
 
-export const fetchAllSpaces = () => (dispatch) => {
-  axios
-    .get(`${process.env.REACT_APP_ONEAUTH_API_URL}/space/introspect`)
-    .then((response) => {
-      console.log(response.data.data);
-      dispatch({
-        type: REFRESH_SPACES,
-        payload: { spaces: response.data.data },
-      });
+export const fetchAllSpaces = (authorization: any) => (dispatch: any) => {
+  httpGet(`${constants.API_SPACE_FETCH}/`, {
+    headers: {
+      Authorization: authorization.token,
+    },
+  }).then((response) => {
+    console.log(response);
+    dispatch({
+      type: REFRESH_SPACES,
+      payload: { spaces: response.data.data },
     });
+  });
 };
 
 export const fetchSpace = (authorization: any) => (dispatch: any) => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { fetchAllSpaces } from '../../actions/SpaceActions';
 import { setProfile } from '../../actions/ProfileActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 
@@ -15,8 +16,7 @@ const Init = () => {
   useEffect(() => {
     if (
       authorization.isAuth &&
-      authorization.isAuth !== previousAuthorizationState.isAuth &&
-      space
+      authorization.isAuth !== previousAuthorizationState.isAuth
     ) {
       initialize();
     }
@@ -57,6 +57,7 @@ const Init = () => {
 
   const initialize = () => {
     console.log('Initialization logic here');
+    dispatch(fetchAllSpaces(authorization));
   };
   return <></>;
 };

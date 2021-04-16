@@ -1,0 +1,25 @@
+* {
+  --oak-nav-group-level-1-padding: 12px 10px 12px 10px;
+  --oak-nav-group-level-1-bg: inherit;
+  --oak-nav-group-level-1-fg: inherit;
+  --oak-nav-group-level-1-font-weight: inherit;
+  --oak-nav-group-level-1-hover-bg: var(--color-global-dark);
+  --oak-nav-group-level-1-hover-fg: inherit;
+  --oak-nav-group-level-1-hover-font-weight: inherit;
+  --oak-nav-group-level-1-active-bg: var(--color-global-dark);
+  --oak-nav-group-level-1-active-fg: var(--color-global-dark-i);
+  --oak-nav-group-level-1-active-font-weight: inherit;
+
+  --oak-nav-group-level-2-padding: 12px 10px 12px 16px;
+  --oak-nav-group-level-2-bg: var(--color-global-dark);
+  --oak-nav-group-level-2-fg: inherit;
+  --oak-nav-group-level-2-font-weight: inherit;
+  --oak-nav-group-level-2-hover-bg: var(--color-global-darker);
+  --oak-nav-group-level-2-hover-fg: inherit;
+  --oak-nav-group-level-2-hover-font-weight: inherit;
+  --oak-nav-group-level-2-active-bg: var(--color-global-darker);
+  --oak-nav-group-level-2-active-fg: var(--color-global-darker-i);
+  --oak-nav-group-level-2-active-font-weight: inherit;
+
+  --oak-nav-group-level-3-padding: 8px 12px 8px 26px;
+}

@@ -10,10 +10,11 @@ import Unauthorized from '../Auth/Unauthorized';
 import PlayToolbar from '../PlayToolbar';
 import SpaceLogin from '../Login/SpaceLogin';
 import SpaceHome from '../SpaceHome';
-import ManageSpace from '../ManageSpace';
+import SpaceListing from '../ManageSpace/SpaceListing';
 import ManageApp from '../ManageApp';
 import AppspaceHome from '../AppspaceHome';
 import AppspaceLogin from '../Login/AppspaceLogin';
+import SpaceDetail from '../ManageSpace/SpaceDetail';
 
 interface Props {
   cookies: any;
@@ -101,7 +102,19 @@ const RouterView = (props: Props) => {
           <OakRoute
             {...propsLocal}
             {...props}
-            component={ManageSpace}
+            component={SpaceListing}
+            middleware={['authenticateOa']}
+          />
+        )}
+      />
+      <Route
+        path="/managespace/:id"
+        exact
+        render={(propsLocal) => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={SpaceDetail}
             middleware={['authenticateOa']}
           />
         )}

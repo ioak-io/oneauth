@@ -11,8 +11,6 @@ import { fetchPermittedSpace } from '../../actions/PermittedSpaceAction';
 import './OaLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage, receiveMessage } from '../../events/MessageService';
-import { sentPasswordChangeEmail } from '../Auth/AuthService';
-import { isEmptyOrSpaces } from '../Utils';
 import oneauthWhite from '../../images/oneauth_white.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
 import SigninPage from './form/SigninPage';
@@ -22,6 +20,7 @@ import ResetPassword from './form/ResetPassword';
 import ConfirmEmail from './form/ConfirmEmail';
 import OakSpinner from '../../oakui/OakSpinner';
 import NotificationMessage from './form/NotificationMessage';
+import { loginPageSubject } from '../../events/LoginPageEvent';
 
 const queryString = require('query-string');
 
@@ -56,6 +55,13 @@ const Login = (props: Props) => {
 
   const [appId, setAppId] = useState('');
   const [verificationStep, setVerificationStep] = useState(false);
+
+  useEffect(() => {
+    loginPageSubject.next({ state: true });
+    return () => {
+      loginPageSubject.next({ state: false });
+    };
+  }, []);
 
   useEffect(() => {
     sendMessage('navbar', false);

@@ -20,6 +20,8 @@ declare global {
       'oak-link': any;
       'oak-modal': any;
       'oak-notification': any;
+      'oak-nav-element': any;
+      'oak-nav-group': any;
       'oak-paginate': any;
       'oak-table': any;
       'oak-tab': any;

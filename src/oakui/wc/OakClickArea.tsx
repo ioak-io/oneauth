@@ -1,8 +1,4 @@
-import { BUTTON_CLICK_EVENT } from '@oakui/core-stage/event/OakButtonEvent';
-import {
-  PANEL_COLLAPSED_EVENT,
-  PANEL_EXPANDED_EVENT,
-} from '@oakui/core-stage/event/OakExpansionPanelEvent';
+import { CLICK_AREA_CLICK_EVENT } from '@oakui/core-stage/event/OakClickAreaEvent';
 import React, { useState, useEffect, ReactElement, useRef } from 'react';
 
 interface Props {
@@ -48,13 +44,13 @@ const OakClickArea = (props: Props) => {
 
   useEffect(() => {
     (elementRef as any).current.addEventListener(
-      BUTTON_CLICK_EVENT,
+      CLICK_AREA_CLICK_EVENT,
       handleClick
     );
 
     return () => {
       (elementRef as any).current?.removeEventListener(
-        BUTTON_CLICK_EVENT,
+        CLICK_AREA_CLICK_EVENT,
         handleClick
       );
     };

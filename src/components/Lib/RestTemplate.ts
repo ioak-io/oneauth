@@ -3,7 +3,6 @@ import axios from 'axios';
 const baseUrl = process.env.REACT_APP_API_URL;
 
 export function httpGet(endpoint: string, headers: any, url?: string) {
-  console.log('***************');
   return axios.get((url || baseUrl) + endpoint, headers);
   // .then(function(response) {
   //     return Promise.resolve(response);

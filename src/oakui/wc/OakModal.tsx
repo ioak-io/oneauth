@@ -36,7 +36,6 @@ const OakModal = (props: Props) => {
     React.Children.toArray(props.children).forEach((node: any) => {
       newSlots = { ...newSlots, [node.props.slot]: node };
     });
-    console.log(newSlots);
     setSlots(newSlots);
   }, [props.children]);
 

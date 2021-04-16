@@ -21,22 +21,32 @@
   // --oak-userinput-outline-color: invert;
 
   .theme_dark {
-    // Defines focus styles for accessibility
-    // --oak-userinput-box-shadow-focus: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    // --oak-userinput-box-shadow-error-focus: 0 0 0 0.2rem rgba(167, 40, 40, 0.25);
-    --oak-userinput-border: 3px solid transparent;
-    --oak-userinput-border-focus: 3px solid #81d6e3;
-    --oak-userinput-border-error: 3px solid var(--color-danger-transparent);
-    --oak-userinput-border-error-focus: 3px solid var(--color-danger);
+    --oak-userinput-box-shadow-focus: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    --oak-userinput-border: 1px solid var(--global-border-color);
+    --oak-userinput-border-focus: 1px solid rgba(0, 123, 255, 1);
+    --oak-userinput-box-shadow-error: 0 0 0 0.2rem rgba(167, 40, 40, 0.25);
+    .account-page {
+      --oak-userinput-box-shadow-focus: none;
+      --oak-userinput-border: 3px solid transparent;
+      --oak-userinput-border-focus: 3px solid #81d6e3;
+      --oak-userinput-border-error: 3px solid var(--color-danger-transparent);
+      --oak-userinput-border-error-focus: 3px solid var(--color-danger);
+      --oak-userinput-box-shadow-error: none;
+    }
   }
 
   .theme_light {
-    // Defines focus styles for accessibility
-    // --oak-userinput-box-shadow-focus: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    // --oak-userinput-box-shadow-error-focus: 0 0 0 0.2rem rgba(167, 40, 40, 0.25);
-    --oak-userinput-border: 3px solid transparent;
-    --oak-userinput-border-focus: 3px solid #81d6e3;
-    --oak-userinput-border-error: 3px solid var(--color-danger-transparent);
-    --oak-userinput-border-error-focus: 3px solid var(--color-danger);
+    --oak-userinput-box-shadow-focus: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    --oak-userinput-border: 1px solid var(--global-border-color);
+    --oak-userinput-border-focus: 1px solid rgba(0, 123, 255, 1);
+    --oak-userinput-box-shadow-error: 0 0 0 0.2rem rgba(167, 40, 40, 0.25);
+    .account-page {
+      --oak-userinput-box-shadow-focus: none;
+      --oak-userinput-border: 3px solid transparent;
+      --oak-userinput-border-focus: 3px solid #81d6e3;
+      --oak-userinput-border-error: 3px solid var(--color-danger-transparent);
+      --oak-userinput-border-error-focus: 3px solid var(--color-danger);
+      --oak-userinput-box-shadow-error: none;
+    }
   }
 }

@@ -5,8 +5,6 @@ import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
 import './SpaceLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage, receiveMessage } from '../../events/MessageService';
-import { sentPasswordChangeEmail } from '../Auth/AuthService';
-import { isEmptyOrSpaces } from '../Utils';
 import oneauthWhite from '../../images/oneauth_white.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
 import NewUser from './form/NewUser';
@@ -17,6 +15,7 @@ import ResetPassword from './form/ResetPassword';
 import ConfirmEmail from './form/ConfirmEmail';
 import OakSpinner from '../../oakui/OakSpinner';
 import NotificationMessage from './form/NotificationMessage';
+import { loginPageSubject } from '../../events/LoginPageEvent';
 
 const queryString = require('query-string');
 
@@ -36,7 +35,7 @@ interface Props {
 
 const Login = (props: Props) => {
   const loginType = 'space';
-  const authorization = useSelector(state => state.authorization);
+  const authorization = useSelector((state) => state.authorization);
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
   const [spinner, setSpinner] = useState(false);
@@ -50,9 +49,16 @@ const Login = (props: Props) => {
   const [verificationStep, setVerificationStep] = useState(false);
 
   useEffect(() => {
+    loginPageSubject.next({ state: true });
+    return () => {
+      loginPageSubject.next({ state: false });
+    };
+  }, []);
+
+  useEffect(() => {
     sendMessage('navbar', false);
 
-    const eventBus = receiveMessage().subscribe(message => {
+    const eventBus = receiveMessage().subscribe((message) => {
       if (message.name === 'login-spinner') {
         setSpinner(message.signal);
         if (message.signal) {
@@ -69,7 +75,7 @@ const Login = (props: Props) => {
     return () => eventBus.unsubscribe();
   }, []);
 
-  const changeRoute = routeType => {
+  const changeRoute = (routeType) => {
     setNotificationMessage({ type: '', message: '' });
     props.history.push(`/space/${props.space}/login?type=${routeType}`);
   };
@@ -125,7 +131,7 @@ const Login = (props: Props) => {
     console.log('***********');
     console.log(authKey);
     httpGet(`${baseAuthUrl}/session/${authKey}`, null)
-      .then(sessionResponse => {
+      .then((sessionResponse) => {
         console.log(sessionResponse);
         if (sessionResponse.status === 200) {
           redirectToRequestedApp(
@@ -151,9 +157,9 @@ const Login = (props: Props) => {
       headers: {
         Authorization: token,
       },
-    }).then(appResponse => {
+    }).then((appResponse) => {
       let appendString = '';
-      Object.keys(queryString).forEach(key => {
+      Object.keys(queryString).forEach((key) => {
         if (!['appId', 'type'].includes(key)) {
           appendString += `&${key}=${queryString[key]}`;
         }
@@ -228,7 +234,7 @@ const Login = (props: Props) => {
   );
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   authorization: state.authorization,
 });
 

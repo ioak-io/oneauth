@@ -150,7 +150,12 @@ const ConfirmEmail = (props: Props) => {
 
   return (
     <>
-      <form method="GET" onSubmit={handleSubmit} noValidate className="login">
+      <form
+        method="GET"
+        onSubmit={handleSubmit}
+        noValidate
+        className="login account-page"
+      >
         {/* {stage === 'invalidLink' && (
           <div className="form-reset message typography-8">
             <OakIcon mat="warning" color="warning" size="2em" />

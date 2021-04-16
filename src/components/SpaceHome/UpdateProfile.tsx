@@ -121,7 +121,7 @@ const UpdateProfile = (props: Props) => {
         method="GET"
         onSubmit={handleSubmit}
         noValidate
-        className="space-change-password-link"
+        className="space-change-password-link account-page"
       >
         {stage === 'form' && <></>}
         {stage === 'form' && (

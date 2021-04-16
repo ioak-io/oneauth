@@ -28,3 +28,21 @@
 .tab-playground {
   margin-top: 20px;
 }
+
+.app-action-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  div {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}
+.title-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}

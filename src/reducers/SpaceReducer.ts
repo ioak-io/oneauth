@@ -1,7 +1,7 @@
 import { REFRESH_SPACES } from '../actions/types';
 
 const initialState = {
-  assets: [],
+  spaces: [],
 };
 
 export default function SpaceReducer(state = initialState, action: any) {
