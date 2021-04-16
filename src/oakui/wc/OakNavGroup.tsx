@@ -18,9 +18,9 @@ const OakNavGroup = (props: Props) => {
       ref={elementRef}
       name={props.name}
       groupName={props.groupName}
+      level={props.level}
       parentName={props.parentName}
       parentGroupName={props.parentGroupName}
-      level={props.level}
       defaultState={props.defaultState}
     >
       {props.children}

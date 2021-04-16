@@ -34,7 +34,7 @@ const OakNavElement = (props: Props) => {
   });
 
   return (
-    <oak-nav-element level={props.level} ref={elementRef}>
+    <oak-nav-element ref={elementRef} level={props.level}>
       {props.children}
     </oak-nav-element>
   );

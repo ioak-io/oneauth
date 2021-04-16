@@ -88,6 +88,7 @@ interface Props {
     | 24;
   topbarOutlined?: boolean;
   sidebarOutlined?: boolean;
+  sidebarToggleIconVariant?: 'arrow' | 'chevron' | 'menu' | 'menu-with-arrow';
   children: any;
 }
 const OakAppLayout = (props: Props) => {
@@ -110,6 +111,7 @@ const OakAppLayout = (props: Props) => {
       sidebarVariant={props.sidebarVariant}
       sidebarColor={props.sidebarColor}
       sidebarElevation={props.sidebarElevation}
+      sidebarToggleIconVariant={props.sidebarToggleIconVariant}
     >
       {props.children}
     </oak-app-layout>
