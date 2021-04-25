@@ -25,8 +25,9 @@ interface Props {
   type?: 'text' | 'number' | 'password' | 'date' | 'file' | 'time' | 'datetime';
   multiple?: boolean;
   size?: 'xsmall' | 'small' | 'medium' | 'large';
-  shape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf';
-  fill?: 'global' | 'container' | 'surface' | 'float' | 'invert' | 'none';
+  shape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf' | 'underline';
+  color?: 'global' | 'container' | 'surface' | 'float' | 'invert' | 'none';
+  fill?: boolean;
   errorStyle?: 'outline' | 'fill';
   gutterBottom?: boolean;
   disabled?: boolean;
@@ -117,6 +118,10 @@ const OakInput = (props: Props) => {
   }, [props.gutterBottom]);
 
   useEffect(() => {
+    (elementRef.current as any)!.fill = props.fill;
+  }, [props.fill]);
+
+  useEffect(() => {
     (elementRef.current as any)!.validatorFunction = props.validatorFunction;
   }, [props.validatorFunction]);
 
@@ -136,7 +141,7 @@ const OakInput = (props: Props) => {
       multiple={props.multiple}
       size={props.size}
       shape={props.shape}
-      fill={props.fill}
+      color={props.color}
       errorStyle={props.errorStyle}
     />
   );

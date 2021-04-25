@@ -103,7 +103,7 @@ const OakTable = (props: Props) => {
           variant: props.variant,
         })}
       >
-        {props.children}
+        <table>{props.children}</table>
       </div>
     </oak-table>
   );

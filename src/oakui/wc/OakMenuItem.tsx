@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { MENU_CLICK_EVENT } from '@oakui/core-stage/event/OakMenuEvent';
 
 interface Props {
+  fill?: 'global' | 'container' | 'surface' | 'float';
   children: any;
   handleClick: any;
 }
@@ -24,7 +25,11 @@ const OakMenuItem = (props: Props) => {
     };
   });
 
-  return <oak-menu-item ref={elementRef}>{props.children}</oak-menu-item>;
+  return (
+    <oak-menu-item ref={elementRef} fill={props.fill}>
+      {props.children}
+    </oak-menu-item>
+  );
 };
 
 export default OakMenuItem;

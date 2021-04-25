@@ -187,7 +187,8 @@ const ConfirmEmail = (props: Props) => {
                 )}
               </div>
               <OakInput
-                fill="invert"
+                color="invert"
+                fill
                 size="large"
                 name="email"
                 placeholder="Email to activate"

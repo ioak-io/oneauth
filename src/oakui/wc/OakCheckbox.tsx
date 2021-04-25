@@ -20,7 +20,7 @@ interface Props {
     | 'info';
   size?: 'xsmall' | 'small' | 'medium' | 'large';
   handleChange?: any;
-  children: any;
+  children?: any;
   gutterBottom?: boolean;
   checkboxGroupName?: string;
 }

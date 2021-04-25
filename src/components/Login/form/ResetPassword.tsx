@@ -236,7 +236,8 @@ const ResetPassword = (props: Props) => {
                 )}
               </div>
               <OakInput
-                fill="invert"
+                fill
+                color="invert"
                 size="large"
                 name="email"
                 placeholder="Email to send reset link"
@@ -261,7 +262,8 @@ const ResetPassword = (props: Props) => {
                 )}
               </div>
               <OakInput
-                fill="invert"
+                fill
+                color="invert"
                 size="large"
                 type="password"
                 name="password"
@@ -283,7 +285,8 @@ const ResetPassword = (props: Props) => {
                 )}
               </div>
               <OakInput
-                fill="invert"
+                fill
+                color="invert"
                 size="large"
                 type="password"
                 name="repeatpassword"

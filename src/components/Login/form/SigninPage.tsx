@@ -6,12 +6,13 @@ import FacebookLogin from 'react-facebook-login';
 import { getAuth, addAuth } from '../../../actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../../Types/GeneralTypes';
-import { sendMessage } from '../../../events/MessageService';
+import { newId, sendMessage } from '../../../events/MessageService';
 import { isEmptyOrSpaces } from '../../Utils';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
 import OakButton from '../../../oakui/wc/OakButton';
 import OakInput from '../../../oakui/wc/OakInput';
 import { Warning } from '@material-ui/icons';
+import OakForm from '../../../oakui/wc/OakForm';
 
 interface Props {
   setProfile: Function;
@@ -43,8 +44,7 @@ const SigninPage = (props: Props) => {
     password: '',
   });
 
-  const signinAction = (event) => {
-    event.preventDefault();
+  const signinAction = (detail: any) => {
     let baseAuthUrl = `/auth/${props.loginType}`;
     if (props.space) {
       baseAuthUrl = `${baseAuthUrl}/${props.space}`;
@@ -235,102 +235,108 @@ const SigninPage = (props: Props) => {
     }
   };
 
+  const formId = newId();
+
   return (
-    <form
-      method="GET"
-      onSubmit={signinAction}
-      noValidate
-      className="login account-page"
-    >
-      <div className="form-signin">
-        <div>
-          <div className="label">
-            {!errors.email && <div className="label-text">Email</div>}
-            {errors.email && (
-              <div className="error-text">
-                <Warning />
-                {errors.email}
-              </div>
-            )}
-            {emailConfirmationLink === 'showLink' && (
-              <div className="link" onClick={resendActivationLink}>
-                Resend confirmation link
-              </div>
-            )}
-            {emailConfirmationLink === 'showSent' && <>Activation link sent</>}
+    <OakForm handleSubmit={signinAction} formGroupName={formId}>
+      <div className="login account-page">
+        <div className="form-signin">
+          <div>
+            <div className="label">
+              {!errors.email && <div className="label-text">Email</div>}
+              {errors.email && (
+                <div className="error-text">
+                  <Warning />
+                  {errors.email}
+                </div>
+              )}
+              {emailConfirmationLink === 'showLink' && (
+                <div className="link" onClick={resendActivationLink}>
+                  Resend confirmation link
+                </div>
+              )}
+              {emailConfirmationLink === 'showSent' && (
+                <>Activation link sent</>
+              )}
+            </div>
+            <OakInput
+              formGroupName={formId}
+              fill
+              color="invert"
+              size="large"
+              name="email"
+              value={data.email}
+              handleChange={(e) => handleChange(e)}
+            />
           </div>
-          <OakInput
-            fill="invert"
-            size="large"
-            name="email"
-            value={data.email}
-            handleChange={(e) => handleChange(e)}
-          />
-        </div>
-        <div>
-          <div className="label">
-            {!errors.password && <div className="label-text">Password</div>}
-            {errors.password && (
-              <div className="error-text">
-                <Warning />
-                {errors.password}
+          <div>
+            <div className="label">
+              {!errors.password && <div className="label-text">Password</div>}
+              {errors.password && (
+                <div className="error-text">
+                  <Warning />
+                  {errors.password}
+                </div>
+              )}
+              <div className="link" onClick={props.switchToResetPage}>
+                Forgot Password?
               </div>
-            )}
-            <div className="link" onClick={props.switchToResetPage}>
-              Forgot Password?
+            </div>
+            <OakInput
+              formGroupName={formId}
+              fill
+              color="invert"
+              size="large"
+              name="password"
+              type="password"
+              value={data.password}
+              handleChange={(e) => handleChange(e)}
+            />
+          </div>
+        </div>
+        <div className="action">
+          <OakButton
+            formGroupName={formId}
+            fullWidth
+            variant="regular"
+            theme="primary"
+            size="large"
+            type="submit"
+          >
+            Log In
+          </OakButton>
+          <p className="hr">or</p>
+          <div className="button-link">
+            <div className="link" onClick={props.switchToSignupPage}>
+              Create an account
             </div>
           </div>
-          <OakInput
-            fill="invert"
-            size="large"
-            name="password"
-            type="password"
-            value={data.password}
-            handleChange={(e) => handleChange(e)}
-          />
         </div>
-      </div>
-      <div className="action">
-        <OakButton
-          fullWidth
-          variant="regular"
-          theme="primary"
-          size="large"
-          handleClick={signinAction}
-        >
-          Log In
-        </OakButton>
-        <p className="hr">or</p>
-        <div className="button-link">
-          <div className="link" onClick={props.switchToSignupPage}>
-            Create an account
+        <div className="space-top-3 social-signin">
+          <div className="social-signin-container">
+            <div className="social-google">
+              <GoogleLogin
+                clientId="81306451496-fg67eb502dvfb50c31huhkbn481bi29h.apps.googleusercontent.com"
+                buttonText="Google"
+                onSuccess={onGoogleSignIn}
+                onFailure={onGoogleSignIn}
+                onAutoLoadFinished={onGoogleSignIn}
+              />
+            </div>
+            <div className="social-facebook">
+              <FacebookLogin
+                appId="696666571109190"
+                textButton="Facebook"
+                fields="name,email,picture,first_name,last_name"
+                onClick={onFacebookSignIn}
+                callback={onFacebookSignIn}
+                icon="fa-facebook-square"
+              />
+            </div>
           </div>
         </div>
       </div>
-      <div className="space-top-3 social-signin">
-        <div className="social-signin-container">
-          <div className="social-google">
-            <GoogleLogin
-              clientId="81306451496-fg67eb502dvfb50c31huhkbn481bi29h.apps.googleusercontent.com"
-              buttonText="Google"
-              onSuccess={onGoogleSignIn}
-              onFailure={onGoogleSignIn}
-              onAutoLoadFinished={onGoogleSignIn}
-            />
-          </div>
-          <div className="social-facebook">
-            <FacebookLogin
-              appId="696666571109190"
-              textButton="Facebook"
-              fields="name,email,picture,first_name,last_name"
-              onClick={onFacebookSignIn}
-              callback={onFacebookSignIn}
-              icon="fa-facebook-square"
-            />
-          </div>
-        </div>
-      </div>
-    </form>
+    </OakForm>
   );
 };
 

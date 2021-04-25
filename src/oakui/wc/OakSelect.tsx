@@ -19,10 +19,41 @@ interface Props {
   optionsAsKeyValue?: any[];
   native?: boolean;
   size?: 'xsmall' | 'small' | 'medium' | 'large';
-  shape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf';
-  fill?: 'container' | 'surface' | 'float' | 'none';
+  shape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf' | 'underline';
+  color?:
+    | 'global'
+    | 'container'
+    | 'surface'
+    | 'float'
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'default'
+    | 'info'
+    | 'invert'
+    | 'danger'
+    | 'warning'
+    | 'success'
+    | 'none';
+  popupColor?:
+    | 'global'
+    | 'container'
+    | 'surface'
+    | 'float'
+    | 'primary'
+    | 'secondary'
+    | 'tertiary'
+    | 'default'
+    | 'info'
+    | 'invert'
+    | 'danger'
+    | 'warning'
+    | 'success'
+    | 'auto';
+  fill?: boolean;
   gutterBottom?: boolean;
   autoCompleteVariant?: 'none' | 'autocomplete' | 'searchbox';
+  positioningStrategy?: 'absolute' | 'fixed';
 }
 
 const OakSelect = (props: Props) => {
@@ -85,6 +116,10 @@ const OakSelect = (props: Props) => {
   }, [props.gutterBottom]);
 
   useEffect(() => {
+    (elementRef.current as any)!.fill = props.fill;
+  }, [props.fill]);
+
+  useEffect(() => {
     (elementRef.current as any)!.options = props.options;
   }, [props.options]);
 
@@ -103,8 +138,10 @@ const OakSelect = (props: Props) => {
       multiple={props.multiple}
       size={props.size}
       shape={props.shape}
-      fill={props.fill}
+      color={props.color}
+      popupColor={props.popupColor}
       autoCompleteVariant={props.autoCompleteVariant}
+      positioningStrategy={props.positioningStrategy}
     />
   );
 };

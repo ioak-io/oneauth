@@ -176,8 +176,8 @@ const NewUser = (props: Props) => {
               )}
             </div>
             <OakInput
-              disabled
-              fill="invert"
+              fill
+              color="invert"
               size="large"
               name="firstName"
               value={data.firstName}
@@ -195,7 +195,8 @@ const NewUser = (props: Props) => {
               )}
             </div>
             <OakInput
-              fill="invert"
+              fill
+              color="invert"
               size="large"
               name="lastName"
               value={data.lastName}
@@ -213,7 +214,8 @@ const NewUser = (props: Props) => {
               )}
             </div>
             <OakInput
-              fill="invert"
+              fill
+              color="invert"
               size="large"
               name="email"
               placeholder="example@domain.com"
@@ -232,7 +234,8 @@ const NewUser = (props: Props) => {
               )}
             </div>
             <OakInput
-              fill="invert"
+              fill
+              color="invert"
               size="large"
               type="password"
               name="password"
@@ -254,7 +257,8 @@ const NewUser = (props: Props) => {
               )}
             </div>
             <OakInput
-              fill="invert"
+              fill
+              color="invert"
               size="large"
               type="password"
               name="repeatpassword"
