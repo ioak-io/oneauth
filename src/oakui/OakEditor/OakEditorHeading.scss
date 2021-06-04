@@ -1,0 +1,49 @@
+.oak-editor-heading {
+  display: grid;
+  grid-auto-flow: row;
+}
+.oak-editor-heading__input {
+  background: none;
+  width: 100%;
+  border: 1px dotted transparent;
+  box-sizing: border-box;
+  transition: border-color 250ms ease-in-out;
+  color: var(--color-1);
+  &:hover {
+    border: 1px dotted var(--color-3);
+  }
+}
+.oak-editor-heading__input--editing {
+  transition: border-color 250ms ease-in-out;
+  border: 1px dotted var(--color-1);
+  &:hover {
+    border: 1px dotted var(--color-1);
+  }
+}
+.oak-editor-heading__input--level-1 {
+  font-size: var(--oak-typography-h1-font-size);
+  font-weight: var(--oak-typography-h1-font-weight);
+  line-height: var(--oak-typography-h1-line-height);
+  letter-spacing: var(--oak-typography-h1-letter-spacing);
+}
+
+.oak-editor-heading__input--level-2 {
+  font-size: var(--oak-typography-h2-font-size);
+  font-weight: var(--oak-typography-h2-font-weight);
+  line-height: var(--oak-typography-h2-line-height);
+  letter-spacing: var(--oak-typography-h2-letter-spacing);
+}
+
+.oak-editor-heading__input--level-3 {
+  font-size: var(--oak-typography-h3-font-size);
+  font-weight: var(--oak-typography-h3-font-weight);
+  line-height: var(--oak-typography-h3-line-height);
+  letter-spacing: var(--oak-typography-h3-letter-spacing);
+}
+
+.oak-editor-heading__input--level-4 {
+  font-size: var(--oak-typography-h4-font-size);
+  font-weight: var(--oak-typography-h4-font-weight);
+  line-height: var(--oak-typography-h4-line-height);
+  letter-spacing: var(--oak-typography-h4-letter-spacing);
+}

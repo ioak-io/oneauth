@@ -35,7 +35,7 @@ const OakPrompt = (props: Props) => {
 
   return (
     <OakModal
-      showModal={props.visible}
+      isOpen={props.visible}
       handleClose={props.toggleVisibility}
       noheader
     >

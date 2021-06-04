@@ -79,7 +79,7 @@ const OakPopoverMenu = (props: Props) => {
         className={`dropdown-content ${dropdownContentStyle()}`}
         onClick={toggle}
       >
-        {props.elements.map((element) => (
+        {props.elements.map((element: { label: string; action: any }) => (
           <div
             v-for="element in elements"
             key={element.label}

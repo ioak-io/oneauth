@@ -60,7 +60,7 @@ interface Props {
 }
 
 const OakButton = (props: Props) => {
-  const profile = useSelector((state) => state.profile);
+  const profile = useSelector((state: any) => state.profile);
 
   const elementRef = useRef();
 

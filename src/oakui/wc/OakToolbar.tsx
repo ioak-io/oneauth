@@ -1,8 +1,8 @@
 import { BUTTON_CLICK_EVENT } from '@oakui/core-stage/event/OakButtonEvent';
 import {
-  PANEL_COLLAPSED_EVENT,
-  PANEL_EXPANDED_EVENT,
-} from '@oakui/core-stage/event/OakExpansionPanelEvent';
+  EXPANSE_COLLAPSED_EVENT,
+  EXPANSE_EXPANDED_EVENT,
+} from '@oakui/core-stage/event/OakExpanseEvent';
 import React, { useState, useEffect, ReactElement, useRef } from 'react';
 
 interface Props {

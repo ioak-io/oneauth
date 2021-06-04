@@ -1,0 +1,18 @@
+.oak-editor-list {
+  display: grid;
+  grid-auto-flow: row;
+}
+.oak-editor-list__input {
+  border: 1px dotted transparent;
+  transition: border-color 250ms ease-in-out;
+  &:hover {
+    border: 1px dotted var(--color-3);
+  }
+}
+.oak-editor-list__input--editing {
+  transition: border-color 250ms ease-in-out;
+  border: 1px dotted var(--color-1);
+  &:hover {
+    border: 1px dotted var(--color-1);
+  }
+}

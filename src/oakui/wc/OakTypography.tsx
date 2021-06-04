@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 interface Props {
   children: any;
   align?: 'inherit' | 'left' | 'center' | 'right' | 'justify';
-  display?: 'initial' | 'block' | 'inline';
+  display?: any;
   noWrap?: boolean;
   paragraph?: boolean;
   gutterBottom?: boolean;

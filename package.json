@@ -61,6 +61,7 @@
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.21.1",
     "chart.js": "^2.9.4",
+    "cropperjs": "^1.5.11",
     "cross-env": "^7.0.3",
     "date-fns": "^2.16.1",
     "enzyme": "^3.11.0",
