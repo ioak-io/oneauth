@@ -27,12 +27,12 @@ interface Props {
   match: any;
   location: any;
   authorization: Authorization;
-  apprealm: string;
+  clientrealm: string;
 }
 
 const Login = (props: Props) => {
-  const loginType = 'apprealm';
-  const authorization = useSelector((state) => state.authorization);
+  const loginType = 'clientrealm';
+  const authorization = useSelector((state: any) => state.authorization);
   const [type, setType] = useState('home');
   const [spinner, setSpinner] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState({
@@ -63,7 +63,7 @@ const Login = (props: Props) => {
   const changeRoute = (routeType: any) => {
     setNotificationMessage({ type: '', message: '' });
     props.history.push(
-      `/${loginType}/${props.apprealm}/home?type=${routeType}`
+      `/${loginType}/${props.clientrealm}/home?type=${routeType}`
     );
   };
 
@@ -81,7 +81,7 @@ const Login = (props: Props) => {
   }, [props.location.search]);
 
   return (
-    <div className="apprealm-home">
+    <div className="clientrealm-home">
       <div className="overlay">
         <div className="container smooth-page">
           {props.profile.theme === 'theme_light' && (

@@ -1,4 +1,4 @@
-.app-item {
+.client-item {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
@@ -12,24 +12,24 @@
     color: var(--color-container-darker-i);
   }
 }
-.app-item__left {
+.client-item__left {
   cursor: pointer;
   padding: 16px 12px;
   display: grid;
   grid-auto-flow: row;
   row-gap: 4px;
 }
-.app-item__left__name {
+.client-item__left__name {
   font-size: 20px;
 }
-.app-item__left__description {
+.client-item__left__description {
   font-size: 12px;
   color: var(--color-3);
   line-height: 16px;
   display: none;
 }
 
-.app-item__right {
+.client-item__right {
   padding: 16px 12px;
   display: grid;
   grid-auto-flow: column;

@@ -38,8 +38,8 @@ export const updatePermittedRealm = (authorization, payload) => (dispatch) => {
 };
 
 export const deletePermittedRealm =
-  (authorization, spaceId, appId) => (dispatch) => {
-    httpDelete(`${constants.API_PERMITTED_REALM}/${spaceId}/${appId}`, {
+  (authorization, spaceId, clientId) => (dispatch) => {
+    httpDelete(`${constants.API_PERMITTED_REALM}/${spaceId}/${clientId}`, {
       headers: {
         Authorization: authorization.access_token,
       },

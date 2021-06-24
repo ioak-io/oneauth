@@ -5,49 +5,49 @@ import OakInput from '../../../oakui/wc/OakInput';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
 import { isEmptyOrSpaces } from '../../Utils';
 import './style.scss';
-import AppItem from './AppItem';
+import ClientItem from './ClientItem';
 
-const AppListing = () => {
+const ClientListing = () => {
   const [view, setView] = useState<Array<any> | undefined>(undefined);
-  const app = useSelector((state: any) => state.app);
+  const client = useSelector((state: any) => state.client);
   const [searchCriteria, setSearchCriteria] = useState('');
 
   useEffect(() => {
-    console.log('**********', app);
-    if (app) {
-      setView(search(app.apps, searchCriteria));
+    console.log('**********', client);
+    if (client) {
+      setView(search(client.clients, searchCriteria));
     }
-  }, [app.apps, searchCriteria]);
+  }, [client.clients, searchCriteria]);
 
   const handleSearchCriteriaChange = (detail: any) => {
     setSearchCriteria(detail.value);
   };
 
-  const search = (appList: any, criteria: any) => {
+  const search = (clientList: any, criteria: any) => {
     if (isEmptyOrSpaces(criteria)) {
-      return appList;
+      return clientList;
     }
-    return appList.filter(
+    return clientList.filter(
       (item: any) =>
         item.name.toLowerCase().indexOf(criteria.toLowerCase()) !== -1
     );
   };
 
   return (
-    <div className="app-listing">
+    <div className="client-listing">
       <OakInput
         name="searchCriteria"
         value={searchCriteria}
         handleInput={handleSearchCriteriaChange}
         placeholder="Type to search"
       />
-      <div className="app-listing__list">
+      <div className="client-listing__list">
         {view?.map((item) => (
-          <AppItem app={item} key={item._id} />
+          <ClientItem client={item} key={item._id} />
         ))}
       </div>
     </div>
   );
 };
 
-export default AppListing;
+export default ClientListing;

@@ -22,7 +22,7 @@ interface Props {
   history: any;
   profile: any;
   authorization: Authorization;
-  appId: string;
+  clientId: string;
   switchToSignupPage: any;
   switchToResetPage: any;
   loginType: string;
@@ -99,8 +99,8 @@ const SigninPage = (props: Props) => {
                 authorizeResponse.data.refresh_token
               );
             }
-            if (props.realm && props.appId) {
-              redirectToRequestedApp(
+            if (props.realm && props.clientId) {
+              redirectToRequestedClient(
                 authorizeResponse.data.access_token,
                 authorizeResponse.data.refresh_token
               );
@@ -141,9 +141,9 @@ const SigninPage = (props: Props) => {
   //     )
   //       .then((sessionResponse) => {
   //         if (sessionResponse.status === 200) {
-  //           if (props.realm && props.appId) {
+  //           if (props.realm && props.clientId) {
   //             props.cookies.set(props.realm, authorizeResponse.data.sessionId);
-  //             redirectToRequestedApp(authorizeResponse, sessionResponse);
+  //             redirectToRequestedClient(authorizeResponse, sessionResponse);
   //           } else {
   //             success(authorizeResponse, sessionResponse);
   //           }
@@ -167,22 +167,22 @@ const SigninPage = (props: Props) => {
   //   }
   // };
 
-  const redirectToRequestedApp = (
+  const redirectToRequestedClient = (
     access_token: string,
     refresh_token: string
   ) => {
-    httpGet(`/app/${props.appId}`, {
+    httpGet(`/client/${props.clientId}`, {
       headers: {
         Authorization: access_token,
       },
-    }).then((appResponse) => {
+    }).then((clientResponse) => {
       let appendString = '';
       Object.keys(props.queryParam).forEach((key) => {
-        if (!['appId', 'type'].includes(key)) {
+        if (!['clientId', 'type'].includes(key)) {
           appendString += `&${key}=${props.queryParam[key]}`;
         }
       });
-      window.location.href = `${appResponse.data.data.redirect}?access_token=${access_token}&refresh_token=${refresh_token}&realm=${props.realm}${appendString}`;
+      window.location.href = `${clientResponse.data.data.redirect}?access_token=${access_token}&refresh_token=${refresh_token}&realm=${props.realm}${appendString}`;
     });
   };
 
@@ -196,7 +196,7 @@ const SigninPage = (props: Props) => {
       props.history.push(`/${props.loginType}/${props.realm}/home`);
     } else {
       // dispatch(fetchRealm(data));
-      // dispatch(fetchApp(data));
+      // dispatch(fetchClient(data));
       // dispatch(fetchUsers(data));
       // dispatch(fetchRoles(data));
       props.history.push('/');

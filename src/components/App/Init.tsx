@@ -4,7 +4,7 @@ import axios from 'axios';
 import { fetchAllRealms } from '../../actions/RealmActions';
 import { setProfile } from '../../actions/ProfileActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
-import { fetchAllApps } from '../../actions/AppActions';
+import { fetchAllClients } from '../../actions/ClientActions';
 import { refreshAccessToken } from '../Auth/AuthService';
 import { addAuth } from '../../actions/AuthActions';
 import { axiosInstance, httpPost } from '../Lib/RestTemplate';
@@ -72,7 +72,7 @@ const Init = (props: Props) => {
   const initialize = () => {
     console.log('Initialization logic here');
     dispatch(fetchAllRealms());
-    dispatch(fetchAllApps());
+    dispatch(fetchAllClients());
   };
   const initializeHttpInterceptor = () => {
     console.log('HTTP Interceptor initialization');

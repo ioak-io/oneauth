@@ -17,7 +17,7 @@ interface Props {
 
 const ChangePassword = (props: Props) => {
   const loginType = 'realm';
-  const authorization = useSelector((state) => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState({
     oldpassword: '',
     password: '',

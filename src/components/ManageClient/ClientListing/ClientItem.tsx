@@ -5,28 +5,28 @@ import { useHistory } from 'react-router';
 import OakButton from '../../../oakui/wc/OakButton';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
 
-import './AppItem.scss';
+import './ClientItem.scss';
 
 interface Props {
-  app: any;
+  client: any;
 }
 
-const AppItem = (props: Props) => {
+const ClientItem = (props: Props) => {
   const history = useHistory();
 
-  const goToViewPage = () => history.push(`/manageapp/${props.app._id}`);
+  const goToViewPage = () => history.push(`/manageclient/${props.client._id}`);
 
   return (
-    <div className="app-item">
+    <div className="client-item">
       <OakClickArea handleClick={goToViewPage}>
-        <div className="app-item__left">
-          <div className="app-item__left__name">{props.app.name}</div>
-          <div className="app-item__left__description">
-            {props.app.description}
+        <div className="client-item__left">
+          <div className="client-item__left__name">{props.client.name}</div>
+          <div className="client-item__left__description">
+            {props.client.description}
           </div>
         </div>
       </OakClickArea>
-      <div className="app-item__right">
+      <div className="client-item__right">
         <OakButton
           handleClick={goToViewPage}
           theme="danger"
@@ -40,4 +40,4 @@ const AppItem = (props: Props) => {
   );
 };
 
-export default AppItem;
+export default ClientItem;

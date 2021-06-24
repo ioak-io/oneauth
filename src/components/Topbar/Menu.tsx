@@ -18,7 +18,7 @@ const Menu = () => {
       <NavLink to="/managerealm" className="navitem" activeClassName="active">
         Realm
       </NavLink>
-      <NavLink to="/manageapp" className="navitem" activeClassName="active">
+      <NavLink to="/manageclient" className="navitem" activeClassName="active">
         Client
       </NavLink>
     </div>

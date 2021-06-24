@@ -11,14 +11,14 @@ import PlayToolbar from '../PlayToolbar';
 import RealmLogin from '../Login/RealmLogin';
 import RealmHome from '../RealmHome';
 import RealmListing from '../ManageRealm/RealmListing';
-import AppListing from '../ManageApp/AppListing';
-import ApprealmHome from '../ApprealmHome';
-import ApprealmLogin from '../Login/ApprealmLogin';
+import ClientListing from '../ManageClient/ClientListing';
+import ClientrealmHome from '../ClientrealmHome';
+import ClientrealmLogin from '../Login/ClientrealmLogin';
 import RealmDetail from '../ManageRealm/RealmDetail';
-import AppDetail from '../ManageApp/AppDetail';
+import ClientDetail from '../ManageClient/ClientDetail';
 import AccessControl from '../AccessControl';
 import Member from '../AccessControl/Member';
-import AppPermission from '../AppPermission';
+import ClientPermission from '../ClientPermission';
 
 interface Props {
   cookies: any;
@@ -124,77 +124,77 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
-        path="/manageapp"
+        path="/manageclient"
         exact
         render={(propsLocal) => (
           <OakRoute
             {...propsLocal}
             {...props}
             // logout={() => logout}
-            component={AppListing}
+            component={ClientListing}
             middleware={['authenticateOa']}
           />
         )}
       />
       <Route
-        path="/manageapp/:id"
+        path="/manageclient/:id"
         exact
         render={(propsLocal) => (
           <OakRoute
             {...propsLocal}
             {...props}
-            component={AppDetail}
+            component={ClientDetail}
             middleware={['authenticateOa']}
           />
         )}
       />
       <Route
-        path="/manageapp/:id/permission/:userId"
+        path="/manageclient/:id/permission/:userId"
         exact
         render={(propsLocal) => (
           <OakRoute
             {...propsLocal}
             {...props}
-            component={AppPermission}
+            component={ClientPermission}
             middleware={['authenticateOa']}
           />
         )}
       />
 
-      {/* Apprealm based routes */}
+      {/* Clientrealm based routes */}
       <Route
-        path="/apprealm/:apprealm/login"
+        path="/clientrealm/:clientrealm/login"
         render={(propsLocal: any) => (
           <OakRoute
             {...propsLocal}
             {...props}
             // logout={() => logout}
-            component={ApprealmLogin}
+            component={ClientrealmLogin}
           />
         )}
       />
       <Route
         exact
-        path="/apprealm/:apprealm/home"
+        path="/clientrealm/:clientrealm/home"
         render={(propsLocal: any) => (
           <OakRoute
             {...propsLocal}
             {...props}
             //  logout={() => logout}
-            component={ApprealmHome}
-            middleware={['readAuthenticationApprealm']}
+            component={ClientrealmHome}
+            middleware={['readAuthenticationClientrealm']}
           />
         )}
       />
       <Route
         exact
-        path="/apprealm/:apprealm"
+        path="/clientrealm/:clientrealm"
         render={(propsLocal: any) => (
           <OakRoute
             {...propsLocal}
             {...props}
-            component={ApprealmHome}
-            middleware={['readAuthenticationApprealm']}
+            component={ClientrealmHome}
+            middleware={['readAuthenticationClientrealm']}
           />
         )}
       />

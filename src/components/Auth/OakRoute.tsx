@@ -8,7 +8,7 @@ import { sendMessage } from '../../events/MessageService';
 import { fetchRealm } from '../../actions/RealmActions';
 import fetchUsers from '../../actions/OaUserAction';
 import { fetchRoles } from '../../actions/OaRoleActions';
-import { fetchApp } from '../../actions/AppActions';
+import { fetchClient } from '../../actions/ClientActions';
 import { fetchPermittedRealm } from '../../actions/PermittedRealmAction';
 
 interface Props {
@@ -30,11 +30,11 @@ const OakRoute = (props: Props) => {
   //   console.log(props.match.params.realm);
   // }, []);
   // useEffect(() => {
-  //   console.log(props.profile.appStatus, props.profile.loginPage);
-  //   if (props.profile.appStatus === 'notmounted' && !props.profile.loginPage) {
+  //   console.log(props.profile.clientStatus, props.profile.loginPage);
+  //   if (props.profile.clientStatus === 'notmounted' && !props.profile.loginPage) {
   //     props.setProfile({
   //       realm: props.match.params.realm,
-  //       appStatus: 'mounted',
+  //       clientStatus: 'mounted',
   //     });
   //   } else {
   //     props.setProfile({ realm: props.match.params.realm });
@@ -43,16 +43,16 @@ const OakRoute = (props: Props) => {
   // }, []);
 
   // useEffect(() => {
-  //   console.log(props.profile.appStatus, props.profile.loginPage);
+  //   console.log(props.profile.clientStatus, props.profile.loginPage);
   //   // middlewares(props.middleware);
   // }, []);
 
   // useEffect(() => {
   //   middlewares(props.middleware);
-  // }, [props.profile.appStatus]);
+  // }, [props.profile.clientStatus]);
 
   const middlewares = () => {
-    // if (props.profile.appStatus === 'authenticated') {
+    // if (props.profile.clientStatus === 'authenticated') {
     props.middleware?.forEach((middlewareName) => {
       if (!runMidleware(middlewareName)) {
         return false;
@@ -67,14 +67,14 @@ const OakRoute = (props: Props) => {
     switch (middlewareName) {
       case 'readAuthenticationRealm':
         return readAuthenticationRealm();
-      case 'readAuthenticationApprealm':
-        return readAuthenticationApprealm();
+      case 'readAuthenticationClientrealm':
+        return readAuthenticationClientrealm();
       case 'readAuthenticationOa':
         return readAuthenticationOa();
       case 'authenticateRealm':
         return authenticateRealm();
-      case 'authenticateApprealm':
-        return authenticateApprealm();
+      case 'authenticateClientrealm':
+        return authenticateClientrealm();
       case 'authenticateOa':
         return authenticateOa();
       case 'isAdmin':
@@ -90,8 +90,8 @@ const OakRoute = (props: Props) => {
   const authenticateRealm = () => {
     return authenticate('realm');
   };
-  const authenticateApprealm = () => {
-    return authenticate('apprealm');
+  const authenticateClientrealm = () => {
+    return authenticate('clientrealm');
   };
   const readAuthenticationOa = () => {
     return authenticate('oa', false);
@@ -99,15 +99,15 @@ const OakRoute = (props: Props) => {
   const readAuthenticationRealm = () => {
     return authenticate('realm', false);
   };
-  const readAuthenticationApprealm = () => {
-    return authenticate('apprealm', false);
+  const readAuthenticationClientrealm = () => {
+    return authenticate('clientrealm', false);
   };
 
   const authenticate = (type: string, redirect = true) => {
     if (type === 'realm') {
       sendMessage('realmChange', true, props.match.params.realm);
-    } else if (type === 'apprealm') {
-      sendMessage('apprealmChange', true, props.match.params.realm);
+    } else if (type === 'clientrealm') {
+      sendMessage('clientrealmChange', true, props.match.params.realm);
     }
     if (authorization.isAuth) {
       return true;
@@ -123,14 +123,14 @@ const OakRoute = (props: Props) => {
         `${props.match.params.realm}-refresh_token`
       );
       cookieKey = props.match.params.realm;
-    } else if (type === 'apprealm') {
+    } else if (type === 'clientrealm') {
       accessToken = props.cookies.get(
-        `${props.match.params.apprealm}-access_token`
+        `${props.match.params.clientrealm}-access_token`
       );
       refreshToken = props.cookies.get(
-        `${props.match.params.apprealm}-refresh_token`
+        `${props.match.params.clientrealm}-refresh_token`
       );
-      cookieKey = props.match.params.apprealm;
+      cookieKey = props.match.params.clientrealm;
     }
     if (accessToken) {
       interpretAccessToken(
@@ -141,7 +141,7 @@ const OakRoute = (props: Props) => {
         redirect
       );
     } else if (redirect) {
-      // dispatch(setProfile({ ...profile, appStatus: 'authenticated' }));
+      // dispatch(setProfile({ ...profile, clientStatus: 'authenticated' }));
       redirectHandler(type);
     } else {
       return true;
@@ -181,10 +181,10 @@ const OakRoute = (props: Props) => {
             // dispatch(fetchRealm());
             // dispatch(fetchUsers(sessionResponse.data));
             // dispatch(fetchRoles(sessionResponse.data));
-            // dispatch(fetchApp(sessionResponse.data));
+            // dispatch(fetchClient(sessionResponse.data));
             // dispatch(fetchPermittedRealm(sessionResponse.data));
           }
-          // dispatch(setProfile({ ...profile, appStatus: 'authenticated' }));
+          // dispatch(setProfile({ ...profile, clientStatus: 'authenticated' }));
         } else {
           props.cookies.remove(`${cookieKey}-access_token`);
           props.cookies.remove(`${cookieKey}-refresh_token`);
@@ -247,8 +247,8 @@ const OakRoute = (props: Props) => {
       case 'realm':
         redirectToRealmLogin(props.match.params.realm);
         break;
-      case 'apprealm':
-        redirectToApprealmLogin(props.match.params.apprealm);
+      case 'clientrealm':
+        redirectToClientrealmLogin(props.match.params.clientrealm);
         break;
       default:
         redirectToOaLogin();
@@ -270,9 +270,9 @@ const OakRoute = (props: Props) => {
     props.history.push(`/realm/${realmId}/login`);
   };
 
-  const redirectToApprealmLogin = (apprealmId: string) => {
-    // window.location.href = `http://localhost:3010/#/apprealm/${apprealmId}/login`;
-    props.history.push(`/apprealm/${apprealmId}/login`);
+  const redirectToClientrealmLogin = (clientrealmId: string) => {
+    // window.location.href = `http://localhost:3010/#/clientrealm/${clientrealmId}/login`;
+    props.history.push(`/clientrealm/${clientrealmId}/login`);
   };
 
   const redirectToUnauthorized = () => {
@@ -286,7 +286,7 @@ const OakRoute = (props: Props) => {
           {...props}
           profile={profile}
           realm={props.match.params.realm}
-          apprealm={props.match.params.apprealm}
+          clientrealm={props.match.params.clientrealm}
           // getProfile={getProfile}
           // setProfile={props.setProfile}
         />

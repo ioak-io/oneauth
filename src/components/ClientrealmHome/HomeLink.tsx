@@ -10,15 +10,15 @@ import OakButton from '../../oakui/wc/OakButton';
 
 interface Props {
   switchToSigninPage: any;
-  apprealm: string;
+  clientrealm: string;
   history: any;
   cookies: any;
   removeAuth: any;
 }
 
 const HomeLink = (props: Props) => {
-  const loginType = 'apprealm';
-  const authorization = useSelector((state) => state.authorization);
+  const loginType = 'clientrealm';
+  const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -42,34 +42,36 @@ const HomeLink = (props: Props) => {
   };
 
   const changeRoute = (routeType) => {
-    props.history.push(`/apprealm/${props.apprealm}/home?type=${routeType}`);
+    props.history.push(
+      `/clientrealm/${props.clientrealm}/home?type=${routeType}`
+    );
   };
 
   const login = () => {
-    props.history.push(`/apprealm/${props.apprealm}/login?type=signin`);
+    props.history.push(`/clientrealm/${props.clientrealm}/login?type=signin`);
   };
 
   const signup = () => {
-    props.history.push(`/apprealm/${props.apprealm}/login?type=signup`);
+    props.history.push(`/clientrealm/${props.clientrealm}/login?type=signup`);
   };
 
   const logout = () => {
     let baseAuthUrl = `/auth/${loginType}`;
     let authKey = props.cookies.get('oneauth');
-    if (props.apprealm) {
-      authKey = props.cookies.get(props.apprealm);
-      baseAuthUrl = `${baseAuthUrl}/${props.apprealm}`;
+    if (props.clientrealm) {
+      authKey = props.cookies.get(props.clientrealm);
+      baseAuthUrl = `${baseAuthUrl}/${props.clientrealm}`;
     }
 
     httpPost(`${baseAuthUrl}/session/${authKey}/invalidate`, null, null).then(
       (response: any) => {
         if (response.status === 200 || response.status === 404) {
           props.removeAuth();
-          props.cookies.remove(props.apprealm);
-          props.history.push(`/apprealm/${props.apprealm}/home`);
+          props.cookies.remove(props.clientrealm);
+          props.history.push(`/clientrealm/${props.clientrealm}/home`);
           sendMessage('notification', true, {
             type: 'success',
-            message: `Signed out of realm ${props.apprealm}`,
+            message: `Signed out of realm ${props.clientrealm}`,
             duration: 3000,
           });
         }

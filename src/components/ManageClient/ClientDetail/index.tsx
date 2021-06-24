@@ -3,15 +3,15 @@ import { useHistory, useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
 import OakTab from '../../../oakui/wc/OakTab';
-import EditApp from './EditApp';
+import EditClient from './EditClient';
 import AccessControl from '../../AccessControl';
 
-const AppDetail = () => {
+const ClientDetail = () => {
   const history = useHistory();
   const { id }: any = useParams();
   const [activeTab, setActiveTab] = useState(0);
-  const app = useSelector((state: any) =>
-    state.app.apps?.find((item: any) => item._id === id)
+  const client = useSelector((state: any) =>
+    state.client.clients?.find((item: any) => item._id === id)
   );
 
   const handleChangeTab = (detail: any) => {
@@ -19,7 +19,7 @@ const AppDetail = () => {
   };
 
   return (
-    <div className="app-detail">
+    <div className="client-detail">
       <OakTab
         tabs={['Detail', 'System roles', 'Roles']}
         handleChange={handleChangeTab}
@@ -29,11 +29,11 @@ const AppDetail = () => {
         fill
         rounded
       >
-        {app && (
-          <div className="app-detail__container">
-            {activeTab === 0 && <EditApp app={app} />}
+        {client && (
+          <div className="client-detail__container">
+            {activeTab === 0 && <EditClient client={client} />}
             {activeTab === 1 && (
-              <AccessControl domainId={app._id} domainType="app" />
+              <AccessControl domainId={client._id} domainType="client" />
             )}
           </div>
         )}
@@ -42,4 +42,4 @@ const AppDetail = () => {
   );
 };
 
-export default AppDetail;
+export default ClientDetail;

@@ -26,7 +26,7 @@ interface Props {
   location: any;
 }
 
-const AppPermission = (props: Props) => {
+const ClientPermission = (props: Props) => {
   const { id, userId }: any = useParams();
   const [oaRolesNew, setOaRolesNew] = useState<any[]>([]);
   const [oaRolesNameNew, setOaRolesNameNew] = useState<any[]>([]);
@@ -112,7 +112,7 @@ const AppPermission = (props: Props) => {
 
     _originalRoleNames.forEach((item) => {
       if (!oaRolesNameNew.includes(item)) {
-        dispatch(deleteRoles(authorization, 'app', userId, id, item));
+        dispatch(deleteRoles(authorization, 'client', userId, id, item));
       }
     });
 
@@ -120,7 +120,7 @@ const AppPermission = (props: Props) => {
       if (!_originalRoleNames.includes(item)) {
         dispatch(
           updateRoles(authorization, {
-            type: 'app',
+            type: 'client',
             userId,
             domainId: id,
             name: item,
@@ -133,7 +133,7 @@ const AppPermission = (props: Props) => {
   const formId = newId();
 
   return (
-    <div className="app-permission">
+    <div className="client-permission">
       <OakSection
         fillColor="container"
         rounded
@@ -142,7 +142,7 @@ const AppPermission = (props: Props) => {
         elevation={4}
       >
         <SystemRoles
-          appId={id}
+          clientId={id}
           userId={userId}
           roles={oaRolesNameNew}
           handleChange={handleSystemRolesChange}
@@ -155,11 +155,11 @@ const AppPermission = (props: Props) => {
         paddingVertical={3}
         elevation={4}
       >
-        <div className="app-permission__section-title">Application roles</div>
+        <div className="client-permission__section-title">Client roles</div>
       </OakSection>
       <OakButton handleClick={save}>Save</OakButton>
     </div>
   );
 };
 
-export default AppPermission;
+export default ClientPermission;

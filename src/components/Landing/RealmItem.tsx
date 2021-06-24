@@ -8,7 +8,7 @@ interface Props {
 
 const RealmItem = (props: Props) => {
   const goToRealmPage = () => {
-    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${props.realm.realmId}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}`;
+    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/realm/${props.realm.realmId}/login?type=signin&clientId=${process.env.REACT_APP_ONEAUTH_APP_ID}`;
   };
   return (
     <div className="realm-list-item" onClick={goToRealmPage}>

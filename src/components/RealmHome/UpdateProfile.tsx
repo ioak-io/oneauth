@@ -16,7 +16,7 @@ interface Props {
 }
 
 const UpdateProfile = (props: Props) => {
-  const authorization = useSelector((state) => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState({
     given_name: '',
     family_name: '',

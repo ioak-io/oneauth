@@ -29,7 +29,7 @@ const RightNav = (props: Props) => {
   ) => {
     dispatch(removeAuth());
     // props.cookies.remove(
-    //   `oneauth_${process.env.REACT_APP_ONEAUTH_APPREALM_ID}`
+    //   `oneauth_${process.env.REACT_APP_ONEAUTH_CLIENTREALM_ID}`
     // );
     props.cookies.remove('oneauth');
     history.push(`/`);
@@ -42,7 +42,7 @@ const RightNav = (props: Props) => {
 
   const login = (type = 'signin') => {
     history.push(`/login?type=${type}`);
-    // window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/apprealm/${process.env.REACT_APP_ONEAUTH_APPREALM_ID}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}`;
+    // window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/clientrealm/${process.env.REACT_APP_ONEAUTH_CLIENTREALM_ID}/login?type=signin&clientId=${process.env.REACT_APP_ONEAUTH_CLIENT_ID}`;
   };
 
   return (

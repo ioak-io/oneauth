@@ -1,19 +1,19 @@
-import { REFRESH_APPS, UPDATE_APP } from '../actions/types';
+import { REFRESH_CLIENTS, UPDATE_CLIENT } from '../actions/types';
 
 const initialState = {
-  apps: [],
+  clients: [],
 };
 
 export default function (state = initialState, action: any) {
   switch (action.type) {
-    case REFRESH_APPS:
-      console.log('REFRESH_APPS reducer');
+    case REFRESH_CLIENTS:
+      console.log('REFRESH_CLIENTS reducer');
       return {
         ...state,
         ...action.payload,
       };
-    // case UPDATE_APP:
-    //   console.log('UPDATE_APP reducer');
+    // case UPDATE_CLIENT:
+    //   console.log('UPDATE_CLIENT reducer');
     //   return {
     //     ...state,
     //     ...action.payload,

@@ -4,7 +4,7 @@ import { withCookies } from 'react-cookie';
 import { Settings } from '@material-ui/icons';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
 import { fetchRealm } from '../../actions/RealmActions';
-import { fetchApp } from '../../actions/AppActions';
+import { fetchClient } from '../../actions/ClientActions';
 import fetchUsers from '../../actions/OaUserAction';
 import { fetchRoles } from '../../actions/OaRoleActions';
 import { fetchPermittedRealm } from '../../actions/PermittedRealmAction';
@@ -28,7 +28,7 @@ interface Props {
   fetchRoles: Function;
   fetchUsers: Function;
   fetchRealm: Function;
-  fetchApp: Function;
+  fetchClient: Function;
   fetchPermittedRealm: Function;
   setProfile: Function;
   getAuth: Function;
@@ -44,7 +44,7 @@ interface Props {
 
 const Login = (props: Props) => {
   const loginType = 'oa';
-  const authorization = useSelector((state) => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
   const [spinner, setSpinner] = useState(false);
@@ -53,7 +53,7 @@ const Login = (props: Props) => {
     message: '',
   });
 
-  const [appId, setAppId] = useState('');
+  const [clientId, setClientId] = useState('');
   const [verificationStep, setVerificationStep] = useState(false);
 
   useEffect(() => {
@@ -101,10 +101,10 @@ const Login = (props: Props) => {
       } else {
         setAuthCode('');
       }
-      if (query && query.appId) {
-        setAppId(query.appId);
+      if (query && query.clientId) {
+        setClientId(query.clientId);
       } else {
-        setAppId('');
+        setClientId('');
       }
     }
     // props.setProfile({ ...props.profile, tenant: props.match.params.tenant });
@@ -194,7 +194,7 @@ const mapStateToProps = (state) => ({
   fetchRealm: state.fetchRealm,
   fetchUsers: state.fetchUsers,
   existingAdmins: state.fetchRoles,
-  fetchApp: state.fetchApp,
+  fetchClient: state.fetchClient,
   fetchPermittedRealm: state.fetchPermittedRealm,
 });
 
@@ -205,6 +205,6 @@ export default connect(mapStateToProps, {
   fetchRealm,
   fetchUsers,
   fetchRoles,
-  fetchApp,
+  fetchClient,
   fetchPermittedRealm,
 })(withCookies(Login));

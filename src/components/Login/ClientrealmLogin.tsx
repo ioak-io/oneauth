@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
-import './ApprealmLogin.scss';
+import './ClientrealmLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage, receiveMessage } from '../../events/MessageService';
 import oneauthWhite from '../../images/oneauth_white.svg';
@@ -30,12 +30,12 @@ interface Props {
   match: any;
   location: any;
   authorization: Authorization;
-  apprealm: string;
+  clientrealm: string;
 }
 
 const Login = (props: Props) => {
-  const loginType = 'apprealm';
-  const authorization = useSelector((state) => state.authorization);
+  const loginType = 'clientrealm';
+  const authorization = useSelector((state: any) => state.authorization);
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
   const [spinner, setSpinner] = useState(false);
@@ -44,7 +44,7 @@ const Login = (props: Props) => {
     message: '',
   });
 
-  const [appId, setAppId] = useState('');
+  const [clientId, setClientId] = useState('');
   const [queryParam, setQueryParam] = useState<any>();
   const [verificationStep, setVerificationStep] = useState(false);
 
@@ -75,14 +75,16 @@ const Login = (props: Props) => {
     return () => eventBus.unsubscribe();
   }, []);
 
-  const changeRoute = (routeType) => {
+  const changeRoute = (routeType: string) => {
     setNotificationMessage({ type: '', message: '' });
-    props.history.push(`/apprealm/${props.apprealm}/login?type=${routeType}`);
+    props.history.push(
+      `/clientrealm/${props.clientrealm}/login?type=${routeType}`
+    );
   };
 
   useEffect(() => {
     setVerificationStep(true);
-    let appIdRef = null;
+    let clientIdRef = null;
     if (props.location.search) {
       const query = queryString.parse(props.location.search);
       setQueryParam({ ...query });
@@ -97,76 +99,81 @@ const Login = (props: Props) => {
       } else {
         setAuthCode('');
       }
-      if (query && query.appId) {
-        setAppId(query.appId);
-        appIdRef = query.appId;
+      if (query && query.clientId) {
+        setClientId(query.clientId);
+        clientIdRef = query.clientId;
       } else {
-        setAppId('');
+        setClientId('');
       }
     }
-    const authKey = props.cookies.get(props.apprealm);
+    const authKey = props.cookies.get(props.clientrealm);
     if (authorization.isAuth || authKey) {
-      if (appIdRef) {
-        redirectToRequestedAppIfTokenIsValid(
-          appIdRef,
+      if (clientIdRef) {
+        redirectToRequestedClientIfTokenIsValid(
+          clientIdRef,
           authKey,
           queryString.parse(props.location.search)
         );
       } else {
-        props.history.push(`/apprealm/${props.apprealm}/home`);
+        props.history.push(`/clientrealm/${props.clientrealm}/home`);
       }
     } else {
       setVerificationStep(false);
     }
   }, [props.location.search]);
 
-  const redirectToRequestedAppIfTokenIsValid = (
-    appIdRef,
-    authKey,
-    queryString
+  const redirectToRequestedClientIfTokenIsValid = (
+    clientIdRef: string,
+    authKey: string,
+    queryString: any
   ) => {
-    console.log(appIdRef, authKey);
-    const baseAuthUrl = `/auth/apprealm/${props.apprealm}`;
+    console.log(clientIdRef, authKey);
+    const baseAuthUrl = `/auth/clientrealm/${props.clientrealm}`;
 
     httpGet(`${baseAuthUrl}/session/${authKey}`, null)
       .then((sessionResponse) => {
         if (sessionResponse.status === 200) {
-          redirectToRequestedApp(
-            appIdRef,
+          redirectToRequestedClient(
+            clientIdRef,
             authKey,
             sessionResponse.data.token,
             queryString
           );
         } else {
-          props.cookies.remove(props.apprealm);
+          props.cookies.remove(props.clientrealm);
 
           setVerificationStep(false);
         }
       })
       .catch((error: any) => {
-        props.cookies.remove(props.apprealm);
+        props.cookies.remove(props.clientrealm);
         setVerificationStep(false);
       });
   };
 
-  const redirectToRequestedApp = (appId, authKey, token, queryString) => {
-    httpGet(`/app/${appId}`, {
+  const redirectToRequestedClient = (
+    clientId: string,
+    authKey: string,
+    token: string,
+    queryString: any
+  ) => {
+    httpGet(`/client/${clientId}`, {
       headers: {
         Authorization: token,
       },
-    }).then((appResponse) => {
+    }).then((clientResponse) => {
       let appendString = '';
       Object.keys(queryString).forEach((key) => {
-        if (!['appId', 'type'].includes(key)) {
+        if (!['clientId', 'type'].includes(key)) {
           appendString += `&${key}=${queryString[key]}`;
         }
       });
-      window.location.href = `${appResponse.data.data.redirect}?authKey=${authKey}&apprealm=${props.apprealm}${appendString}`;
+      window.location.href = `${clientResponse.data.data.redirect}?authKey=${authKey}&clientrealm=${props.clientrealm}${appendString}`;
     });
   };
 
   return (
-    <div className="apprealm-login">
+    <div className="clientrealm-login">
       <div className="overlay">
         <div className="container smooth-page">
           {props.profile.theme === 'theme_light' && (
@@ -180,16 +187,16 @@ const Login = (props: Props) => {
           <NotificationMessage notification={notificationMessage} />
 
           {!verificationStep && type === 'signin' && (
-            <div className="wrapper">
+            <div className="wrclienter">
               <SigninPage
-                appId={appId}
+                clientId={clientId}
                 switchToSignupPage={() => changeRoute('signup')}
                 switchToResetPage={() => changeRoute('reset')}
-                isAppRealmLogin
+                isClientRealmLogin
                 queryParam={queryParam}
                 {...props}
                 loginType={loginType}
-                realm={props.apprealm}
+                realm={props.clientrealm}
               />
             </div>
           )}
@@ -200,7 +207,7 @@ const Login = (props: Props) => {
                 switchToSigninPage={() => changeRoute('signin')}
                 {...props}
                 loginType={loginType}
-                realm={props.apprealm}
+                realm={props.clientrealm}
               />
             </div>
           )}
@@ -212,7 +219,7 @@ const Login = (props: Props) => {
                 authCode={authCode}
                 loginType={loginType}
                 switchToSigninPage={() => changeRoute('signin')}
-                realm={props.apprealm}
+                realm={props.clientrealm}
               />
             </div>
           )}
@@ -223,7 +230,7 @@ const Login = (props: Props) => {
                 {...props}
                 authCode={authCode}
                 loginType={loginType}
-                realm={props.apprealm}
+                realm={props.clientrealm}
                 switchToSigninPage={() => changeRoute('signin')}
               />
             </div>
@@ -236,7 +243,7 @@ const Login = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   authorization: state.authorization,
 });
 

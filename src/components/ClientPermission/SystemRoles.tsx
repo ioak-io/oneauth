@@ -17,7 +17,7 @@ import OakCheckboxGroup from '../../oakui/wc/OakCheckboxGroup';
 import { newId } from '../../events/MessageService';
 
 interface Props {
-  appId: string;
+  clientId: string;
   userId: string;
   roles: any[];
   handleChange: any;
@@ -40,7 +40,7 @@ const SystemRoles = (props: Props) => {
   //   _originalRoleNames.forEach((item) => {
   //     if (!roleNames.includes(item)) {
   //       dispatch(
-  //         deleteRoles(authorization, 'app', props.userId, props.appId, item)
+  //         deleteRoles(authorization, 'client', props.userId, props.clientId, item)
   //       );
   //     }
   //   });
@@ -49,9 +49,9 @@ const SystemRoles = (props: Props) => {
   //     if (!_originalRoleNames.includes(item)) {
   //       dispatch(
   //         updateRoles(authorization, {
-  //           type: 'app',
+  //           type: 'client',
   //           userId: props.userId,
-  //           domainId: props.appId,
+  //           domainId: props.clientId,
   //           name: item,
   //         })
   //       );
@@ -62,9 +62,9 @@ const SystemRoles = (props: Props) => {
   const formId = newId();
 
   return (
-    <div className="app-permission-system">
-      <div className="app-permission-system__title">System roles</div>
-      <div className="app-permission-system__content">
+    <div className="client-permission-system">
+      <div className="client-permission-system__title">System roles</div>
+      <div className="client-permission-system__content">
         <OakCheckboxGroup
           checkboxGroupName={formId}
           name="role"

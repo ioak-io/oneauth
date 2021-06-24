@@ -14,7 +14,7 @@ import './Header.scss';
 import Logo from '../Logo';
 
 const Header = () => {
-  const authorization = useSelector((state) => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
 
   const profile = useSelector((state) => state.profile);
 

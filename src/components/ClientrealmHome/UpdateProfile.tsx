@@ -5,70 +5,67 @@ import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
+import OakButton from '../../oakui/wc/OakButton';
 import OakForm from '../../oakui/wc/OakForm';
 import { Warning } from '@material-ui/icons';
-import OakButton from '../../oakui/wc/OakButton';
 import OakInput from '../../oakui/wc/OakInput';
-import OakClickArea from '../../oakui/wc/OakClickArea';
 
 interface Props {
   goHome: any;
-  apprealm: string;
+  clientrealm: string;
   history: any;
 }
 
-const ChangePassword = (props: Props) => {
-  const loginType = 'apprealm';
-  const authorization = useSelector((state) => state.authorization);
+const UpdateProfile = (props: Props) => {
+  const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState({
-    oldpassword: '',
-    password: '',
-    repeatpassword: '',
+    given_name: '',
+    family_name: '',
   });
 
   const [stage, setStage] = useState('form');
 
   const [errors, setErrors] = useState({
-    oldpassword: '',
-    password: '',
-    repeatpassword: '',
+    given_name: '',
+    family_name: '',
   });
+
+  useEffect(() => {
+    console.log(authorization);
+    setData({
+      given_name: authorization.given_name,
+      family_name: authorization.family_name,
+    });
+  }, [authorization]);
 
   const handleChange = (detail: any) => {
     setData({ ...data, [detail.name]: detail.value });
   };
 
-  const changePassword = (event) => {
+  const updateProfile = (event) => {
     event.preventDefault();
-    const baseAuthUrl = `/auth/${loginType}/${props.apprealm}`;
+    const baseUserUrl = `/user/${props.clientrealm}`;
     const errorState = {
-      oldpassword: '',
-      password: '',
-      repeatpassword: '',
+      given_name: '',
+      family_name: '',
     };
     let error = false;
     sendMessage('notification', false);
     sendMessage('login-spinner');
-    if (isEmptyOrSpaces(data.oldpassword)) {
+    if (isEmptyOrSpaces(data.given_name)) {
       error = true;
-      errorState.oldpassword = 'Cannot be empty';
+      errorState.given_name = 'Cannot be empty';
     }
-    if (isEmptyOrSpaces(data.password)) {
+    if (isEmptyOrSpaces(data.family_name)) {
       error = true;
-      errorState.password = 'Cannot be empty';
-    }
-    if (data.password !== data.repeatpassword) {
-      error = true;
-      errorState.repeatpassword = 'Password does not match';
+      errorState.family_name = 'Cannot be empty';
     }
     if (!error) {
-      console.log('save');
       httpPost(
-        `${baseAuthUrl}/changepassword`,
+        `${baseUserUrl}/updateprofile`,
         {
-          userId: authorization.userId,
-          oldPassword: data.oldpassword,
-          newPassword: data.password,
+          given_name: data.given_name,
+          family_name: data.family_name,
         },
         {
           headers: {
@@ -79,11 +76,10 @@ const ChangePassword = (props: Props) => {
         .then((response: any) => {
           if (response.status === 200) {
             setData({
-              oldpassword: '',
-              password: '',
-              repeatpassword: '',
+              given_name: '',
+              family_name: '',
             });
-            setStage('passwordUpdated');
+            setStage('profileUpdated');
             sendMessage('login-notification', true, {
               type: 'success-main',
               message:
@@ -97,14 +93,10 @@ const ChangePassword = (props: Props) => {
           }
         })
         .catch((error) => {
-          if (error.response.status === 401) {
-            errorState.oldpassword = 'Incorrect password';
-          } else {
-            sendMessage('login-notification', true, {
-              type: 'failure',
-              message: 'Failed to update your password',
-            });
-          }
+          sendMessage('login-notification', true, {
+            type: 'failure',
+            message: 'Failed to update your profile',
+          });
         })
         .finally(() => {
           setErrors(errorState);
@@ -120,7 +112,7 @@ const ChangePassword = (props: Props) => {
   const handleSubmit = (detail: any) => {
     if (stage === 'form') {
       // requestLink(event);
-      changePassword(detail);
+      updateProfile(detail);
     }
   };
 
@@ -137,64 +129,37 @@ const ChangePassword = (props: Props) => {
           <div className="form-changepassword">
             <div>
               <div className="label">
-                {/* {!errors.oldpassword && (
-                  <div className="label-text">Current password</div>
-                )} */}
-                {errors.oldpassword && (
+                {!errors.given_name && (
+                  <div className="label-text">First name</div>
+                )}
+                {errors.given_name && (
                   <div className="error-text">
-                    <Warning />
-                    {errors.oldpassword}
+                    <Warning type="danger" />
+                    {errors.given_name}
                   </div>
                 )}
               </div>
               <OakInput
-                formGroupName="apprealmChangePasswordGroup"
-                name="oldpassword"
-                type="password"
-                placeholder="Type your current password"
-                value={data.oldpassword}
+                name="given_name"
+                value={data.given_name}
                 handleChange={(e) => handleChange(e)}
               />
             </div>
             <div>
               <div className="label">
-                {/* {!errors.password && (
-                  <div className="label-text">New password</div>
-                )} */}
-                {errors.password && (
+                {!errors.family_name && (
+                  <div className="label-text">Last name</div>
+                )}
+                {errors.family_name && (
                   <div className="error-text">
                     <Warning />
-                    {errors.password}
+                    {errors.family_name}
                   </div>
                 )}
               </div>
               <OakInput
-                formGroupName="apprealmChangePasswordGroup"
-                name="password"
-                type="password"
-                placeholder="Make it a good one"
-                value={data.password}
-                handleChange={(e) => handleChange(e)}
-              />
-            </div>
-            <div>
-              <div className="label">
-                {/* {!errors.repeatpassword && (
-                  <div className="label-text">Repeat password</div>
-                )} */}
-                {errors.repeatpassword && (
-                  <div className="error-text">
-                    <Warning />
-                    {errors.repeatpassword}
-                  </div>
-                )}
-              </div>
-              <OakInput
-                formGroupName="apprealmChangePasswordGroup"
-                name="repeatpassword"
-                type="password"
-                placeholder="Don't forget it"
-                value={data.repeatpassword}
+                name="family_name"
+                value={data.family_name}
                 handleChange={(e) => handleChange(e)}
               />
             </div>
@@ -205,9 +170,10 @@ const ChangePassword = (props: Props) => {
             <OakButton
               variant="regular"
               theme="primary"
+              formGroupName="clientrealmUpdateProfileGroup"
               handleClick={handleSubmit}
             >
-              Change Password
+              Save
             </OakButton>
           )}
           {['form'].includes(stage) && <p className="hr">or</p>}
@@ -222,4 +188,4 @@ const ChangePassword = (props: Props) => {
   );
 };
 
-export default ChangePassword;
+export default UpdateProfile;

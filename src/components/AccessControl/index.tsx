@@ -6,7 +6,7 @@ import Member from './Member';
 
 interface Props {
   domainId: string;
-  domainType: 'app' | 'realm';
+  domainType: 'client' | 'realm';
 }
 
 const AccessControl = (props: Props) => {
@@ -77,7 +77,7 @@ const AccessControl = (props: Props) => {
       {showAddUser && <div>add user prompt</div>}
       {!showAddUser && (
         <div>
-          <div className="autocomplete-users app-bottom-2">
+          <div className="autocomplete-users client-bottom-2">
             <OakButton theme="default" handleClick={() => setShowAddUser(true)}>
               Add user
             </OakButton>

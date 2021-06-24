@@ -17,7 +17,7 @@ const Sidebar = () => {
   const [currentPath, setCurrentPath] = useState('');
   const history = useHistory();
   const location = useLocation();
-  const authorization = useSelector((state) => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
 
   const profile = useSelector((state) => state.profile);
 
@@ -39,7 +39,7 @@ const Sidebar = () => {
     switch (linkName) {
       case 'home':
       case 'managerealm':
-      case 'manageapp':
+      case 'manageclient':
         history.push(`/${linkName}`);
         break;
       default:
@@ -69,8 +69,8 @@ const Sidebar = () => {
         </OakNavElement>
         <OakNavElement
           level={1}
-          handleClick={() => handleClick('manageapp')}
-          active={currentPath.startsWith('/manageapp')}
+          handleClick={() => handleClick('manageclient')}
+          active={currentPath.startsWith('/manageclient')}
         >
           Application
         </OakNavElement>

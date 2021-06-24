@@ -35,7 +35,7 @@ interface Props {
 
 const RealmLogin = (props: Props) => {
   const loginType = 'realm';
-  const authorization = useSelector((state) => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
   const [spinner, setSpinner] = useState(false);
@@ -44,7 +44,7 @@ const RealmLogin = (props: Props) => {
     message: '',
   });
 
-  const [appId, setAppId] = useState('');
+  const [clientId, setClientId] = useState('');
   const [queryParam, setQueryParam] = useState<any>();
   const [verificationStep, setVerificationStep] = useState(false);
 
@@ -82,7 +82,7 @@ const RealmLogin = (props: Props) => {
 
   useEffect(() => {
     setVerificationStep(true);
-    let appIdRef = null;
+    let clientIdRef = null;
     if (props.location.search) {
       const query = queryString.parse(props.location.search);
       setQueryParam({ ...query });
@@ -97,18 +97,18 @@ const RealmLogin = (props: Props) => {
       } else {
         setAuthCode('');
       }
-      if (query && query.appId) {
-        setAppId(query.appId);
-        appIdRef = query.appId;
+      if (query && query.clientId) {
+        setClientId(query.clientId);
+        clientIdRef = query.clientId;
       } else {
-        setAppId('');
+        setClientId('');
       }
     }
     const authKey = props.cookies.get(props.realm);
     if (authorization.isAuth || authKey) {
-      if (appIdRef) {
-        redirectToRequestedAppIfTokenIsValid(
-          appIdRef,
+      if (clientIdRef) {
+        redirectToRequestedClientIfTokenIsValid(
+          clientIdRef,
           authKey,
           queryString.parse(props.location.search)
         );
@@ -120,12 +120,12 @@ const RealmLogin = (props: Props) => {
     }
   }, [props.location.search]);
 
-  const redirectToRequestedAppIfTokenIsValid = (
-    appIdRef,
+  const redirectToRequestedClientIfTokenIsValid = (
+    clientIdRef,
     authKey,
     queryString
   ) => {
-    console.log(appIdRef, authKey);
+    console.log(clientIdRef, authKey);
     const baseAuthUrl = `/auth/realm/${props.realm}`;
 
     console.log('***********');
@@ -134,8 +134,8 @@ const RealmLogin = (props: Props) => {
       .then((sessionResponse) => {
         console.log(sessionResponse);
         if (sessionResponse.status === 200) {
-          redirectToRequestedApp(
-            appIdRef,
+          redirectToRequestedClient(
+            clientIdRef,
             authKey,
             sessionResponse.data.token,
             queryString
@@ -152,19 +152,19 @@ const RealmLogin = (props: Props) => {
       });
   };
 
-  const redirectToRequestedApp = (appId, authKey, token, queryString) => {
-    httpGet(`/app/${appId}`, {
+  const redirectToRequestedClient = (clientId, authKey, token, queryString) => {
+    httpGet(`/client/${clientId}`, {
       headers: {
         Authorization: token,
       },
-    }).then((appResponse) => {
+    }).then((clientResponse) => {
       let appendString = '';
       Object.keys(queryString).forEach((key) => {
-        if (!['appId', 'type'].includes(key)) {
+        if (!['clientId', 'type'].includes(key)) {
           appendString += `&${key}=${queryString[key]}`;
         }
       });
-      window.location.href = `${appResponse.data.data.redirect}?authKey=${authKey}&realm=${props.realm}${appendString}`;
+      window.location.href = `${clientResponse.data.data.redirect}?authKey=${authKey}&realm=${props.realm}${appendString}`;
     });
   };
 
@@ -185,7 +185,7 @@ const RealmLogin = (props: Props) => {
           {!verificationStep && type === 'signin' && (
             <div className="wrapper">
               <SigninPage
-                appId={appId}
+                clientId={clientId}
                 switchToSignupPage={() => changeRoute('signup')}
                 switchToResetPage={() => changeRoute('reset')}
                 loginType={loginType}
@@ -234,7 +234,7 @@ const RealmLogin = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: any) => ({
   authorization: state.authorization,
 });
 

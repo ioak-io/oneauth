@@ -4,7 +4,7 @@ import ProfileReducer from './ProfileReducer';
 import UserReducer from './UserReducer';
 import RealmReducer from './RealmReducer';
 import AssetReducer from './AssetReducer';
-import AppReducer from './AppReducer';
+import ClientReducer from './ClientReducer';
 import PermittedRealmReducer from './PermittedRealmReducer';
 import OaRoleReducer from './OaRoleReducer';
 import OaUserReducer from './OaUserReducer';
@@ -15,7 +15,7 @@ export default combineReducers({
   user: UserReducer,
   realm: RealmReducer,
   asset: AssetReducer,
-  app: AppReducer,
+  client: ClientReducer,
   oaUsers: OaUserReducer,
   oaRoles: OaRoleReducer,
   permittedRealm: PermittedRealmReducer,
