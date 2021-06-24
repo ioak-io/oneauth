@@ -25,7 +25,7 @@ interface Props {
   loginType: string;
   authCode: string;
   switchToSigninPage: any;
-  space: string;
+  realm: string;
 }
 
 const ResetPassword = (props: Props) => {
@@ -41,8 +41,8 @@ const ResetPassword = (props: Props) => {
   useEffect(() => {
     if (props.authCode) {
       let baseAuthUrl = `/auth/${props.loginType}`;
-      if (props.space) {
-        baseAuthUrl = `${baseAuthUrl}/${props.space}`;
+      if (props.realm) {
+        baseAuthUrl = `${baseAuthUrl}/${props.realm}`;
       }
       sendMessage('login-spinner');
       httpPost(
@@ -83,8 +83,8 @@ const ResetPassword = (props: Props) => {
   const requestLink = (event) => {
     event.preventDefault();
     let baseAuthUrl = `/auth/${props.loginType}`;
-    if (props.space) {
-      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
+    if (props.realm) {
+      baseAuthUrl = `${baseAuthUrl}/${props.realm}`;
     }
     const errorState = {
       email: '',
@@ -143,8 +143,8 @@ const ResetPassword = (props: Props) => {
     event.preventDefault();
     sendMessage('login-spinner');
     let baseAuthUrl = `/auth/${props.loginType}`;
-    if (props.space) {
-      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
+    if (props.realm) {
+      baseAuthUrl = `${baseAuthUrl}/${props.realm}`;
     }
     const errorState = {
       email: '',

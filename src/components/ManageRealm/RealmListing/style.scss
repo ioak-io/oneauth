@@ -1,0 +1,25 @@
+.realm-listing {
+  margin: 20px 10px;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+.realm-listing__list {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
+}
+.realm-listing__list__item {
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: var(--color-container);
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 250ms ease-in-out;
+  &:hover {
+    background-color: var(--color-container);
+    border-color: var(--color-primary);
+  }
+}

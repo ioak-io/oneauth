@@ -25,7 +25,7 @@ interface Props {
   loginType: string;
   authCode: string;
   switchToSigninPage: any;
-  space: string;
+  realm: string;
 }
 
 const ConfirmEmail = (props: Props) => {
@@ -43,7 +43,7 @@ const ConfirmEmail = (props: Props) => {
       sendMessage('login-spinner');
       httpPost(
         '/auth/verify-email',
-        { space: props.space || 100, code: props.authCode },
+        { realm: props.realm || 100, code: props.authCode },
         null
       )
         .then((response: any) => {
@@ -80,8 +80,8 @@ const ConfirmEmail = (props: Props) => {
   const requestLink = (event) => {
     event.preventDefault();
     let baseAuthUrl = `/auth/${props.loginType}`;
-    if (props.space) {
-      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
+    if (props.realm) {
+      baseAuthUrl = `${baseAuthUrl}/${props.realm}`;
     }
     const errorState = {
       email: '',

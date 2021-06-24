@@ -11,7 +11,7 @@ const ListAssets = (props: Props) => {
   const assetList = useSelector((state) => state.asset);
   return (
     <div className="list-assets">
-      <div className="typography-7 space-bottom-2">
+      <div className="typography-7 realm-bottom-2">
         Choose an asset to proceed
       </div>
       <div className="list-assets--content">

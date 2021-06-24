@@ -23,13 +23,13 @@ const constants = {
   API_KEYS: '/keys',
   API_JWT: '/signin/jwt',
 
-  API_SPACE_CREATE: '/space/create',
-  API_SPACE_FETCH: '/space',
-  API_SPACE_DELETE: '/space/delete',
+  API_REALM_CREATE: '/realm/create',
+  API_REALM_FETCH: '/realm',
+  API_REALM_DELETE: '/realm/delete',
   API_APP_FETCH: '/app',
   API_APP_DELETE: '/app/delete',
   API_ROLE_FETCH: '/role',
-  API_PERMITTED_SPACE: '/permittedspace',
+  API_PERMITTED_REALM: '/permittedrealm',
   API_HEALTHCHECK_HELLO: '/healthcheck/hello',
 };
 

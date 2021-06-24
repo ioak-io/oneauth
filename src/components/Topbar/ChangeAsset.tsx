@@ -8,7 +8,7 @@ import OakLink from '../../oakui/OakLink';
 import './ChangeAsset.scss';
 
 interface Props {
-  space: string;
+  realm: string;
 }
 
 const ChangeAsset = (props: Props) => {
@@ -25,14 +25,14 @@ const ChangeAsset = (props: Props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (props.space && assets) {
+    if (props.realm && assets) {
       setCurrentAsset(
-        assets?.find((item: any) => item.assetId === Number(props.space))
+        assets?.find((item: any) => item.assetId === Number(props.realm))
       );
     } else {
       setCurrentAsset(null);
     }
-  }, [props.space, assets]);
+  }, [props.realm, assets]);
 
   const goToChangeAssetPage = () => {
     history.push('/');

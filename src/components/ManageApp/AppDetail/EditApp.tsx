@@ -31,7 +31,7 @@ const EditApp = (props: Props) => {
     _id: '',
     name: '',
     appId: '',
-    appspaceId: '',
+    apprealmId: '',
     description: '',
     redirect: '',
     jwtpassword: '',
@@ -141,9 +141,9 @@ const EditApp = (props: Props) => {
               disabled
               fill
               formGroupName={formId}
-              value={appData.appspaceId}
-              name="appspaceId"
-              label="Application specific space"
+              value={appData.apprealmId}
+              name="apprealmId"
+              label="Application specific realm"
               type="text"
               minLength={1}
               handleInput={(e: any) => handleInput(e)}
@@ -164,7 +164,7 @@ const EditApp = (props: Props) => {
               Security
             </div>
           </OakTypography>
-          <div className="edit-space__security">
+          <div className="edit-realm__security">
             <OakInput
               formGroupName={formId}
               value={appData.jwtpassword}

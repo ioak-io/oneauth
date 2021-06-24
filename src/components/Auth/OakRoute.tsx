@@ -5,11 +5,11 @@ import { Authorization } from '../Types/GeneralTypes';
 import { httpGet, httpPost } from '../Lib/RestTemplate';
 import { setProfile } from '../../actions/ProfileActions';
 import { sendMessage } from '../../events/MessageService';
-import { fetchSpace } from '../../actions/SpaceActions';
+import { fetchRealm } from '../../actions/RealmActions';
 import fetchUsers from '../../actions/OaUserAction';
 import { fetchRoles } from '../../actions/OaRoleActions';
 import { fetchApp } from '../../actions/AppActions';
-import { fetchPermittedSpace } from '../../actions/PermittedSpaceAction';
+import { fetchPermittedRealm } from '../../actions/PermittedRealmAction';
 
 interface Props {
   path?: string;
@@ -27,17 +27,17 @@ const OakRoute = (props: Props) => {
   const dispatch = useDispatch();
 
   // useEffect(() => {
-  //   console.log(props.match.params.space);
+  //   console.log(props.match.params.realm);
   // }, []);
   // useEffect(() => {
   //   console.log(props.profile.appStatus, props.profile.loginPage);
   //   if (props.profile.appStatus === 'notmounted' && !props.profile.loginPage) {
   //     props.setProfile({
-  //       space: props.match.params.space,
+  //       realm: props.match.params.realm,
   //       appStatus: 'mounted',
   //     });
   //   } else {
-  //     props.setProfile({ space: props.match.params.space });
+  //     props.setProfile({ realm: props.match.params.realm });
   //   }
   //   middlewares(props.middleware);
   // }, []);
@@ -63,18 +63,18 @@ const OakRoute = (props: Props) => {
   };
 
   const runMidleware = (middlewareName: string) => {
-    sendMessage('spaceChange', true, '');
+    sendMessage('realmChange', true, '');
     switch (middlewareName) {
-      case 'readAuthenticationSpace':
-        return readAuthenticationSpace();
-      case 'readAuthenticationAppspace':
-        return readAuthenticationAppspace();
+      case 'readAuthenticationRealm':
+        return readAuthenticationRealm();
+      case 'readAuthenticationApprealm':
+        return readAuthenticationApprealm();
       case 'readAuthenticationOa':
         return readAuthenticationOa();
-      case 'authenticateSpace':
-        return authenticateSpace();
-      case 'authenticateAppspace':
-        return authenticateAppspace();
+      case 'authenticateRealm':
+        return authenticateRealm();
+      case 'authenticateApprealm':
+        return authenticateApprealm();
       case 'authenticateOa':
         return authenticateOa();
       case 'isAdmin':
@@ -87,27 +87,27 @@ const OakRoute = (props: Props) => {
   const authenticateOa = () => {
     return authenticate('oa');
   };
-  const authenticateSpace = () => {
-    return authenticate('space');
+  const authenticateRealm = () => {
+    return authenticate('realm');
   };
-  const authenticateAppspace = () => {
-    return authenticate('appspace');
+  const authenticateApprealm = () => {
+    return authenticate('apprealm');
   };
   const readAuthenticationOa = () => {
     return authenticate('oa', false);
   };
-  const readAuthenticationSpace = () => {
-    return authenticate('space', false);
+  const readAuthenticationRealm = () => {
+    return authenticate('realm', false);
   };
-  const readAuthenticationAppspace = () => {
-    return authenticate('appspace', false);
+  const readAuthenticationApprealm = () => {
+    return authenticate('apprealm', false);
   };
 
   const authenticate = (type: string, redirect = true) => {
-    if (type === 'space') {
-      sendMessage('spaceChange', true, props.match.params.space);
-    } else if (type === 'appspace') {
-      sendMessage('appspaceChange', true, props.match.params.space);
+    if (type === 'realm') {
+      sendMessage('realmChange', true, props.match.params.realm);
+    } else if (type === 'apprealm') {
+      sendMessage('apprealmChange', true, props.match.params.realm);
     }
     if (authorization.isAuth) {
       return true;
@@ -115,22 +115,22 @@ const OakRoute = (props: Props) => {
     let accessToken = props.cookies.get('100-access_token');
     let refreshToken = props.cookies.get('100-refresh_token');
     let cookieKey = '100';
-    if (type === 'space') {
+    if (type === 'realm') {
       accessToken = props.cookies.get(
-        `${props.match.params.space}-access_token`
+        `${props.match.params.realm}-access_token`
       );
       refreshToken = props.cookies.get(
-        `${props.match.params.space}-refresh_token`
+        `${props.match.params.realm}-refresh_token`
       );
-      cookieKey = props.match.params.space;
-    } else if (type === 'appspace') {
+      cookieKey = props.match.params.realm;
+    } else if (type === 'apprealm') {
       accessToken = props.cookies.get(
-        `${props.match.params.appspace}-access_token`
+        `${props.match.params.apprealm}-access_token`
       );
       refreshToken = props.cookies.get(
-        `${props.match.params.appspace}-refresh_token`
+        `${props.match.params.apprealm}-refresh_token`
       );
-      cookieKey = props.match.params.appspace;
+      cookieKey = props.match.params.apprealm;
     }
     if (accessToken) {
       interpretAccessToken(
@@ -178,11 +178,11 @@ const OakRoute = (props: Props) => {
             })
           );
           if (type === 'oa') {
-            // dispatch(fetchSpace());
+            // dispatch(fetchRealm());
             // dispatch(fetchUsers(sessionResponse.data));
             // dispatch(fetchRoles(sessionResponse.data));
             // dispatch(fetchApp(sessionResponse.data));
-            // dispatch(fetchPermittedSpace(sessionResponse.data));
+            // dispatch(fetchPermittedRealm(sessionResponse.data));
           }
           // dispatch(setProfile({ ...profile, appStatus: 'authenticated' }));
         } else {
@@ -196,7 +196,7 @@ const OakRoute = (props: Props) => {
             '/auth/token',
             {
               grant_type: 'refresh_token',
-              space: cookieKey,
+              realm: cookieKey,
               refresh_token: refreshToken,
             },
             {
@@ -244,11 +244,11 @@ const OakRoute = (props: Props) => {
 
   const redirectHandler = (type: string) => {
     switch (type) {
-      case 'space':
-        redirectToSpaceLogin(props.match.params.space);
+      case 'realm':
+        redirectToRealmLogin(props.match.params.realm);
         break;
-      case 'appspace':
-        redirectToAppspaceLogin(props.match.params.appspace);
+      case 'apprealm':
+        redirectToApprealmLogin(props.match.params.apprealm);
         break;
       default:
         redirectToOaLogin();
@@ -265,18 +265,18 @@ const OakRoute = (props: Props) => {
     props.history.push(`/login`);
   };
 
-  const redirectToSpaceLogin = (spaceId: string) => {
-    // window.location.href = `http://localhost:3010/#/space/${spaceId}/login`;
-    props.history.push(`/space/${spaceId}/login`);
+  const redirectToRealmLogin = (realmId: string) => {
+    // window.location.href = `http://localhost:3010/#/realm/${realmId}/login`;
+    props.history.push(`/realm/${realmId}/login`);
   };
 
-  const redirectToAppspaceLogin = (appspaceId: string) => {
-    // window.location.href = `http://localhost:3010/#/appspace/${appspaceId}/login`;
-    props.history.push(`/appspace/${appspaceId}/login`);
+  const redirectToApprealmLogin = (apprealmId: string) => {
+    // window.location.href = `http://localhost:3010/#/apprealm/${apprealmId}/login`;
+    props.history.push(`/apprealm/${apprealmId}/login`);
   };
 
   const redirectToUnauthorized = () => {
-    props.history.push(`/${profile.space}/unauthorized`);
+    props.history.push(`/${profile.realm}/unauthorized`);
   };
 
   return (
@@ -285,8 +285,8 @@ const OakRoute = (props: Props) => {
         <props.component
           {...props}
           profile={profile}
-          space={props.match.params.space}
-          appspace={props.match.params.appspace}
+          realm={props.match.params.realm}
+          apprealm={props.match.params.apprealm}
           // getProfile={getProfile}
           // setProfile={props.setProfile}
         />

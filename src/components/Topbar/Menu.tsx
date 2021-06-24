@@ -15,7 +15,7 @@ const Menu = () => {
 
   return (
     <div className={`menu-bar ${profile.theme}`}>
-      <NavLink to="/managespace" className="navitem" activeClassName="active">
+      <NavLink to="/managerealm" className="navitem" activeClassName="active">
         Realm
       </NavLink>
       <NavLink to="/manageapp" className="navitem" activeClassName="active">

@@ -40,7 +40,7 @@ const OakPrompt = (props: Props) => {
       noheader
     >
       <div slot="body">
-        <div className="modal-body typography-8 space-top-4 space-bottom-4 confirmation-text">
+        <div className="modal-body typography-8 realm-top-4 realm-bottom-4 confirmation-text">
           {props.text ? props.text : 'Are you sure you want to continue?'}
         </div>
       </div>

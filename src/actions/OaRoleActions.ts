@@ -2,7 +2,7 @@ import { httpGet, httpPut, httpDelete } from '../components/Lib/RestTemplate';
 import constants from '../components/Constants';
 import { UPDATE_ROLE } from './types';
 import { sendMessage } from '../events/MessageService';
-import { fetchSpace } from './SpaceActions';
+import { fetchRealm } from './RealmActions';
 
 const domain = 'role';
 
@@ -52,7 +52,7 @@ export const deleteRoles =
         if (response.status === 200) {
           sendMessage(domain, true, { action: 'deleted' });
           dispatch(fetchRoles(authorization));
-          dispatch(fetchSpace());
+          dispatch(fetchRealm());
         }
       })
       .catch((error) => {

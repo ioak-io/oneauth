@@ -11,12 +11,12 @@ interface Props {
 
 const TopbarContainer = (props: Props) => {
   const profile = useSelector((state) => state.profile);
-  const [space, setSpace] = useState('');
+  const [realm, setRealm] = useState('');
 
   useEffect(() => {
     receiveMessage().subscribe((event: any) => {
-      if (event.name === 'spaceChange') {
-        setSpace(event.data);
+      if (event.name === 'realmChange') {
+        setRealm(event.data);
       }
     });
   }, []);
@@ -28,7 +28,7 @@ const TopbarContainer = (props: Props) => {
       }`}
     >
       <Topbar
-        space={space}
+        realm={realm}
         cookies={props.cookies}
         hideSidebarOnDesktop={profile.hideSidebarOnDesktop}
       />

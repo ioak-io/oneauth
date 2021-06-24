@@ -3,7 +3,7 @@ import { connect, useSelector, useDispatch } from 'react-redux';
 import { addAuth } from '../../actions/AuthActions';
 import { httpGet, httpPost, httpPut } from '../Lib/RestTemplate';
 
-export function fetchSpace() {
+export function fetchRealm() {
   return httpGet(
     `/space/introspect`,
     null,

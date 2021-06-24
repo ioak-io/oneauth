@@ -3,11 +3,11 @@ import { connect, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { Settings } from '@material-ui/icons';
 import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
-import { fetchSpace } from '../../actions/SpaceActions';
+import { fetchRealm } from '../../actions/RealmActions';
 import { fetchApp } from '../../actions/AppActions';
 import fetchUsers from '../../actions/OaUserAction';
 import { fetchRoles } from '../../actions/OaRoleActions';
-import { fetchPermittedSpace } from '../../actions/PermittedSpaceAction';
+import { fetchPermittedRealm } from '../../actions/PermittedRealmAction';
 import './OaLogin.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage, receiveMessage } from '../../events/MessageService';
@@ -27,9 +27,9 @@ const queryString = require('query-string');
 interface Props {
   fetchRoles: Function;
   fetchUsers: Function;
-  fetchSpace: Function;
+  fetchRealm: Function;
   fetchApp: Function;
-  fetchPermittedSpace: Function;
+  fetchPermittedRealm: Function;
   setProfile: Function;
   getAuth: Function;
   addAuth: Function;
@@ -191,20 +191,20 @@ const Login = (props: Props) => {
 
 const mapStateToProps = (state) => ({
   authorization: state.authorization,
-  fetchSpace: state.fetchSpace,
+  fetchRealm: state.fetchRealm,
   fetchUsers: state.fetchUsers,
   existingAdmins: state.fetchRoles,
   fetchApp: state.fetchApp,
-  fetchPermittedSpace: state.fetchPermittedSpace,
+  fetchPermittedRealm: state.fetchPermittedRealm,
 });
 
 export default connect(mapStateToProps, {
   getAuth,
   addAuth,
   removeAuth,
-  fetchSpace,
+  fetchRealm,
   fetchUsers,
   fetchRoles,
   fetchApp,
-  fetchPermittedSpace,
+  fetchPermittedRealm,
 })(withCookies(Login));

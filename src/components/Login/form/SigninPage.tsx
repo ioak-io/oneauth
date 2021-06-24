@@ -26,7 +26,7 @@ interface Props {
   switchToSignupPage: any;
   switchToResetPage: any;
   loginType: string;
-  space: string;
+  realm: string;
   queryParam: any;
 }
 
@@ -73,20 +73,20 @@ const SigninPage = (props: Props) => {
       params.append('email', data.email);
       params.append('password', data.password);
       params.append('response_type', 'token');
-      params.append('space', props.space || '100');
+      params.append('realm', props.realm || '100');
 
       httpPost('/auth/authorize', params, {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       })
         .then((authorizeResponse: any) => {
           if (authorizeResponse.status === 200) {
-            if (props.space) {
+            if (props.realm) {
               props.cookies.set(
-                `${props.space}-access_token`,
+                `${props.realm}-access_token`,
                 authorizeResponse.data.access_token
               );
               props.cookies.set(
-                `${props.space}-refresh_token`,
+                `${props.realm}-refresh_token`,
                 authorizeResponse.data.refresh_token
               );
             } else {
@@ -99,7 +99,7 @@ const SigninPage = (props: Props) => {
                 authorizeResponse.data.refresh_token
               );
             }
-            if (props.space && props.appId) {
+            if (props.realm && props.appId) {
               redirectToRequestedApp(
                 authorizeResponse.data.access_token,
                 authorizeResponse.data.refresh_token
@@ -141,8 +141,8 @@ const SigninPage = (props: Props) => {
   //     )
   //       .then((sessionResponse) => {
   //         if (sessionResponse.status === 200) {
-  //           if (props.space && props.appId) {
-  //             props.cookies.set(props.space, authorizeResponse.data.sessionId);
+  //           if (props.realm && props.appId) {
+  //             props.cookies.set(props.realm, authorizeResponse.data.sessionId);
   //             redirectToRequestedApp(authorizeResponse, sessionResponse);
   //           } else {
   //             success(authorizeResponse, sessionResponse);
@@ -182,7 +182,7 @@ const SigninPage = (props: Props) => {
           appendString += `&${key}=${props.queryParam[key]}`;
         }
       });
-      window.location.href = `${appResponse.data.data.redirect}?access_token=${access_token}&refresh_token=${refresh_token}&space=${props.space}${appendString}`;
+      window.location.href = `${appResponse.data.data.redirect}?access_token=${access_token}&refresh_token=${refresh_token}&realm=${props.realm}${appendString}`;
     });
   };
 
@@ -192,10 +192,10 @@ const SigninPage = (props: Props) => {
 
   const success = (access_token: string, refresh_token: string) => {
     sendMessage('loggedin', true);
-    if (props.space) {
-      props.history.push(`/${props.loginType}/${props.space}/home`);
+    if (props.realm) {
+      props.history.push(`/${props.loginType}/${props.realm}/home`);
     } else {
-      // dispatch(fetchSpace(data));
+      // dispatch(fetchRealm(data));
       // dispatch(fetchApp(data));
       // dispatch(fetchUsers(data));
       // dispatch(fetchRoles(data));
@@ -205,13 +205,13 @@ const SigninPage = (props: Props) => {
 
   const resendActivationLink = () => {
     let baseAuthUrl = `/auth/${props.loginType}`;
-    if (props.space) {
-      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
+    if (props.realm) {
+      baseAuthUrl = `${baseAuthUrl}/${props.realm}`;
     }
     httpPost(
       '/auth/send-verify-email',
       {
-        space: props.space || 100,
+        realm: props.realm || 100,
         email: data.email.trim().toLowerCase(),
       },
       null
@@ -223,8 +223,8 @@ const SigninPage = (props: Props) => {
     if (facebookProfile?.access_token) {
       sendMessage('spinner');
       let baseAuthUrl = `/auth/${props.loginType}`;
-      if (props.space) {
-        baseAuthUrl = `${baseAuthUrl}/${props.space}`;
+      if (props.realm) {
+        baseAuthUrl = `${baseAuthUrl}/${props.realm}`;
       }
       httpPost(
         `${baseAuthUrl}/authorize/facebook`,
@@ -248,8 +248,8 @@ const SigninPage = (props: Props) => {
   const onGoogleSignIn = (googleProfile) => {
     if (googleProfile?.tokenId) {
       let baseAuthUrl = `/auth/${props.loginType}`;
-      if (props.space) {
-        baseAuthUrl = `${baseAuthUrl}/${props.space}`;
+      if (props.realm) {
+        baseAuthUrl = `${baseAuthUrl}/${props.realm}`;
       }
       sendMessage('notification', false);
       sendMessage('spinner');
@@ -345,7 +345,7 @@ const SigninPage = (props: Props) => {
             </div>
           </div>
         </div>
-        <div className="space-top-3 social-signin">
+        <div className="realm-top-3 social-signin">
           <div className="social-signin-container">
             <div className="social-google">
               <GoogleLogin

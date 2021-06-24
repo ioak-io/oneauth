@@ -8,7 +8,7 @@ import './style.scss';
 import { withCookies } from 'react-cookie';
 
 import Notification from '../Notification';
-import { fetchAllSpaces } from '../../actions/SpaceActions';
+import { fetchAllRealms } from '../../actions/RealmActions';
 import Init from './Init';
 import { fetchAllAssets } from '../../actions/AssetActions';
 import TopbarContainer from './TopbarContainer';

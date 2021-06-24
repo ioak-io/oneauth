@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import OakButton from '../../oakui/wc/OakButton';
 
 interface Props {
-  space: string;
+  realm: string;
   handleClose: any;
 }
 
@@ -13,7 +13,7 @@ const DropLinks = (props: Props) => {
   return (
     <div className="drop-links">
       <NavLink
-        to={`/${props.space}/home`}
+        to={`/${props.realm}/home`}
         className="navitem"
         activeClassName="active"
         onClick={props.handleClose}
@@ -21,7 +21,7 @@ const DropLinks = (props: Props) => {
         Home
       </NavLink>
       <NavLink
-        to={`/${props.space}/project`}
+        to={`/${props.realm}/project`}
         className="navitem"
         activeClassName="active"
         onClick={props.handleClose}
@@ -29,7 +29,7 @@ const DropLinks = (props: Props) => {
         Projects
       </NavLink>
       <NavLink
-        to={`/${props.space}/template`}
+        to={`/${props.realm}/template`}
         className="navitem"
         activeClassName="active"
         onClick={props.handleClose}

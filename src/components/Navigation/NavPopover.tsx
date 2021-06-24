@@ -8,7 +8,7 @@ import './NavPopover.scss';
 import DropLinks from './DropLinks';
 
 interface Props {
-  space: string;
+  realm: string;
   handleClose: any;
   logout: Function;
   login: Function;
@@ -30,7 +30,7 @@ const NavPopover = (props: Props) => {
         )}
       </div> */}
       <div className="nav-content">
-        <DropLinks space={props.space} handleClose={props.handleClose} />
+        <DropLinks realm={props.realm} handleClose={props.handleClose} />
       </div>
       <div className="midline" />
       <div className="nav-resources">support resources</div>

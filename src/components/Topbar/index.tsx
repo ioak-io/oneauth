@@ -12,7 +12,7 @@ import Menu from './Menu';
 import ChangeAsset from './ChangeAsset';
 
 interface Props {
-  space: string;
+  realm: string;
   cookies: any;
   //   location: any;
   //   match: any;

@@ -16,7 +16,7 @@ const Landing = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
 
   const goToLogin = () => {
-    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/appspace/${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}`;
+    window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/apprealm/${process.env.REACT_APP_ONEAUTH_APPREALM_ID}/login?type=signin&appId=${process.env.REACT_APP_ONEAUTH_APP_ID}`;
   };
 
   return (

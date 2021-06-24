@@ -12,7 +12,7 @@ interface Props {
 const BodyContainer = (props: Props) => {
   const authorization = useSelector((state) => state.authorization);
   const profile = useSelector((state) => state.profile);
-  const [space, setSpace] = useState('');
+  const [realm, setRealm] = useState('');
   const dispatch = useDispatch();
 
   return (

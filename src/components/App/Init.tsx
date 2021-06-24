@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import { fetchAllSpaces } from '../../actions/SpaceActions';
+import { fetchAllRealms } from '../../actions/RealmActions';
 import { setProfile } from '../../actions/ProfileActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 import { fetchAllApps } from '../../actions/AppActions';
@@ -17,7 +17,7 @@ const Init = (props: Props) => {
   const profile = useSelector((state: any) => state.profile);
   const [previousAuthorizationState, setPreviousAuthorizationState] =
     useState<any>();
-  const [space, setSpace] = useState<string>();
+  const [realm, setRealm] = useState<string>();
   const dispatch = useDispatch();
   useEffect(() => {
     console.log(authorization);
@@ -36,10 +36,10 @@ const Init = (props: Props) => {
 
   useEffect(() => {
     receiveMessage().subscribe((event: any) => {
-      if (event.name === 'spaceChange') {
-        setSpace(event.data);
+      if (event.name === 'realmChange') {
+        setRealm(event.data);
       }
-      if (event.name === 'spaceChange' && authorization.isAuth) {
+      if (event.name === 'realmChange' && authorization.isAuth) {
         initialize();
       }
       if (event.name === 'access_token_expired') {
@@ -71,7 +71,7 @@ const Init = (props: Props) => {
 
   const initialize = () => {
     console.log('Initialization logic here');
-    dispatch(fetchAllSpaces());
+    dispatch(fetchAllRealms());
     dispatch(fetchAllApps());
   };
   const initializeHttpInterceptor = () => {
@@ -92,7 +92,7 @@ const Init = (props: Props) => {
           {
             refresh_token: authorization.refresh_token,
             grant_type: 'refresh_token',
-            space: space || 100,
+            realm: realm || 100,
           },
           null
         )
@@ -101,7 +101,7 @@ const Init = (props: Props) => {
               axiosInstance.defaults.headers.authorization =
                 response.data.access_token;
               props.cookies.set(
-                `${space || 100}-access_token`,
+                `${realm || 100}-access_token`,
                 response.data.access_token
               );
               dispatch(

@@ -8,13 +8,13 @@ import Landing from '../Landing';
 import OakRoute from '../Auth/OakRoute';
 import Unauthorized from '../Auth/Unauthorized';
 import PlayToolbar from '../PlayToolbar';
-import SpaceLogin from '../Login/SpaceLogin';
-import SpaceHome from '../SpaceHome';
-import SpaceListing from '../ManageSpace/SpaceListing';
+import RealmLogin from '../Login/RealmLogin';
+import RealmHome from '../RealmHome';
+import RealmListing from '../ManageRealm/RealmListing';
 import AppListing from '../ManageApp/AppListing';
-import AppspaceHome from '../AppspaceHome';
-import AppspaceLogin from '../Login/AppspaceLogin';
-import SpaceDetail from '../ManageSpace/SpaceDetail';
+import ApprealmHome from '../ApprealmHome';
+import ApprealmLogin from '../Login/ApprealmLogin';
+import RealmDetail from '../ManageRealm/RealmDetail';
 import AppDetail from '../ManageApp/AppDetail';
 import AccessControl from '../AccessControl';
 import Member from '../AccessControl/Member';
@@ -57,39 +57,39 @@ const RouterView = (props: Props) => {
           />
         )}
       />
-      {/* Space based routes */}
+      {/* Realm based routes */}
       <Route
-        path="/space/:space/login"
+        path="/realm/:realm/login"
         render={(propsLocal: any) => (
-          <OakRoute {...propsLocal} {...props} component={SpaceLogin} />
+          <OakRoute {...propsLocal} {...props} component={RealmLogin} />
         )}
       />
       <Route
         exact
-        path="/space/:space/home"
+        path="/realm/:realm/home"
         render={(propsLocal: any) => (
           <OakRoute
             {...propsLocal}
             {...props}
-            component={SpaceHome}
-            middleware={['readAuthenticationSpace']}
+            component={RealmHome}
+            middleware={['readAuthenticationRealm']}
           />
         )}
       />
       <Route
         exact
-        path="/space/:space"
+        path="/realm/:realm"
         render={(propsLocal: any) => (
           <OakRoute
             {...propsLocal}
             {...props}
-            component={SpaceHome}
-            middleware={['readAuthenticationSpace']}
+            component={RealmHome}
+            middleware={['readAuthenticationRealm']}
           />
         )}
       />
       <Route
-        path="/space/:space/unauthorized"
+        path="/realm/:realm/unauthorized"
         render={(propsLocal) => (
           <OakRoute
             {...propsLocal}
@@ -100,25 +100,25 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
-        path="/managespace"
+        path="/managerealm"
         exact
         render={(propsLocal) => (
           <OakRoute
             {...propsLocal}
             {...props}
-            component={SpaceListing}
+            component={RealmListing}
             middleware={['authenticateOa']}
           />
         )}
       />
       <Route
-        path="/managespace/:id"
+        path="/managerealm/:id"
         exact
         render={(propsLocal) => (
           <OakRoute
             {...propsLocal}
             {...props}
-            component={SpaceDetail}
+            component={RealmDetail}
             middleware={['authenticateOa']}
           />
         )}
@@ -161,40 +161,40 @@ const RouterView = (props: Props) => {
         )}
       />
 
-      {/* Appspace based routes */}
+      {/* Apprealm based routes */}
       <Route
-        path="/appspace/:appspace/login"
+        path="/apprealm/:apprealm/login"
         render={(propsLocal: any) => (
           <OakRoute
             {...propsLocal}
             {...props}
             // logout={() => logout}
-            component={AppspaceLogin}
+            component={ApprealmLogin}
           />
         )}
       />
       <Route
         exact
-        path="/appspace/:appspace/home"
+        path="/apprealm/:apprealm/home"
         render={(propsLocal: any) => (
           <OakRoute
             {...propsLocal}
             {...props}
             //  logout={() => logout}
-            component={AppspaceHome}
-            middleware={['readAuthenticationAppspace']}
+            component={ApprealmHome}
+            middleware={['readAuthenticationApprealm']}
           />
         )}
       />
       <Route
         exact
-        path="/appspace/:appspace"
+        path="/apprealm/:apprealm"
         render={(propsLocal: any) => (
           <OakRoute
             {...propsLocal}
             {...props}
-            component={AppspaceHome}
-            middleware={['readAuthenticationAppspace']}
+            component={ApprealmHome}
+            middleware={['readAuthenticationApprealm']}
           />
         )}
       />

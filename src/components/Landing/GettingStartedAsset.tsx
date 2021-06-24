@@ -57,7 +57,7 @@ const GettingStartedAsset = (props: Props) => {
     <div className="getting-started">
       {!showCreate && (
         <div>
-          <div className="getting-started--steps space-top-2">
+          <div className="getting-started--steps realm-top-2">
             <div className="typography-7">
               Are you new and need to get started?
             </div>

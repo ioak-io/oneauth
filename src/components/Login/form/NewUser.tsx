@@ -24,7 +24,7 @@ interface Props {
   authorization: Authorization;
   switchToSigninPage: any;
   loginType: string;
-  space: string;
+  realm: string;
 }
 
 const NewUser = (props: Props) => {
@@ -95,7 +95,7 @@ const NewUser = (props: Props) => {
           family_name: data.family_name.trim(),
           email: data.email.trim().toLowerCase(),
           password: data.password,
-          space: props.space || 100,
+          realm: props.realm || 100,
         },
         null
       )

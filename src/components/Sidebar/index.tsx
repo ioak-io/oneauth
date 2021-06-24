@@ -13,7 +13,7 @@ import OakNavGroup from '../../oakui/wc/OakNavGroup';
 import OakNavElement from '../../oakui/wc/OakNavElement';
 
 const Sidebar = () => {
-  const [space, setSpace] = useState('');
+  const [realm, setRealm] = useState('');
   const [currentPath, setCurrentPath] = useState('');
   const history = useHistory();
   const location = useLocation();
@@ -25,8 +25,8 @@ const Sidebar = () => {
 
   useEffect(() => {
     receiveMessage().subscribe((event: any) => {
-      if (event.name === 'spaceChange') {
-        setSpace(event.data);
+      if (event.name === 'realmChange') {
+        setRealm(event.data);
       }
     });
   }, []);
@@ -38,7 +38,7 @@ const Sidebar = () => {
   const handleClick = (linkName: string) => {
     switch (linkName) {
       case 'home':
-      case 'managespace':
+      case 'managerealm':
       case 'manageapp':
         history.push(`/${linkName}`);
         break;
@@ -62,10 +62,10 @@ const Sidebar = () => {
         </OakNavElement>
         <OakNavElement
           level={1}
-          handleClick={() => handleClick('managespace')}
-          active={currentPath.startsWith('/managespace')}
+          handleClick={() => handleClick('managerealm')}
+          active={currentPath.startsWith('/managerealm')}
         >
-          Space
+          Realm
         </OakNavElement>
         <OakNavElement
           level={1}
@@ -76,7 +76,7 @@ const Sidebar = () => {
         </OakNavElement>
       </div>
       {/* <div className="sidebar--nav mobile-only">
-        <NavElements space={space} closeAfterRouteChange />
+        <NavElements realm={realm} closeAfterRouteChange />
       </div> */}
     </div>
   );

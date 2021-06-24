@@ -47,13 +47,13 @@
 }
 
 .list-assets,
-.list-spaces {
+.list-realms {
   display: grid;
   padding: 20px 20px;
   align-content: center;
   grid-template-rows: auto auto;
   .list-assets--content,
-  .list-spaces--content {
+  .list-realms--content {
     display: grid;
     grid-auto-flow: row;
     row-gap: 20px;

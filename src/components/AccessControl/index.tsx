@@ -6,7 +6,7 @@ import Member from './Member';
 
 interface Props {
   domainId: string;
-  domainType: 'app' | 'space';
+  domainType: 'app' | 'realm';
 }
 
 const AccessControl = (props: Props) => {
@@ -83,7 +83,7 @@ const AccessControl = (props: Props) => {
             </OakButton>
           </div>
           <div
-            className="space-view space-top-2 space-bottom-4"
+            className="realm-view realm-top-2 realm-bottom-4"
             key={oaUsers._id}
           >
             {roleMap &&
