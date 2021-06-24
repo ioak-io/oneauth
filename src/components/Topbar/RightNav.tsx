@@ -18,7 +18,7 @@ interface Props {
 }
 
 const RightNav = (props: Props) => {
-  const authorization = useSelector((state) => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
   const dispatch = useDispatch();
   const history = useHistory();
 

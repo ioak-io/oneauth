@@ -8,6 +8,7 @@ import './style.scss';
 import RightNav from './RightNav';
 import ExpandIcon from './ExpandIcon';
 import Logo from '../Logo';
+import Menu from './Menu';
 import ChangeAsset from './ChangeAsset';
 
 interface Props {
@@ -19,9 +20,9 @@ interface Props {
 }
 
 const Topbar = (props: Props) => {
-  const authorization = useSelector((state) => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
 
-  const profile = useSelector((state) => state.profile);
+  const profile = useSelector((state: any) => state.profile);
 
   const dispatch = useDispatch();
 
@@ -33,6 +34,7 @@ const Topbar = (props: Props) => {
     <div className="topbar">
       <div className="topbar--left">
         <Logo />
+        <Menu />
       </div>
       <div className="topbar--right">
         <RightNav cookies={props.cookies} />

@@ -80,15 +80,11 @@ const Content = (props: Props) => {
 
         <OakAppLayout
           topbarVariant={loginPage ? 'none' : 'static'}
-          sidebarVariant={loginPage ? 'none' : 'side'}
+          sidebarVariant="none"
           sidebarColor="container"
           topbarColor="custom"
           topbarElevation={0}
-          sidebarElevation={6}
         >
-          <div slot="sidebar">
-            <SidebarContainer />
-          </div>
           <div slot="topbar">
             <TopbarContainer cookies={props.cookies} />
           </div>
