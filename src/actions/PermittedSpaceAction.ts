@@ -5,12 +5,12 @@ import { sendMessage } from '../events/MessageService';
 
 const domain = 'permittedspace';
 
-export const fetchPermittedSpace = authorization => dispatch => {
+export const fetchPermittedSpace = (authorization) => (dispatch) => {
   httpGet(`${constants.API_PERMITTED_SPACE}/`, {
     headers: {
-      Authorization: authorization.token,
+      Authorization: authorization.access_token,
     },
-  }).then(response => {
+  }).then((response) => {
     dispatch({
       type: UPDATE_PERMITTED_SPACE,
       payload: { data: response.data.data },
@@ -18,44 +18,41 @@ export const fetchPermittedSpace = authorization => dispatch => {
   });
 };
 
-export const updatePermittedSpace = (authorization, payload) => dispatch => {
+export const updatePermittedSpace = (authorization, payload) => (dispatch) => {
   return httpPut(`${constants.API_PERMITTED_SPACE}/`, payload, {
     headers: {
-      Authorization: authorization.token,
+      Authorization: authorization.access_token,
     },
   })
-    .then(response => {
+    .then((response) => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'updated' });
         dispatch(fetchPermittedSpace(authorization));
       }
     })
-    .catch(error => {
+    .catch((error) => {
       if (error.response.status === 401) {
         sendMessage('session expired');
       }
     });
 };
 
-export const deletePermittedSpace = (
-  authorization,
-  spaceId,
-  appId
-) => dispatch => {
-  httpDelete(`${constants.API_PERMITTED_SPACE}/${spaceId}/${appId}`, {
-    headers: {
-      Authorization: authorization.token,
-    },
-  })
-    .then(response => {
-      if (response.status === 200) {
-        sendMessage(domain, true, { action: 'deleted' });
-        dispatch(fetchPermittedSpace(authorization));
-      }
+export const deletePermittedSpace =
+  (authorization, spaceId, appId) => (dispatch) => {
+    httpDelete(`${constants.API_PERMITTED_SPACE}/${spaceId}/${appId}`, {
+      headers: {
+        Authorization: authorization.access_token,
+      },
     })
-    .catch(error => {
-      if (error.response.status === 401) {
-        sendMessage('session expired');
-      }
-    });
-};
+      .then((response) => {
+        if (response.status === 200) {
+          sendMessage(domain, true, { action: 'deleted' });
+          dispatch(fetchPermittedSpace(authorization));
+        }
+      })
+      .catch((error) => {
+        if (error.response.status === 401) {
+          sendMessage('session expired');
+        }
+      });
+  };

@@ -4,8 +4,8 @@ import './styles/oak-avatar.scss';
 interface Props {
   showName?: boolean;
   size?: string;
-  firstName?: string;
-  lastName?: string;
+  given_name?: string;
+  family_name?: string;
 }
 const OakAvatar = (props: Props) => {
   return (
@@ -18,12 +18,12 @@ const OakAvatar = (props: Props) => {
       <div
         className={`${props.size ? props.size : ''} avatar-icon typography-6`}
       >
-        {`${props.firstName?.substring(0, 1)}${props.lastName?.substring(
+        {`${props.given_name?.substring(0, 1)}${props.family_name?.substring(
           0,
           1
         )}`}
       </div>
-      {props.showName && <div className="avatar-name">{props.firstName}</div>}
+      {props.showName && <div className="avatar-name">{props.given_name}</div>}
     </div>
   );
 };

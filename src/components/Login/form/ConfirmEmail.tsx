@@ -40,14 +40,10 @@ const ConfirmEmail = (props: Props) => {
   //   const [] = useState('');
   useEffect(() => {
     if (props.authCode) {
-      let baseAuthUrl = `/auth/${props.loginType}`;
-      if (props.space) {
-        baseAuthUrl = `${baseAuthUrl}/${props.space}`;
-      }
       sendMessage('login-spinner');
       httpPost(
-        `${baseAuthUrl}/verifyemailconfirmationlink/${props.authCode}`,
-        null,
+        '/auth/verify-email',
+        { space: props.space || 100, code: props.authCode },
         null
       )
         .then((response: any) => {

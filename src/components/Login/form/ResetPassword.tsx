@@ -46,14 +46,14 @@ const ResetPassword = (props: Props) => {
       }
       sendMessage('login-spinner');
       httpPost(
-        `${baseAuthUrl}/verifypasswordlink/${props.authCode}`,
+        `${baseAuthUrl}/reset/${props.authCode}/verify`,
         {
           password: data.password,
         },
         null
       )
         .then((response: any) => {
-          if (response.status === 200) {
+          if (response.status === 200 && response.data.outcome) {
             setStage('setPassword');
           } else {
             setStage('invalidLink');
@@ -107,7 +107,7 @@ const ResetPassword = (props: Props) => {
     }
     if (!error) {
       httpPost(
-        `${baseAuthUrl}/resetpasswordlink`,
+        `${baseAuthUrl}/reset`,
         {
           email: data.email.trim().toLowerCase(),
         },
@@ -160,22 +160,29 @@ const ResetPassword = (props: Props) => {
       error = true;
       errorState.repeatpassword = 'Password does not match';
     }
+    console.log(error, errorState);
     setErrors(errorState);
     if (!error) {
       httpPost(
-        `${baseAuthUrl}/resetpassword/${props.authCode}`,
+        `${baseAuthUrl}/reset/${props.authCode}/setpassword`,
         {
           password: data.password,
         },
         null
       )
         .then((response: any) => {
-          if (response.status === 200) {
+          if (response.status === 200 && response.data.outcome) {
             setStage('passwordUpdated');
             sendMessage('login-notification', true, {
               type: 'success-main',
               message:
                 'Password has been updated. You can login with your new password now',
+            });
+          } else {
+            setStage('invalidLink');
+            sendMessage('login-notification', true, {
+              type: 'failure-main',
+              message: 'Password reset link you have entered is invalid',
             });
           }
         })
@@ -185,8 +192,8 @@ const ResetPassword = (props: Props) => {
     }
   };
 
-  const handleChange = (event) => {
-    setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
+  const handleChange = (detail: any) => {
+    setData({ ...data, [detail.name]: detail.value });
   };
 
   const handleSubmit = (event) => {

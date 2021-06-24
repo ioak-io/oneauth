@@ -21,7 +21,7 @@ export const addUser = (data) => (dispatch) => {
 export const fetchAllUsers = (tenant, authorization) => (dispatch) => {
   httpGet(`${constants.API_URL_USER}/${tenant}/all`, {
     headers: {
-      Authorization: authorization.token,
+      Authorization: authorization.access_token,
     },
   }).then((response) => {
     dispatch({
@@ -34,7 +34,7 @@ export const fetchAllUsers = (tenant, authorization) => (dispatch) => {
 export const saveUser = (tenant, authorization, payload) => (dispatch) => {
   httpPut(`${constants.API_URL_USER}/${tenant}/`, payload, {
     headers: {
-      Authorization: authorization.token,
+      Authorization: authorization.access_token,
     },
   })
     .then((response) => {

@@ -1,7 +1,7 @@
 export interface Authorization {
   isAuth: boolean;
-  firstname?: string;
-  lastname?: string;
+  given_name?: string;
+  family_name?: string;
   token?: string;
   tenant?: string;
 }

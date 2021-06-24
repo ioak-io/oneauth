@@ -7,7 +7,7 @@ const initialState = {
 export default function SpaceReducer(state = initialState, action: any) {
   switch (action.type) {
     case REFRESH_SPACES:
-      console.log('GET_AUTH reducer');
+      console.log('REFRESH_SPACES reducer');
       return {
         ...state,
         ...action.payload,

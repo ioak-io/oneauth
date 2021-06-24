@@ -28,9 +28,10 @@ const RightNav = (props: Props) => {
     message = 'You have been logged out'
   ) => {
     dispatch(removeAuth());
-    props.cookies.remove(
-      `oneauth_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`
-    );
+    // props.cookies.remove(
+    //   `oneauth_${process.env.REACT_APP_ONEAUTH_APPSPACE_ID}`
+    // );
+    props.cookies.remove('oneauth');
     history.push(`/`);
     sendMessage('notification', true, {
       type,

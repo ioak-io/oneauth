@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+export const axiosInstance = axios.create();
+
 const baseUrl = process.env.REACT_APP_API_URL;
 
 export function httpGet(endpoint: string, headers: any, url?: string) {
-  return axios.get((url || baseUrl) + endpoint, headers);
+  return axiosInstance.get((url || baseUrl) + endpoint, headers);
   // .then(function(response) {
   //     return Promise.resolve(response);
   // }
@@ -16,7 +18,7 @@ export function httpPost(
   headers: any,
   url?: string
 ) {
-  return axios.post((url || baseUrl) + endpoint, payload, headers);
+  return axiosInstance.post((url || baseUrl) + endpoint, payload, headers);
   //     .then(function(response) {
   //         return Promise.resolve(response);
   //     }
@@ -29,7 +31,7 @@ export function httpPut(
   headers: any,
   url?: string
 ) {
-  return axios.put((url || baseUrl) + endpoint, payload, headers);
+  return axiosInstance.put((url || baseUrl) + endpoint, payload, headers);
   //     .then(function(response) {
   //         return Promise.resolve(response);
   //     }
@@ -37,7 +39,7 @@ export function httpPut(
 }
 
 export function httpDelete(endpoint: string, headers: any, url?: string) {
-  return axios.delete((url || baseUrl) + endpoint, headers);
+  return axiosInstance.delete((url || baseUrl) + endpoint, headers);
   //     .then(function(response) {
   //         return Promise.resolve(response);
   //     }

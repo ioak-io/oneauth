@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import {
   SELECT_CHANGE_EVENT,
   SELECT_INPUT_EVENT,
+  SELECT_ACTION_ITEM_EVENT,
 } from '@oakui/core-stage/event/OakSelectEvent';
 
 interface Props {
@@ -12,11 +13,13 @@ interface Props {
   formGroupName?: string;
   handleChange?: any;
   handleInput?: any;
+  handleActionItem?: any;
   tooltip?: string;
   multiple?: boolean;
   disabled?: boolean;
   options?: any[];
   optionsAsKeyValue?: any[];
+  actionItems?: string[];
   native?: boolean;
   size?: 'xsmall' | 'small' | 'medium' | 'large';
   shape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf' | 'underline';
@@ -52,7 +55,7 @@ interface Props {
     | 'auto';
   fill?: boolean;
   gutterBottom?: boolean;
-  autoCompleteVariant?: 'none' | 'autocomplete' | 'searchbox';
+  autocomplete?: boolean;
   positioningStrategy?: 'absolute' | 'fixed';
 }
 
@@ -73,6 +76,13 @@ const OakSelect = (props: Props) => {
     }
   };
 
+  const handleActionItem = (event: any) => {
+    if (props.handleActionItem) {
+      const { detail } = event;
+      props.handleActionItem(detail);
+    }
+  };
+
   useEffect(() => {
     (elementRef as any).current.addEventListener(
       SELECT_CHANGE_EVENT,
@@ -81,6 +91,10 @@ const OakSelect = (props: Props) => {
     (elementRef as any).current.addEventListener(
       SELECT_INPUT_EVENT,
       handleInput
+    );
+    (elementRef as any).current.addEventListener(
+      SELECT_ACTION_ITEM_EVENT,
+      handleActionItem
     );
 
     return () => {
@@ -92,12 +106,20 @@ const OakSelect = (props: Props) => {
         SELECT_INPUT_EVENT,
         handleInput
       );
+      (elementRef as any).current?.removeEventListener(
+        SELECT_ACTION_ITEM_EVENT,
+        handleActionItem
+      );
     };
   });
 
   useEffect(() => {
     (elementRef.current as any)!.value = props.value;
   }, [props.value]);
+
+  useEffect(() => {
+    (elementRef.current as any)!.autocomplete = props.autocomplete;
+  }, [props.autocomplete]);
 
   useEffect(() => {
     (elementRef.current as any)!.multiple = props.multiple;
@@ -127,6 +149,10 @@ const OakSelect = (props: Props) => {
     (elementRef.current as any)!.optionsAsKeyValue = props.optionsAsKeyValue;
   }, [props.optionsAsKeyValue]);
 
+  useEffect(() => {
+    (elementRef.current as any)!.actionItems = props.actionItems;
+  }, [props.actionItems]);
+
   return (
     <oak-select
       ref={elementRef}
@@ -140,7 +166,6 @@ const OakSelect = (props: Props) => {
       shape={props.shape}
       color={props.color}
       popupColor={props.popupColor}
-      autoCompleteVariant={props.autoCompleteVariant}
       positioningStrategy={props.positioningStrategy}
     />
   );

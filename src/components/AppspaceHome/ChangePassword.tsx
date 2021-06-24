@@ -72,7 +72,7 @@ const ChangePassword = (props: Props) => {
         },
         {
           headers: {
-            Authorization: authorization.token,
+            Authorization: authorization.access_token,
           },
         }
       )

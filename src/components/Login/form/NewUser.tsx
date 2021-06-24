@@ -29,8 +29,8 @@ interface Props {
 
 const NewUser = (props: Props) => {
   const [data, setData] = useState({
-    firstName: '',
-    lastName: '',
+    given_name: '',
+    family_name: '',
     email: '',
     password: '',
     repeatpassword: '',
@@ -38,8 +38,8 @@ const NewUser = (props: Props) => {
   });
 
   const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
+    given_name: '',
+    family_name: '',
     email: '',
     password: '',
     repeatpassword: '',
@@ -47,15 +47,11 @@ const NewUser = (props: Props) => {
 
   const [stage, setStage] = useState('userdetails');
 
-  const signupAction = (event) => {
+  const signupAction = (event: any) => {
     event.preventDefault();
-    let baseAuthUrl = `/auth/${props.loginType}`;
-    if (props.space) {
-      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
-    }
     const errorState = {
-      firstName: '',
-      lastName: '',
+      given_name: '',
+      family_name: '',
       email: '',
       password: '',
       repeatpassword: '',
@@ -63,13 +59,13 @@ const NewUser = (props: Props) => {
     let error = false;
     sendMessage('notification', false);
     sendMessage('login-spinner');
-    if (isEmptyOrSpaces(data.firstName)) {
+    if (isEmptyOrSpaces(data.given_name)) {
       error = true;
-      errorState.firstName = 'Cannot be empty';
+      errorState.given_name = 'Cannot be empty';
     }
-    if (isEmptyOrSpaces(data.lastName)) {
+    if (isEmptyOrSpaces(data.family_name)) {
       error = true;
-      errorState.lastName = 'Cannot be empty';
+      errorState.family_name = 'Cannot be empty';
     }
     if (isEmptyOrSpaces(data.email)) {
       error = true;
@@ -93,12 +89,13 @@ const NewUser = (props: Props) => {
     }
     if (!error) {
       httpPost(
-        `${baseAuthUrl}/signup`,
+        '/auth/signup',
         {
-          firstName: data.firstName.trim(),
-          lastName: data.lastName.trim(),
+          given_name: data.given_name.trim(),
+          family_name: data.family_name.trim(),
           email: data.email.trim().toLowerCase(),
           password: data.password,
+          space: props.space || 100,
         },
         null
       )
@@ -165,13 +162,13 @@ const NewUser = (props: Props) => {
         <div className="form-signup">
           <div>
             <div className="label">
-              {!errors.firstName && (
+              {!errors.given_name && (
                 <div className="label-text">First Name</div>
               )}
-              {errors.firstName && (
+              {errors.given_name && (
                 <div className="error-text">
                   <Warning />
-                  {errors.firstName}
+                  {errors.given_name}
                 </div>
               )}
             </div>
@@ -179,18 +176,20 @@ const NewUser = (props: Props) => {
               fill
               color="invert"
               size="large"
-              name="firstName"
-              value={data.firstName}
+              name="given_name"
+              value={data.given_name}
               handleChange={(e) => handleChange(e)}
             />
           </div>
           <div>
             <div className="label">
-              {!errors.lastName && <div className="label-text">Last Name</div>}
-              {errors.lastName && (
+              {!errors.family_name && (
+                <div className="label-text">Last Name</div>
+              )}
+              {errors.family_name && (
                 <div className="error-text">
                   <Warning />
-                  {errors.lastName}
+                  {errors.family_name}
                 </div>
               )}
             </div>
@@ -198,8 +197,8 @@ const NewUser = (props: Props) => {
               fill
               color="invert"
               size="large"
-              name="lastName"
-              value={data.lastName}
+              name="family_name"
+              value={data.family_name}
               handleChange={(e) => handleChange(e)}
             />
           </div>

@@ -7,7 +7,7 @@ interface Props {
   label?: string;
   color?: 'global' | 'container' | 'surface' | 'float' | 'none';
   formElementSize?: 'xsmall' | 'small' | 'medium' | 'large';
-  formElementShape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf';
+  formElementShape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf' | 'underline';
   paginatePref?: PaginatePref;
   variant?: 'list' | 'table' | 'dense-table';
   handleChange?: any;

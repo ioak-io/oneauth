@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Cancel,
-  Check,
-  Close,
-  Details,
-  DoubleArrow,
-  Https,
-  Info,
-} from '@material-ui/icons';
+import { Check, Close, Https, Info } from '@material-ui/icons';
 import './EditSpace.scss';
 import { updateSpace } from '../../../actions/SpaceActions';
 import OakInput from '../../../oakui/wc/OakInput';
@@ -17,7 +9,6 @@ import OakForm from '../../../oakui/wc/OakForm';
 import OakSection from '../../../oakui/wc/OakSection';
 import { newId } from '../../../events/MessageService';
 import OakTypography from '../../../oakui/wc/OakTypography';
-import OakSpacing from '../../../oakui/wc/OakSpacing';
 
 interface Props {
   space: any;
@@ -26,7 +17,7 @@ interface Props {
 const EditSpace = (props: Props) => {
   const dispatch = useDispatch();
   const formId = newId();
-  const authorization = useSelector((state) => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
   const [spaceData, setSpaceData] = useState({
     days: 0,
     hours: 0,
@@ -65,7 +56,7 @@ const EditSpace = (props: Props) => {
   };
 
   const editSpace = () => {
-    dispatch(updateSpace(authorization, spaceData));
+    dispatch(updateSpace(spaceData));
   };
 
   const handleReset = () => {};
@@ -80,9 +71,9 @@ const EditSpace = (props: Props) => {
         <OakSection
           fillColor="container"
           rounded
-          paddingHorizontal={2}
+          paddingHorizontal={3}
           paddingVertical={3}
-          elevation={4}
+          elevation={1}
         >
           <OakTypography variant="h6">
             <div className="title-section">
@@ -94,7 +85,6 @@ const EditSpace = (props: Props) => {
           <div className="edit-space__overview">
             <OakInput
               formGroupName={formId}
-              fill="surface"
               value={spaceData.name}
               name="name"
               label="Space name"
@@ -105,7 +95,6 @@ const EditSpace = (props: Props) => {
             />
             <OakInput
               formGroupName={formId}
-              fill="surface"
               value={spaceData.description}
               name="description"
               label="Description"
@@ -118,9 +107,9 @@ const EditSpace = (props: Props) => {
         </OakSection>
         <OakSection
           fillColor="container"
-          paddingHorizontal={2}
+          paddingHorizontal={3}
           paddingVertical={3}
-          elevation={4}
+          elevation={1}
           rounded
         >
           <OakTypography variant="h6">
@@ -133,7 +122,6 @@ const EditSpace = (props: Props) => {
             <div className="edit-space__security__jwt">
               <OakInput
                 formGroupName={formId}
-                fill="surface"
                 value={spaceData.days}
                 name="days"
                 type="number"
@@ -144,7 +132,6 @@ const EditSpace = (props: Props) => {
               />
               <OakInput
                 formGroupName={formId}
-                fill="surface"
                 value={spaceData.hours}
                 name="hours"
                 type="number"
@@ -155,7 +142,6 @@ const EditSpace = (props: Props) => {
               />
               <OakInput
                 formGroupName={formId}
-                fill="surface"
                 value={spaceData.minutes}
                 name="minutes"
                 type="number"

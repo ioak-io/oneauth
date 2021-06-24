@@ -12,26 +12,18 @@ import { sendMessage } from '../events/MessageService';
 
 const domain = 'space';
 
-export const fetchAllSpaces = (authorization: any) => (dispatch: any) => {
-  httpGet(`${constants.API_SPACE_FETCH}/`, {
-    headers: {
-      Authorization: authorization.token,
-    },
-  }).then((response) => {
+export const fetchAllSpaces = () => (dispatch: any) => {
+  httpGet(`${constants.API_SPACE_FETCH}/`, null).then((response) => {
     console.log(response);
     dispatch({
       type: REFRESH_SPACES,
-      payload: { spaces: response.data.data },
+      payload: { spaces: response.data },
     });
   });
 };
 
-export const fetchSpace = (authorization: any) => (dispatch: any) => {
-  httpGet(`${constants.API_SPACE_FETCH}/`, {
-    headers: {
-      Authorization: authorization.token,
-    },
-  }).then((response) => {
+export const fetchSpace = () => (dispatch: any) => {
+  httpGet(`${constants.API_SPACE_FETCH}/`, null).then((response) => {
     dispatch({
       type: UPDATE_SPACE,
       payload: { data: response.data.data },
@@ -39,16 +31,12 @@ export const fetchSpace = (authorization: any) => (dispatch: any) => {
   });
 };
 
-export const createSpace = (authorization, payload) => (dispatch) => {
-  return httpPost(`${constants.API_SPACE_FETCH}/`, payload, {
-    headers: {
-      Authorization: authorization.token,
-    },
-  })
+export const createSpace = (payload: any) => (dispatch: any) => {
+  return httpPost(`${constants.API_SPACE_FETCH}/`, payload, null)
     .then((response) => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'created' });
-        dispatch(fetchSpace(authorization));
+        dispatch(fetchSpace());
       }
     })
     .catch((error) => {
@@ -58,16 +46,12 @@ export const createSpace = (authorization, payload) => (dispatch) => {
     });
 };
 
-export const updateSpace = (authorization, payload) => (dispatch) => {
-  return httpPut(`${constants.API_SPACE_FETCH}/`, payload, {
-    headers: {
-      Authorization: authorization.token,
-    },
-  })
+export const updateSpace = (payload: any) => (dispatch: any) => {
+  return httpPut(`${constants.API_SPACE_FETCH}/`, payload, null)
     .then((response) => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'updated' });
-        dispatch(fetchSpace(authorization));
+        dispatch(fetchSpace());
       }
     })
     .catch((error) => {
@@ -77,17 +61,13 @@ export const updateSpace = (authorization, payload) => (dispatch) => {
     });
 };
 
-export const deleteSpace = (authorization, spaceId) => (dispatch) => {
-  httpDelete(`${constants.API_SPACE_DELETE}/${spaceId}`, {
-    headers: {
-      Authorization: authorization.token,
-    },
-  })
+export const deleteSpace = (spaceId: number) => (dispatch: any) => {
+  httpDelete(`${constants.API_SPACE_DELETE}/${spaceId}`, null)
     .then((response) => {
       if (response.status === 200) {
         // sendMessage('notification', true, {type: 'success', message: 'FAQ deleted', duration: 5000});
         sendMessage(domain, true, { action: 'deleted' });
-        dispatch(fetchSpace(authorization));
+        dispatch(fetchSpace());
       }
     })
     .catch((error) => {

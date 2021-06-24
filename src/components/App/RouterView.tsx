@@ -11,10 +11,14 @@ import PlayToolbar from '../PlayToolbar';
 import SpaceLogin from '../Login/SpaceLogin';
 import SpaceHome from '../SpaceHome';
 import SpaceListing from '../ManageSpace/SpaceListing';
-import ManageApp from '../ManageApp';
+import AppListing from '../ManageApp/AppListing';
 import AppspaceHome from '../AppspaceHome';
 import AppspaceLogin from '../Login/AppspaceLogin';
 import SpaceDetail from '../ManageSpace/SpaceDetail';
+import AppDetail from '../ManageApp/AppDetail';
+import AccessControl from '../AccessControl';
+import Member from '../AccessControl/Member';
+import AppPermission from '../AppPermission';
 
 interface Props {
   cookies: any;
@@ -127,7 +131,31 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             // logout={() => logout}
-            component={ManageApp}
+            component={AppListing}
+            middleware={['authenticateOa']}
+          />
+        )}
+      />
+      <Route
+        path="/manageapp/:id"
+        exact
+        render={(propsLocal) => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={AppDetail}
+            middleware={['authenticateOa']}
+          />
+        )}
+      />
+      <Route
+        path="/manageapp/:id/permission/:userId"
+        exact
+        render={(propsLocal) => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={AppPermission}
             middleware={['authenticateOa']}
           />
         )}
@@ -165,7 +193,6 @@ const RouterView = (props: Props) => {
           <OakRoute
             {...propsLocal}
             {...props}
-            //logout={() => logout}
             component={AppspaceHome}
             middleware={['readAuthenticationAppspace']}
           />

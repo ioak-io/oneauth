@@ -3,6 +3,7 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import { withCookies } from 'react-cookie';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
+import { Warning } from '@material-ui/icons';
 import { getAuth, addAuth } from '../../../actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../../Types/GeneralTypes';
@@ -11,7 +12,6 @@ import { isEmptyOrSpaces } from '../../Utils';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
 import OakButton from '../../../oakui/wc/OakButton';
 import OakInput from '../../../oakui/wc/OakInput';
-import { Warning } from '@material-ui/icons';
 import OakForm from '../../../oakui/wc/OakForm';
 
 interface Props {
@@ -45,11 +45,6 @@ const SigninPage = (props: Props) => {
   });
 
   const signinAction = (detail: any) => {
-    let baseAuthUrl = `/auth/${props.loginType}`;
-    if (props.space) {
-      baseAuthUrl = `${baseAuthUrl}/${props.space}`;
-    }
-    console.log(baseAuthUrl);
     const errorState = {
       email: '',
       password: '',
@@ -74,16 +69,48 @@ const SigninPage = (props: Props) => {
       errorState.password = 'Cannot be empty';
     }
     if (!error) {
-      httpPost(
-        `${baseAuthUrl}/authorize`,
-        {
-          email: data.email.trim().toLowerCase(),
-          password: data.password,
-        },
-        null
-      )
+      const params = new URLSearchParams();
+      params.append('email', data.email);
+      params.append('password', data.password);
+      params.append('response_type', 'token');
+      params.append('space', props.space || '100');
+
+      httpPost('/auth/authorize', params, {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      })
         .then((authorizeResponse: any) => {
-          getSession(baseAuthUrl, authorizeResponse);
+          if (authorizeResponse.status === 200) {
+            if (props.space) {
+              props.cookies.set(
+                `${props.space}-access_token`,
+                authorizeResponse.data.access_token
+              );
+              props.cookies.set(
+                `${props.space}-refresh_token`,
+                authorizeResponse.data.refresh_token
+              );
+            } else {
+              props.cookies.set(
+                '100-access_token',
+                authorizeResponse.data.access_token
+              );
+              props.cookies.set(
+                '100-refresh_token',
+                authorizeResponse.data.refresh_token
+              );
+            }
+            if (props.space && props.appId) {
+              redirectToRequestedApp(
+                authorizeResponse.data.access_token,
+                authorizeResponse.data.refresh_token
+              );
+            } else {
+              success(
+                authorizeResponse.data.access_token,
+                authorizeResponse.data.refresh_token
+              );
+            }
+          }
         })
         .catch((error: any) => {
           if (error.response?.status === 404) {
@@ -105,41 +132,48 @@ const SigninPage = (props: Props) => {
     }
   };
 
-  const getSession = (baseAuthUrl, authorizeResponse) => {
-    if (authorizeResponse.status === 200) {
-      httpGet(`${baseAuthUrl}/session/${authorizeResponse.data.auth_key}`, null)
-        .then((sessionResponse) => {
-          if (sessionResponse.status === 200) {
-            if (props.space && props.appId) {
-              props.cookies.set(props.space, authorizeResponse.data.auth_key);
-              redirectToRequestedApp(authorizeResponse, sessionResponse);
-            } else {
-              success(authorizeResponse, sessionResponse);
-            }
-          }
-        })
-        .catch((error: any) => {
-          if (error.response.status === 404) {
-            sendMessage('notification', true, {
-              type: 'failure',
-              message: 'Invalid session token',
-              duration: 3000,
-            });
-          } else if (error.response.status === 401) {
-            sendMessage('notification', true, {
-              type: 'failure',
-              message: 'Session expired',
-              duration: 3000,
-            });
-          }
-        });
-    }
-  };
+  // const getSession = (baseAuthUrl, authorizeResponse) => {
+  //   console.log(authorizeResponse);
+  //   if (authorizeResponse.status === 200) {
+  //     httpGet(
+  //       `${baseAuthUrl}/session/${authorizeResponse.data.sessionId}/decode`,
+  //       null
+  //     )
+  //       .then((sessionResponse) => {
+  //         if (sessionResponse.status === 200) {
+  //           if (props.space && props.appId) {
+  //             props.cookies.set(props.space, authorizeResponse.data.sessionId);
+  //             redirectToRequestedApp(authorizeResponse, sessionResponse);
+  //           } else {
+  //             success(authorizeResponse, sessionResponse);
+  //           }
+  //         }
+  //       })
+  //       .catch((error: any) => {
+  //         if (error.response.status === 404) {
+  //           sendMessage('notification', true, {
+  //             type: 'failure',
+  //             message: 'Invalid session token',
+  //             duration: 3000,
+  //           });
+  //         } else if (error.response.status === 401) {
+  //           sendMessage('notification', true, {
+  //             type: 'failure',
+  //             message: 'Session expired',
+  //             duration: 3000,
+  //           });
+  //         }
+  //       });
+  //   }
+  // };
 
-  const redirectToRequestedApp = (authorizeResponse, sessionResponse) => {
+  const redirectToRequestedApp = (
+    access_token: string,
+    refresh_token: string
+  ) => {
     httpGet(`/app/${props.appId}`, {
       headers: {
-        Authorization: sessionResponse.data.token,
+        Authorization: access_token,
       },
     }).then((appResponse) => {
       let appendString = '';
@@ -148,7 +182,7 @@ const SigninPage = (props: Props) => {
           appendString += `&${key}=${props.queryParam[key]}`;
         }
       });
-      window.location.href = `${appResponse.data.data.redirect}?authKey=${authorizeResponse.data.auth_key}&space=${props.space}${appendString}`;
+      window.location.href = `${appResponse.data.data.redirect}?access_token=${access_token}&refresh_token=${refresh_token}&space=${props.space}${appendString}`;
     });
   };
 
@@ -156,17 +190,15 @@ const SigninPage = (props: Props) => {
     setData({ ...data, [detail.name]: detail.value });
   };
 
-  const success = (authorizeResponse, sessionResponse) => {
+  const success = (access_token: string, refresh_token: string) => {
     sendMessage('loggedin', true);
     if (props.space) {
-      props.cookies.set(props.space, authorizeResponse.data.auth_key);
       props.history.push(`/${props.loginType}/${props.space}/home`);
     } else {
       // dispatch(fetchSpace(data));
       // dispatch(fetchApp(data));
       // dispatch(fetchUsers(data));
       // dispatch(fetchRoles(data));
-      props.cookies.set('oneauth', authorizeResponse.data.auth_key);
       props.history.push('/');
     }
   };
@@ -177,8 +209,9 @@ const SigninPage = (props: Props) => {
       baseAuthUrl = `${baseAuthUrl}/${props.space}`;
     }
     httpPost(
-      `${baseAuthUrl}/emailconfirmationlink`,
+      '/auth/send-verify-email',
       {
+        space: props.space || 100,
         email: data.email.trim().toLowerCase(),
       },
       null
@@ -187,7 +220,7 @@ const SigninPage = (props: Props) => {
   };
 
   const onFacebookSignIn = (facebookProfile) => {
-    if (facebookProfile?.accessToken) {
+    if (facebookProfile?.access_token) {
       sendMessage('spinner');
       let baseAuthUrl = `/auth/${props.loginType}`;
       if (props.space) {
@@ -197,8 +230,8 @@ const SigninPage = (props: Props) => {
         `${baseAuthUrl}/authorize/facebook`,
         {
           email: facebookProfile.email,
-          firstName: facebookProfile.first_name,
-          lastName: facebookProfile.last_name,
+          given_name: facebookProfile.first_name,
+          family_name: facebookProfile.last_name,
         },
         null
       )

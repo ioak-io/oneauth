@@ -10,8 +10,8 @@ interface Props {
   rounded?: boolean;
   noheader?: boolean;
   donotMobilize?: boolean;
-  width?: 'auto' | 'small' | 'large' | 'full';
-  height?: 'auto' | 'small' | 'large' | 'full';
+  width?: 'auto' | 'small' | 'medium' | 'large' | 'full';
+  height?: 'auto' | 'small' | 'medium' | 'large' | 'full';
   backdropIntensity?: 0 | 1 | 2 | 3 | 4 | 5;
   animationSpeed?: 'slow' | 'normal' | 'fast' | 'none';
   animationStyle?: 'opacity' | 'zoom' | 'slide';

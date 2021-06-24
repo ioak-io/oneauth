@@ -12,7 +12,6 @@ import OakCheckbox from '../../oakui/wc/OakCheckbox';
 import { BlurOn, Cancel, DoubleArrow } from '@material-ui/icons';
 import OakTypography from '../../oakui/wc/OakTypography';
 import OakFormActionsContainer from '../../oakui/wc/OakFormActionsContainer';
-import OakForm from 'src/oakui/wc/OakForm';
 
 const domain = 'app';
 

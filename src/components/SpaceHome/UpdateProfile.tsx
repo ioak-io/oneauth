@@ -18,22 +18,22 @@ interface Props {
 const UpdateProfile = (props: Props) => {
   const authorization = useSelector((state) => state.authorization);
   const [data, setData] = useState({
-    firstName: '',
-    lastName: '',
+    given_name: '',
+    family_name: '',
   });
 
   const [stage, setStage] = useState('form');
 
   const [errors, setErrors] = useState({
-    firstName: '',
-    lastName: '',
+    given_name: '',
+    family_name: '',
   });
 
   useEffect(() => {
     console.log(authorization);
     setData({
-      firstName: authorization.firstName,
-      lastName: authorization.lastName,
+      given_name: authorization.given_name,
+      family_name: authorization.family_name,
     });
   }, [authorization]);
 
@@ -45,38 +45,38 @@ const UpdateProfile = (props: Props) => {
     event.preventDefault();
     const baseUserUrl = `/user/${props.space}`;
     const errorState = {
-      firstName: '',
-      lastName: '',
+      given_name: '',
+      family_name: '',
     };
     let error = false;
     sendMessage('notification', false);
     sendMessage('login-spinner');
-    if (isEmptyOrSpaces(data.firstName)) {
+    if (isEmptyOrSpaces(data.given_name)) {
       error = true;
-      errorState.firstName = 'Cannot be empty';
+      errorState.given_name = 'Cannot be empty';
     }
-    if (isEmptyOrSpaces(data.lastName)) {
+    if (isEmptyOrSpaces(data.family_name)) {
       error = true;
-      errorState.lastName = 'Cannot be empty';
+      errorState.family_name = 'Cannot be empty';
     }
     if (!error) {
       httpPost(
         `${baseUserUrl}/updateprofile`,
         {
-          firstName: data.firstName,
-          lastName: data.lastName,
+          given_name: data.given_name,
+          family_name: data.family_name,
         },
         {
           headers: {
-            Authorization: authorization.token,
+            Authorization: authorization.access_token,
           },
         }
       )
         .then((response: any) => {
           if (response.status === 200) {
             setData({
-              firstName: '',
-              lastName: '',
+              given_name: '',
+              family_name: '',
             });
             setStage('profileUpdated');
             sendMessage('login-notification', true, {
@@ -128,37 +128,37 @@ const UpdateProfile = (props: Props) => {
           <div className="form-changepassword">
             <div>
               <div className="label">
-                {!errors.firstName && (
+                {!errors.given_name && (
                   <div className="label-text">First name</div>
                 )}
-                {errors.firstName && (
+                {errors.given_name && (
                   <div className="error-text">
                     <Warning />
-                    {errors.firstName}
+                    {errors.given_name}
                   </div>
                 )}
               </div>
               <OakInput
-                name="firstName"
-                value={data.firstName}
+                name="given_name"
+                value={data.given_name}
                 handleChange={(e) => handleChange(e)}
               />
             </div>
             <div>
               <div className="label">
-                {!errors.lastName && (
+                {!errors.family_name && (
                   <div className="label-text">Last name</div>
                 )}
-                {errors.lastName && (
+                {errors.family_name && (
                   <div className="error-text">
                     <Warning />
-                    {errors.lastName}
+                    {errors.family_name}
                   </div>
                 )}
               </div>
               <OakInput
-                name="lastName"
-                value={data.lastName}
+                name="family_name"
+                value={data.family_name}
                 handleChange={(e) => handleChange(e)}
               />
             </div>

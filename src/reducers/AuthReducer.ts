@@ -2,8 +2,8 @@ import { GET_AUTH, ADD_AUTH, REMOVE_AUTH } from '../actions/types';
 
 const initialState = {
   isAuth: false,
-  firstname: '',
-  lastname: '',
+  given_name: '',
+  family_name: '',
 };
 
 export default function AuthReducer(state = initialState, action: any) {
@@ -25,8 +25,8 @@ export default function AuthReducer(state = initialState, action: any) {
       return {
         ...state,
         isAuth: false,
-        firstname: '',
-        lastname: '',
+        given_name: '',
+        family_name: '',
       };
     default:
       return state;

@@ -5,12 +5,12 @@ import OakInput from '../../../oakui/wc/OakInput';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
 import { isEmptyOrSpaces } from '../../Utils';
 import './style.scss';
+import SpaceItem from './SpaceItem';
 
 const SpaceListing = () => {
   const [view, setView] = useState<Array<any> | undefined>(undefined);
-  const space = useSelector((state) => state.space);
+  const space = useSelector((state: any) => state.space);
   const [searchCriteria, setSearchCriteria] = useState('');
-  const history = useHistory();
 
   useEffect(() => {
     setView(search(space.spaces, searchCriteria));
@@ -30,10 +30,6 @@ const SpaceListing = () => {
     );
   };
 
-  const handleClick = (spaceItem: any) => {
-    history.push(`/managespace/${spaceItem._id}`);
-  };
-
   return (
     <div className="space-listing">
       <OakInput
@@ -44,16 +40,7 @@ const SpaceListing = () => {
       />
       <div className="space-listing__list">
         {view?.map((item) => (
-          <OakClickArea
-            elevation={10}
-            key={item._id}
-            handleClick={() => handleClick(item)}
-          >
-            <div className="space-listing__list__item">
-              <div>{item.name}</div>
-              <div>{item.description}</div>
-            </div>
-          </OakClickArea>
+          <SpaceItem space={item} key={item._id} />
         ))}
       </div>
     </div>

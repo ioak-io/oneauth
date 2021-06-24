@@ -4,8 +4,8 @@ export const GET_SESSION = gql`
   query Session($key: ID!, $asset: String) {
     session(key: $key, asset: $asset) {
       id
-      firstName
-      lastName
+      given_name
+      family_name
       email
       token
     }
@@ -96,8 +96,8 @@ export const USERS = gql`
   query Users {
     users {
       id
-      firstName
-      lastName
+      given_name
+      family_name
     }
   }
 `;

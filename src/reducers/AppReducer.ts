@@ -1,17 +1,23 @@
-import { UPDATE_APP } from '../actions/types';
+import { REFRESH_APPS, UPDATE_APP } from '../actions/types';
 
 const initialState = {
-  data: [],
+  apps: [],
 };
 
-export default function(state = initialState, action) {
+export default function (state = initialState, action: any) {
   switch (action.type) {
-    case UPDATE_APP:
-      console.log('SET APP reducer');
+    case REFRESH_APPS:
+      console.log('REFRESH_APPS reducer');
       return {
         ...state,
         ...action.payload,
       };
+    // case UPDATE_APP:
+    //   console.log('UPDATE_APP reducer');
+    //   return {
+    //     ...state,
+    //     ...action.payload,
+    //   };
     default:
       return state;
   }

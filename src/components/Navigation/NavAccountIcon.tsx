@@ -18,7 +18,7 @@ const NavAccountIcon = (props: Props) => {
     >
       {authorization.isAuth && (
         <div className="nav-account-icon--username">
-          <div>{`${authorization.firstName} ${authorization.lastName}`}</div>
+          <div>{authorization.name}</div>
           <PowerSettingsNew className="cursor-pointer" />
         </div>
       )}

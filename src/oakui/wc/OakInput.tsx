@@ -31,7 +31,8 @@ interface Props {
     | 'date'
     | 'file'
     | 'time'
-    | 'datetime';
+    | 'datetime'
+    | 'color';
   multiple?: boolean;
   size?: 'xsmall' | 'small' | 'medium' | 'large';
   shape?: 'sharp' | 'rectangle' | 'rounded' | 'leaf' | 'underline';

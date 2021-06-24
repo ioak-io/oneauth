@@ -16,7 +16,7 @@ interface Props {
 }
 
 const ChangePassword = (props: Props) => {
-  const loginType = 'appspace';
+  const loginType = 'space';
   const authorization = useSelector((state) => state.authorization);
   const [data, setData] = useState({
     oldpassword: '',
@@ -32,8 +32,8 @@ const ChangePassword = (props: Props) => {
     repeatpassword: '',
   });
 
-  const handleChange = (event) => {
-    setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
+  const handleChange = (detail: any) => {
+    setData({ ...data, [detail.name]: detail.value });
   };
 
   const changePassword = (event) => {
@@ -70,7 +70,7 @@ const ChangePassword = (props: Props) => {
         },
         {
           headers: {
-            Authorization: authorization.token,
+            Authorization: authorization.access_token,
           },
         }
       )

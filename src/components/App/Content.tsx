@@ -67,7 +67,7 @@ const Content = (props: Props) => {
       } ${usingMouse ? 'using-mouse' : ''}`}
     >
       <HashRouter>
-        <Init />
+        <Init cookies={props.cookies} />
         {/* <Notification /> */}
         <OakNotification
           indicator="fill"
@@ -82,8 +82,7 @@ const Content = (props: Props) => {
           topbarVariant={loginPage ? 'none' : 'static'}
           sidebarVariant={loginPage ? 'none' : 'side'}
           sidebarColor="container"
-          topbarColor="container"
-          topbarOutlined
+          topbarColor="custom"
           topbarElevation={0}
           sidebarElevation={6}
         >

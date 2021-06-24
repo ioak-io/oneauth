@@ -14,7 +14,7 @@ const Logo = () => {
   return (
     <div className="logo">
       {profile.theme === 'theme_light' && (
-        <img className="logo--image" src={oneauthBlack} alt="Oneauth logo" />
+        <img className="logo--image" src={oneauthWhite} alt="Oneauth logo" />
       )}
       {profile.theme !== 'theme_light' && (
         <img className="logo--image" src={oneauthWhite} alt="Oneauth logo" />
