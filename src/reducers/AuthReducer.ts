@@ -22,6 +22,7 @@ export default function AuthReducer(state = initialState, action: any) {
 
     case REMOVE_AUTH:
       console.log('REMOVE_AUTH reducer');
+      console.log(state);
       return {
         ...state,
         isAuth: false,

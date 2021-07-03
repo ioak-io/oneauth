@@ -20,7 +20,9 @@ const RealmItem = (props: Props) => {
     <div className="realm-item">
       <OakClickArea handleClick={goToViewPage}>
         <div className="realm-item__left">
-          <div className="realm-item__left__name">{props.realm.name}</div>
+          <div className="realm-item__left__name">
+            {`${props.realm.name} (${props.realm.realm})`}
+          </div>
           <div className="realm-item__left__description">
             {props.realm.description}
           </div>

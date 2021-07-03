@@ -1,38 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Route } from 'react-router-dom';
 import './RouterView.scss';
 import Home from '../Home';
-import OaLogin from '../Login/OaLogin';
-import Landing from '../Landing';
 import OakRoute from '../Auth/OakRoute';
 import Unauthorized from '../Auth/Unauthorized';
-import PlayToolbar from '../PlayToolbar';
-import RealmLogin from '../Login/RealmLogin';
 import RealmHome from '../RealmHome';
 import RealmListing from '../ManageRealm/RealmListing';
 import ClientListing from '../ManageClient/ClientListing';
 import ClientrealmHome from '../ClientrealmHome';
-import ClientrealmLogin from '../Login/ClientrealmLogin';
 import RealmDetail from '../ManageRealm/RealmDetail';
 import ClientDetail from '../ManageClient/ClientDetail';
-import AccessControl from '../AccessControl';
-import Member from '../AccessControl/Member';
 import ClientPermission from '../ClientPermission';
+import LoginPage from '../LoginPage';
+import { loginPageSubject } from '../../events/LoginPageEvent';
 
 interface Props {
   cookies: any;
 }
 
 const RouterView = (props: Props) => {
+  const [loginPage, setLoginPage] = useState(true);
+
+  useEffect(() => {
+    loginPageSubject.subscribe((message) => {
+      setLoginPage(message.state);
+    });
+  }, []);
+
   return (
-    <div className="router-view">
-      <Route
-        path="/login"
-        render={(propsLocal) => (
-          <OakRoute {...propsLocal} {...props} component={OaLogin} />
-        )}
-      />
+    <div
+      className={`router-view ${loginPage ? 'login-page' : 'not-login-page'}`}
+    >
       <Route
         path="/"
         exact
@@ -61,7 +60,12 @@ const RouterView = (props: Props) => {
       <Route
         path="/realm/:realm/login"
         render={(propsLocal: any) => (
-          <OakRoute {...propsLocal} {...props} component={RealmLogin} />
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            component={LoginPage}
+            middleware={['readRealm']}
+          />
         )}
       />
       <Route
@@ -72,7 +76,7 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={RealmHome}
-            middleware={['readAuthenticationRealm']}
+            middleware={['readAuthentication']}
           />
         )}
       />
@@ -84,7 +88,7 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={RealmHome}
-            middleware={['readAuthenticationRealm']}
+            middleware={['readAuthentication']}
           />
         )}
       />
@@ -107,7 +111,7 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={RealmListing}
-            middleware={['authenticateOa']}
+            middleware={['authenticate']}
           />
         )}
       />
@@ -119,7 +123,7 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={RealmDetail}
-            middleware={['authenticateOa']}
+            middleware={['authenticate']}
           />
         )}
       />
@@ -132,7 +136,7 @@ const RouterView = (props: Props) => {
             {...props}
             // logout={() => logout}
             component={ClientListing}
-            middleware={['authenticateOa']}
+            middleware={['authenticate']}
           />
         )}
       />
@@ -144,7 +148,7 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={ClientDetail}
-            middleware={['authenticateOa']}
+            middleware={['authenticate']}
           />
         )}
       />
@@ -156,13 +160,13 @@ const RouterView = (props: Props) => {
             {...propsLocal}
             {...props}
             component={ClientPermission}
-            middleware={['authenticateOa']}
+            middleware={['authenticate']}
           />
         )}
       />
 
       {/* Clientrealm based routes */}
-      <Route
+      {/* <Route
         path="/clientrealm/:clientrealm/login"
         render={(propsLocal: any) => (
           <OakRoute
@@ -172,7 +176,7 @@ const RouterView = (props: Props) => {
             component={ClientrealmLogin}
           />
         )}
-      />
+      /> */}
       <Route
         exact
         path="/clientrealm/:clientrealm/home"

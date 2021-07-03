@@ -30,6 +30,7 @@ declare global {
       'oak-expansion-panel': any;
       'oak-click-area': any;
       'oak-toolbar': any;
+      'oak-image-upload': any;
     }
   }
 }

@@ -2,7 +2,7 @@
 import { BehaviorSubject } from 'rxjs';
 
 export const loginPageSubject = new BehaviorSubject<LoginPageType>({
-  state: false,
+  state: true,
 });
 
 interface LoginPageType {

@@ -5,6 +5,7 @@ import './style.scss';
 import OakTab from '../../../oakui/wc/OakTab';
 import EditRealm from './EditRealm';
 import AccessControl from '../../AccessControl';
+import { loginPageSubject } from '../../../events/LoginPageEvent';
 
 const RealmDetail = () => {
   const history = useHistory();
@@ -13,6 +14,12 @@ const RealmDetail = () => {
   const realm = useSelector((state: any) =>
     state.realm.realms?.find((item: any) => item._id === id)
   );
+  useEffect(() => {
+    loginPageSubject.next({ state: false });
+    return () => {
+      loginPageSubject.next({ state: true });
+    };
+  }, []);
 
   const handleChangeTab = (detail: any) => {
     setActiveTab(detail.value);

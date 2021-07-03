@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import { fetchAllRealms } from '../../actions/RealmActions';
-import { setProfile } from '../../actions/ProfileActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 import { fetchAllClients } from '../../actions/ClientActions';
 import { refreshAccessToken } from '../Auth/AuthService';
@@ -17,13 +15,10 @@ const Init = (props: Props) => {
   const profile = useSelector((state: any) => state.profile);
   const [previousAuthorizationState, setPreviousAuthorizationState] =
     useState<any>();
-  const [realm, setRealm] = useState<string>();
+  const [realm, setRealm] = useState<number>(100);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    console.log(authorization);
-    if (authorization.isAuth) {
-      // initializeHttpInterceptor();
-    }
     if (
       authorization.isAuth &&
       authorization.isAuth !== previousAuthorizationState.isAuth
@@ -35,30 +30,30 @@ const Init = (props: Props) => {
   }, [authorization]);
 
   useEffect(() => {
+    if (authorization.isAuth && realm) {
+      initializeHttpInterceptor();
+      initialize();
+    }
+  }, [realm]);
+
+  useEffect(() => {
     receiveMessage().subscribe((event: any) => {
-      if (event.name === 'realmChange') {
+      if (event.name === 'realmChange' && realm !== event.data) {
         setRealm(event.data);
-      }
-      if (event.name === 'realmChange' && authorization.isAuth) {
-        initialize();
-      }
-      if (event.name === 'access_token_expired') {
-        console.log(authorization);
       }
     });
   }, []);
 
   useEffect(() => {
-    document.body.addEventListener('mousedown', () => {
-      sendMessage('usingMouse', true);
-    });
-
+    // document.body.addEventListener('mousedown', () => {
+    //   sendMessage('usingMouse', true);
+    // });
     // Re-enable focus styling when Tab is pressed
-    document.body.addEventListener('keydown', (event: any) => {
-      if (event.keyCode === 9) {
-        sendMessage('usingMouse', false);
-      }
-    });
+    // document.body.addEventListener('keydown', (event: any) => {
+    //   if (event.keyCode === 9) {
+    //     sendMessage('usingMouse', false);
+    //   }
+    // });
   }, [profile]);
 
   useEffect(() => {

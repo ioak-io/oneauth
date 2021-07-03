@@ -30,11 +30,10 @@ const EditClient = (props: Props) => {
   const [clientData, setClientData] = useState({
     _id: '',
     name: '',
-    clientId: '',
-    clientrealmId: '',
+    client_id: '',
+    realm: '',
     description: '',
     redirect: '',
-    jwtpassword: '',
     protected: false,
   });
 
@@ -129,8 +128,8 @@ const EditClient = (props: Props) => {
               disabled
               fill
               formGroupName={formId}
-              value={clientData.clientId}
-              name="clientId"
+              value={clientData.client_id}
+              name="client_id"
               label="Client ID (to be used in your client)"
               type="text"
               minLength={1}
@@ -141,8 +140,8 @@ const EditClient = (props: Props) => {
               disabled
               fill
               formGroupName={formId}
-              value={clientData.clientrealmId}
-              name="clientrealmId"
+              value={clientData.realm}
+              name="realm"
               label="Client specific realm"
               type="text"
               minLength={1}
@@ -164,18 +163,7 @@ const EditClient = (props: Props) => {
               Security
             </div>
           </OakTypography>
-          <div className="edit-realm__security">
-            <OakInput
-              formGroupName={formId}
-              value={clientData.jwtpassword}
-              name="jwtpassword"
-              label="JWT password"
-              type="text"
-              minLength={1}
-              handleInput={(e: any) => handleInput(e)}
-              gutterBottom
-            />
-          </div>
+          <div className="edit-realm__security">security form elements</div>
         </OakSection>
         <div className="app-action-bar">
           <div />

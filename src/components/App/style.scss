@@ -5,7 +5,7 @@
 //   }
 
 //   ::-webkit-scrollbar-track {
-//     background: var(--color-foreground-5);
+//     background: var(--color-3);
 //     border-radius: 10px;
 //   }
 
@@ -45,4 +45,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  svg {
+    margin-right: 6px;
+  }
 }

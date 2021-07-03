@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { Check, Close, Https, Info } from '@material-ui/icons';
 import './EditRealm.scss';
 import { updateRealm } from '../../../actions/RealmActions';
@@ -9,6 +11,7 @@ import OakForm from '../../../oakui/wc/OakForm';
 import OakSection from '../../../oakui/wc/OakSection';
 import { newId } from '../../../events/MessageService';
 import OakTypography from '../../../oakui/wc/OakTypography';
+import SiteSettings from './SiteSettings';
 
 interface Props {
   realm: any;
@@ -24,6 +27,7 @@ const EditRealm = (props: Props) => {
     minutes: 0,
     name: '',
     description: '',
+    site: {} as any,
   });
 
   useEffect(() => {
@@ -55,6 +59,14 @@ const EditRealm = (props: Props) => {
     });
   };
 
+  const handleSiteChange = (site: any) => {
+    console.log(realmData, site);
+    setRealmData({
+      ...realmData,
+      site,
+    });
+  };
+
   const editRealm = () => {
     dispatch(updateRealm(realmData));
   };
@@ -77,7 +89,7 @@ const EditRealm = (props: Props) => {
         >
           <OakTypography variant="h6">
             <div className="title-section">
-              <Info />
+              <FontAwesomeIcon icon={faInfoCircle} />
               Overview
             </div>
           </OakTypography>
@@ -114,7 +126,7 @@ const EditRealm = (props: Props) => {
         >
           <OakTypography variant="h6">
             <div className="title-section">
-              <Https />
+              <FontAwesomeIcon icon={faShieldAlt} />
               Security
             </div>
           </OakTypography>
@@ -153,6 +165,9 @@ const EditRealm = (props: Props) => {
             </div>
           </div>
         </OakSection>
+        {realmData.site.layout && (
+          <SiteSettings site={realmData.site} handleChange={handleSiteChange} />
+        )}
         <div className="app-action-bar">
           <div />
           <div>

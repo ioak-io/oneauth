@@ -6,6 +6,7 @@ import OakClickArea from '../../../oakui/wc/OakClickArea';
 import { isEmptyOrSpaces } from '../../Utils';
 import './style.scss';
 import RealmItem from './RealmItem';
+import { loginPageSubject } from '../../../events/LoginPageEvent';
 
 const RealmListing = () => {
   const [view, setView] = useState<Array<any> | undefined>(undefined);
@@ -15,6 +16,13 @@ const RealmListing = () => {
   useEffect(() => {
     setView(search(realm.realms, searchCriteria));
   }, [realm.realms, searchCriteria]);
+
+  useEffect(() => {
+    loginPageSubject.next({ state: false });
+    return () => {
+      loginPageSubject.next({ state: true });
+    };
+  }, []);
 
   const handleSearchCriteriaChange = (detail: any) => {
     setSearchCriteria(detail.value);

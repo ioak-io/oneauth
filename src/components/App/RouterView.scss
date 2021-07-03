@@ -1,5 +1,7 @@
 .router-view {
-  height: calc(100vh - var(--oak-app-layout-topbar-height));
+  &.not-login-page {
+    height: calc(100vh - var(--oak-app-layout-topbar-height));
+  }
   display: grid;
   // margin: 24px 24px;
 

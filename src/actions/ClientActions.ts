@@ -44,7 +44,11 @@ export const createClient = (payload: any) => (dispatch: any) => {
 };
 
 export const updateClient = (payload: any) => (dispatch: any) => {
-  return httpPut(`${constants.API_CLIENT_FETCH}/`, payload, null)
+  return httpPut(
+    `${constants.API_CLIENT_FETCH}/${payload.client_id}`,
+    payload,
+    null
+  )
     .then((response) => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'updated' });

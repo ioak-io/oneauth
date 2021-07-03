@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import axios from 'axios';
-import { REFRESH_REALMS, UPDATE_REALM } from './types';
+import { REFRESH_REALMS, UPDATE_REALM, UPDATE_CURRENT_REALM } from './types';
 import {
   httpGet,
   httpPut,
@@ -47,7 +47,7 @@ export const createRealm = (payload: any) => (dispatch: any) => {
 };
 
 export const updateRealm = (payload: any) => (dispatch: any) => {
-  return httpPut(`${constants.API_REALM_FETCH}/`, payload, null)
+  return httpPut(`${constants.API_REALM_FETCH}/${payload.realm}`, payload, null)
     .then((response) => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'updated' });

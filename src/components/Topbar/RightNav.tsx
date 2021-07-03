@@ -50,7 +50,7 @@ const RightNav = (props: Props) => {
       {/* <OakButton theme="primary" variant="appear" action={() => {}} icon="add">Income</OakButton>
       <OakButton theme="primary" variant="appear" action={() => {}} icon="add">Bill</OakButton> */}
       <DarkModeIcon />
-      <NavAccountIcon logout={logout} login={login} />
+      <NavAccountIcon cookies={props.cookies} />
     </div>
   );
 };

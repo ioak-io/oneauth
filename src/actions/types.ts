@@ -10,6 +10,7 @@ export const ADD_USER = 'ADD_USER';
 export const FETCH_ALL_USERS = 'FETCH_ALL_USERS';
 
 export const UPDATE_REALM = 'UPDATE_REALM';
+export const UPDATE_CURRENT_REALM = 'UPDATE_CURRENT_REALM';
 export const UPDATE_CLIENT = 'UPDATE_CLIENT';
 export const UPDATE_REALM_ADMIN = 'UPDATE_REALM_ADMIN';
 export const UPDATE_ROLE = 'UPDATE_ROLE';

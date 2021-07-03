@@ -70,22 +70,22 @@
       align-items: center;
     }
 
-    input {
-      // padding: 0 40px 0 10px;
-      background-color: white;
-      color: black;
-      border-radius: 4px;
-      border: 3px solid transparent;
-      // border: none;
-      height: 50px;
-      @media (max-width: 767px) {
-        height: 40px;
-      }
+    // input {
+    //   // padding: 0 40px 0 10px;
+    //   background-color: white;
+    //   color: black;
+    //   border-radius: 4px;
+    //   border: 3px solid transparent;
+    //   // border: none;
+    //   height: 50px;
+    //   @media (max-width: 767px) {
+    //     height: 40px;
+    //   }
 
-      &:focus {
-        border: 3px solid var(--color-secondary-1);
-      }
-    }
+    //   &:focus {
+    //     border: 3px solid var(--color-secondary-1);
+    //   }
+    // }
 
     .label {
       cursor: default;
@@ -124,7 +124,7 @@
       position: relative;
       left: 10px;
       margin-bottom: 6px;
-      color: var(--color-foreground-1);
+      color: var(--color-1);
     }
   }
 
@@ -137,15 +137,15 @@
     }
   }
 
-  button {
-    width: 100%;
-    margin: 0px;
-    height: 50px !important;
-    font-size: 16px;
-    @media (max-width: 767px) {
-      height: 40px !important;
-    }
-  }
+  // button {
+  //   width: 100%;
+  //   margin: 0px;
+  //   height: 50px !important;
+  //   font-size: 16px;
+  //   @media (max-width: 767px) {
+  //     height: 40px !important;
+  //   }
+  // }
 
   .hr {
     margin: 20px 0px;
@@ -156,7 +156,7 @@
     font-size: 13px;
     opacity: 0.4;
     letter-spacing: 0.2px;
-    color: var(--color-foreground-2);
+    color: var(--color-2);
     &::before {
       content: '';
       display: inline-block;
@@ -164,7 +164,7 @@
       position: relative;
       vertical-align: middle;
       width: 50%;
-      background-color: var(--color-foreground-2);
+      background-color: var(--color-2);
       right: 0.5em;
       margin-left: -50%;
     }
@@ -175,7 +175,7 @@
       position: relative;
       vertical-align: middle;
       width: 50%;
-      background-color: var(--color-foreground-2);
+      background-color: var(--color-2);
       left: 0.5em;
       margin-right: -50%;
     }

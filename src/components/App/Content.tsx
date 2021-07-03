@@ -28,14 +28,14 @@ const Content = (props: Props) => {
   const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const [usingMouse, setUsingMouse] = useState(false);
-  const [loginPage, setLoginPage] = useState(false);
+  const [loginPage, setLoginPage] = useState(true);
 
   useEffect(() => {
-    receiveMessage().subscribe((message) => {
-      if (message.name === 'usingMouse') {
-        setUsingMouse(message.signal);
-      }
-    });
+    // receiveMessage().subscribe((message) => {
+    //   if (message.name === 'usingMouse') {
+    //     setUsingMouse(message.signal);
+    //   }
+    // });
 
     loginPageSubject.subscribe((message) => {
       setLoginPage(message.state);
