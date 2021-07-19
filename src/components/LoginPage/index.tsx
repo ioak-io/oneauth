@@ -3,6 +3,7 @@ import { connect, useSelector } from 'react-redux';
 import { currentRealmEventSubject } from '../../events/CurrentRealmEvent';
 import FullLayout from './layout/FullLayout';
 import SplitLayout from './layout/SplitLayout';
+import { getClient } from './service';
 
 const queryString = require('query-string');
 
@@ -16,6 +17,9 @@ interface Props {
 
 const LoginPage = (props: Props) => {
   const [currentRealm, setCurrentRealm] = useState<any>(null);
+  const [currentClient, setCurrentClient] = useState<any>(null);
+  const [queryParam, setQueryParam] = useState<any>();
+  const [isClientCheckFinished, setIsClientCheckFinished] = useState(false);
 
   useEffect(() => {
     currentRealmEventSubject.asObservable().subscribe((message) => {
@@ -23,9 +27,26 @@ const LoginPage = (props: Props) => {
     });
   }, []);
 
+  // useEffect(() => {
+  //   if (props.location.search) {
+  //     const query = queryString.parse(props.location.search);
+  //     setQueryParam({ ...query });
+  //   }
+  // }, [props.location.search]);
+
+  useEffect(() => {
+    getClient(props.match.params.client_id).then((data) => {
+      if (data) {
+        setCurrentClient(data);
+      }
+      setIsClientCheckFinished(true);
+    });
+  }, []);
+
   return (
     <div className="login-page">
-      {currentRealm?.realm === props.realm &&
+      {isClientCheckFinished &&
+        currentRealm?.realm === props.realm &&
         currentRealm?.site?.layout === 'split' && (
           <SplitLayout
             cookies={props.cookies}
@@ -34,9 +55,11 @@ const LoginPage = (props: Props) => {
             match={props.match}
             realm={props.realm}
             currentRealm={currentRealm}
+            currentClient={currentClient}
           />
         )}
-      {currentRealm?.realm === props.realm &&
+      {isClientCheckFinished &&
+        currentRealm?.realm === props.realm &&
         currentRealm?.site?.layout === 'full' && (
           <FullLayout
             cookies={props.cookies}
@@ -45,6 +68,7 @@ const LoginPage = (props: Props) => {
             match={props.match}
             realm={props.realm}
             currentRealm={currentRealm}
+            currentClient={currentClient}
           />
         )}
     </div>

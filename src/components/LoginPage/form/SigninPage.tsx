@@ -16,7 +16,6 @@ import FormButton from './FormButton';
 interface Props {
   cookies: any;
   history: any;
-  clientId: string;
   switchToSignupPage: any;
   switchToResetPage: any;
   loginType: string;
@@ -24,6 +23,8 @@ interface Props {
   queryParam: any;
   background?: 'image' | 'light' | 'dark';
   currentRealm: any;
+  currentClient: any;
+  redirect: any;
 }
 
 const SigninPage = (props: Props) => {
@@ -103,17 +104,7 @@ const SigninPage = (props: Props) => {
               `${props.realm}-refresh_token`,
               authorizeResponse.data.refresh_token
             );
-            if (props.realm !== 100 && props.clientId) {
-              redirectToRequestedClient(
-                authorizeResponse.data.access_token,
-                authorizeResponse.data.refresh_token
-              );
-            } else {
-              success(
-                authorizeResponse.data.access_token,
-                authorizeResponse.data.refresh_token
-              );
-            }
+            props.redirect();
           }
         })
         .catch((error: any) => {
@@ -136,36 +127,8 @@ const SigninPage = (props: Props) => {
     }
   };
 
-  const redirectToRequestedClient = (
-    accessToken: string,
-    refreshToken: string
-  ) => {
-    httpGet(`/client/${props.clientId}`, {
-      headers: {
-        Authorization: accessToken,
-      },
-    }).then((clientResponse) => {
-      let appendString = '';
-      Object.keys(props.queryParam).forEach((key) => {
-        if (!['clientId', 'type'].includes(key)) {
-          appendString += `&${key}=${props.queryParam[key]}`;
-        }
-      });
-      window.location.href = `${clientResponse.data.data.redirect}?access_token=${accessToken}&refresh_token=${refreshToken}&realm=${props.realm}${appendString}`;
-    });
-  };
-
   const handleChange = (event: any) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
-  };
-
-  const success = (accessToken: string, refreshToken: string) => {
-    sendMessage('loggedin', true);
-    if (props.realm !== 100) {
-      props.history.push(`/${props.loginType}/${props.realm}/home`);
-    } else {
-      props.history.push('/managerealm');
-    }
   };
 
   const resendActivationLink = () => {

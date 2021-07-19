@@ -28,6 +28,7 @@ const EditRealm = (props: Props) => {
     name: '',
     description: '',
     site: {} as any,
+    upload: {} as any,
   });
 
   useEffect(() => {
@@ -67,8 +68,18 @@ const EditRealm = (props: Props) => {
     });
   };
 
+  const handleUploadChange = (name: string, value: any) => {
+    setRealmData({
+      ...realmData,
+      upload: realmData.upload
+        ? { ...realmData.upload, [name]: value }
+        : { [name]: value },
+    });
+  };
+
   const editRealm = () => {
-    dispatch(updateRealm(realmData));
+    dispatch(updateRealm({ ...realmData }));
+    realmData.upload = {};
   };
 
   const handleReset = () => {};
@@ -166,7 +177,11 @@ const EditRealm = (props: Props) => {
           </div>
         </OakSection>
         {realmData.site.layout && (
-          <SiteSettings site={realmData.site} handleChange={handleSiteChange} />
+          <SiteSettings
+            site={realmData.site}
+            handleChange={handleSiteChange}
+            handleUploadChange={handleUploadChange}
+          />
         )}
         <div className="app-action-bar">
           <div />

@@ -58,7 +58,7 @@ const RouterView = (props: Props) => {
       />
       {/* Realm based routes */}
       <Route
-        path="/realm/:realm/login"
+        path="/realm/:realm/login/:client_id"
         render={(propsLocal: any) => (
           <OakRoute
             {...propsLocal}

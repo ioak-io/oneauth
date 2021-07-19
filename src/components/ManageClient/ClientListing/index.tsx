@@ -6,11 +6,19 @@ import OakClickArea from '../../../oakui/wc/OakClickArea';
 import { isEmptyOrSpaces } from '../../Utils';
 import './style.scss';
 import ClientItem from './ClientItem';
+import { loginPageSubject } from '../../../events/LoginPageEvent';
 
 const ClientListing = () => {
   const [view, setView] = useState<Array<any> | undefined>(undefined);
   const client = useSelector((state: any) => state.client);
   const [searchCriteria, setSearchCriteria] = useState('');
+
+  useEffect(() => {
+    loginPageSubject.next({ state: false });
+    return () => {
+      loginPageSubject.next({ state: true });
+    };
+  }, []);
 
   useEffect(() => {
     console.log('**********', client);

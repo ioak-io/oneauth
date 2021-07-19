@@ -5,6 +5,7 @@ import './style.scss';
 import OakTab from '../../../oakui/wc/OakTab';
 import EditClient from './EditClient';
 import AccessControl from '../../AccessControl';
+import { loginPageSubject } from '../../../events/LoginPageEvent';
 
 const ClientDetail = () => {
   const history = useHistory();
@@ -13,6 +14,12 @@ const ClientDetail = () => {
   const client = useSelector((state: any) =>
     state.client.clients?.find((item: any) => item._id === id)
   );
+  useEffect(() => {
+    loginPageSubject.next({ state: false });
+    return () => {
+      loginPageSubject.next({ state: true });
+    };
+  }, []);
 
   const handleChangeTab = (detail: any) => {
     setActiveTab(detail.value);

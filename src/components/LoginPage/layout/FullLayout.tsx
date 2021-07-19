@@ -14,6 +14,7 @@ interface Props {
   location: any;
   realm: number;
   currentRealm: any;
+  currentClient: any;
 }
 
 const FullLayout = (props: Props) => {
@@ -44,7 +45,11 @@ const FullLayout = (props: Props) => {
         </div>
         <div className="content smooth-page">
           <div className="content__container">
-            <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
+            <img
+              className="logo"
+              src={props.currentRealm.site.logo || oneauthWhite}
+              alt="Oneauth logo"
+            />
             {/* {props.profile.theme === 'theme_dark' && (
                 <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
               )} */}
@@ -58,6 +63,7 @@ const FullLayout = (props: Props) => {
                 realm={props.realm}
                 background={background}
                 currentRealm={props.currentRealm}
+                currentClient={props.currentClient}
               />
             )}
           </div>

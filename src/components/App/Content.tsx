@@ -44,7 +44,7 @@ const Content = (props: Props) => {
 
   useEffect(() => {
     Chart.defaults.global.defaultFontColor =
-      profile.theme === 'theme_dark' ? '#e0e0e0' : '#626262';
+      profile.theme === 'theme_dark' ? '#181818' : '#626262';
   }, [profile]);
 
   const handleClose = (detail: any) => {

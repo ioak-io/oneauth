@@ -7,6 +7,8 @@ interface Props {
   value?: any;
   label?: string;
   toolbarPosition?: 'top' | 'bottom' | 'left' | 'right';
+  aspectRatio?: number;
+  initialFile?: string;
   handleChange?: any;
 }
 
@@ -16,6 +18,7 @@ const OakImageUpload = (props: Props) => {
   const handleChange = (event: any) => {
     props.handleChange(event.detail);
   };
+
   useEffect(() => {
     // attachListener('change', handleChange);
     // attachListener('onSubmit', handleSubmit);
@@ -34,6 +37,8 @@ const OakImageUpload = (props: Props) => {
       ref={elementRef}
       name={props.name}
       label={props.label}
+      initialFile={props.initialFile}
+      aspectRatio={props.aspectRatio}
       toolbarPosition={props.toolbarPosition}
     />
   );

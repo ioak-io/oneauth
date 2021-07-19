@@ -14,6 +14,7 @@ interface Props {
   location: any;
   realm: number;
   currentRealm: any;
+  currentClient: any;
 }
 
 const SplitLayout = (props: Props) => {
@@ -39,7 +40,11 @@ const SplitLayout = (props: Props) => {
           </div>
           <div className="content smooth-page">
             <div className="content__container">
-              <img className="logo" src={oneauthBlack} alt="Oneauth logo" />
+              <img
+                className="logo"
+                src={props.currentRealm.site.logo || oneauthBlack}
+                alt="Oneauth logo"
+              />
               {/* {props.profile.theme === 'theme_dark' && (
                 <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
               )} */}
@@ -51,6 +56,7 @@ const SplitLayout = (props: Props) => {
                 match={props.match}
                 realm={props.realm}
                 currentRealm={props.currentRealm}
+                currentClient={props.currentClient}
                 background="light"
               />
             </div>

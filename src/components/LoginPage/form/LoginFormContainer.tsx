@@ -21,6 +21,7 @@ interface Props {
   realm: number;
   background?: 'image' | 'light' | 'dark';
   currentRealm: any;
+  currentClient: any;
 }
 
 const LoginFormContainer = (props: Props) => {
@@ -33,7 +34,7 @@ const LoginFormContainer = (props: Props) => {
     message: '',
   });
 
-  const [clientId, setClientId] = useState('');
+  const [client, setClient] = useState('');
   const [queryParam, setQueryParam] = useState<any>();
   const [verificationStep, setVerificationStep] = useState(false);
 
@@ -74,98 +75,86 @@ const LoginFormContainer = (props: Props) => {
 
   useEffect(() => {
     setVerificationStep(true);
-    let clientIdRef = null;
-    if (props.location.search) {
-      const query = queryString.parse(props.location.search);
-      setQueryParam({ ...query });
-      console.log(query);
-      if (query && query.type) {
-        setType(query.type);
-      } else {
-        setType('signin');
-      }
-      if (query && query.auth) {
-        setAuthCode(query.auth);
-      } else {
-        setAuthCode('');
-      }
-      if (query && query.clientId) {
-        setClientId(query.clientId);
-        clientIdRef = query.clientId;
-      } else {
-        setClientId('');
-      }
+    // let clientRef = null;
+    // if (props.location.search) {
+    const query = queryString.parse(props.location.search);
+    setQueryParam({ ...query });
+    if (query && query.type) {
+      setType(query.type);
+    } else {
+      setType('signin');
     }
-    const authKey = props.cookies.get(`${props.realm}-access_token`);
+    if (query && query.auth) {
+      setAuthCode(query.auth);
+    } else {
+      setAuthCode('');
+    }
+    // if (query && query.client) {
+    //   setClient(query.client);
+    //   clientRef = query.client;
+    // } else {
+    //   setClient('');
+    // }
+    // }
+    const accessToken = props.cookies.get(`${props.realm}-access_token`);
     if (
       (props.realm === authorization.realm && authorization.isAuth) ||
-      authKey
+      accessToken
     ) {
-      if (clientIdRef) {
-        redirectToRequestedClientIfTokenIsValid(
-          clientIdRef,
-          authKey,
-          queryString.parse(props.location.search)
-        );
-      } else {
-        console.log(props.realm, typeof props.realm);
-        props.realm === 100
-          ? props.history.push('/managerealm')
-          : props.history.push(`/realm/${props.realm}/home`);
-      }
+      redirect(query);
     } else {
       setVerificationStep(false);
     }
+    // }
   }, [props.location.search]);
 
-  const redirectToRequestedClientIfTokenIsValid = (
-    clientIdRef: string,
-    authKey: string,
-    queryString: any
-  ) => {
-    const baseAuthUrl = `/auth/realm/${props.realm}`;
-
-    httpGet(`${baseAuthUrl}/session/${authKey}`, null)
-      .then((sessionResponse) => {
-        console.log(sessionResponse);
-        if (sessionResponse.status === 200) {
-          redirectToRequestedClient(
-            clientIdRef,
-            authKey,
-            sessionResponse.data.token,
-            queryString
-          );
-        } else {
-          props.cookies.remove(props.realm);
-
-          setVerificationStep(false);
+  const redirect = (query?: any) => {
+    const _query = query || queryParam;
+    const accessToken = props.cookies.get(`${props.realm}-access_token`);
+    const refreshToken = props.cookies.get(`${props.realm}-refresh_token`);
+    if (props.realm !== 100 && props.currentClient) {
+      let appendString = '';
+      Object.keys(_query).forEach((key) => {
+        if (!['client', 'type'].includes(key)) {
+          appendString += `&${key}=${_query[key]}`;
         }
-      })
-      .catch((error: any) => {
-        props.cookies.remove(props.realm);
-        setVerificationStep(false);
       });
+      window.location.href = `${props.currentClient.redirect}?access_token=${accessToken}&refresh_token=${refreshToken}&realm=${props.realm}${appendString}`;
+    } else {
+      sendMessage('loggedin', true);
+      if (props.realm !== 100) {
+        props.history.push(`/realm/${props.realm}/home`);
+      } else {
+        props.history.push('/managerealm');
+      }
+    }
   };
 
-  const redirectToRequestedClient = (
-    clientId: string,
-    authKey: string,
-    token: string,
+  const redirectToRequestedClientIfTokenIsValid = (
+    refreshToken: string,
+    accessToken: string,
     queryString: any
   ) => {
-    httpGet(`/client/${clientId}`, {
-      headers: {
-        Authorization: token,
-      },
-    }).then((clientResponse) => {
-      let appendString = '';
-      Object.keys(queryString).forEach((key) => {
-        if (!['clientId', 'type'].includes(key)) {
-          appendString += `&${key}=${queryString[key]}`;
-        }
-      });
-      window.location.href = `${clientResponse.data.data.redirect}?authKey=${authKey}&realm=${props.realm}${appendString}`;
-    });
+    // const baseAuthUrl = `/auth/realm/${props.realm}`;
+    //   httpGet(`/api/auth/token/decode`, {authorization: refreshAccessToken})
+    //     .then((sessionResponse) => {
+    //       console.log(sessionResponse);
+    //       if (sessionResponse.status === 200) {
+    //         redirectToRequestedClient(
+    //           authKey,
+    //           sessionResponse.data.token,
+    //           queryString
+    //         );
+    //       } else {
+    //         props.cookies.remove(props.realm);
+    //         setVerificationStep(false);
+    //       }
+    //     })
+    //     .catch((error: any) => {
+    //       props.cookies.remove(props.realm);
+    //       setVerificationStep(false);
+    //     });
+    // redirectToRequestedClient(authKey, sessionResponse.data.token, queryString);
   };
 
   return (
@@ -176,12 +165,13 @@ const LoginFormContainer = (props: Props) => {
       {!verificationStep && type === 'signin' && (
         <div className="wrapper">
           <SigninPage
-            clientId={clientId}
             switchToSignupPage={() => changeRoute('signup')}
             switchToResetPage={() => changeRoute('reset')}
             queryParam={queryParam}
             background={props.background}
+            currentClient={props.currentClient}
             currentRealm={props.currentRealm}
+            redirect={redirect}
             {...props}
           />
         </div>

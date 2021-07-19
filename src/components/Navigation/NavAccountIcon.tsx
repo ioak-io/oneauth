@@ -38,9 +38,7 @@ const NavAccountIcon = (props: Props) => {
         ? history.push('/')
         : history.push(`/realm/${authorization.realm}/home`);
     } else {
-      console.log('---');
-      console.log(authorization, realm);
-      history.push(`/realm/100/login`);
+      history.push(`/realm/100/login/oneauth`);
     }
   };
 

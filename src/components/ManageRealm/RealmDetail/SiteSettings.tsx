@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
+import { base64ToFile } from '@oakui/core-stage/service/OakImageService';
 import './SiteSettings.scss';
 import { updateRealm } from '../../../actions/RealmActions';
 import OakInput from '../../../oakui/wc/OakInput';
@@ -18,6 +19,7 @@ import OakImageUpload from '../../../oakui/wc/OakImageUpload';
 interface Props {
   site: any;
   handleChange: any;
+  handleUploadChange: any;
 }
 
 const SiteSettings = (props: Props) => {
@@ -29,9 +31,8 @@ const SiteSettings = (props: Props) => {
     props.handleChange({ ...props.site, [detail.name]: detail.value });
   };
 
-  const handleImageChange = (event: any) => {
-    console.log('*******');
-    console.log(event);
+  const handleImageChange = (detail: any) => {
+    props.handleUploadChange(detail.name, detail.value);
   };
 
   const [groupId, setGroupId] = useState(newId());
@@ -143,6 +144,7 @@ const SiteSettings = (props: Props) => {
         </div>
         <div className="site-settings__image">
           <div className="site-settings__image__logo">
+            Logo
             <OakImageUpload
               toolbarPosition="top"
               name="logo"
@@ -151,10 +153,12 @@ const SiteSettings = (props: Props) => {
             />
           </div>
           <div className="site-settings__image__background">
+            Background
             <OakImageUpload
               toolbarPosition="top"
-              name="logo"
+              name="background"
               value=""
+              initialFile={props.site.background}
               handleChange={handleImageChange}
             />
           </div>
