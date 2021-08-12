@@ -116,7 +116,7 @@ const RouterView = (props: Props) => {
         )}
       />
       <Route
-        path="/managerealm/:id"
+        path="/managerealm/:realmId"
         exact
         render={(propsLocal) => (
           <OakRoute

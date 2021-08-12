@@ -7,11 +7,14 @@ import { isEmptyOrSpaces } from '../../Utils';
 import './style.scss';
 import ClientItem from './ClientItem';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
+import CreateClient from './CreateClient';
+import OakButton from '../../../oakui/wc/OakButton';
 
 const ClientListing = () => {
   const [view, setView] = useState<Array<any> | undefined>(undefined);
   const client = useSelector((state: any) => state.client);
   const [searchCriteria, setSearchCriteria] = useState('');
+  const [showCreate, setShowCreate] = useState(false);
 
   useEffect(() => {
     loginPageSubject.next({ state: false });
@@ -23,7 +26,12 @@ const ClientListing = () => {
   useEffect(() => {
     console.log('**********', client);
     if (client) {
-      setView(search(client.clients, searchCriteria));
+      setView(
+        search(
+          client.clients.filter((item: any) => item.editRights),
+          searchCriteria
+        )
+      );
     }
   }, [client.clients, searchCriteria]);
 
@@ -42,19 +50,36 @@ const ClientListing = () => {
   };
 
   return (
-    <div className="client-listing">
-      <OakInput
-        name="searchCriteria"
-        value={searchCriteria}
-        handleInput={handleSearchCriteriaChange}
-        placeholder="Type to search"
-      />
-      <div className="client-listing__list">
-        {view?.map((item) => (
-          <ClientItem client={item} key={item._id} />
-        ))}
-      </div>
-    </div>
+    <>
+      {!showCreate && (
+        <div className="realm-listing">
+          <div className="realm-listing__toolbar">
+            <div className="realm-listing__toolbar__left">
+              <OakInput
+                name="searchCriteria"
+                value={searchCriteria}
+                handleInput={handleSearchCriteriaChange}
+                placeholder="Type to search"
+              />
+            </div>
+            <div className="realm-listing__toolbar__right">
+              <OakButton
+                variant="regular"
+                handleClick={() => setShowCreate(true)}
+              >
+                New client
+              </OakButton>
+            </div>
+          </div>
+          <div className="client-listing__list">
+            {view?.map((item) => (
+              <ClientItem client={item} key={item._id} />
+            ))}
+          </div>
+        </div>
+      )}
+      {showCreate && <CreateClient handleClose={() => setShowCreate(false)} />}
+    </>
   );
 };
 

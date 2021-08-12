@@ -40,7 +40,7 @@ const ResetPassword = (props: Props) => {
   //   const [] = useState('');
   useEffect(() => {
     if (props.authCode) {
-      let baseAuthUrl = `/auth/${props.loginType}`;
+      let baseAuthUrl = `/auth/realm`;
       if (props.realm) {
         baseAuthUrl = `${baseAuthUrl}/${props.realm}`;
       }
@@ -82,7 +82,7 @@ const ResetPassword = (props: Props) => {
 
   const requestLink = (event) => {
     event.preventDefault();
-    let baseAuthUrl = `/auth/${props.loginType}`;
+    let baseAuthUrl = `/auth/realm`;
     if (props.realm) {
       baseAuthUrl = `${baseAuthUrl}/${props.realm}`;
     }
@@ -142,7 +142,7 @@ const ResetPassword = (props: Props) => {
   const resetPassword = (event) => {
     event.preventDefault();
     sendMessage('login-spinner');
-    let baseAuthUrl = `/auth/${props.loginType}`;
+    let baseAuthUrl = `/auth/realm`;
     if (props.realm) {
       baseAuthUrl = `${baseAuthUrl}/${props.realm}`;
     }

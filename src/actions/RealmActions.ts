@@ -36,7 +36,7 @@ export const createRealm = (payload: any) => (dispatch: any) => {
     .then((response) => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'created' });
-        dispatch(fetchRealm());
+        dispatch(fetchAllRealms());
       }
     })
     .catch((error) => {
@@ -51,7 +51,7 @@ export const updateRealm = (payload: any) => (dispatch: any) => {
     .then((response) => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'updated' });
-        dispatch(fetchRealm());
+        dispatch(fetchAllRealms());
       }
     })
     .catch((error) => {

@@ -6,6 +6,15 @@
   align-items: flex-start;
   align-content: flex-start;
 }
+.realm-listing__toolbar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+}
+.realm-listing__toolbar__right {
+  display: grid;
+  justify-content: flex-end;
+}
 .realm-listing__list {
   display: grid;
   grid-auto-flow: row;

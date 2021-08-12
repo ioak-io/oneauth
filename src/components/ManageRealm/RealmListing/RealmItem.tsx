@@ -14,7 +14,9 @@ interface Props {
 const RealmItem = (props: Props) => {
   const history = useHistory();
 
-  const goToViewPage = () => history.push(`/managerealm/${props.realm._id}`);
+  const goToViewPage = () => {
+    history.push(`/managerealm/${props.realm.realm}`);
+  };
 
   return (
     <div className="realm-item">

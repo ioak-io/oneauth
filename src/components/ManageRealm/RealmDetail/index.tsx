@@ -4,15 +4,16 @@ import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
 import OakTab from '../../../oakui/wc/OakTab';
 import EditRealm from './EditRealm';
-import AccessControl from '../../AccessControl';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
+import Gridcontrol from '../../AccessControl/Gridcontrol';
+import SystemRoleControl from '../../AccessControl/SystemRoleControl';
 
 const RealmDetail = () => {
   const history = useHistory();
-  const { id }: any = useParams();
+  const { realmId }: any = useParams();
   const [activeTab, setActiveTab] = useState(0);
   const realm = useSelector((state: any) =>
-    state.realm.realms?.find((item: any) => item._id === id)
+    state.realm.realms?.find((item: any) => item.realm === Number(realmId))
   );
   useEffect(() => {
     loginPageSubject.next({ state: false });
@@ -28,7 +29,7 @@ const RealmDetail = () => {
   return (
     <div className="realm-detail">
       <OakTab
-        tabs={['Detail', 'System roles', 'Users', 'User groups']}
+        tabs={['Detail', 'Clients', 'User groups', 'Administrators']}
         handleChange={handleChangeTab}
         variant="pills"
         color="info"
@@ -39,9 +40,9 @@ const RealmDetail = () => {
         {realm && (
           <div className="realm-detail__container">
             {activeTab === 0 && <EditRealm realm={realm} />}
-            {activeTab === 1 && (
-              <AccessControl domainId={realm._id} domainType="realm" />
-            )}
+            {activeTab === 1 && <Gridcontrol realm={realm.realm} />}
+            {/* {activeTab === 2 && <Gridcontrol realm={realm.realm} />} */}
+            {activeTab === 3 && <SystemRoleControl realm={realm.realm} />}
           </div>
         )}
       </OakTab>

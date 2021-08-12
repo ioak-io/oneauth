@@ -33,7 +33,7 @@ export const createClient = (payload: any) => (dispatch: any) => {
     .then((response) => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'created' });
-        dispatch(fetchClient());
+        dispatch(fetchAllClients());
       }
     })
     .catch((error) => {
@@ -52,7 +52,7 @@ export const updateClient = (payload: any) => (dispatch: any) => {
     .then((response) => {
       if (response.status === 200) {
         sendMessage(domain, true, { action: 'updated' });
-        dispatch(fetchClient());
+        dispatch(fetchAllClients());
       }
     })
     .catch((error) => {

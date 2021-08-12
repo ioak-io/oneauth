@@ -38,8 +38,17 @@ export function httpPut(
   // )
 }
 
-export function httpDelete(endpoint: string, headers: any, url?: string) {
-  return axiosInstance.delete((url || baseUrl) + endpoint, headers);
+export function httpDelete(
+  endpoint: string,
+  payload: any,
+  headers: any,
+  url?: string
+) {
+  return axiosInstance.delete((url || baseUrl) + endpoint);
+  // return axiosInstance.delete((url || baseUrl) + endpoint, {
+  //   headers,
+  //   data: payload,
+  // });
   //     .then(function(response) {
   //         return Promise.resolve(response);
   //     }

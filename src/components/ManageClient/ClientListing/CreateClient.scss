@@ -1,0 +1,14 @@
+.create-client {
+  margin: 20px 10px;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
+  align-items: flex-start;
+  align-content: flex-start;
+}
+.create-client__toolbar {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  justify-content: flex-end;
+}
