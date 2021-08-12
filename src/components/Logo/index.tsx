@@ -5,15 +5,20 @@ import oneauthWhite from '../../images/oneauth_white.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
 
 const Logo = () => {
-  const authorization = useSelector(state => state.authorization);
+  const authorization = useSelector((state: any) => state.authorization);
 
-  const profile = useSelector(state => state.profile);
+  const profile = useSelector((state: any) => state.profile);
 
   const dispatch = useDispatch();
 
   return (
     <div className="logo">
-      <img className="logo--image" src={oneauthWhite} alt="Oneauth logo" />
+      {profile.theme === 'theme_light' && (
+        <img className="logo--image" src={oneauthWhite} alt="Oneauth logo" />
+      )}
+      {profile.theme !== 'theme_light' && (
+        <img className="logo--image" src={oneauthWhite} alt="Oneauth logo" />
+      )}
     </div>
   );
 };

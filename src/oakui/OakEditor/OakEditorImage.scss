@@ -1,0 +1,24 @@
+.oak-editor-image {
+  display: grid;
+  grid-auto-flow: row;
+}
+.oak-editor-image__input {
+  display: flex;
+  justify-content: center;
+  border: 1px dotted transparent;
+  transition: border-color 250ms ease-in-out;
+  &:hover {
+    border: 1px dotted var(--color-3);
+  }
+}
+.oak-editor-image__input--editing {
+  transition: border-color 250ms ease-in-out;
+  border: 1px dotted var(--color-1);
+  &:hover {
+    border: 1px dotted var(--color-1);
+  }
+}
+.oak-editor-image__input__container {
+  width: 350px;
+  // max-height: 60vh;
+}

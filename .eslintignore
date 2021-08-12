@@ -1,3 +1,4 @@
 build/*
 jest.config.js
 package.json
+graphql.tsx

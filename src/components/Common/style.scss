@@ -1,0 +1,30 @@
+.status-chip-container {
+  display: flex;
+  .status-chip {
+    user-select: none;
+    padding: 4px 16px;
+    border-radius: 20px;
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 10px;
+    align-items: center;
+    &.primary {
+      background-color: var(--color-primary);
+    }
+    &.secondary {
+      background-color: var(--color-secondary);
+    }
+    &.tertiary {
+      background-color: var(--color-tertiary);
+    }
+    &.success {
+      background-color: var(--color-success);
+    }
+    &.warning {
+      background-color: var(--color-warning);
+    }
+    &.failure {
+      background-color: var(--color-danger);
+    }
+  }
+}

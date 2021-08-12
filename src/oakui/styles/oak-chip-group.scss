@@ -1,0 +1,63 @@
+.oak-chip-group {
+  position: relative;
+  .results {
+    position: relative;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    max-height: 256px;
+    overflow-y: auto;
+    // margin-top: -20px;
+    padding: 6px 0px;
+    background-color: var(--formelement-color-bg);
+    box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.15),
+      0 5px 20px 0 rgba(21, 27, 38, 0.08);
+    .element {
+      cursor: pointer;
+      padding: var(--metric-formelement-padding);
+      height: var(--metric-formelement-height);
+      line-height: var(--metric-formelement-height);
+      &:hover {
+        background-color: var(--color-primary);
+      }
+    }
+  }
+
+  .chip-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    .chip {
+      background-color: var(--color-primary);
+      &:hover {
+        background-color: var(--color-primary-2);
+      }
+      padding: 2px 6px;
+      margin: 4px 4px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      cursor: default;
+      .material-icons {
+        font-size: 1em;
+        margin-left: 4px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .search-bar {
+    .oak-text {
+      margin: 0px;
+    }
+    &.hide-label {
+      .oak-text {
+        label.active {
+          display: none;
+        }
+      }
+    }
+  }
+}

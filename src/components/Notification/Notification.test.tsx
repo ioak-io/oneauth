@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme';
 import Notification from './index';
 import { sendMessage } from '../../events/MessageService';
 
-jest.spyOn(React, 'useEffect').mockImplementation(f => f());
+jest.spyOn(React, 'useEffect').mockImplementation((f) => f());
 jest.useFakeTimers();
 
 describe('notification component interaction', () => {

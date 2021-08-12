@@ -1,0 +1,23 @@
+.oak-table thead tr th,
+.oak-table tbody tr td {
+  padding: 12px 10px;
+}
+.oak-table--dense thead tr th {
+  padding: 10px 6px;
+}
+.oak-table--dense tbody tr td {
+  padding: 4px 6px;
+}
+.oak-table tbody tr td {
+  max-width: 160px;
+  min-width: 100px;
+  white-space: normal;
+}
+.oak-table thead tr th {
+  font-size: 16px;
+  font-weight: 500;
+}
+.oak-table thead tr th span {
+  display: flex;
+  align-items: center;
+}

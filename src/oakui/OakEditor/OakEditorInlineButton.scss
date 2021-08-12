@@ -1,0 +1,34 @@
+.oak-editor-toolbar-button {
+  background-color: var(--color-global-dark);
+  border: none;
+  box-shadow: none;
+  margin: 0 0 4px 4px;
+  height: 24px;
+  // width: 24px;
+  padding: 0 4px;
+  color: var(--color-global-dark-i);
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 4px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  svg {
+    width: 20px;
+  }
+  svg path {
+    fill: var(--color-global-dark-i);
+    transition: fill 250ms ease-in-out;
+  }
+  cursor: pointer;
+  transition: color 250ms ease-in-out, background-color 250ms ease-in-out;
+}
+
+.oak-editor-toolbar-button:hover,
+.oak-editor-toolbar-button:focus {
+  background-color: var(--color-global-darkest);
+  color: var(--color-global-darkest-i);
+  svg path {
+    fill: var(--color-global-darkest-i);
+  }
+}

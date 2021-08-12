@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import './style.scss';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
-import OakSpinner from '../../oakui/OakSpinner';
 import NotificationMessage from './NotificationMessage';
+import OakSpinner from '../../oakui/OakSpinner';
 
 const Notification = () => {
   const [spinner, setSpinner] = useState(false);
   const [notificationList, setNotificationList] = useState<any | undefined>([]);
   const [data, setData] = useState<any>({ notificationList: [] });
 
-  const removeNotification = notificationData => {
+  const removeNotification = (notificationData) => {
     setNotificationList(
-      notificationList.filter(item => {
+      notificationList.filter((item) => {
         return item.id !== notificationData.id;
       })
     );
   };
-  const addNotification = notificationData => {
+  const addNotification = (notificationData) => {
     const localCopy = [...notificationList];
     localCopy.unshift(notificationData);
     // setNotificationList([notificationData].concat(notificationList));
@@ -35,7 +35,7 @@ const Notification = () => {
   };
 
   useEffect(() => {
-    const eventBus = receiveMessage().subscribe(message => {
+    const eventBus = receiveMessage().subscribe((message) => {
       if (message.name === 'notification') {
         if (!message.signal) {
           removeNotification(message.data);
@@ -67,7 +67,7 @@ const Notification = () => {
           {notificationList
             .slice(0, 5)
             .reverse()
-            .map(notification => (
+            .map((notification) => (
               <div key={notification.id || notification.message}>
                 <NotificationMessage
                   notification={notification}

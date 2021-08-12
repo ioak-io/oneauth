@@ -1,0 +1,71 @@
+.stretching-bars {
+  position: absolute;
+  z-index: 99;
+  left: calc(50% - 20px);
+  top: calc(50% - 20px);
+
+  width: 40px;
+  height: 40px;
+  // margin: 100px auto;
+  // width: 50px;
+  // height: 40px;
+  // text-align: center;
+  // font-size: 10px;
+  width: 60px;
+  height: 40px;
+
+  > div {
+    background-color: var(--color-1);
+    height: 100%;
+    width: 6px;
+    margin: 1.5px;
+    display: inline-block;
+
+    -webkit-animation: stretching-bars-delay 1.2s infinite ease-in-out;
+    animation: stretching-bars-delay 1.2s infinite ease-in-out;
+  }
+
+  .stretching-bars--two {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+  }
+
+  .stretching-bars--three {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+  }
+
+  .stretching-bars--four {
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
+  }
+
+  .stretching-bars--five {
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
+  }
+
+  @-webkit-keyframes stretching-bars-delay {
+    0%,
+    40%,
+    100% {
+      -webkit-transform: scaleY(0.4);
+    }
+    20% {
+      -webkit-transform: scaleY(1);
+    }
+  }
+
+  @keyframes stretching-bars-delay {
+    0%,
+    40%,
+    100% {
+      transform: scaleY(0.4);
+      -webkit-transform: scaleY(0.4);
+    }
+    20% {
+      transform: scaleY(1);
+      -webkit-transform: scaleY(1);
+    }
+  }
+}

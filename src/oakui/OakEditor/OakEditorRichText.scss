@@ -1,0 +1,22 @@
+.oak-editor-rich-text--inactive {
+  border: 1px dotted transparent;
+  transition: border-color 250ms ease-in-out;
+  &:hover {
+    border: 1px dotted var(--color-3);
+  }
+}
+
+.oak-editor-rich-text--active {
+  transition: border-color 250ms ease-in-out;
+  border: 1px dotted var(--color-1);
+}
+
+.ql-editor {
+  padding: 0;
+  box-shadow: none;
+}
+
+.ql-editor.ql-blank::before {
+  color: var(--color-3);
+  left: 0px;
+}

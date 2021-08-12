@@ -1,0 +1,15 @@
+.oak-editor-list-group__item {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  column-gap: 20px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.oak-editor-list-group__item__action {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 4px;
+  justify-content: flex-start;
+  align-items: center;
+}

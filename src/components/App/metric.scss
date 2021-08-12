@@ -1,10 +1,16 @@
 * {
+  margin: 0;
+  padding: 0;
+
+  --height-nav: 50px;
   --metric-formelement-height: 36px;
   --metric-formelement-height-mobile: 32px;
   --metric-formelement-padding: 0 16px;
   --metric-space-vertical: 10px;
   --metric-space-horizontal: 10px;
 
+  --metric-typography-base-14: 34px;
+  --metric-typography-base-13: 32px;
   --metric-typography-base-12: 30px;
   --metric-typography-base-11: 28px;
   --metric-typography-base-10: 26px;
@@ -59,6 +65,12 @@
   );
   --metric-typography-12: calc(
     var(--metric-unit-medium) * var(--metric-typography-base-12)
+  );
+  --metric-typography-13: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-13)
+  );
+  --metric-typography-14: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-14)
   );
 }
 
@@ -175,6 +187,14 @@
   display: inline;
 }
 
+.typography-14 {
+  font-size: var(--metric-typography-14);
+}
+
+.typography-13 {
+  font-size: var(--metric-typography-13);
+}
+
 .typography-12 {
   font-size: var(--metric-typography-12);
 }
@@ -228,5 +248,21 @@
   text-overflow: ellipsis;
   display: -webkit-box !important;
   -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.two-liner {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.three-liner {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3; /* number of lines to show */
   -webkit-box-orient: vertical;
 }

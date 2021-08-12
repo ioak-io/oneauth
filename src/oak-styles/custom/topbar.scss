@@ -1,0 +1,9 @@
+* {
+  .theme_dark {
+    --color-topbar: var(--color-dark-bg-1);
+  }
+
+  .theme_light {
+    --color-topbar: var(--color-light-bg-1);
+  }
+}

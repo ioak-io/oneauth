@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './style.scss';
-import Navigation from '../Navigation';
 import { sendMessage } from '../../events/MessageService';
+import { loginPageSubject } from '../../events/LoginPageEvent';
 
 interface Props {
   label?: string;
@@ -9,7 +9,10 @@ interface Props {
 }
 const Home = (props: Props) => {
   useEffect(() => {
-    sendMessage('navbar', true);
+    loginPageSubject.next({ state: false });
+    return () => {
+      loginPageSubject.next({ state: true });
+    };
   }, []);
   return (
     <div className="page-home">

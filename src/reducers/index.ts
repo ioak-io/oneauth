@@ -1,18 +1,22 @@
 import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
 import ProfileReducer from './ProfileReducer';
-import SpaceReducer from './SpaceReducer';
+import UserReducer from './UserReducer';
+import RealmReducer from './RealmReducer';
+import AssetReducer from './AssetReducer';
+import ClientReducer from './ClientReducer';
+import PermittedRealmReducer from './PermittedRealmReducer';
 import OaRoleReducer from './OaRoleReducer';
 import OaUserReducer from './OaUserReducer';
-import AppReducer from './AppReducer';
-import PermittedSpaceReducer from './PermittedSpaceReducer';
 
 export default combineReducers({
   authorization: AuthReducer,
   profile: ProfileReducer,
-  space: SpaceReducer,
-  app: AppReducer,
+  user: UserReducer,
+  realm: RealmReducer,
+  asset: AssetReducer,
+  client: ClientReducer,
   oaUsers: OaUserReducer,
   oaRoles: OaRoleReducer,
-  permittedSpace: PermittedSpaceReducer,
+  permittedRealm: PermittedRealmReducer,
 });

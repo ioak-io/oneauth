@@ -1,13 +1,13 @@
 .oak-popover-menu {
   --color-popover-theme: var(--color-default);
   &.primary {
-    --color-popover-theme: var(--color-primary-1);
+    --color-popover-theme: var(--color-primary);
   }
   &.secondary {
-    --color-popover-theme: var(--color-secondary-1);
+    --color-popover-theme: var(--color-secondary);
   }
   &.tertiary {
-    --color-popover-theme: var(--color-tertiary-1);
+    --color-popover-theme: var(--color-tertiary);
   }
   --color-label-normal: none;
   &.on {
@@ -68,7 +68,7 @@
   .dropdown-content {
     position: absolute;
     padding: 8px 0px;
-    background-color: var(--color-background-1);
+    background-color: var(--formelement-color-bg);
     // box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     //   0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
     box-shadow: 0 0 0 1px rgba(111, 119, 130, 0.15),
