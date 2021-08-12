@@ -30,17 +30,13 @@ const HomeLink = (props: Props) => {
     email: '',
   });
 
-  const handleChange = (event) => {
-    setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
     if (stage === 'requestLink') {
       // requestLink(event);
     }
   };
 
-  const changeRoute = (routeType) => {
+  const changeRoute = (routeType: string) => {
     props.history.push(`/realm/${props.realm}/home?type=${routeType}`);
   };
 

@@ -10,7 +10,7 @@ interface Props {
 }
 
 const Links = (props: Props) => {
-  const profile = useSelector((state) => state.profile);
+  const profile = useSelector((state: any) => state.profile);
 
   return (
     <div className={`links ${profile.theme}`}>

@@ -10,7 +10,7 @@ interface Props {
 }
 
 const TopbarContainer = (props: Props) => {
-  const profile = useSelector((state) => state.profile);
+  const profile = useSelector((state: any) => state.profile);
   const [realm, setRealm] = useState('');
 
   useEffect(() => {

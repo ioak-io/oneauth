@@ -3,8 +3,14 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 
-module.exports = env => {
-  console.log('NODE_ENV', env.NODE_ENV);
+module.exports = (env) => {
+  let envFile = '.env';
+  if (env.target) {
+    envFile = `.env.${env.target}`;
+  }
+  const envParsed = dotenv.config({
+    path: path.join(__dirname, envFile),
+  }).parsed;
   return {
     entry: './src/app.tsx',
     resolve: {
@@ -34,7 +40,7 @@ module.exports = env => {
           ],
         },
         {
-          test: /\.scss$/,
+          test: /\.(scss|css)$/,
           use: [
             {
               loader: 'style-loader',
@@ -58,7 +64,7 @@ module.exports = env => {
       host: '0.0.0.0',
       compress: true,
       hot: true,
-      port: 3010,
+      port: 3000,
       publicPath: '/',
     },
     devtool: 'source-map',
@@ -73,7 +79,7 @@ module.exports = env => {
         favicon: './src/static/favicon.ico',
       }),
       new webpack.DefinePlugin({
-        'process.env': JSON.stringify(dotenv.config().parsed), // it will automatically pick up key values from .env file
+        'process.env': JSON.stringify(envParsed), // it will automatically pick up key values from .env file
         // 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
       }),
       // new webpack.DefinePlugin({

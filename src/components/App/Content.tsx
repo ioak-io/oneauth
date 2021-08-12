@@ -25,7 +25,7 @@ interface Props {
 }
 
 const Content = (props: Props) => {
-  const profile = useSelector((state) => state.profile);
+  const profile = useSelector((state: any) => state.profile);
   const dispatch = useDispatch();
   const [usingMouse, setUsingMouse] = useState(false);
   const [loginPage, setLoginPage] = useState(true);

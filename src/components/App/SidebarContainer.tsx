@@ -5,7 +5,7 @@ import Sidebar from '../Sidebar';
 import './SidebarContainer.scss';
 
 const SidebarContainer = () => {
-  const profile = useSelector((state) => state.profile);
+  const profile = useSelector((state: any) => state.profile);
 
   return (
     <div className={`sidebar-container ${profile.sidebar ? 'show' : 'hide'}`}>

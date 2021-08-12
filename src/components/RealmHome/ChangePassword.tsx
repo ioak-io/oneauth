@@ -36,7 +36,7 @@ const ChangePassword = (props: Props) => {
     setData({ ...data, [detail.name]: detail.value });
   };
 
-  const changePassword = (event) => {
+  const changePassword = (event: any) => {
     event.preventDefault();
     const baseAuthUrl = `/auth/${loginType}/${props.realm}`;
     const errorState = {
@@ -115,7 +115,7 @@ const ChangePassword = (props: Props) => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: any) => {
     if (stage === 'form') {
       // requestLink(event);
       changePassword(event);
@@ -150,7 +150,7 @@ const ChangePassword = (props: Props) => {
                 type="password"
                 placeholder="Type your current password"
                 value={data.oldpassword}
-                handleChange={(e) => handleChange(e)}
+                handleChange={handleChange}
               />
             </div>
             <div>
@@ -170,7 +170,7 @@ const ChangePassword = (props: Props) => {
                 type="password"
                 placeholder="Make it a good one"
                 value={data.password}
-                handleChange={(e) => handleChange(e)}
+                handleChange={handleChange}
               />
             </div>
             <div>
@@ -189,8 +189,8 @@ const ChangePassword = (props: Props) => {
                 name="repeatpassword"
                 type="password"
                 placeholder="Don't forget it"
-                value={data.repeatPassword}
-                handleChange={(e) => handleChange(e)}
+                value={data.repeatpassword}
+                handleChange={handleChange}
               />
             </div>
           </div>

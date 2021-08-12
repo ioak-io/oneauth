@@ -4,7 +4,7 @@ const initialState = {
   data: [],
 };
 
-export default function (state = initialState, action) {
+export default function (state = initialState, action: any) {
   switch (action.type) {
     case UPDATE_PERMITTED_REALM:
       console.log('SET PERMITTED REALM reducer');

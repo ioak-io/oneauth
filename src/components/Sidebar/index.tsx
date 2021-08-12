@@ -4,12 +4,8 @@ import { useHistory, useLocation } from 'react-router';
 
 import './style.scss';
 
-import { Profile } from '../Types/GeneralTypes';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 
-import Header from './Header';
-import NavElements from './NavElements';
-import OakNavGroup from '../../oakui/wc/OakNavGroup';
 import OakNavElement from '../../oakui/wc/OakNavElement';
 
 const Sidebar = () => {
@@ -19,7 +15,7 @@ const Sidebar = () => {
   const location = useLocation();
   const authorization = useSelector((state: any) => state.authorization);
 
-  const profile = useSelector((state) => state.profile);
+  const profile = useSelector((state: any) => state.profile);
 
   const dispatch = useDispatch();
 

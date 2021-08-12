@@ -4,7 +4,7 @@ const initialState = {
   data: [],
 };
 
-export default function (state = initialState, action) {
+export default function (state = initialState, action: any) {
   switch (action.type) {
     case FETCH_ALL_USERS:
       console.log('SET REALM reducer');

@@ -34,15 +34,14 @@ const Playground = (props: Props) => {
 
   const [radioValue, setRadioValue] = useState('one');
   const [isOpen, setIsOpen] = useState(false);
-  const [isValidationSettingsOpen, setIsValidationSettingsOpen] = useState(
-    false
-  );
+  const [isValidationSettingsOpen, setIsValidationSettingsOpen] =
+    useState(false);
 
   const handleChange = (detail: any) => {
     setState({ ...state, [detail.name]: detail.value });
   };
 
-  const validatorFunction = (_, __, value: any): string[] => {
+  const validatorFunction = (_: any, __: any, value: any): string[] => {
     if (state.validatorFunction) {
       const outcome: string[] = [];
       outcome.push(state.validatorFunction);

@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ListAssets = (props: Props) => {
-  const assetList = useSelector((state) => state.asset);
+  const assetList = useSelector((state: any) => state.asset);
   return (
     <div className="list-assets">
       <div className="typography-7 realm-bottom-2">

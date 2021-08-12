@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ListRealms = (props: Props) => {
-  const realmList = useSelector((state) => state.realm);
+  const realmList = useSelector((state: any) => state.realm);
   return (
     <div className="list-realms">
       <OakTypography variant="h2">Choose a realm to proceed</OakTypography>
