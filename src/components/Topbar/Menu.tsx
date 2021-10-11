@@ -21,6 +21,9 @@ const Menu = () => {
       <NavLink to="/manageclient" className="navitem" activeClassName="active">
         Client
       </NavLink>
+      <NavLink to="/blog" className="navitem" activeClassName="active">
+        Blog
+      </NavLink>
     </div>
   );
 };

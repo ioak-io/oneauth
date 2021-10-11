@@ -212,16 +212,16 @@ const OakRoute = (props: Props) => {
 
   const redirectToOaLogin = () => {
     // window.location.href = `http://localhost:3010/#/login`;
-    props.history.push(`/login`);
+    props.history.push(`/realm/100/login/oneauth`);
   };
 
   const redirectToRealmLogin = (realm: number) => {
     // window.location.href = `http://localhost:3010/#/realm/${realmId}/login`;
     console.log(realm);
     if (realm === 100) {
-      props.history.push(`/login`);
+      props.history.push(`/realm/100/login/oneauth`);
     } else {
-      props.history.push(`/realm/${realm}/login`);
+      props.history.push(`/realm/${realm}/login/oneauth`);
     }
   };
 

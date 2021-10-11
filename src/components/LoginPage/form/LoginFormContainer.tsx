@@ -5,7 +5,7 @@ import { sendMessage, receiveMessage } from '../../../events/MessageService';
 import NewUser from '../form/NewUser';
 import SigninPage from '../form/SigninPage';
 import VerifySession from '../form/VerifySession';
-import { httpGet } from '../../Lib/RestTemplate';
+import { httpGet, httpPost } from '../../Lib/RestTemplate';
 import ResetPassword from '../form/ResetPassword';
 import ConfirmEmail from '../form/ConfirmEmail';
 import NotificationMessage from '../form/NotificationMessage';
@@ -96,7 +96,11 @@ const LoginFormContainer = (props: Props) => {
     //   setClient('');
     // }
     // }
-    const accessToken = props.cookies.get(`${props.realm}-access_token`);
+    const refreshToken = props.cookies.get(`${props.realm}-refresh_token`);
+    const accessToken = getAccessToken(
+      props.cookies.get(`${props.realm}-access_token`),
+      refreshToken
+    );
     if (
       (props.realm === authorization.realm && authorization.isAuth) ||
       accessToken
@@ -108,27 +112,66 @@ const LoginFormContainer = (props: Props) => {
     // }
   }, [props.location.search]);
 
+  const getAccessToken = (accessToken: string, refreshToken: string) => {
+    return accessToken;
+  };
+
   const redirect = (query?: any) => {
     const _query = query || queryParam;
     const accessToken = props.cookies.get(`${props.realm}-access_token`);
     const refreshToken = props.cookies.get(`${props.realm}-refresh_token`);
-    if (props.realm !== 100 && props.currentClient) {
-      let appendString = '';
-      Object.keys(_query).forEach((key) => {
-        if (!['client', 'type'].includes(key)) {
-          appendString += `&${key}=${_query[key]}`;
-        }
-      });
-      window.location.href = `${props.currentClient.redirect}?access_token=${accessToken}&refresh_token=${refreshToken}&realm=${props.realm}${appendString}`;
-    } else {
-      sendMessage('loggedin', true);
-      if (props.realm !== 100) {
-        props.history.push(`/realm/${props.realm}/home`);
-      } else {
-        props.history.push('/managerealm');
+    const outcome = validateToken(accessToken, refreshToken);
+
+    httpPost(
+      '/auth/token',
+      {
+        grant_type: 'refresh_token',
+        realm: props.realm,
+        refresh_token: refreshToken,
+      },
+      {
+        headers: {
+          authorization: accessToken,
+        },
       }
-    }
+    )
+      .then((refreshTokenResponse) => {
+        if (refreshTokenResponse.status === 200) {
+          const newAccessToken = refreshTokenResponse.data.access_token;
+          props.cookies.set(
+            `${props.realm}-access_token`,
+            refreshTokenResponse.data.access_token
+          );
+          if (props.realm !== 100 && props.currentClient) {
+            let appendString = '';
+            Object.keys(_query).forEach((key) => {
+              if (!['client', 'type'].includes(key)) {
+                appendString += `&${key}=${_query[key]}`;
+              }
+            });
+            window.location.href = `${props.currentClient.redirect}?access_token=${newAccessToken}&refresh_token=${refreshToken}&realm=${props.realm}${appendString}`;
+          } else {
+            sendMessage('loggedin', true);
+            if (props.realm !== 100) {
+              props.history.push(`/realm/${props.realm}/home`);
+            } else {
+              props.history.push('/managerealm');
+            }
+          }
+        } else {
+          props.cookies.remove(`${props.realm}-access_token`);
+          props.cookies.remove(`${props.realm}-refresh_token`);
+          setVerificationStep(false);
+        }
+      })
+      .catch((error) => {
+        props.cookies.remove(`${props.realm}-access_token`);
+        props.cookies.remove(`${props.realm}-refresh_token`);
+        setVerificationStep(false);
+      });
   };
+
+  const validateToken = (accessToken: string, refreshToken: string) => {};
 
   const redirectToRequestedClientIfTokenIsValid = (
     refreshToken: string,

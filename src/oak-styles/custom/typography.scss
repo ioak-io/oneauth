@@ -61,3 +61,11 @@
 
   --oak-typography-paragraph-margin-bottom: 16px;
 }
+
+@media (min-width: 768px) {
+  * {
+    --oak-typography-h1-font-size: 48px;
+    --oak-typography-h2-font-size: 38px;
+    --oak-typography-h3-font-size: 26px;
+  }
+}

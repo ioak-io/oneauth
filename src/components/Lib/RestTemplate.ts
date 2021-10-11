@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const axiosInstance = axios.create();
+export const axiosManualInstance = axios.create();
 
 const baseUrl = process.env.REACT_APP_API_URL;
 
@@ -45,6 +46,61 @@ export function httpDelete(
   url?: string
 ) {
   return axiosInstance.delete((url || baseUrl) + endpoint);
+  // return axiosInstance.delete((url || baseUrl) + endpoint, {
+  //   headers,
+  //   data: payload,
+  // });
+  //     .then(function(response) {
+  //         return Promise.resolve(response);
+  //     }
+  // )
+}
+
+export function httpGetManual(endpoint: string, headers: any, url?: string) {
+  return axiosManualInstance.get((url || baseUrl) + endpoint, headers);
+  // .then(function(response) {
+  //     return Promise.resolve(response);
+  // }
+  // )
+}
+
+export function httpPostManual(
+  endpoint: string,
+  payload: any,
+  headers: any,
+  url?: string
+) {
+  return axiosManualInstance.post(
+    (url || baseUrl) + endpoint,
+    payload,
+    headers
+  );
+  //     .then(function(response) {
+  //         return Promise.resolve(response);
+  //     }
+  // )
+}
+
+export function httpPutManual(
+  endpoint: string,
+  payload: any,
+  headers: any,
+  url?: string
+) {
+  return axiosManualInstance.put((url || baseUrl) + endpoint, payload, headers);
+  //     .then(function(response) {
+  //         return Promise.resolve(response);
+  //     }
+  // )
+}
+
+export function httpDeleteManual(
+  endpoint: string,
+  payload: any,
+  headers: any,
+  url?: string
+) {
+  return axiosManualInstance.delete((url || baseUrl) + endpoint);
   // return axiosInstance.delete((url || baseUrl) + endpoint, {
   //   headers,
   //   data: payload,

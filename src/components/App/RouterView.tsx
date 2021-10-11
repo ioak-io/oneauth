@@ -14,6 +14,7 @@ import ClientDetail from '../ManageClient/ClientDetail';
 import ClientPermission from '../ClientPermission';
 import LoginPage from '../LoginPage';
 import { loginPageSubject } from '../../events/LoginPageEvent';
+import ReachInstance from '../ReachInstance';
 
 interface Props {
   cookies: any;
@@ -136,6 +137,19 @@ const RouterView = (props: Props) => {
             {...props}
             // logout={() => logout}
             component={ClientListing}
+            middleware={['authenticate']}
+          />
+        )}
+      />
+      <Route
+        path="/blog"
+        exact
+        render={(propsLocal) => (
+          <OakRoute
+            {...propsLocal}
+            {...props}
+            // logout={() => logout}
+            component={ReachInstance}
             middleware={['authenticate']}
           />
         )}
