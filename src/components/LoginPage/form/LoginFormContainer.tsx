@@ -70,7 +70,7 @@ const LoginFormContainer = (props: Props) => {
 
   const changeRoute = (routeType: string) => {
     setNotificationMessage({ type: '', message: '' });
-    props.history.push(`/realm/${props.realm}/login?type=${routeType}`);
+    props.history.push(`/realm/${props.realm}/login/${props.match.params.client_id}?type=${routeType}`);
   };
 
   useEffect(() => {
@@ -215,6 +215,7 @@ const LoginFormContainer = (props: Props) => {
             currentClient={props.currentClient}
             currentRealm={props.currentRealm}
             redirect={redirect}
+            clientId={props.match.params.client_id}
             {...props}
           />
         </div>
@@ -224,6 +225,7 @@ const LoginFormContainer = (props: Props) => {
         <div className="wrapper">
           <NewUser
             switchToSigninPage={() => changeRoute('signin')}
+            clientId={props.match.params.client_id}
             {...props}
           />
         </div>

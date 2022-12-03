@@ -24,6 +24,7 @@ interface Props {
   switchToSigninPage: any;
   loginType: string;
   realm: string;
+  clientId: string;
 }
 
 const NewUser = (props: Props) => {
@@ -268,7 +269,7 @@ const NewUser = (props: Props) => {
             Already a member?
           </span>
           <a
-            href={`/#/realm/${props.realm}/login?type=signin`}
+            href={`/#/realm/${props.realm}/login/${props.clientId}?type=signin`}
             className={linkCompose({
               color: 'primary',
               underlineThickness: 'thin',

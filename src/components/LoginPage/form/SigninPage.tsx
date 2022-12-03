@@ -25,6 +25,7 @@ interface Props {
   currentRealm: any;
   currentClient: any;
   redirect: any;
+  clientId: string;
 }
 
 const SigninPage = (props: Props) => {
@@ -344,7 +345,7 @@ const SigninPage = (props: Props) => {
           </div>
           <div className="signin-page__action__reset">
             <a
-              href={`/#/realm/${props.realm}/login?type=reset`}
+              href={`/#/realm/${props.realm}/login/${props.clientId}?type=reset`}
               className={linkCompose({
                 baseClass: 'login-form-hyperlink',
                 underlineThickness: 'thin',
@@ -369,7 +370,7 @@ const SigninPage = (props: Props) => {
                 Don&apos;t have an account?
               </span>
               <a
-                href={`/#/realm/${props.realm}/login?type=signup`}
+                href={`/#/realm/${props.realm}/login/${props.clientId}?type=signup`}
                 className={linkCompose({
                   baseClass: 'login-form-hyperlink',
                   underlineThickness: 'thin',
