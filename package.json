@@ -66,7 +66,7 @@
     "date-fns": "^2.16.1",
     "elements": "file:elements-1.0.0.tgz",
     "enzyme": "^3.11.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "minio": "^7.0.18",
     "query-string": "^6.13.8",
