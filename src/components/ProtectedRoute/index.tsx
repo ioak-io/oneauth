@@ -1,14 +1,20 @@
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 
-const ProtectedRoute = ({
-    user,
-    redirectPath = '/landing',
-    children,
-}: any) => {
-    if (!user) {
-        return <Navigate to={redirectPath} replace />;
+interface Props {
+    middleware: string[];
+    redirectPath?: string;
+    children: any;
+}
+
+const ProtectedRoute = (props: Props) => {
+    const params = useParams();
+
+    if (props.middleware.length > 0) {
+        return <Navigate to={props.redirectPath || '/landing'} replace />;
     }
 
-    return children;
+    return React.cloneElement(props.children, { ...params });
 };
+
+export default ProtectedRoute;
