@@ -1,0 +1,14 @@
+.control-grid__action {
+  display: grid;
+  padding-bottom: 20px;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  justify-content: flex-end;
+}
+
+.context-action {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 6px;
+  justify-content: flex-start;
+}

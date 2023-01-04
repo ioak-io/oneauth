@@ -6,9 +6,9 @@ import {
   httpPut,
   httpDelete,
   httpPost,
-} from '../components/Lib/RestTemplate';
-import constants from '../components/Constants';
-import { sendMessage } from '../events/MessageService';
+} from '../../components/Lib/RestTemplate';
+import constants from '../../components/Constants';
+import { sendMessage } from '../../events/MessageService';
 
 const domain = 'realm';
 

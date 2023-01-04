@@ -1,0 +1,19 @@
+.edit-realm {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 20px;
+}
+.edit-realm__overview,
+.edit-realm__security {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 10px;
+  row-gap: 10px;
+  align-items: flex-end;
+}
+.edit-realm__security__jwt {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 10px;
+  align-items: flex-end;
+}

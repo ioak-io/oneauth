@@ -1,0 +1,51 @@
+// @media (min-width: 768px) {
+//   ::-webkit-scrollbar {
+//     width: 10px; /* for vertical scrollbars */
+//     height: 10px; /* for horizontal scrollbars */
+//   }
+
+//   ::-webkit-scrollbar-track {
+//     background: var(--color-3);
+//     border-radius: 10px;
+//   }
+
+//   ::-webkit-scrollbar-thumb {
+//     background: var(--color-1);
+//     border-radius: 10px;
+//   }
+// }
+
+// .App {
+//   width: 100%;
+//   margin: auto;
+// }
+
+.drawer-left,
+.drawer-right {
+  height: 100%;
+}
+
+.tab-playground {
+  margin-top: 20px;
+}
+
+.app-action-bar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+  div {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+}
+.title-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  svg {
+    margin-right: 6px;
+  }
+}

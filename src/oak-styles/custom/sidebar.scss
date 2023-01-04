@@ -1,0 +1,44 @@
+* {
+  .theme_dark {
+    --color-sidebar-header: #444444;
+    --color-sidebar-header-active: var(--color-tertiary-trans);
+    --color-sidebar-element: #2d2d2d;
+    --color-sidebar-fg-hover: rgba(255, 255, 255, 1);
+    --color-sidebar-fg: rgba(255, 255, 255, 0.7);
+
+    --color-sidebar: var(--color-container);
+    // --color-sidebar: #363d4a;
+    --color-sidebar-text: #fff;
+    --color-sidebar-hover: #e5e5e5;
+    --color-sidebar-hover-text: #000;
+    --color-sidebar-active: #b8b8b8;
+    --color-sidebar-active-text: #000;
+    --color-sidebar-submenu: #1c2539;
+    --color-sidebar-submenu-text: #fff;
+    --color-sidebar-submenu-hover: var(--color-sidebar-hover);
+    --color-sidebar-submenu-hover-text: var(--color-sidebar-hover-text);
+    --color-sidebar-submenu-active: var(--color-sidebar-active);
+    --color-sidebar-submenu-active-text: var(--color-sidebar-active-text);
+  }
+
+  .theme_light {
+    --color-sidebar-header: #e6e6e6;
+    --color-sidebar-header-active: var(--color-tertiary-trans);
+    --color-sidebar-element: var(--color-dark-bg-1);
+    --color-sidebar-fg-hover: rgba(0, 0, 0, 1);
+    --color-sidebar-fg: rgba(0, 0, 0, 0.7);
+
+    --color-sidebar: #363d4a;
+    --color-sidebar-text: #fff;
+    --color-sidebar-hover: #e5e5e5;
+    --color-sidebar-hover-text: #000;
+    --color-sidebar-active: #b8b8b8;
+    --color-sidebar-active-text: #000;
+    --color-sidebar-submenu: #424a5a;
+    --color-sidebar-submenu-text: #fff;
+    --color-sidebar-submenu-hover: var(--color-sidebar-hover);
+    --color-sidebar-submenu-hover-text: var(--color-sidebar-hover-text);
+    --color-sidebar-submenu-active: var(--color-sidebar-active);
+    --color-sidebar-submenu-active-text: var(--color-sidebar-active-text);
+  }
+}

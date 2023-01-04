@@ -3,10 +3,10 @@ import {
   httpPut,
   httpDelete,
   httpPost,
-} from '../components/Lib/RestTemplate';
-import constants from '../components/Constants';
+} from '../../components/Lib/RestTemplate';
+import constants from '../../components/Constants';
 import { UPDATE_CLIENT, REFRESH_CLIENTS } from './types';
-import { sendMessage } from '../events/MessageService';
+import { sendMessage } from '../../events/MessageService';
 
 const domain = 'client';
 

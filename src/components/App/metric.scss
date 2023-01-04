@@ -1,0 +1,268 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  --height-nav: 50px;
+  --metric-formelement-height: 36px;
+  --metric-formelement-height-mobile: 32px;
+  --metric-formelement-padding: 0 16px;
+  --metric-space-vertical: 10px;
+  --metric-space-horizontal: 10px;
+
+  --metric-typography-base-14: 34px;
+  --metric-typography-base-13: 32px;
+  --metric-typography-base-12: 30px;
+  --metric-typography-base-11: 28px;
+  --metric-typography-base-10: 26px;
+  --metric-typography-base-9: 24px;
+  --metric-typography-base-8: 22px;
+  --metric-typography-base-7: 20px;
+  --metric-typography-base-6: 18px;
+  --metric-typography-base-5: 16px;
+  --metric-typography-base-4: 14px;
+  --metric-typography-base-3: 12px;
+  --metric-typography-base-2: 10px;
+  --metric-typography-base-1: 8px;
+
+  --metric-unit-tiny: 1;
+  --metric-unit-small: 1.3;
+  --metric-unit-medium: 1.6;
+  --metric-unit-medium: 1;
+  --metric-unit-large: 1.9;
+
+  --metric-typography-1: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-1)
+  );
+  --metric-typography-2: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-2)
+  );
+  --metric-typography-3: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-3)
+  );
+  --metric-typography-4: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-4)
+  );
+  --metric-typography-5: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-5)
+  );
+  --metric-typography-6: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-6)
+  );
+  --metric-typography-7: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-7)
+  );
+  --metric-typography-8: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-8)
+  );
+  --metric-typography-9: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-9)
+  );
+  --metric-typography-10: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-10)
+  );
+  --metric-typography-11: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-11)
+  );
+  --metric-typography-12: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-12)
+  );
+  --metric-typography-13: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-13)
+  );
+  --metric-typography-14: calc(
+    var(--metric-unit-medium) * var(--metric-typography-base-14)
+  );
+}
+
+.space-bottom-0 {
+  margin-bottom: calc(0.5 * var(--metric-space-vertical));
+}
+.space-bottom-1 {
+  margin-bottom: calc(1 * var(--metric-space-vertical));
+}
+.space-bottom-2 {
+  margin-bottom: calc(2 * var(--metric-space-vertical));
+}
+.space-bottom-3 {
+  margin-bottom: calc(3 * var(--metric-space-vertical));
+}
+.space-bottom-4 {
+  margin-bottom: calc(4 * var(--metric-space-vertical));
+}
+.space-bottom-5 {
+  margin-bottom: calc(5 * var(--metric-space-vertical));
+}
+
+.space-top-1 {
+  margin-top: calc(1 * var(--metric-space-vertical));
+}
+.space-top-2 {
+  margin-top: calc(2 * var(--metric-space-vertical));
+}
+.space-top-3 {
+  margin-top: calc(3 * var(--metric-space-vertical));
+}
+.space-top-4 {
+  margin-top: calc(4 * var(--metric-space-vertical));
+}
+.space-top-5 {
+  margin-top: calc(5 * var(--metric-space-vertical));
+}
+
+.space-vertical-1 {
+  margin-top: calc(1 * (1 / 2) * var(--metric-space-vertical));
+  margin-bottom: calc(1 * (1 / 2) * var(--metric-space-vertical));
+}
+.space-vertical-2 {
+  margin-top: calc(2 * (1 / 2) * var(--metric-space-vertical));
+  margin-bottom: calc(2 * (1 / 2) * var(--metric-space-vertical));
+}
+.space-vertical-3 {
+  margin-top: calc(3 * (1 / 2) * var(--metric-space-vertical));
+  margin-bottom: calc(3 * (1 / 2) * var(--metric-space-vertical));
+}
+.space-vertical-4 {
+  margin-top: calc(4 * (1 / 2) * var(--metric-space-vertical));
+  margin-bottom: calc(4 * (1 / 2) * var(--metric-space-vertical));
+}
+.space-vertical-5 {
+  margin-top: calc(5 * (1 / 2) * var(--metric-space-vertical));
+  margin-bottom: calc(5 * (1 / 2) * var(--metric-space-vertical));
+}
+
+.space-right-1 {
+  margin-right: calc(1 * var(--metric-space-horizontal));
+}
+.space-right-2 {
+  margin-right: calc(2 * var(--metric-space-horizontal));
+}
+.space-right-3 {
+  margin-right: calc(3 * var(--metric-space-horizontal));
+}
+.space-right-4 {
+  margin-right: calc(4 * var(--metric-space-horizontal));
+}
+.space-right-5 {
+  margin-right: calc(5 * var(--metric-space-horizontal));
+}
+
+.space-left-1 {
+  margin-left: calc(1 * var(--metric-space-horizontal));
+}
+.space-left-2 {
+  margin-left: calc(2 * var(--metric-space-horizontal));
+}
+.space-left-3 {
+  margin-left: calc(3 * var(--metric-space-horizontal));
+}
+.space-left-4 {
+  margin-left: calc(4 * var(--metric-space-horizontal));
+}
+.space-left-5 {
+  margin-left: calc(5 * var(--metric-space-horizontal));
+}
+
+.space-horizontal-1 {
+  margin-left: calc(1 * (1 / 2) * var(--metric-space-horizontal));
+  margin-right: calc(1 * (1 / 2) * var(--metric-space-horizontal));
+}
+.space-horizontal-2 {
+  margin-left: calc(2 * (1 / 2) * var(--metric-space-horizontal));
+  margin-right: calc(2 * (1 / 2) * var(--metric-space-horizontal));
+}
+.space-horizontal-3 {
+  margin-left: calc(3 * (1 / 2) * var(--metric-space-horizontal));
+  margin-right: calc(3 * (1 / 2) * var(--metric-space-horizontal));
+}
+.space-horizontal-4 {
+  margin-left: calc(4 * (1 / 2) * var(--metric-space-horizontal));
+  margin-right: calc(4 * (1 / 2) * var(--metric-space-horizontal));
+}
+.space-horizontal-5 {
+  margin-left: calc(5 * (1 / 2) * var(--metric-space-horizontal));
+  margin-right: calc(5 * (1 / 2) * var(--metric-space-horizontal));
+}
+
+.display-inline {
+  display: inline;
+}
+
+.typography-14 {
+  font-size: var(--metric-typography-14);
+}
+
+.typography-13 {
+  font-size: var(--metric-typography-13);
+}
+
+.typography-12 {
+  font-size: var(--metric-typography-12);
+}
+
+.typography-11 {
+  font-size: var(--metric-typography-11);
+}
+
+.typography-10 {
+  font-size: var(--metric-typography-10);
+}
+
+.typography-9 {
+  font-size: var(--metric-typography-9);
+}
+
+.typography-8 {
+  font-size: var(--metric-typography-8);
+}
+
+.typography-7 {
+  font-size: var(--metric-typography-7);
+}
+
+.typography-6 {
+  font-size: var(--metric-typography-6);
+}
+
+.typography-5 {
+  font-size: var(--metric-typography-5);
+}
+
+.typography-4 {
+  font-size: var(--metric-typography-4);
+}
+
+.typography-3 {
+  font-size: var(--metric-typography-3);
+}
+
+.typography-2 {
+  font-size: var(--metric-typography-2);
+}
+
+.typography-1 {
+  font-size: var(--metric-typography-1);
+}
+
+.one-liner {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.two-liner {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}
+
+.three-liner {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+}

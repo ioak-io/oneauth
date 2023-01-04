@@ -1,8 +1,8 @@
-import { httpGet } from '../components/Lib/RestTemplate';
-import constants from '../components/Constants';
+import { httpGet } from '../../components/Lib/RestTemplate';
+import constants from '../../components/Constants';
 import { FETCH_ALL_USERS } from './types';
 
-const fetchUsers = (authorization) => (dispatch) => {
+const fetchUsers = (authorization: any) => (dispatch: any) => {
   httpGet(`${constants.API_URL}`, {
     headers: {
       Authorization: authorization.access_token,

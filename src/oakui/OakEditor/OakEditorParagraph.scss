@@ -1,0 +1,18 @@
+.oak-editor-paragraph {
+  display: grid;
+  grid-auto-flow: row;
+}
+.oak-editor-paragraph__input {
+  border: 1px dotted transparent;
+  transition: border-color 250ms ease-in-out;
+  &:hover {
+    border: 1px dotted var(--color-3);
+  }
+}
+.oak-editor-paragraph__input--editing {
+  transition: border-color 250ms ease-in-out;
+  border: 1px dotted var(--color-1);
+  &:hover {
+    border: 1px dotted var(--color-1);
+  }
+}

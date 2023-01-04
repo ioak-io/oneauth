@@ -1,0 +1,82 @@
+import React, { useEffect, useState } from 'react';
+import { cloneDeep } from 'lodash';
+import { newId } from '../../events/MessageService';
+import './OakEditorParagraph.scss';
+
+interface Props {
+  block: any;
+  handleChange: any;
+}
+const OakEditorParagraph = (props: Props) => {
+  const [state, setState] = useState<any>(null);
+  const [cursorPosition, setCursorPosition] = useState(0);
+  const [el, setEl] = useState(null);
+
+  useEffect(() => {
+    console.log(props.block);
+    init();
+    if (props.block) {
+      setState(cloneDeep(props.block));
+    }
+  }, []);
+
+  useEffect(() => {
+    const sel = window.getSelection();
+    setState(cloneDeep(props.block));
+    if (sel && el) {
+      const range = sel.getRangeAt(0);
+      //   range.deleteContents();
+      // range.insertNode(document.createTextNode());
+      //   // const range = document.createRange();
+      range.setStart(el.childNodes[0], cursorPosition);
+      //   _el.childNodes[0].innerHTML = 'ABCD';
+      //   range.collapse(true);
+      //   sel.removeAllRanges();
+      //   sel.addRange(range);
+      // console.log(sel, sel.rangeCount, sel.anchorOffset);
+      // setCursorPosition(sel.anchorOffset);
+    }
+  }, [props.block]);
+
+  const init = () => {
+    const _el: any = document.getElementById(id);
+    if (_el) {
+      setEl(_el);
+      _el.innerHTML = props.block.data.text;
+      _el.addEventListener('input', () => {
+        const sel = window.getSelection();
+        if (sel) {
+          //   const range = sel.getRangeAt(0);
+          //   range.deleteContents();
+          //   range.insertNode(document.createTextNode());
+          //   // const range = document.createRange();
+          //   range.setStart(_el.childNodes[0], 5);
+          //   _el.childNodes[0].innerHTML = 'ABCD';
+          //   range.collapse(true);
+          //   sel.removeAllRanges();
+          //   sel.addRange(range);
+          console.log(sel, sel.rangeCount, sel.anchorOffset);
+          setCursorPosition(sel.anchorOffset);
+        }
+        props.handleChange(_el.innerHTML);
+      });
+    }
+  };
+
+  const id = newId();
+
+  return (
+    <div className="oak-editor-paragraph">
+      <div
+        id={id}
+        className="oak-editor-paragraph__editor"
+        suppressContentEditableWarning
+        contentEditable
+        dangerouslySetInnerHTML={{ __html: props.block?.data?.text || '' }}
+      />
+      {cursorPosition}::{props.block?.data?.text}
+    </div>
+  );
+};
+
+export default OakEditorParagraph;

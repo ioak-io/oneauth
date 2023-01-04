@@ -1,0 +1,52 @@
+.double-bounce {
+  position: absolute;
+  z-index: 99;
+  left: calc(50% - 20px);
+  top: calc(50% - 20px);
+
+  width: 40px;
+  height: 40px;
+  animation: chasing-dots 2.5s infinite linear both;
+
+  .double-bounce--one,
+  .double-bounce--two {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--color-1);
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    -webkit-animation: double-bounce 2s infinite ease-in-out;
+    animation: double-bounce 2s infinite ease-in-out;
+  }
+
+  .double-bounce--two {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+  }
+
+  @-webkit-keyframes double-bounce {
+    0%,
+    100% {
+      -webkit-transform: scale(0);
+    }
+    50% {
+      -webkit-transform: scale(1);
+    }
+  }
+
+  @keyframes double-bounce {
+    0%,
+    100% {
+      transform: scale(0);
+      -webkit-transform: scale(0);
+    }
+    50% {
+      transform: scale(1);
+      -webkit-transform: scale(1);
+    }
+  }
+}
