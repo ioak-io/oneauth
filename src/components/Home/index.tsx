@@ -1,19 +1,9 @@
 import React, { useEffect } from 'react';
 import './style.scss';
-import { sendMessage } from '../../events/MessageService';
-import { loginPageSubject } from '../../events/LoginPageEvent';
 
 interface Props {
-  label?: string;
-  logout: Function;
 }
 const Home = (props: Props) => {
-  useEffect(() => {
-    loginPageSubject.next({ state: false });
-    return () => {
-      loginPageSubject.next({ state: true });
-    };
-  }, []);
   return (
     <div className="page-home">
       <div className="app-container smooth-page page-home--title">
