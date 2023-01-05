@@ -9,7 +9,7 @@ interface Props {
 
 const GettingStartedRealm = (props: Props) => {
   const goToCreatePage = () => {
-    props.history.push('/asset/create');
+    props.history('/asset/create');
   };
   return (
     <div className="getting-started">

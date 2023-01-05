@@ -13,6 +13,7 @@ interface Props {
   match: any;
   location: any;
   realm: number;
+  client_id: string;
 }
 
 const LoginPage = (props: Props) => {
@@ -23,6 +24,7 @@ const LoginPage = (props: Props) => {
 
   useEffect(() => {
     currentRealmEventSubject.asObservable().subscribe((message) => {
+      console.log(message);
       setCurrentRealm(message);
     });
   }, []);
@@ -35,7 +37,7 @@ const LoginPage = (props: Props) => {
   // }, [props.location.search]);
 
   useEffect(() => {
-    getClient(props.match.params.client_id).then((data) => {
+    getClient(props.client_id).then((data) => {
       if (data) {
         setCurrentClient(data);
       }
@@ -45,8 +47,10 @@ const LoginPage = (props: Props) => {
 
   return (
     <div className="login-page">
+      {typeof currentRealm?.realm}
+      {typeof props.realm}
       {isClientCheckFinished &&
-        currentRealm?.realm === props.realm &&
+        currentRealm?.realm?.toString() === props.realm &&
         currentRealm?.site?.layout === 'split' && (
           <SplitLayout
             cookies={props.cookies}
@@ -59,7 +63,7 @@ const LoginPage = (props: Props) => {
           />
         )}
       {isClientCheckFinished &&
-        currentRealm?.realm === props.realm &&
+        currentRealm?.realm?.toString() === props.realm &&
         currentRealm?.site?.layout === 'full' && (
           <FullLayout
             cookies={props.cookies}

@@ -14,7 +14,7 @@ interface Props {
 const ClientItem = (props: Props) => {
   const history = useNavigate();
 
-  const goToViewPage = () => history.push(`/manageclient/${props.client._id}`);
+  const goToViewPage = () => history(`/manageclient/${props.client._id}`);
 
   return (
     <div className="client-item">

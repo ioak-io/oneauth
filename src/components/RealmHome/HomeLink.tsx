@@ -37,15 +37,15 @@ const HomeLink = (props: Props) => {
   };
 
   const changeRoute = (routeType: string) => {
-    props.history.push(`/realm/${props.realm}/home?type=${routeType}`);
+    props.history(`/realm/${props.realm}/home?type=${routeType}`);
   };
 
   const login = () => {
-    props.history.push(`/realm/${props.realm}/login?type=signin`);
+    props.history(`/realm/${props.realm}/login?type=signin`);
   };
 
   const signup = () => {
-    props.history.push(`/realm/${props.realm}/login?type=signup`);
+    props.history(`/realm/${props.realm}/login?type=signup`);
   };
 
   const logout = () => {
@@ -61,7 +61,7 @@ const HomeLink = (props: Props) => {
         if (response.status === 200 || response.status === 404) {
           props.removeAuth();
           props.cookies.remove(props.realm);
-          props.history.push(`/realm/${props.realm}/home`);
+          props.history(`/realm/${props.realm}/home`);
           sendMessage('notification', true, {
             type: 'success',
             message: `Signed out of realm ${props.realm}`,

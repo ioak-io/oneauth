@@ -34,7 +34,7 @@ const ChangeAsset = (props: Props) => {
   }, [props.realm, assets]);
 
   const goToChangeAssetPage = () => {
-    history.push('/');
+    history('/');
   };
 
   return (

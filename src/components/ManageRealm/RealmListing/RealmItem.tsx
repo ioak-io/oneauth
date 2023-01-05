@@ -15,7 +15,7 @@ const RealmItem = (props: Props) => {
   const history = useNavigate();
 
   const goToViewPage = () => {
-    history.push(`/managerealm/${props.realm.realm}`);
+    history(`/managerealm/${props.realm.realm}`);
   };
 
   return (

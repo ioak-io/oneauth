@@ -61,7 +61,7 @@ const Login = (props: Props) => {
 
   const changeRoute = (routeType) => {
     setNotificationMessage({ type: '', message: '' });
-    props.history.push(`/realm/${props.realm}/home?type=${routeType}`);
+    props.history(`/realm/${props.realm}/home?type=${routeType}`);
   };
 
   useEffect(() => {

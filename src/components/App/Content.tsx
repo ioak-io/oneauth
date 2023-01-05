@@ -84,9 +84,9 @@ interface Props {
             <div slot="topbar">
               <TopbarContainer cookies={props.cookies} />
             </div>
-            <div slot="toolbar">
+            {/* <div slot="toolbar">
               <TopbarContainer cookies={props.cookies} />
-            </div>
+            </div> */}
             <div slot="main">
               <BodyContainer {...props} />
             </div>

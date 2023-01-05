@@ -35,7 +35,6 @@ const RouterView = (props: Props) => {
     <div
       className={`router-view ${loginPage ? 'login-page' : 'not-login-page'}`}
     >
-      Router view
       <Routes>
         <Route
           path="/"
@@ -68,22 +67,22 @@ const RouterView = (props: Props) => {
           path="/realm/:realm/login/:client_id"
           element={
             <ProtectedRoute
-              middleware={['readRealm']}>
-              <Landing />
-            </ProtectedRoute>
+              middleware={['readRealm']} component={LoginPage} />
           }
         />
-        {/* <Route
-          path="/realm/:realm/login/:client_id"
-          render={(propsLocal: any) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={LoginPage}
-              middleware={['readRealm']}
-            />
-          )}
+        <Route
+          path="/managerealm"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={RealmListing} />
+          }
         />
+        <Route
+          path="/managerealm/:realmId"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={RealmDetail} />
+          }
+        />
+        {/* 
         <Route
           exact
           path="/realm/:realm/home"
@@ -116,30 +115,6 @@ const RouterView = (props: Props) => {
               {...props}
               component={Unauthorized}
               middleware={['isAuthenticated']}
-            />
-          )}
-        />
-        <Route
-          path="/managerealm"
-          exact
-          render={(propsLocal) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={RealmListing}
-              middleware={['authenticate']}
-            />
-          )}
-        />
-        <Route
-          path="/managerealm/:realmId"
-          exact
-          render={(propsLocal) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={RealmDetail}
-              middleware={['authenticate']}
             />
           )}
         />

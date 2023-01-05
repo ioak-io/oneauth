@@ -32,7 +32,7 @@ const RightNav = (props: Props) => {
     //   `oneauth_${process.env.REACT_APP_ONEAUTH_CLIENTREALM_ID}`
     // );
     props.cookies.remove('oneauth');
-    history.push(`/`);
+    history(`/`);
     sendMessage('notification', true, {
       type,
       message,
@@ -41,7 +41,7 @@ const RightNav = (props: Props) => {
   };
 
   const login = (type = 'signin') => {
-    history.push(`/login?type=${type}`);
+    history(`/login?type=${type}`);
     // window.location.href = `${process.env.REACT_APP_ONEAUTH_URL}/#/clientrealm/${process.env.REACT_APP_ONEAUTH_CLIENTREALM_ID}/login?type=signin&clientId=${process.env.REACT_APP_ONEAUTH_CLIENT_ID}`;
   };
 

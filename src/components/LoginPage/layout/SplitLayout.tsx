@@ -8,10 +8,7 @@ import LoginFormContainer from '../form/LoginFormContainer';
 const queryString = require('query-string');
 
 interface Props {
-  cookies: any;
-  history: any;
-  match: any;
-  location: any;
+  clientId: string;
   realm: number;
   currentRealm: any;
   currentClient: any;
@@ -50,10 +47,7 @@ const SplitLayout = (props: Props) => {
               )} */}
 
               <LoginFormContainer
-                cookies={props.cookies}
-                history={props.history}
-                location={props.location}
-                match={props.match}
+                clientId={props.clientId}
                 realm={props.realm}
                 currentRealm={props.currentRealm}
                 currentClient={props.currentClient}

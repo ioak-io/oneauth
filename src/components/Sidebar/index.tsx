@@ -36,7 +36,7 @@ const Sidebar = () => {
       case 'home':
       case 'managerealm':
       case 'manageclient':
-        history.push(`/${linkName}`);
+        history(`/${linkName}`);
         break;
       default:
         break;

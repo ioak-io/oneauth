@@ -8,10 +8,7 @@ import LoginFormContainer from '../form/LoginFormContainer';
 const queryString = require('query-string');
 
 interface Props {
-  cookies: any;
-  history: any;
-  match: any;
-  location: any;
+  clientId: string;
   realm: number;
   currentRealm: any;
   currentClient: any;
@@ -56,11 +53,8 @@ const FullLayout = (props: Props) => {
 
             {props.currentRealm && (
               <LoginFormContainer
-                cookies={props.cookies}
-                history={props.history}
-                location={props.location}
-                match={props.match}
                 realm={props.realm}
+                clientId={props.clientId}
                 background={background}
                 currentRealm={props.currentRealm}
                 currentClient={props.currentClient}
