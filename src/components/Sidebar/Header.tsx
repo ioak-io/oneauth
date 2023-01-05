@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 
 import { withRouter } from 'react-router';
-import { withCookies } from 'react-cookie';
 import { MenuOpen } from '@material-ui/icons';
 import { getProfile, setProfile } from '../../store/actions/ProfileActions';
 import packetWhite from '../../images/oneauth_white.svg';

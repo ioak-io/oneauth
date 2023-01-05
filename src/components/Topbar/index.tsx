@@ -13,9 +13,6 @@ import ChangeAsset from './ChangeAsset';
 
 interface Props {
   realm: string;
-  cookies: any;
-  //   location: any;
-  //   match: any;
   hideSidebarOnDesktop?: boolean;
 }
 
@@ -37,7 +34,7 @@ const Topbar = (props: Props) => {
         <Menu />
       </div>
       <div className="topbar--right">
-        <RightNav cookies={props.cookies} />
+        <RightNav />
       </div>
     </div>
   );

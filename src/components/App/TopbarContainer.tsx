@@ -6,7 +6,6 @@ import Topbar from '../Topbar';
 import { receiveMessage } from '../../events/MessageService';
 
 interface Props {
-  cookies: any;
 }
 
 const TopbarContainer = (props: Props) => {
@@ -29,7 +28,6 @@ const TopbarContainer = (props: Props) => {
     >
       <Topbar
         realm={realm}
-        cookies={props.cookies}
         hideSidebarOnDesktop={profile.hideSidebarOnDesktop}
       />
     </div>

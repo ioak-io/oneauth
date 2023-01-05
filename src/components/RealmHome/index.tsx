@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { withCookies } from 'react-cookie';
 import { getAuth, addAuth, removeAuth } from '../../store/actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../Types/GeneralTypes';
@@ -154,5 +153,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getAuth, addAuth, removeAuth })(
-  withCookies(Login)
+  Login
 );

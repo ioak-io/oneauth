@@ -12,8 +12,8 @@ import { isEmptyOrSpaces } from '../../Utils';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
 import FormInput from './FormInput';
 import FormButton from './FormButton';
-import { useCookies } from 'react-cookie';
 import { useNavigate } from 'react-router-dom';
+import { getSessionValue, setSessionValue } from '../../../utils/SessionUtils';
 
 interface Props {
   switchToSignupPage: any;
@@ -31,7 +31,6 @@ interface Props {
 const SigninPage = (props: Props) => {
   const dispatch = useDispatch();
   const profile = useSelector((state: any) => state.profile);
-  const [cookies, setCookies] = useCookies();
   const history = useNavigate();
 
   const [formElementVariant, setFormElementVariant] =
@@ -99,14 +98,15 @@ const SigninPage = (props: Props) => {
       })
         .then((authorizeResponse: any) => {
           if (authorizeResponse.status === 200) {
-            setCookies(
+            setSessionValue(
               `${props.realm}-access_token`,
               authorizeResponse.data.access_token
             );
-            setCookies(
+            setSessionValue(
               `${props.realm}-refresh_token`,
               authorizeResponse.data.refresh_token
             );
+            console.log("**", getSessionValue(`${props.realm}-access_token`));
             props.redirect();
           }
         })

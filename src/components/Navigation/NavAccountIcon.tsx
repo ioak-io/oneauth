@@ -1,6 +1,5 @@
 import { Fingerprint, PowerSettingsNew } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
-import { useCookies } from 'react-cookie';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import {
   useNavigate,
@@ -8,6 +7,7 @@ import {
   useParams,
   useRouteMatch,
 } from 'react-router';
+import { removeSessionValue } from '../../utils/SessionUtils';
 import { receiveMessage } from '../../events/MessageService';
 import { removeAuth } from '../../store/actions/AuthActions';
 import './NavAccountIcon.scss';
@@ -21,7 +21,6 @@ const NavAccountIcon = (props: Props) => {
   const profile = useSelector((state: any) => state.profile);
   const dispatch = useDispatch();
   const history = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies();
   useEffect(() => {
     receiveMessage().subscribe((event: any) => {
       if (event.name === 'realmChange') {
@@ -32,8 +31,8 @@ const NavAccountIcon = (props: Props) => {
 
   const handleClick = () => {
     if (authorization.isAuth) {
-      removeCookie(`${authorization.realm}-refresh_token`);
-      removeCookie(`${authorization.realm}-access_token`);
+      removeSessionValue(`${authorization.realm}-refresh_token`);
+      removeSessionValue(`${authorization.realm}-access_token`);
       dispatch(removeAuth());
       authorization.realm === 100
         ? history('/')

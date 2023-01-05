@@ -67,7 +67,7 @@ const HomeLink = (props: Props) => {
       (response: any) => {
         if (response.status === 200 || response.status === 404) {
           props.removeAuth();
-          props.cookies.remove(props.clientrealm);
+          removeSessionValue(props.clientrealm);
           props.history(`/clientrealm/${props.clientrealm}/home`);
           sendMessage('notification', true, {
             type: 'success',

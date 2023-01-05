@@ -1,8 +1,8 @@
 import React from 'react';
-import { useCookies } from 'react-cookie';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Navigate, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { getSessionValue, removeSessionValue, setSessionValue } from '../../utils/SessionUtils';
 import { currentRealmEventSubject } from '../../events/CurrentRealmEvent';
 import { sendMessage } from '../../events/MessageService';
 import { addAuth } from '../../store/actions/AuthActions';
@@ -21,7 +21,6 @@ const ProtectedRoute = (props: Props) => {
     const dispatch: any = useDispatch();
     const params = useParams();
     const history: any = useNavigate();
-    const [cookies, setCookies]: any = useCookies();
 
     const getRealm = () => {
         const _realm = params.realm
@@ -94,8 +93,8 @@ const ProtectedRoute = (props: Props) => {
         if (authorization.isAuth && authorization.realm === realm) {
             return true;
         }
-        const accessToken = cookies[`${realm}-access_token`];
-        const refreshToken = cookies[`${realm}-refresh_token`];
+        const accessToken = getSessionValue(`${realm}-access_token`);
+        const refreshToken = getSessionValue(`${realm}-refresh_token`);
         console.log("*", accessToken, "100-access_token", `${realm}-access_token`);
         if (accessToken) {
             interpretAccessToken(realm, accessToken, refreshToken, type, redirect);
@@ -151,8 +150,8 @@ const ProtectedRoute = (props: Props) => {
                     }
                     // dispatch(setProfile({ ...profile, clientStatus: 'authenticated' }));
                 } else {
-                    cookies.remove(`${realm}-access_token`);
-                    cookies.remove(`${realm}-refresh_token`);
+                    removeSessionValue(`${realm}-access_token`);
+                    removeSessionValue(`${realm}-refresh_token`);
                 }
             })
             .catch((error: any) => {
@@ -172,22 +171,22 @@ const ProtectedRoute = (props: Props) => {
                     )
                         .then((refreshTokenResponse) => {
                             if (refreshTokenResponse.status === 200) {
-                                cookies.set(
+                                setSessionValue(
                                     `${realm}-access_token`,
                                     refreshTokenResponse.data.access_token
                                 );
                             } else {
-                                cookies.remove(`${realm}-access_token`);
-                                cookies.remove(`${realm}-refresh_token`);
+                                removeSessionValue(`${realm}-access_token`);
+                                removeSessionValue(`${realm}-refresh_token`);
                             }
                         })
                         .catch((error) => {
-                            cookies.remove(`${realm}-access_token`);
-                            cookies.remove(`${realm}-refresh_token`);
+                            removeSessionValue(`${realm}-access_token`);
+                            removeSessionValue(`${realm}-refresh_token`);
                         });
                 } else {
-                    cookies.remove(`${realm}-access_token`);
-                    cookies.remove(`${realm}-refresh_token`);
+                    removeSessionValue(`${realm}-access_token`);
+                    removeSessionValue(`${realm}-refresh_token`);
                     if (redirect && error.response.status === 404) {
                         sendMessage('notification', true, {
                             type: 'failure',

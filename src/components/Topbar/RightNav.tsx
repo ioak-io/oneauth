@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 
-import { useNavigate, withRouter } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import './RightNav.scss';
 
@@ -10,11 +10,9 @@ import DarkModeIcon from '../Navigation/DarkModeIcon';
 import NavAccountIcon from '../Navigation/NavAccountIcon';
 import { removeAuth } from '../../store/actions/AuthActions';
 import OakButton from '../../oakui/wc/OakButton';
+import { removeSessionValue } from '../../utils/SessionUtils';
 
 interface Props {
-  cookies: any;
-  //   location: any;
-  //   match: any;
 }
 
 const RightNav = (props: Props) => {
@@ -28,10 +26,10 @@ const RightNav = (props: Props) => {
     message = 'You have been logged out'
   ) => {
     dispatch(removeAuth());
-    // props.cookies.remove(
+    // removeSessionValue(
     //   `oneauth_${process.env.REACT_APP_ONEAUTH_CLIENTREALM_ID}`
     // );
-    props.cookies.remove('oneauth');
+    removeSessionValue('oneauth');
     history(`/`);
     sendMessage('notification', true, {
       type,
@@ -50,7 +48,7 @@ const RightNav = (props: Props) => {
       {/* <OakButton theme="primary" variant="appear" action={() => {}} icon="add">Income</OakButton>
       <OakButton theme="primary" variant="appear" action={() => {}} icon="add">Bill</OakButton> */}
       <DarkModeIcon />
-      <NavAccountIcon cookies={props.cookies} />
+      <NavAccountIcon />
     </div>
   );
 };

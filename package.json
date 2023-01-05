@@ -47,7 +47,6 @@
     "query-string": "^8.1.0",
     "reach": "file:reach-1.0.0.tgz",
     "react": "^18.2.0",
-    "react-cookie": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.2.2",

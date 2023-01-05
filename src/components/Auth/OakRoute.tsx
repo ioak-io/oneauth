@@ -141,8 +141,8 @@ const OakRoute = (props: Props) => {
           }
           // dispatch(setProfile({ ...profile, clientStatus: 'authenticated' }));
         } else {
-          props.cookies.remove(`${realm}-access_token`);
-          props.cookies.remove(`${realm}-refresh_token`);
+          removeSessionValue(`${realm}-access_token`);
+          removeSessionValue(`${realm}-refresh_token`);
         }
       })
       .catch((error: any) => {
@@ -167,17 +167,17 @@ const OakRoute = (props: Props) => {
                   refreshTokenResponse.data.access_token
                 );
               } else {
-                props.cookies.remove(`${realm}-access_token`);
-                props.cookies.remove(`${realm}-refresh_token`);
+                removeSessionValue(`${realm}-access_token`);
+                removeSessionValue(`${realm}-refresh_token`);
               }
             })
             .catch((error) => {
-              props.cookies.remove(`${realm}-access_token`);
-              props.cookies.remove(`${realm}-refresh_token`);
+              removeSessionValue(`${realm}-access_token`);
+              removeSessionValue(`${realm}-refresh_token`);
             });
         } else {
-          props.cookies.remove(`${realm}-access_token`);
-          props.cookies.remove(`${realm}-refresh_token`);
+          removeSessionValue(`${realm}-access_token`);
+          removeSessionValue(`${realm}-refresh_token`);
           if (redirect && error.response.status === 404) {
             sendMessage('notification', true, {
               type: 'failure',

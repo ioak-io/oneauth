@@ -11,7 +11,7 @@ import ConfirmEmail from '../form/ConfirmEmail';
 import NotificationMessage from '../form/NotificationMessage';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import { getSessionValue, removeSessionValue, setSessionValue } from '../../../utils/SessionUtils';
 
 const queryString = require('query-string');
 
@@ -27,7 +27,6 @@ const LoginFormContainer = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const location = useLocation();
   const history = useNavigate();
-  const [cookies, setCookies, removeCookie] = useCookies();
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
   const [spinner, setSpinner] = useState(false);
@@ -98,9 +97,9 @@ const LoginFormContainer = (props: Props) => {
     //   setClient('');
     // }
     // }
-    const refreshToken = cookies[`${props.realm}-refresh_token`];
+    const refreshToken = getSessionValue(`${props.realm}-refresh_token`);
     const accessToken = getAccessToken(
-      cookies[`${props.realm}-access_token`],
+      getSessionValue(`${props.realm}-access_token`),
       refreshToken
     );
     if (
@@ -120,8 +119,8 @@ const LoginFormContainer = (props: Props) => {
 
   const redirect = (query?: any) => {
     const _query = query || queryParam;
-    const accessToken = cookies[`${props.realm}-access_token`];
-    const refreshToken = cookies[`${props.realm}-refresh_token`];
+    const accessToken = getSessionValue(`${props.realm}-access_token`);
+    const refreshToken = getSessionValue(`${props.realm}-refresh_token`);
     const outcome = validateToken(accessToken, refreshToken);
 
     httpPost(
@@ -140,7 +139,7 @@ const LoginFormContainer = (props: Props) => {
       .then((refreshTokenResponse) => {
         if (refreshTokenResponse.status === 200) {
           const newAccessToken = refreshTokenResponse.data.access_token;
-          setCookies(
+          setSessionValue(
             `${props.realm}-access_token`,
             refreshTokenResponse.data.access_token
           );
@@ -161,14 +160,14 @@ const LoginFormContainer = (props: Props) => {
             }
           }
         } else {
-          removeCookie(`${props.realm}-access_token`);
-          removeCookie(`${props.realm}-refresh_token`);
+          removeSessionValue(`${props.realm}-access_token`);
+          removeSessionValue(`${props.realm}-refresh_token`);
           setVerificationStep(false);
         }
       })
       .catch((error) => {
-        removeCookie(`${props.realm}-access_token`);
-        removeCookie(`${props.realm}-refresh_token`);
+        removeSessionValue(`${props.realm}-access_token`);
+        removeSessionValue(`${props.realm}-refresh_token`);
         setVerificationStep(false);
       });
   };
@@ -191,12 +190,12 @@ const LoginFormContainer = (props: Props) => {
     //           queryString
     //         );
     //       } else {
-    //         removeCookie(props.realm);
+    //         removeSessionValue(props.realm);
     //         setVerificationStep(false);
     //       }
     //     })
     //     .catch((error: any) => {
-    //       removeCookie(props.realm);
+    //       removeSessionValue(props.realm);
     //       setVerificationStep(false);
     //     });
     // redirectToRequestedClient(authKey, sessionResponse.data.token, queryString);

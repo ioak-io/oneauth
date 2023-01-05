@@ -1,4 +1,3 @@
-import { useCookies } from 'react-cookie';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { addAuth } from '../../store/actions/AuthActions';
 import { httpGet, httpPost, httpPut } from '../Lib/RestTemplate';
@@ -42,12 +41,12 @@ export const refreshAccessToken = (
           })
         );
       } else {
-        // cookies.remove(`${space}-access_token`);
-        // cookies.remove(`${space}-refresh_token`);
+        // removeSessionValue(`${space}-access_token`);
+        // removeSessionValue(`${space}-refresh_token`);
       }
     })
     .catch((error) => {
-      // cookies.remove(`${space}-access_token`);
-      // cookies.remove(`${space}-refresh_token`);
+      // removeSessionValue(`${space}-access_token`);
+      // removeSessionValue(`${space}-refresh_token`);
     });
 };
