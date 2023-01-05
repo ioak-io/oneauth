@@ -13,7 +13,6 @@ import OakInput from '../../oakui/wc/OakInput';
 interface Props {
   goHome: any;
   clientrealm: string;
-  history: any;
 }
 
 const UpdateProfile = (props: Props) => {

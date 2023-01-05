@@ -6,7 +6,6 @@ import Topbar from '../Topbar';
 import RouterView from './RouterView';
 
 interface Props {
-  cookies: any;
 }
 
 const BodyContainer = (props: Props) => {

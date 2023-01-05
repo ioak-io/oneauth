@@ -11,16 +11,6 @@ import OakInput from '../../../oakui/wc/OakInput';
 import OakButton from '../../../oakui/wc/OakButton';
 
 interface Props {
-  setProfile: Function;
-  getAuth: Function;
-  addAuth: Function;
-  removeAuth: Function;
-  cookies: any;
-  history: any;
-  profile: any;
-  match: any;
-  location: any;
-  authorization: Authorization;
   loginType: string;
   authCode: string;
   switchToSigninPage: any;

@@ -10,9 +10,7 @@ import './index.scss';
 // import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  //   <CookiesProvider>
   <App />,
-  //   </CookiesProvider>,
   document.getElementById('root')
 );
 

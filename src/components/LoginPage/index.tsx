@@ -8,10 +8,6 @@ import { getClient } from './service';
 const queryString = require('query-string');
 
 interface Props {
-  cookies: any;
-  history: any;
-  match: any;
-  location: any;
   realm: number;
   client_id: string;
 }
@@ -28,13 +24,6 @@ const LoginPage = (props: Props) => {
       setCurrentRealm(message);
     });
   }, []);
-
-  // useEffect(() => {
-  //   if (props.location.search) {
-  //     const query = queryString.parse(props.location.search);
-  //     setQueryParam({ ...query });
-  //   }
-  // }, [props.location.search]);
 
   useEffect(() => {
     getClient(props.client_id).then((data) => {
@@ -53,10 +42,6 @@ const LoginPage = (props: Props) => {
         currentRealm?.realm?.toString() === props.realm &&
         currentRealm?.site?.layout === 'split' && (
           <SplitLayout
-            cookies={props.cookies}
-            history={props.history}
-            location={props.location}
-            match={props.match}
             realm={props.realm}
             currentRealm={currentRealm}
             currentClient={currentClient}
@@ -66,10 +51,6 @@ const LoginPage = (props: Props) => {
         currentRealm?.realm?.toString() === props.realm &&
         currentRealm?.site?.layout === 'full' && (
           <FullLayout
-            cookies={props.cookies}
-            history={props.history}
-            location={props.location}
-            match={props.match}
             realm={props.realm}
             currentRealm={currentRealm}
             currentClient={currentClient}

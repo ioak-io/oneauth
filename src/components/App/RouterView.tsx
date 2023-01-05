@@ -19,7 +19,6 @@ import ProtectedRoute from '../ProtectedRoute';
 import Landing from '../Landing';
 
 interface Props {
-  cookies: any;
 }
 
 const RouterView = (props: Props) => {
@@ -106,42 +105,25 @@ const RouterView = (props: Props) => {
             <ProtectedRoute middleware={['authenticate']} component={ReachInstance} />
           }
         />
-        {/* 
+        
         <Route
-          exact
           path="/realm/:realm/home"
-          render={(propsLocal: any) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={RealmHome}
-              middleware={['readAuthentication']}
-            />
-          )}
+          element={
+            <ProtectedRoute middleware={['readAuthentication']} component={RealmHome} />
+          }
         />
         <Route
-          exact
           path="/realm/:realm"
-          render={(propsLocal: any) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={RealmHome}
-              middleware={['readAuthentication']}
-            />
-          )}
+          element={
+            <ProtectedRoute middleware={['readAuthentication']} component={RealmHome} />
+          }
         />
         <Route
           path="/realm/:realm/unauthorized"
-          render={(propsLocal) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={Unauthorized}
-              middleware={['isAuthenticated']}
-            />
-          )}
-        /> */}
+          element={
+            <ProtectedRoute middleware={['isAuthenticated']} component={Unauthorized} />
+          }
+        />
 
         {/* <Route
           exact

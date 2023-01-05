@@ -29,7 +29,6 @@ export const refreshAccessToken = (
   )
     .then((refreshTokenResponse) => {
       if (refreshTokenResponse.status === 200) {
-        console.log(refreshTokenResponse.data);
         // cookies.set(
         //   `${space}-access_token`,
         //   refreshTokenResponse.data.access_token

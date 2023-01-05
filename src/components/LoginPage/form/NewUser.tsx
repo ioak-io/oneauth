@@ -11,16 +11,6 @@ import FormInput from './FormInput';
 import FormButton from './FormButton';
 
 interface Props {
-  setProfile: Function;
-  getAuth: Function;
-  addAuth: Function;
-  removeAuth: Function;
-  cookies: any;
-  history: any;
-  profile: any;
-  match: any;
-  location: any;
-  authorization: Authorization;
   switchToSigninPage: any;
   loginType: string;
   realm: string;

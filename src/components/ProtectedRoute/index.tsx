@@ -30,14 +30,12 @@ const ProtectedRoute = (props: Props) => {
     }
 
     const applyMiddlewares = () => {
-        // if (props.profile.clientStatus === 'authenticated') {
         props.middleware?.forEach((middlewareName) => {
             if (!applyMidleware(middlewareName)) {
                 return false;
             }
         });
         return true;
-        // }
     };
 
     const applyMidleware = (middlewareName: string) => {

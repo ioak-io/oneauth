@@ -47,9 +47,6 @@ const FullLayout = (props: Props) => {
               src={props.currentRealm.site.logo || oneauthWhite}
               alt="Oneauth logo"
             />
-            {/* {props.profile.theme === 'theme_dark' && (
-                <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
-              )} */}
 
             {props.currentRealm && (
               <LoginFormContainer

@@ -12,25 +12,20 @@ import NotificationMessage from '../LoginPage/form/NotificationMessage';
 import HomeLink from './HomeLink';
 import ChangePassword from './ChangePassword';
 import UpdateProfile from './UpdateProfile';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const queryString = require('query-string');
 
 interface Props {
-  setProfile: Function;
-  getAuth: Function;
-  addAuth: Function;
-  removeAuth: Function;
-  cookies: any;
-  history: any;
-  profile: any;
-  match: any;
-  location: any;
-  authorization: Authorization;
   realm: string;
 }
 
 const Login = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
+  const history = useNavigate();
+  const dispatch = useDispatch();
+  const profile = useSelector((state: any) => state.profile);
   const [type, setType] = useState('home');
   const [spinner, setSpinner] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState({
@@ -60,30 +55,26 @@ const Login = (props: Props) => {
 
   const changeRoute = (routeType) => {
     setNotificationMessage({ type: '', message: '' });
-    props.history(`/realm/${props.realm}/home?type=${routeType}`);
+    history(`/realm/${props.realm}/home?type=${routeType}`);
   };
 
   useEffect(() => {
-    if (props.location.search) {
-      const query = queryString.parse(props.location.search);
-      if (query && query.type) {
-        setType(query.type);
-      } else {
-        setType('home');
-      }
+    const query = new URLSearchParams(location.search);
+    if (query && query.has('type')) {
+      setType(query.get('type') || '');
     } else {
       setType('home');
     }
-  }, [props.location.search]);
+  }, [location.search]);
 
   return (
     <div className="realm-home">
       <div className="overlay">
         <div className="container smooth-page">
-          {props.profile.theme === 'theme_light' && (
+          {profile.theme === 'theme_light' && (
             <img className="logo" src={oneauthBlack} alt="Oneauth logo" />
           )}
-          {props.profile.theme === 'theme_dark' && (
+          {profile.theme === 'theme_dark' && (
             <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
           )}
 

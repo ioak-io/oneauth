@@ -12,7 +12,6 @@ import OakButton from '../../oakui/wc/OakButton';
 interface Props {
   goHome: any;
   realm: string;
-  history: any;
 }
 
 const UpdateProfile = (props: Props) => {

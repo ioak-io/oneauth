@@ -82,9 +82,6 @@ const Content = (props: Props) => {
           <div slot="topbar">
             <TopbarContainer />
           </div>
-          {/* <div slot="toolbar">
-              <TopbarContainer cookies={props.cookies} />
-            </div> */}
           <div slot="main">
             <BodyContainer {...props} />
           </div>

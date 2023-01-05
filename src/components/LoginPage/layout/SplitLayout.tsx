@@ -42,9 +42,6 @@ const SplitLayout = (props: Props) => {
                 src={props.currentRealm.site.logo || oneauthBlack}
                 alt="Oneauth logo"
               />
-              {/* {props.profile.theme === 'theme_dark' && (
-                <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
-              )} */}
 
               <LoginFormContainer
                 clientId={props.clientId}
