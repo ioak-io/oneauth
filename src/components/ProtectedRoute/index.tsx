@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const ProtectedRoute = (props: Props) => {
+    const authorization = useSelector((state: any) => state.authorization);
     const params = useParams();
 
     if (props.middleware.length > 0) {
