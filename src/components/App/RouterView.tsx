@@ -82,6 +82,30 @@ const RouterView = (props: Props) => {
             <ProtectedRoute middleware={['authenticate']} component={RealmDetail} />
           }
         />
+        <Route
+          path="/manageclient"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={ClientListing} />
+          }
+        />
+        <Route
+          path="/manageclient/:id"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={ClientDetail} />
+          }
+        />
+        <Route
+          path="/manageclient/:id/permission/:userId"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={ClientPermission} />
+          }
+        />
+        <Route
+          path="/blog"
+          element={
+            <ProtectedRoute middleware={['authenticate']} component={ReachInstance} />
+          }
+        />
         {/* 
         <Route
           exact
@@ -115,56 +139,6 @@ const RouterView = (props: Props) => {
               {...props}
               component={Unauthorized}
               middleware={['isAuthenticated']}
-            />
-          )}
-        />
-        <Route
-          path="/manageclient"
-          exact
-          render={(propsLocal) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              // logout={() => logout}
-              component={ClientListing}
-              middleware={['authenticate']}
-            />
-          )}
-        />
-        <Route
-          path="/blog"
-          exact
-          render={(propsLocal) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              // logout={() => logout}
-              component={ReachInstance}
-              middleware={['authenticate']}
-            />
-          )}
-        />
-        <Route
-          path="/manageclient/:id"
-          exact
-          render={(propsLocal) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={ClientDetail}
-              middleware={['authenticate']}
-            />
-          )}
-        />
-        <Route
-          path="/manageclient/:id/permission/:userId"
-          exact
-          render={(propsLocal) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={ClientPermission}
-              middleware={['authenticate']}
             />
           )}
         /> */}
