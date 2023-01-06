@@ -1,7 +1,7 @@
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import OakButton from '../../../oakui/wc/OakButton';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
 
@@ -12,9 +12,9 @@ interface Props {
 }
 
 const ClientItem = (props: Props) => {
-  const history = useHistory();
+  const history = useNavigate();
 
-  const goToViewPage = () => history.push(`/manageclient/${props.client._id}`);
+  const goToViewPage = () => history(`/manageclient/${props.client._id}`);
 
   return (
     <div className="client-item">

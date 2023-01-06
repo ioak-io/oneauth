@@ -5,13 +5,8 @@ import oneauthWhite from '../../../images/oneauth_white.svg';
 import oneauthBlack from '../../../images/oneauth_black.svg';
 import LoginFormContainer from '../form/LoginFormContainer';
 
-const queryString = require('query-string');
-
 interface Props {
-  cookies: any;
-  history: any;
-  match: any;
-  location: any;
+  clientId: string;
   realm: number;
   currentRealm: any;
   currentClient: any;
@@ -50,17 +45,11 @@ const FullLayout = (props: Props) => {
               src={props.currentRealm.site.logo || oneauthWhite}
               alt="Oneauth logo"
             />
-            {/* {props.profile.theme === 'theme_dark' && (
-                <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
-              )} */}
 
             {props.currentRealm && (
               <LoginFormContainer
-                cookies={props.cookies}
-                history={props.history}
-                location={props.location}
-                match={props.match}
                 realm={props.realm}
+                clientId={props.clientId}
                 background={background}
                 currentRealm={props.currentRealm}
                 currentClient={props.currentClient}

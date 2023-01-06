@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 
 import './style.scss';
 
@@ -11,7 +11,7 @@ import OakNavElement from '../../oakui/wc/OakNavElement';
 const Sidebar = () => {
   const [realm, setRealm] = useState('');
   const [currentPath, setCurrentPath] = useState('');
-  const history = useHistory();
+  const history = useNavigate();
   const location = useLocation();
   const authorization = useSelector((state: any) => state.authorization);
 
@@ -36,7 +36,7 @@ const Sidebar = () => {
       case 'home':
       case 'managerealm':
       case 'manageclient':
-        history.push(`/${linkName}`);
+        history(`/${linkName}`);
         break;
       default:
         break;

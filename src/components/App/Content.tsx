@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { HashRouter } from 'react-router-dom/cjs/react-router-dom.min';
-import { useSelector, useDispatch } from 'react-redux';
-
-import Chart from 'chart.js';
-
-import './style.scss';
-import { withCookies } from 'react-cookie';
-
-import Notification from '../Notification';
-import { fetchAllRealms } from '../../actions/RealmActions';
+import { Routes, Route, Link, BrowserRouter, HashRouter } from 'react-router-dom';
+import Home from '../Home';
+import Landing from '../Landing';
 import Init from './Init';
-import { fetchAllAssets } from '../../actions/AssetActions';
+
 import TopbarContainer from './TopbarContainer';
 import SidebarContainer from './SidebarContainer';
 import BodyContainer from './BodyContainer';
@@ -18,10 +11,12 @@ import { receiveMessage } from '../../events/MessageService';
 import { loginPageSubject } from '../../events/LoginPageEvent';
 import OakNotification from '../../oakui/wc/OakNotification';
 import OakAppLayout from '../../oakui/wc/OakAppLayout';
-import { setProfile } from '../../actions/ProfileActions';
+import { setProfile } from '../../store/actions/ProfileActions';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Chart } from 'chart.js';
 
 interface Props {
-  cookies: any;
 }
 
 const Content = (props: Props) => {
@@ -42,10 +37,10 @@ const Content = (props: Props) => {
     });
   }, []);
 
-  useEffect(() => {
-    Chart.defaults.global.defaultFontColor =
-      profile.theme === 'theme_dark' ? '#181818' : '#626262';
-  }, [profile]);
+  // useEffect(() => {
+  //   Chart.defaults.global.defaultFontColor =
+  //     profile.theme === 'theme_dark' ? '#181818' : '#626262';
+  // }, [profile]);
 
   const handleClose = (detail: any) => {
     switch (detail.name) {
@@ -62,12 +57,11 @@ const Content = (props: Props) => {
 
   return (
     <div
-      className={`App ${profile.theme} ${profile.textSize} ${
-        profile.themeColor
-      } ${usingMouse ? 'using-mouse' : ''}`}
+      className={`App ${profile.theme} ${profile.textSize} ${profile.themeColor
+        } ${usingMouse ? 'using-mouse' : ''}`}
     >
       <HashRouter>
-        <Init cookies={props.cookies} />
+        <Init />
         {/* <Notification /> */}
         <OakNotification
           indicator="fill"
@@ -86,10 +80,7 @@ const Content = (props: Props) => {
           topbarElevation={0}
         >
           <div slot="topbar">
-            <TopbarContainer cookies={props.cookies} />
-          </div>
-          <div slot="toolbar">
-            <TopbarContainer cookies={props.cookies} />
+            <TopbarContainer />
           </div>
           <div slot="main">
             <BodyContainer {...props} />
@@ -100,4 +91,4 @@ const Content = (props: Props) => {
   );
 };
 
-export default withCookies(Content);
+export default Content;

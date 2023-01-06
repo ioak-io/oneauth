@@ -1,7 +1,7 @@
-import { httpGet, httpPut, httpDelete } from '../components/Lib/RestTemplate';
-import constants from '../components/Constants';
+import { httpGet, httpPut, httpDelete } from '../../components/Lib/RestTemplate';
+import constants from '../../components/Constants';
 import { UPDATE_PERMITTED_REALM } from './types';
-import { sendMessage } from '../events/MessageService';
+import { sendMessage } from '../../events/MessageService';
 
 const domain = 'permittedspace';
 

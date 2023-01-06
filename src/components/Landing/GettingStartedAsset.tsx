@@ -4,7 +4,7 @@ import './style.scss';
 import OakButton from '../../oakui/wc/OakButton';
 import { newMessageId, sendMessage } from '../../events/MessageService';
 import createAsset from './service';
-import { fetchAllAssets } from '../../actions/AssetActions';
+import { fetchAllAssets } from '../../store/actions/AssetActions';
 import OakForm from '../../oakui/wc/OakForm';
 import OakTypography from '../../oakui/wc/OakTypography';
 import OakInput from '../../oakui/wc/OakInput';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
 import OakTab from '../../../oakui/wc/OakTab';
@@ -10,7 +10,7 @@ import Gridcontrol from '../../AccessControl/Gridcontrol';
 import SystemRoleControl from '../../AccessControl/SystemRoleControl';
 
 const ClientDetail = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const { id }: any = useParams();
   const [activeTab, setActiveTab] = useState(0);
   const client = useSelector((state: any) =>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
-import { withCookies } from 'react-cookie';
-import { getAuth, addAuth, removeAuth } from '../../actions/AuthActions';
+import { getAuth, addAuth, removeAuth } from '../../store/actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage, receiveMessage } from '../../events/MessageService';
@@ -13,26 +12,18 @@ import NotificationMessage from '../LoginPage/form/NotificationMessage';
 import HomeLink from './HomeLink';
 import ChangePassword from './ChangePassword';
 import UpdateProfile from './UpdateProfile';
-
-const queryString = require('query-string');
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 interface Props {
-  setProfile: Function;
-  getAuth: Function;
-  addAuth: Function;
-  removeAuth: Function;
-  cookies: any;
-  history: any;
-  profile: any;
-  match: any;
-  location: any;
-  authorization: Authorization;
   clientrealm: string;
 }
 
 const Login = (props: Props) => {
   const loginType = 'clientrealm';
   const authorization = useSelector((state: any) => state.authorization);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const profile = useSelector((state: any) => state.profile);
+  const history = useNavigate();
   const [type, setType] = useState('home');
   const [spinner, setSpinner] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState({
@@ -62,32 +53,27 @@ const Login = (props: Props) => {
 
   const changeRoute = (routeType: any) => {
     setNotificationMessage({ type: '', message: '' });
-    props.history.push(
+    history(
       `/${loginType}/${props.clientrealm}/home?type=${routeType}`
     );
   };
 
   useEffect(() => {
-    if (props.location.search) {
-      const query = queryString.parse(props.location.search);
-      if (query && query.type) {
-        setType(query.type);
-      } else {
-        setType('home');
-      }
+    if (searchParams.has('type')) {
+      setType(searchParams.get('type') || '');
     } else {
       setType('home');
     }
-  }, [props.location.search]);
+  }, [searchParams]);
 
   return (
     <div className="clientrealm-home">
       <div className="overlay">
         <div className="container smooth-page">
-          {props.profile.theme === 'theme_light' && (
+          {profile.theme === 'theme_light' && (
             <img className="logo" src={oneauthBlack} alt="Oneauth logo" />
           )}
-          {props.profile.theme === 'theme_dark' && (
+          {profile.theme === 'theme_dark' && (
             <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
           )}
 
@@ -157,5 +143,5 @@ const mapStateToProps = (state: any) => ({
 });
 
 export default connect(mapStateToProps, { getAuth, addAuth, removeAuth })(
-  withCookies(Login)
+  Login
 );

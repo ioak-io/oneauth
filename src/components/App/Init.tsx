@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchAllRealms } from '../../actions/RealmActions';
+import { fetchAllRealms } from '../../store/actions/RealmActions';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
-import { fetchAllClients } from '../../actions/ClientActions';
+import { fetchAllClients } from '../../store/actions/ClientActions';
 import { refreshAccessToken } from '../Auth/AuthService';
-import { addAuth } from '../../actions/AuthActions';
+import { addAuth } from '../../store/actions/AuthActions';
 import { axiosInstance, httpPost } from '../Lib/RestTemplate';
+import { setSessionValue } from '../../utils/SessionUtils';
 
 interface Props {
-  cookies: any;
 }
 const Init = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
@@ -95,7 +95,7 @@ const Init = (props: Props) => {
             if (response.status === 200) {
               axiosInstance.defaults.headers.authorization =
                 response.data.access_token;
-              props.cookies.set(
+              setSessionValue(
                 `${realm || 100}-access_token`,
                 response.data.access_token
               );

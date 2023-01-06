@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateRoles, fetchRoles } from '../../actions/OaRoleActions';
+import { updateRoles, fetchRoles } from '../../store/actions/OaRoleActions';
 import OakButton from '../../oakui/wc/OakButton';
 import Member from './Member';
 

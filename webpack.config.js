@@ -59,13 +59,15 @@ module.exports = (env) => {
       ],
     },
     devServer: {
-      contentBase: path.join(__dirname, 'build'),
+      static: path.join(__dirname, 'build'),
       historyApiFallback: true,
       host: '0.0.0.0',
       compress: true,
       hot: true,
       port: 3010,
-      publicPath: '/',
+      devMiddleware: {
+        publicPath: '/',
+      }
     },
     devtool: 'source-map',
     output: {

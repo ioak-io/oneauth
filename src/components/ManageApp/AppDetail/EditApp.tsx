@@ -17,7 +17,7 @@ import OakSection from '../../../oakui/wc/OakSection';
 import { newId } from '../../../events/MessageService';
 import OakTypography from '../../../oakui/wc/OakTypography';
 import OakSpacing from '../../../oakui/wc/OakSpacing';
-import { updateClient } from '../../../actions/ClientActions';
+import { updateClient } from '../../../store/actions/ClientActions';
 
 interface Props {
   client: any;

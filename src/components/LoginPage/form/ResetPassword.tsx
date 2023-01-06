@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { withCookies } from 'react-cookie';
 import { Warning } from '@material-ui/icons';
-import { getAuth, addAuth, removeAuth } from '../../../actions/AuthActions';
+import { getAuth, addAuth, removeAuth } from '../../../store/actions/AuthActions';
 import './style.scss';
 import { Authorization } from '../../Types/GeneralTypes';
 import { sendMessage } from '../../../events/MessageService';
@@ -12,16 +11,6 @@ import OakInput from '../../../oakui/wc/OakInput';
 import OakButton from '../../../oakui/wc/OakButton';
 
 interface Props {
-  setProfile: Function;
-  getAuth: Function;
-  addAuth: Function;
-  removeAuth: Function;
-  cookies: any;
-  history: any;
-  profile: any;
-  match: any;
-  location: any;
-  authorization: Authorization;
   loginType: string;
   authCode: string;
   switchToSigninPage: any;
@@ -346,5 +335,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { getAuth, addAuth, removeAuth })(
-  withCookies(ResetPassword)
+  ResetPassword
 );

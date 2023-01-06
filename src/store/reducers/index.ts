@@ -9,7 +9,7 @@ import PermittedRealmReducer from './PermittedRealmReducer';
 import OaRoleReducer from './OaRoleReducer';
 import OaUserReducer from './OaUserReducer';
 
-export default combineReducers({
+const rootReducer = combineReducers({
   authorization: AuthReducer,
   profile: ProfileReducer,
   user: UserReducer,
@@ -20,3 +20,5 @@ export default combineReducers({
   oaRoles: OaRoleReducer,
   permittedRealm: PermittedRealmReducer,
 });
+
+export default rootReducer;

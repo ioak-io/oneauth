@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import OakInput from '../../../oakui/wc/OakInput';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
@@ -7,7 +7,7 @@ import { isEmptyOrSpaces } from '../../Utils';
 import './CreateClient.scss';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
 import OakButton from '../../../oakui/wc/OakButton';
-import { createClient } from '../../../actions/ClientActions';
+import { createClient } from '../../../store/actions/ClientActions';
 
 interface Props {
   handleClose: any;

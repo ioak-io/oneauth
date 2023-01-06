@@ -13,7 +13,6 @@ import {
 import { loginPageSubject } from '../../events/LoginPageEvent';
 
 interface Props {
-  history: any;
 }
 
 const ReachInstance = (props: Props) => {

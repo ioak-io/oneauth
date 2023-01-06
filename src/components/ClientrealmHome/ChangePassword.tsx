@@ -14,7 +14,6 @@ import OakClickArea from '../../oakui/wc/OakClickArea';
 interface Props {
   goHome: any;
   clientrealm: string;
-  history: any;
 }
 
 const ChangePassword = (props: Props) => {

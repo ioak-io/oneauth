@@ -5,14 +5,9 @@ import FullLayout from './layout/FullLayout';
 import SplitLayout from './layout/SplitLayout';
 import { getClient } from './service';
 
-const queryString = require('query-string');
-
 interface Props {
-  cookies: any;
-  history: any;
-  match: any;
-  location: any;
   realm: number;
+  client_id: string;
 }
 
 const LoginPage = (props: Props) => {
@@ -23,19 +18,13 @@ const LoginPage = (props: Props) => {
 
   useEffect(() => {
     currentRealmEventSubject.asObservable().subscribe((message) => {
+      console.log(message);
       setCurrentRealm(message);
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (props.location.search) {
-  //     const query = queryString.parse(props.location.search);
-  //     setQueryParam({ ...query });
-  //   }
-  // }, [props.location.search]);
-
   useEffect(() => {
-    getClient(props.match.params.client_id).then((data) => {
+    getClient(props.client_id).then((data) => {
       if (data) {
         setCurrentClient(data);
       }
@@ -46,26 +35,18 @@ const LoginPage = (props: Props) => {
   return (
     <div className="login-page">
       {isClientCheckFinished &&
-        currentRealm?.realm === props.realm &&
+        currentRealm?.realm?.toString() === props.realm &&
         currentRealm?.site?.layout === 'split' && (
           <SplitLayout
-            cookies={props.cookies}
-            history={props.history}
-            location={props.location}
-            match={props.match}
             realm={props.realm}
             currentRealm={currentRealm}
             currentClient={currentClient}
           />
         )}
       {isClientCheckFinished &&
-        currentRealm?.realm === props.realm &&
+        currentRealm?.realm?.toString() === props.realm &&
         currentRealm?.site?.layout === 'full' && (
           <FullLayout
-            cookies={props.cookies}
-            history={props.history}
-            location={props.location}
-            match={props.match}
             realm={props.realm}
             currentRealm={currentRealm}
             currentClient={currentClient}

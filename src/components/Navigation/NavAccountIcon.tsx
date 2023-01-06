@@ -2,17 +2,17 @@ import { Fingerprint, PowerSettingsNew } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import {
-  useHistory,
+  useNavigate,
   useLocation,
   useParams,
   useRouteMatch,
 } from 'react-router';
+import { removeSessionValue } from '../../utils/SessionUtils';
 import { receiveMessage } from '../../events/MessageService';
-import { removeAuth } from '../../actions/AuthActions';
+import { removeAuth } from '../../store/actions/AuthActions';
 import './NavAccountIcon.scss';
 
 interface Props {
-  cookies: any;
 }
 
 const NavAccountIcon = (props: Props) => {
@@ -20,7 +20,7 @@ const NavAccountIcon = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const profile = useSelector((state: any) => state.profile);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useNavigate();
   useEffect(() => {
     receiveMessage().subscribe((event: any) => {
       if (event.name === 'realmChange') {
@@ -31,14 +31,14 @@ const NavAccountIcon = (props: Props) => {
 
   const handleClick = () => {
     if (authorization.isAuth) {
-      props.cookies.remove(`${authorization.realm}-refresh_token`);
-      props.cookies.remove(`${authorization.realm}-access_token`);
+      removeSessionValue(`${authorization.realm}-refresh_token`);
+      removeSessionValue(`${authorization.realm}-access_token`);
       dispatch(removeAuth());
       authorization.realm === 100
-        ? history.push('/')
-        : history.push(`/realm/${authorization.realm}/home`);
+        ? history('/')
+        : history(`/realm/${authorization.realm}/home`);
     } else {
-      history.push(`/realm/100/login/oneauth`);
+      history(`/realm/100/login/oneauth`);
     }
   };
 

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { Check, Close, Https, Info } from '@material-ui/icons';
 import './EditRealm.scss';
-import { updateRealm } from '../../../actions/RealmActions';
+import { updateRealm } from '../../../store/actions/RealmActions';
 import OakInput from '../../../oakui/wc/OakInput';
 import OakButton from '../../../oakui/wc/OakButton';
 import OakForm from '../../../oakui/wc/OakForm';

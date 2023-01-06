@@ -17,7 +17,7 @@ import OakButton from '../../oakui/wc/OakButton';
 import OakCheckbox from '../../oakui/wc/OakCheckbox';
 import OakCheckboxGroup from '../../oakui/wc/OakCheckboxGroup';
 import { newId } from '../../events/MessageService';
-import { updateRoles, deleteRoles } from '../../actions/OaRoleActions';
+import { updateRoles, deleteRoles } from '../../store/actions/OaRoleActions';
 import OakSection from '../../oakui/wc/OakSection';
 import SystemRoles from './SystemRoles';
 

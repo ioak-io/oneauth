@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import OakInput from '../../../oakui/wc/OakInput';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
@@ -8,7 +8,7 @@ import './CreateRealm.scss';
 import RealmItem from './RealmItem';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
 import OakButton from '../../../oakui/wc/OakButton';
-import { createRealm } from '../../../actions/RealmActions';
+import { createRealm } from '../../../store/actions/RealmActions';
 
 interface Props {
   handleClose: any;

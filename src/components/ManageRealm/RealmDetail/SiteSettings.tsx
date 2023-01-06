@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
 import { base64ToFile } from '@oakui/core-stage/service/OakImageService';
 import './SiteSettings.scss';
-import { updateRealm } from '../../../actions/RealmActions';
+import { updateRealm } from '../../../store/actions/RealmActions';
 import OakInput from '../../../oakui/wc/OakInput';
 import OakButton from '../../../oakui/wc/OakButton';
 import OakForm from '../../../oakui/wc/OakForm';

@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
-import './style.scss';
-import { sendMessage } from '../../events/MessageService';
 import { loginPageSubject } from '../../events/LoginPageEvent';
+import './style.scss';
 
 interface Props {
-  label?: string;
-  logout: Function;
 }
 const Home = (props: Props) => {
   useEffect(() => {

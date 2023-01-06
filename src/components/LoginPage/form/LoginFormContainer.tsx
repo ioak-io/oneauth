@@ -10,15 +10,12 @@ import ResetPassword from '../form/ResetPassword';
 import ConfirmEmail from '../form/ConfirmEmail';
 import NotificationMessage from '../form/NotificationMessage';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
-
-const queryString = require('query-string');
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { getSessionValue, removeSessionValue, setSessionValue } from '../../../utils/SessionUtils';
 
 interface Props {
-  cookies: any;
-  history: any;
-  match: any;
-  location: any;
-  realm: number;
+  realm: string;
+  clientId: string;
   background?: 'image' | 'light' | 'dark';
   currentRealm: any;
   currentClient: any;
@@ -26,6 +23,9 @@ interface Props {
 
 const LoginFormContainer = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
+  const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const history = useNavigate();
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
   const [spinner, setSpinner] = useState(false);
@@ -35,7 +35,6 @@ const LoginFormContainer = (props: Props) => {
   });
 
   const [client, setClient] = useState('');
-  const [queryParam, setQueryParam] = useState<any>();
   const [verificationStep, setVerificationStep] = useState(false);
 
   useEffect(() => {
@@ -70,56 +69,47 @@ const LoginFormContainer = (props: Props) => {
 
   const changeRoute = (routeType: string) => {
     setNotificationMessage({ type: '', message: '' });
-    props.history.push(`/realm/${props.realm}/login/${props.match.params.client_id}?type=${routeType}`);
+    history(`/realm/${props.realm}/login/${props.clientId}?type=${routeType}`);
   };
 
   useEffect(() => {
     setVerificationStep(true);
-    // let clientRef = null;
-    // if (props.location.search) {
-    const query = queryString.parse(props.location.search);
-    setQueryParam({ ...query });
-    if (query && query.type) {
-      setType(query.type);
+    if (searchParams.has('type')) {
+      setType(searchParams.get('type') || '');
     } else {
       setType('signin');
     }
-    if (query && query.auth) {
-      setAuthCode(query.auth);
+    if (searchParams.has('auth')) {
+      setAuthCode(searchParams.get('auth') || '');
     } else {
       setAuthCode('');
     }
-    // if (query && query.client) {
-    //   setClient(query.client);
-    //   clientRef = query.client;
-    // } else {
-    //   setClient('');
-    // }
-    // }
-    const refreshToken = props.cookies.get(`${props.realm}-refresh_token`);
+    const refreshToken = getSessionValue(`${props.realm}-refresh_token`);
     const accessToken = getAccessToken(
-      props.cookies.get(`${props.realm}-access_token`),
+      getSessionValue(`${props.realm}-access_token`),
       refreshToken
     );
     if (
       (props.realm === authorization.realm && authorization.isAuth) ||
       accessToken
     ) {
-      redirect(query);
+      // TODO
+      // redirect(query);
+      redirect();
     } else {
       setVerificationStep(false);
     }
     // }
-  }, [props.location.search]);
+  }, [searchParams]);
 
   const getAccessToken = (accessToken: string, refreshToken: string) => {
     return accessToken;
   };
 
   const redirect = (query?: any) => {
-    const _query = query || queryParam;
-    const accessToken = props.cookies.get(`${props.realm}-access_token`);
-    const refreshToken = props.cookies.get(`${props.realm}-refresh_token`);
+    // const _query = query || queryParam;
+    const accessToken = getSessionValue(`${props.realm}-access_token`);
+    const refreshToken = getSessionValue(`${props.realm}-refresh_token`);
     const outcome = validateToken(accessToken, refreshToken);
 
     httpPost(
@@ -138,40 +128,41 @@ const LoginFormContainer = (props: Props) => {
       .then((refreshTokenResponse) => {
         if (refreshTokenResponse.status === 200) {
           const newAccessToken = refreshTokenResponse.data.access_token;
-          props.cookies.set(
+          setSessionValue(
             `${props.realm}-access_token`,
             refreshTokenResponse.data.access_token
           );
-          if (props.realm !== 100 && props.currentClient) {
+          if (props.realm !== "100" && props.currentClient) {
             let appendString = '';
-            Object.keys(_query).forEach((key) => {
-              if (!['client', 'type'].includes(key)) {
-                appendString += `&${key}=${_query[key]}`;
-              }
-            });
+            // TODO
+            // Object.keys(_query).forEach((key) => {
+            //   if (!['client', 'type'].includes(key)) {
+            //     appendString += `&${key}=${_query[key]}`;
+            //   }
+            // });
             window.location.href = `${props.currentClient.redirect}?access_token=${newAccessToken}&refresh_token=${refreshToken}&realm=${props.realm}${appendString}`;
           } else {
             sendMessage('loggedin', true);
-            if (props.realm !== 100) {
-              props.history.push(`/realm/${props.realm}/home`);
+            if (props.realm !== "100") {
+              history(`/realm/${props.realm}/home`);
             } else {
-              props.history.push('/managerealm');
+              history('/managerealm');
             }
           }
         } else {
-          props.cookies.remove(`${props.realm}-access_token`);
-          props.cookies.remove(`${props.realm}-refresh_token`);
+          removeSessionValue(`${props.realm}-access_token`);
+          removeSessionValue(`${props.realm}-refresh_token`);
           setVerificationStep(false);
         }
       })
       .catch((error) => {
-        props.cookies.remove(`${props.realm}-access_token`);
-        props.cookies.remove(`${props.realm}-refresh_token`);
+        removeSessionValue(`${props.realm}-access_token`);
+        removeSessionValue(`${props.realm}-refresh_token`);
         setVerificationStep(false);
       });
   };
 
-  const validateToken = (accessToken: string, refreshToken: string) => {};
+  const validateToken = (accessToken: string, refreshToken: string) => { };
 
   const redirectToRequestedClientIfTokenIsValid = (
     refreshToken: string,
@@ -189,12 +180,12 @@ const LoginFormContainer = (props: Props) => {
     //           queryString
     //         );
     //       } else {
-    //         props.cookies.remove(props.realm);
+    //         removeSessionValue(props.realm);
     //         setVerificationStep(false);
     //       }
     //     })
     //     .catch((error: any) => {
-    //       props.cookies.remove(props.realm);
+    //       removeSessionValue(props.realm);
     //       setVerificationStep(false);
     //     });
     // redirectToRequestedClient(authKey, sessionResponse.data.token, queryString);
@@ -210,12 +201,11 @@ const LoginFormContainer = (props: Props) => {
           <SigninPage
             switchToSignupPage={() => changeRoute('signup')}
             switchToResetPage={() => changeRoute('reset')}
-            queryParam={queryParam}
             background={props.background}
             currentClient={props.currentClient}
             currentRealm={props.currentRealm}
             redirect={redirect}
-            clientId={props.match.params.client_id}
+            clientId={props.clientId}
             {...props}
           />
         </div>
@@ -225,7 +215,7 @@ const LoginFormContainer = (props: Props) => {
         <div className="wrapper">
           <NewUser
             switchToSigninPage={() => changeRoute('signin')}
-            clientId={props.match.params.client_id}
+            clientId={props.clientId}
             {...props}
           />
         </div>

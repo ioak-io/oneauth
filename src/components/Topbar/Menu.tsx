@@ -1,17 +1,13 @@
 import React, { useEffect } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import './Menu.scss';
 
 const Menu = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const location = useLocation();
   const profile = useSelector((state: any) => state.profile);
-  useEffect(() => {
-    console.log(history);
-    console.log(location.state);
-  }, [history, location]);
 
   return (
     <div className={`menu-bar ${profile.theme}`}>

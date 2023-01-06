@@ -1,5 +1,5 @@
 import { GET_PROFILE, SET_PROFILE } from '../actions/types';
-import { sendMessage } from '../events/MessageService';
+import { sendMessage } from '../../events/MessageService';
 
 const initialState = {
   theme: 'theme_dark',

@@ -2,7 +2,7 @@ import { MenuOpen } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 
-import { getProfile, setProfile } from '../../actions/ProfileActions';
+import { getProfile, setProfile } from '../../store/actions/ProfileActions';
 import './ExpandIcon.scss';
 
 interface Props {

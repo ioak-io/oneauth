@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 
-import { getProfile, setProfile } from '../../actions/ProfileActions';
+import { getProfile, setProfile } from '../../store/actions/ProfileActions';
 import { sendMessage } from '../../events/MessageService';
 import './ChangeAsset.scss';
 
@@ -15,7 +15,7 @@ const ChangeAsset = (props: Props) => {
 
   const profile = useSelector((state: any) => state.profile);
 
-  const history = useHistory();
+  const history = useNavigate();
 
   const assets = useSelector((state: any) => state.asset.assets);
 
@@ -34,7 +34,7 @@ const ChangeAsset = (props: Props) => {
   }, [props.realm, assets]);
 
   const goToChangeAssetPage = () => {
-    history.push('/');
+    history('/');
   };
 
   return (

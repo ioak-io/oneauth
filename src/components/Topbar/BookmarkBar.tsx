@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 import './BookmarkBar.scss';
 
 const BookmarkBar = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const location = useLocation();
   useEffect(() => {
     console.log(history);

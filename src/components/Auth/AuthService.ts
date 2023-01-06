@@ -1,6 +1,5 @@
-import { useCookies } from 'react-cookie';
 import { connect, useSelector, useDispatch } from 'react-redux';
-import { addAuth } from '../../actions/AuthActions';
+import { addAuth } from '../../store/actions/AuthActions';
 import { httpGet, httpPost, httpPut } from '../Lib/RestTemplate';
 
 export function fetchRealm() {
@@ -30,7 +29,6 @@ export const refreshAccessToken = (
   )
     .then((refreshTokenResponse) => {
       if (refreshTokenResponse.status === 200) {
-        console.log(refreshTokenResponse.data);
         // cookies.set(
         //   `${space}-access_token`,
         //   refreshTokenResponse.data.access_token
@@ -42,12 +40,12 @@ export const refreshAccessToken = (
           })
         );
       } else {
-        // cookies.remove(`${space}-access_token`);
-        // cookies.remove(`${space}-refresh_token`);
+        // removeSessionValue(`${space}-access_token`);
+        // removeSessionValue(`${space}-refresh_token`);
       }
     })
     .catch((error) => {
-      // cookies.remove(`${space}-access_token`);
-      // cookies.remove(`${space}-refresh_token`);
+      // removeSessionValue(`${space}-access_token`);
+      // removeSessionValue(`${space}-refresh_token`);
     });
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
 import OakInput from '../../../oakui/wc/OakInput';
 import OakClickArea from '../../../oakui/wc/OakClickArea';

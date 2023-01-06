@@ -1,7 +1,7 @@
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router';
 import OakButton from '../../../oakui/wc/OakButton';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
 
@@ -12,10 +12,10 @@ interface Props {
 }
 
 const RealmItem = (props: Props) => {
-  const history = useHistory();
+  const history = useNavigate();
 
   const goToViewPage = () => {
-    history.push(`/managerealm/${props.realm.realm}`);
+    history(`/managerealm/${props.realm.realm}`);
   };
 
   return (

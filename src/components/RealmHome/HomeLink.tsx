@@ -7,16 +7,18 @@ import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
 import OakInput from '../../oakui/wc/OakInput';
 import OakButton from '../../oakui/wc/OakButton';
+import { getSessionValue, removeSessionValue } from '../../utils/SessionUtils';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 interface Props {
   switchToSigninPage: any;
   realm: string;
-  history: any;
-  cookies: any;
-  removeAuth: any;
 }
 
 const HomeLink = (props: Props) => {
+  const history = useNavigate();
+  const dispatch = useDispatch();
   const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState({
     email: '',
@@ -37,31 +39,31 @@ const HomeLink = (props: Props) => {
   };
 
   const changeRoute = (routeType: string) => {
-    props.history.push(`/realm/${props.realm}/home?type=${routeType}`);
+    history(`/realm/${props.realm}/home?type=${routeType}`);
   };
 
   const login = () => {
-    props.history.push(`/realm/${props.realm}/login?type=signin`);
+    history(`/realm/${props.realm}/login?type=signin`);
   };
 
   const signup = () => {
-    props.history.push(`/realm/${props.realm}/login?type=signup`);
+    history(`/realm/${props.realm}/login?type=signup`);
   };
 
   const logout = () => {
     let baseAuthUrl = '/auth/oa';
-    let authKey = props.cookies.get('oneauth');
+    let authKey = getSessionValue('oneauth');
     if (props.realm) {
-      authKey = props.cookies.get(props.realm);
+      authKey = getSessionValue(props.realm);
       baseAuthUrl = `/auth/realm/${props.realm}`;
     }
 
     httpPost(`${baseAuthUrl}/session/${authKey}/invalidate`, null, null).then(
       (response: any) => {
         if (response.status === 200 || response.status === 404) {
-          props.removeAuth();
-          props.cookies.remove(props.realm);
-          props.history.push(`/realm/${props.realm}/home`);
+          dispatch(removeAuth());
+          removeSessionValue(props.realm);
+          history(`/realm/${props.realm}/home`);
           sendMessage('notification', true, {
             type: 'success',
             message: `Signed out of realm ${props.realm}`,

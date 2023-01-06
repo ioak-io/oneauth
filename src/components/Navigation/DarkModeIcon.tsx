@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './DarkModeIcon.scss';
 import { NightsStay, WbSunny } from '@material-ui/icons';
-import { setProfile } from '../../actions/ProfileActions';
+import { setProfile } from '../../store/actions/ProfileActions';
 
 const DarkModeIcon = () => {
   const profile = useSelector((state: any) => state.profile);

@@ -9,7 +9,7 @@ interface Props {
 const AssetItem = (props: Props) => {
   const goToAssetPage = () => {
     console.log(props.asset);
-    props.history.push(`/${props.asset.assetId}/home`);
+    props.history(`/${props.asset.assetId}/home`);
   };
   return (
     <div className="asset-list-item" onClick={goToAssetPage}>

@@ -7,17 +7,20 @@ import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
 import OakForm from '../../oakui/wc/OakForm';
 import OakButton from '../../oakui/wc/OakButton';
+import { useNavigate } from 'react-router-dom';
+import { getSessionValue, removeSessionValue } from '../../utils/SessionUtils';
+import { removeAuth } from '../../store/actions/AuthActions';
+import { useDispatch } from 'react-redux';
 
 interface Props {
   switchToSigninPage: any;
   clientrealm: string;
-  history: any;
-  cookies: any;
-  removeAuth: any;
 }
 
 const HomeLink = (props: Props) => {
   const loginType = 'clientrealm';
+  const history = useNavigate();
+  const dispatch = useDispatch();
   const authorization = useSelector((state: any) => state.authorization);
   const [data, setData] = useState({
     email: '',
@@ -42,33 +45,33 @@ const HomeLink = (props: Props) => {
   };
 
   const changeRoute = (routeType) => {
-    props.history.push(
+    history(
       `/clientrealm/${props.clientrealm}/home?type=${routeType}`
     );
   };
 
   const login = () => {
-    props.history.push(`/clientrealm/${props.clientrealm}/login?type=signin`);
+    history(`/clientrealm/${props.clientrealm}/login?type=signin`);
   };
 
   const signup = () => {
-    props.history.push(`/clientrealm/${props.clientrealm}/login?type=signup`);
+    history(`/clientrealm/${props.clientrealm}/login?type=signup`);
   };
 
   const logout = () => {
     let baseAuthUrl = `/auth/${loginType}`;
-    let authKey = props.cookies.get('oneauth');
+    let authKey = getSessionValue('oneauth');
     if (props.clientrealm) {
-      authKey = props.cookies.get(props.clientrealm);
+      authKey = getSessionValue(props.clientrealm);
       baseAuthUrl = `${baseAuthUrl}/${props.clientrealm}`;
     }
 
     httpPost(`${baseAuthUrl}/session/${authKey}/invalidate`, null, null).then(
       (response: any) => {
         if (response.status === 200 || response.status === 404) {
-          props.removeAuth();
-          props.cookies.remove(props.clientrealm);
-          props.history.push(`/clientrealm/${props.clientrealm}/home`);
+          dispatch(removeAuth());
+          removeSessionValue(props.clientrealm);
+          history(`/clientrealm/${props.clientrealm}/home`);
           sendMessage('notification', true, {
             type: 'success',
             message: `Signed out of realm ${props.clientrealm}`,
