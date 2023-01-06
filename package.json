@@ -1,8 +1,9 @@
 {
-  "name": "ipsum",
+  "name": "oneauth",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "homepage": "https://oneauth-app.ioak.io",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack serve --config webpack.config.js --mode development",
@@ -11,15 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ioak-dev/ipsum.git"
+    "url": "git+https://github.com/ioak-dev/oneauth.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ioak-dev/ipsum/issues"
+    "url": "https://github.com/ioak-dev/oneauth/issues"
   },
-  "homepage": "https://github.com/ioak-dev/ipsum#readme",
   "devDependencies": {
     "@babel/core": "^7.20.7",
     "@babel/preset-env": "^7.20.2",
