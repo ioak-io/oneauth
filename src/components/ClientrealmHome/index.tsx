@@ -12,9 +12,7 @@ import NotificationMessage from '../LoginPage/form/NotificationMessage';
 import HomeLink from './HomeLink';
 import ChangePassword from './ChangePassword';
 import UpdateProfile from './UpdateProfile';
-import { useNavigate } from 'react-router-dom';
-
-const queryString = require('query-string');
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 interface Props {
   clientrealm: string;
@@ -23,6 +21,7 @@ interface Props {
 const Login = (props: Props) => {
   const loginType = 'clientrealm';
   const authorization = useSelector((state: any) => state.authorization);
+  const [searchParams, setSearchParams] = useSearchParams();
   const profile = useSelector((state: any) => state.profile);
   const history = useNavigate();
   const [type, setType] = useState('home');
@@ -60,13 +59,12 @@ const Login = (props: Props) => {
   };
 
   useEffect(() => {
-    const query = new URLSearchParams(location.search);
-    if (query && query.has('type')) {
-      setType(query.get('type') || '');
+    if (searchParams.has('type')) {
+      setType(searchParams.get('type') || '');
     } else {
       setType('home');
     }
-  }, [location.search]);
+  }, [searchParams]);
 
   return (
     <div className="clientrealm-home">

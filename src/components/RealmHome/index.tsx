@@ -12,19 +12,18 @@ import NotificationMessage from '../LoginPage/form/NotificationMessage';
 import HomeLink from './HomeLink';
 import ChangePassword from './ChangePassword';
 import UpdateProfile from './UpdateProfile';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
-const queryString = require('query-string');
 
 interface Props {
   realm: string;
 }
 
-const Login = (props: Props) => {
+const RealmHome = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const history = useNavigate();
   const dispatch = useDispatch();
+  let [searchParams, setSearchParams] = useSearchParams();
   const profile = useSelector((state: any) => state.profile);
   const [type, setType] = useState('home');
   const [spinner, setSpinner] = useState(false);
@@ -59,13 +58,12 @@ const Login = (props: Props) => {
   };
 
   useEffect(() => {
-    const query = new URLSearchParams(location.search);
-    if (query && query.has('type')) {
-      setType(query.get('type') || '');
+    if (searchParams.has('type')) {
+      setType(searchParams.get('type') || '');
     } else {
       setType('home');
     }
-  }, [location.search]);
+  }, [searchParams]);
 
   return (
     <div className="realm-home">
@@ -139,10 +137,4 @@ const Login = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  authorization: state.authorization,
-});
-
-export default connect(mapStateToProps, { getAuth, addAuth, removeAuth })(
-  Login
-);
+export default RealmHome;

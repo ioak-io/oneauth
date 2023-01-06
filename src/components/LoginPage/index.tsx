@@ -5,8 +5,6 @@ import FullLayout from './layout/FullLayout';
 import SplitLayout from './layout/SplitLayout';
 import { getClient } from './service';
 
-const queryString = require('query-string');
-
 interface Props {
   realm: number;
   client_id: string;

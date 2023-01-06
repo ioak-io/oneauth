@@ -10,10 +10,8 @@ import ResetPassword from '../form/ResetPassword';
 import ConfirmEmail from '../form/ConfirmEmail';
 import NotificationMessage from '../form/NotificationMessage';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { getSessionValue, removeSessionValue, setSessionValue } from '../../../utils/SessionUtils';
-
-const queryString = require('query-string');
 
 interface Props {
   realm: string;
@@ -26,6 +24,7 @@ interface Props {
 const LoginFormContainer = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const location = useLocation();
+  const [searchParams, setSearchParams] = useSearchParams();
   const history = useNavigate();
   const [type, setType] = useState('signin');
   const [authCode, setAuthCode] = useState('');
@@ -36,7 +35,6 @@ const LoginFormContainer = (props: Props) => {
   });
 
   const [client, setClient] = useState('');
-  const [queryParam, setQueryParam] = useState<any>();
   const [verificationStep, setVerificationStep] = useState(false);
 
   useEffect(() => {
@@ -76,27 +74,16 @@ const LoginFormContainer = (props: Props) => {
 
   useEffect(() => {
     setVerificationStep(true);
-    // let clientRef = null;
-    // if (location.search) {
-    const query = new URLSearchParams(location.search);
-    setQueryParam({ ...query });
-    if (query && query.has('type')) {
-      setType(query.get('type') || '');
+    if (searchParams.has('type')) {
+      setType(searchParams.get('type') || '');
     } else {
       setType('signin');
     }
-    if (query && query.has('auth')) {
-      setAuthCode(query.get('auth') || '');
+    if (searchParams.has('auth')) {
+      setAuthCode(searchParams.get('auth') || '');
     } else {
       setAuthCode('');
     }
-    // if (query && query.client) {
-    //   setClient(query.client);
-    //   clientRef = query.client;
-    // } else {
-    //   setClient('');
-    // }
-    // }
     const refreshToken = getSessionValue(`${props.realm}-refresh_token`);
     const accessToken = getAccessToken(
       getSessionValue(`${props.realm}-access_token`),
@@ -106,19 +93,21 @@ const LoginFormContainer = (props: Props) => {
       (props.realm === authorization.realm && authorization.isAuth) ||
       accessToken
     ) {
-      redirect(query);
+      // TODO
+      // redirect(query);
+      redirect();
     } else {
       setVerificationStep(false);
     }
     // }
-  }, [location.search]);
+  }, [searchParams]);
 
   const getAccessToken = (accessToken: string, refreshToken: string) => {
     return accessToken;
   };
 
   const redirect = (query?: any) => {
-    const _query = query || queryParam;
+    // const _query = query || queryParam;
     const accessToken = getSessionValue(`${props.realm}-access_token`);
     const refreshToken = getSessionValue(`${props.realm}-refresh_token`);
     const outcome = validateToken(accessToken, refreshToken);
@@ -145,11 +134,12 @@ const LoginFormContainer = (props: Props) => {
           );
           if (props.realm !== "100" && props.currentClient) {
             let appendString = '';
-            Object.keys(_query).forEach((key) => {
-              if (!['client', 'type'].includes(key)) {
-                appendString += `&${key}=${_query[key]}`;
-              }
-            });
+            // TODO
+            // Object.keys(_query).forEach((key) => {
+            //   if (!['client', 'type'].includes(key)) {
+            //     appendString += `&${key}=${_query[key]}`;
+            //   }
+            // });
             window.location.href = `${props.currentClient.redirect}?access_token=${newAccessToken}&refresh_token=${refreshToken}&realm=${props.realm}${appendString}`;
           } else {
             sendMessage('loggedin', true);
@@ -211,7 +201,6 @@ const LoginFormContainer = (props: Props) => {
           <SigninPage
             switchToSignupPage={() => changeRoute('signup')}
             switchToResetPage={() => changeRoute('reset')}
-            queryParam={queryParam}
             background={props.background}
             currentClient={props.currentClient}
             currentRealm={props.currentRealm}

@@ -5,8 +5,6 @@ import oneauthWhite from '../../../images/oneauth_white.svg';
 import oneauthBlack from '../../../images/oneauth_black.svg';
 import LoginFormContainer from '../form/LoginFormContainer';
 
-const queryString = require('query-string');
-
 interface Props {
   clientId: string;
   realm: number;
