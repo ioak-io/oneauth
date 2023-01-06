@@ -34,8 +34,6 @@ const LoginPage = (props: Props) => {
 
   return (
     <div className="login-page">
-      {typeof currentRealm?.realm}
-      {typeof props.realm}
       {isClientCheckFinished &&
         currentRealm?.realm?.toString() === props.realm &&
         currentRealm?.site?.layout === 'split' && (

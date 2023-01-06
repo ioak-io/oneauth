@@ -87,7 +87,6 @@ const ProtectedRoute = (props: Props) => {
 
     const authenticate = (type: string, redirect = true) => {
         const realm = getRealm();
-        console.log(authorization, realm, typeof authorization.realm, typeof realm)
         if (authorization.isAuth && authorization.realm === realm) {
             return true;
         }
