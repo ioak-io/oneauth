@@ -1,9 +1,8 @@
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button, IconButton, ThemeType } from 'basicui';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import Button from '../../../oakui/wc/Button';
-import OakClickArea from '../../../oakui/wc/OakClickArea';
 
 import './ClientItem.scss';
 
@@ -27,14 +26,12 @@ const ClientItem = (props: Props) => {
         </div>
       </div>
       <div className="client-item__right">
-        <Button
+        <IconButton
           onClick={goToViewPage}
           theme={ThemeType.danger}
-          shape="icon"
-          
         >
           <FontAwesomeIcon icon={faTrashAlt} />
-        </Button>
+        </IconButton>
       </div>
     </div>
   );

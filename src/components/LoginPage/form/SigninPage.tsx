@@ -4,7 +4,6 @@ import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { compose as linkCompose } from '@oakui/core-stage/style-composer/OakLinkComposer';
 import './SigninPage.scss';
 import { Authorization } from '../../Types/GeneralTypes';
 import { newId, sendMessage } from '../../../events/MessageService';
@@ -14,6 +13,7 @@ import FormInput from './FormInput';
 import FormButton from './FormButton';
 import { useNavigate } from 'react-router-dom';
 import { getSessionValue, setSessionValue } from '../../../utils/SessionUtils';
+import { Link } from 'basicui';
 
 interface Props {
   switchToSignupPage: any;
@@ -218,62 +218,52 @@ const SigninPage = (props: Props) => {
     <form onSubmit={signinAction}>
       <div className="signin-page">
         <div
-          className={`signin-page__form ${
-            props.currentRealm.site.layout === 'full' &&
-            props.currentRealm.site.container
+          className={`signin-page__form ${props.currentRealm.site.layout === 'full' &&
+              props.currentRealm.site.container
               ? `signin-page__form--container signin-page__form--container--radius-${props.currentRealm.site.borderRadius}`
               : ''
-          }`}
+            }`}
         >
           {['top-one-line', 'top-two-line'].includes(
             props.currentRealm.site.signupVariant
           ) && (
-            <div
-              className={`signin-page__action-header ${props.currentRealm.site.signupVariant}`}
-            >
               <div
-                className={`signin-page__action-header__left login-form-static-text-${
-                  props.background === 'light' ||
-                  props.currentRealm.site.container
-                    ? 'dark'
-                    : 'light'
-                }`}
+                className={`signin-page__action-header ${props.currentRealm.site.signupVariant}`}
               >
-                Sign In
-              </div>
-              <div
-                className={`signin-page__action-header__right login-form-static-text-${
-                  props.background === 'light' ||
-                  props.currentRealm.site.container
-                    ? 'dark'
-                    : 'light'
-                }`}
-              >
-                <span className="signin-page__action__register__label">Or</span>
-                <a
-                  href={`/#/realm/${props.realm}/login?type=signup`}
-                  className={linkCompose({
-                    baseClass: 'login-form-hyperlink',
-                    underlineThickness: 'thin',
-                    dotted: true,
-                    underlineStyle: 'always',
-                  })}
+                <div
+                  className={`signin-page__action-header__left login-form-static-text-${props.background === 'light' ||
+                      props.currentRealm.site.container
+                      ? 'dark'
+                      : 'light'
+                    }`}
                 >
-                  Create account
-                </a>
+                  Sign In
+                </div>
+                <div
+                  className={`signin-page__action-header__right login-form-static-text-${props.background === 'light' ||
+                      props.currentRealm.site.container
+                      ? 'dark'
+                      : 'light'
+                    }`}
+                >
+                  <span className="signin-page__action__register__label">Or</span>
+                  <Link
+                    href={`/#/realm/${props.realm}/login?type=signup`}
+                  >
+                    Create account
+                  </Link>
+                </div>
               </div>
-            </div>
-          )}
+            )}
           <div className="signin-page__form-group">
             <div className="signin-page__form-group__label">
               {!errors.email && (
                 <div
-                  className={`login-form-label-text-${
-                    props.background === 'light' ||
-                    props.currentRealm.site.container
+                  className={`login-form-label-text-${props.background === 'light' ||
+                      props.currentRealm.site.container
                       ? 'dark'
                       : 'light'
-                  }`}
+                    }`}
                 >
                   Username or Email Address
                 </div>
@@ -309,12 +299,11 @@ const SigninPage = (props: Props) => {
             <div className="signin-page__form-group__label">
               {!errors.password && (
                 <div
-                  className={`login-form-label-text-${
-                    props.background === 'light' ||
-                    props.currentRealm.site.container
+                  className={`login-form-label-text-${props.background === 'light' ||
+                      props.currentRealm.site.container
                       ? 'dark'
                       : 'light'
-                  }`}
+                    }`}
                 >
                   Password
                 </div>
@@ -346,42 +335,29 @@ const SigninPage = (props: Props) => {
             </FormButton>
           </div>
           <div className="signin-page__action__reset">
-            <a
+            <Link
               href={`/#/realm/${props.realm}/login/${props.clientId}?type=reset`}
-              className={linkCompose({
-                baseClass: 'login-form-hyperlink',
-                underlineThickness: 'thin',
-                dotted: true,
-                underlineStyle: 'always',
-              })}
             >
               Forgot password?
-            </a>
+            </Link>
           </div>
 
           {props.currentRealm.site.signupVariant === 'bottom' && (
             <div
-              className={`signin-page__action__register login-form-static-text-${
-                props.background === 'light' ||
-                props.currentRealm.site.container
+              className={`signin-page__action__register login-form-static-text-${props.background === 'light' ||
+                  props.currentRealm.site.container
                   ? 'dark'
                   : 'light'
-              }`}
+                }`}
             >
               <span className="signin-page__action__register__label">
                 Don&apos;t have an account?
               </span>
-              <a
+              <Link
                 href={`/#/realm/${props.realm}/login/${props.clientId}?type=signup`}
-                className={linkCompose({
-                  baseClass: 'login-form-hyperlink',
-                  underlineThickness: 'thin',
-                  dotted: true,
-                  underlineStyle: 'always',
-                })}
               >
                 Create account
-              </a>
+              </Link>
             </div>
           )}
         </div>

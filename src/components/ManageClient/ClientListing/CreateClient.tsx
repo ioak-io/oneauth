@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import Input from '../../../oakui/wc/Input';
-import OakClickArea from '../../../oakui/wc/OakClickArea';
-import { isEmptyOrSpaces } from '../../Utils';
 import './CreateClient.scss';
-import { loginPageSubject } from '../../../events/LoginPageEvent';
-import Button from '../../../oakui/wc/Button';
 import { createClient } from '../../../store/actions/ClientActions';
+import { Button, Input, ThemeType } from 'basicui';
 
 interface Props {
   handleClose: any;
@@ -37,7 +33,6 @@ const CreateClient = (props: Props) => {
           value={state.name}
           onInput={onInput}
           placeholder="Client name"
-          gutterBottom
         />
         <Input
           name="description"
@@ -45,15 +40,13 @@ const CreateClient = (props: Props) => {
           onInput={onInput}
           type="textarea"
           placeholder="Description"
-          gutterBottom
         />
       </div>
       <div className="create-client__toolbar">
-        <Button  onClick={save}>
+        <Button onClick={save}>
           Save
         </Button>
         <Button
-          
           theme={ThemeType.default}
           onClick={props.handleClose}
         >

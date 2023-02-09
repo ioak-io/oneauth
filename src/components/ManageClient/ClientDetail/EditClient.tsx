@@ -10,14 +10,9 @@ import {
   Info,
 } from '@material-ui/icons';
 import './EditClient.scss';
-import Input from '../../../oakui/wc/Input';
-import Button from '../../../oakui/wc/Button';
-import OakForm from '../../../oakui/wc/OakForm';
-import div from '../../../oakui/wc/div';
 import { newId } from '../../../events/MessageService';
-import OakTypography from '../../../oakui/wc/OakTypography';
-import OakSpacing from '../../../oakui/wc/OakSpacing';
 import { updateClient } from '../../../store/actions/ClientActions';
+import { Button, Input, ThemeType } from 'basicui';
 
 interface Props {
   client: any;
@@ -70,118 +65,99 @@ const EditClient = (props: Props) => {
     dispatch(updateClient(clientData));
   };
 
-  const handleReset = () => {};
+  const handleReset = () => { };
 
   return (
-    <OakForm
-      
-      handleSubmit={editClient}
-      handleReset={handleReset}
+    <form onSubmit={editClient}
+      onReset={handleReset}
     >
       <div className="edit-client">
-        <div
-          fillColor="container"
-          rounded
-          paddingHorizontal={3}
-          paddingVertical={3}
-          elevation={1}
-        >
+        <div>
           <h6>
             <div className="title-section">
               <Info />
               Overview
             </div>
-          </div>
+          </h6>
           <div className="title-gutter-bottom" />
           <div className="edit-client__overview">
             <Input
-              
               value={clientData.name}
               name="name"
               label="Client name"
               type="text"
-              minLength={5}
-              onInput={(e: any) => onInput(e)}
-              gutterBottom
+              onInput={onInput}
             />
             <Input
-              
+
               value={clientData.description}
               name="description"
               label="Description"
               type="text"
               minLength={1}
-              onInput={(e: any) => onInput(e)}
+              onInput={onInput}
               gutterBottom
             />
             <Input
-              
+
               value={clientData.redirect}
               name="redirect"
               label="Redirect URL"
               type="text"
               minLength={1}
-              onInput={(e: any) => onInput(e)}
+              onInput={onInput}
               gutterBottom
             />
             <Input
               disabled
               fill
-              
+
               value={clientData.client_id}
               name="client_id"
               label="Client ID (to be used in your client)"
               type="text"
               minLength={1}
-              onInput={(e: any) => onInput(e)}
+              onInput={onInput}
               gutterBottom
             />
             <Input
               disabled
               fill
-              
+
               value={clientData.realm}
               name="realm"
               label="Client specific realm"
               type="text"
               minLength={1}
-              onInput={(e: any) => onInput(e)}
+              onInput={onInput}
               gutterBottom
             />
           </div>
         </div>
-        <div
-          fillColor="container"
-          paddingHorizontal={3}
-          paddingVertical={3}
-          elevation={1}
-          rounded
-        >
+        <div>
           <h6>
             <div className="title-section">
               <Https />
               Security
             </div>
-          </div>
+          </h6>
           <div className="edit-realm__security">security form elements</div>
         </div>
         <div className="app-action-bar">
           <div />
           <div>
             <Button
-              
               theme={ThemeType.primary}
-              
               type="submit"
             >
               <Check />
               Update
             </Button>
             <Button
-              
+
               onClick={handleReset}
               theme={ThemeType.default}
-              
+
             >
               <Close />
               Reset
@@ -189,7 +165,7 @@ const EditClient = (props: Props) => {
           </div>
         </div>
       </div>
-    </OakForm>
+    </form>
   );
 };
 

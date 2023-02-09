@@ -7,8 +7,7 @@ import { Authorization } from '../../Types/GeneralTypes';
 import { sendMessage } from '../../../events/MessageService';
 import { isEmptyOrSpaces } from '../../Utils';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
-import Input from '../../../oakui/wc/Input';
-import Button from '../../../oakui/wc/Button';
+import { Button, Input, ThemeType } from 'basicui';
 
 interface Props {
   loginType: string;
@@ -17,7 +16,7 @@ interface Props {
   realm: string;
 }
 
-const ConfirmEmail = (props: Props) => {
+export const ConfirmEmail = (props: Props) => {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -172,24 +171,17 @@ const ConfirmEmail = (props: Props) => {
                 )}
               </div>
               <Input
-                color="invert"
-                fill
-                size="large"
                 name="email"
                 placeholder="Email to activate"
                 value={data.email}
-                onInput={(e) => onInput(e)}
+                onInput={onInput}
               />
             </div>
           </div>
         )}
         <div className="action">
           {stage === 'requestLink' && (
-            <Button
-              fullWidth
-              size="large"
-              
-              theme={ThemeType.primary}
+            <Button theme={ThemeType.primary}
               onClick={requestLink}
             >
               Send Link
@@ -206,11 +198,3 @@ const ConfirmEmail = (props: Props) => {
     </>
   );
 };
-
-const mapStateToProps = (state) => ({
-  authorization: state.authorization,
-});
-
-export default connect(mapStateToProps, { getAuth, addAuth, removeAuth })(
-  ConfirmEmail
-);
