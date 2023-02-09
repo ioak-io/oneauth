@@ -9,7 +9,6 @@ import { receiveMessage, sendMessage } from '../../events/MessageService';
 import DarkModeIcon from '../Navigation/DarkModeIcon';
 import NavAccountIcon from '../Navigation/NavAccountIcon';
 import { removeAuth } from '../../store/actions/AuthActions';
-import OakButton from '../../oakui/wc/OakButton';
 import { removeSessionValue } from '../../utils/SessionUtils';
 
 interface Props {
@@ -45,8 +44,8 @@ const RightNav = (props: Props) => {
 
   return (
     <div className="right-nav">
-      {/* <OakButton theme="primary" variant="appear" action={() => {}} icon="add">Income</OakButton>
-      <OakButton theme="primary" variant="appear" action={() => {}} icon="add">Bill</OakButton> */}
+      {/* <Button theme={ThemeType.primary}  action={() => {}} icon="add">Income</Button>
+      <Button theme={ThemeType.primary}  action={() => {}} icon="add">Bill</Button> */}
       <DarkModeIcon />
       <NavAccountIcon />
     </div>

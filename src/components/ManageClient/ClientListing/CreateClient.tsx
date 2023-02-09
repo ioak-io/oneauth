@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import OakInput from '../../../oakui/wc/OakInput';
+import Input from '../../../oakui/wc/Input';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
 import { isEmptyOrSpaces } from '../../Utils';
 import './CreateClient.scss';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
-import OakButton from '../../../oakui/wc/OakButton';
+import Button from '../../../oakui/wc/Button';
 import { createClient } from '../../../store/actions/ClientActions';
 
 interface Props {
@@ -21,7 +21,7 @@ const CreateClient = (props: Props) => {
     redirect: '',
   });
 
-  const handleChange = (detail: any) => {
+  const onInput = (detail: any) => {
     setState({ ...state, [detail.name]: detail.value });
   };
 
@@ -32,33 +32,33 @@ const CreateClient = (props: Props) => {
   return (
     <div className="create-client">
       <div className="create-client__form">
-        <OakInput
+        <Input
           name="name"
           value={state.name}
-          handleInput={handleChange}
+          onInput={onInput}
           placeholder="Client name"
           gutterBottom
         />
-        <OakInput
+        <Input
           name="description"
           value={state.description}
-          handleInput={handleChange}
+          onInput={onInput}
           type="textarea"
           placeholder="Description"
           gutterBottom
         />
       </div>
       <div className="create-client__toolbar">
-        <OakButton variant="regular" handleClick={save}>
+        <Button  onClick={save}>
           Save
-        </OakButton>
-        <OakButton
-          variant="regular"
-          theme="default"
-          handleClick={props.handleClose}
+        </Button>
+        <Button
+          
+          theme={ThemeType.default}
+          onClick={props.handleClose}
         >
           Cancel
-        </OakButton>
+        </Button>
       </div>
     </div>
   );

@@ -12,14 +12,10 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 import './style.scss';
 
-import OakClickArea from '../../oakui/wc/OakClickArea';
-import OakButton from '../../oakui/wc/OakButton';
-import OakCheckbox from '../../oakui/wc/OakCheckbox';
-import OakCheckboxGroup from '../../oakui/wc/OakCheckboxGroup';
 import { newId } from '../../events/MessageService';
 import { updateRoles, deleteRoles } from '../../store/actions/OaRoleActions';
-import OakSection from '../../oakui/wc/OakSection';
 import SystemRoles from './SystemRoles';
+import {Button} from 'basicui';
 
 interface Props {
   history: any;
@@ -55,7 +51,7 @@ const ClientPermission = (props: Props) => {
   //   setRoleNames(_roleNames);
   // }, [props.roles]);
 
-  // const handleChange = (detail: any) => {
+  // const onInput = (detail: any) => {
   //   const _roleNames = roleNames.filter((item) => item !== detail.name);
   //   if (detail.value) {
   //     if (detail.value) {
@@ -134,30 +130,20 @@ const ClientPermission = (props: Props) => {
 
   return (
     <div className="client-permission">
-      <OakSection
-        fillColor="container"
-        rounded
-        paddingHorizontal={2}
-        paddingVertical={3}
-        elevation={4}
+      <div
       >
         <SystemRoles
           clientId={id}
           userId={userId}
           roles={oaRolesNameNew}
-          handleChange={handleSystemRolesChange}
+          onInput={handleSystemRolesChange}
         />
-      </OakSection>
-      <OakSection
-        fillColor="container"
-        rounded
-        paddingHorizontal={2}
-        paddingVertical={3}
-        elevation={4}
+      </div>
+      <div
       >
         <div className="client-permission__section-title">Client roles</div>
-      </OakSection>
-      <OakButton handleClick={save}>Save</OakButton>
+      </div>
+      <Button onClick={save}>Save</Button>
     </div>
   );
 };

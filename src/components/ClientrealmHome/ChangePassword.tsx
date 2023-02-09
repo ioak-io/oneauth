@@ -5,11 +5,8 @@ import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
-import OakForm from '../../oakui/wc/OakForm';
 import { Warning } from '@material-ui/icons';
-import OakButton from '../../oakui/wc/OakButton';
-import OakInput from '../../oakui/wc/OakInput';
-import OakClickArea from '../../oakui/wc/OakClickArea';
+import { Input, Button, ThemeType } from 'basicui';
 
 interface Props {
   goHome: any;
@@ -33,7 +30,7 @@ const ChangePassword = (props: Props) => {
     repeatpassword: '',
   });
 
-  const handleChange = (detail: any) => {
+  const onInput = (detail: any) => {
     setData({ ...data, [detail.name]: detail.value });
   };
 
@@ -146,13 +143,12 @@ const ChangePassword = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
-                formGroupName="clientrealmChangePasswordGroup"
+              <Input
                 name="oldpassword"
                 type="password"
                 placeholder="Type your current password"
                 value={data.oldpassword}
-                handleChange={(e) => handleChange(e)}
+                onInput={onInput}
               />
             </div>
             <div>
@@ -167,13 +163,12 @@ const ChangePassword = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
-                formGroupName="clientrealmChangePasswordGroup"
+              <Input
                 name="password"
                 type="password"
                 placeholder="Make it a good one"
                 value={data.password}
-                handleChange={(e) => handleChange(e)}
+                onInput={onInput}
               />
             </div>
             <div>
@@ -188,26 +183,24 @@ const ChangePassword = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
-                formGroupName="clientrealmChangePasswordGroup"
+              <Input
                 name="repeatpassword"
                 type="password"
                 placeholder="Don't forget it"
                 value={data.repeatpassword}
-                handleChange={(e) => handleChange(e)}
+                onInput={onInput}
               />
             </div>
           </div>
         )}
         <div className="action">
           {['form'].includes(stage) && (
-            <OakButton
-              variant="regular"
-              theme="primary"
-              handleClick={handleSubmit}
+            <Button
+              theme={ThemeType.primary}
+              onClick={handleSubmit}
             >
               Change Password
-            </OakButton>
+            </Button>
           )}
           {['form'].includes(stage) && <p className="hr">or</p>}
           <div className="button-link">

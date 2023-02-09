@@ -7,8 +7,8 @@ import { Authorization } from '../../Types/GeneralTypes';
 import { sendMessage } from '../../../events/MessageService';
 import { isEmptyOrSpaces } from '../../Utils';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
-import OakInput from '../../../oakui/wc/OakInput';
-import OakButton from '../../../oakui/wc/OakButton';
+import Input from '../../../oakui/wc/Input';
+import Button from '../../../oakui/wc/Button';
 
 interface Props {
   loginType: string;
@@ -123,7 +123,7 @@ const ConfirmEmail = (props: Props) => {
     }
   };
 
-  const handleChange = (event) => {
+  const onInput = (event) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
@@ -171,29 +171,29 @@ const ConfirmEmail = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 color="invert"
                 fill
                 size="large"
                 name="email"
                 placeholder="Email to activate"
                 value={data.email}
-                handleChange={(e) => handleChange(e)}
+                onInput={(e) => onInput(e)}
               />
             </div>
           </div>
         )}
         <div className="action">
           {stage === 'requestLink' && (
-            <OakButton
+            <Button
               fullWidth
               size="large"
-              variant="regular"
-              theme="primary"
-              handleClick={requestLink}
+              
+              theme={ThemeType.primary}
+              onClick={requestLink}
             >
               Send Link
-            </OakButton>
+            </Button>
           )}
           {['requestLink'].includes(stage) && <p className="hr">or</p>}
           <div className="button-link">

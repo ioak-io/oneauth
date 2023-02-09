@@ -2,15 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
-import { base64ToFile } from '@oakui/core-stage/service/OakImageService';
+import {Input} from 'basicui';
 import './SiteSettings.scss';
 import { updateRealm } from '../../../store/actions/RealmActions';
-import OakInput from '../../../oakui/wc/OakInput';
-import OakButton from '../../../oakui/wc/OakButton';
-import OakForm from '../../../oakui/wc/OakForm';
-import OakSection from '../../../oakui/wc/OakSection';
 import { newId } from '../../../events/MessageService';
-import OakTypography from '../../../oakui/wc/OakTypography';
 import OakRadioGroup from '../../../oakui/wc/OakRadioGroup';
 import OakRadio from '../../../oakui/wc/OakRadio';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
@@ -18,7 +13,7 @@ import OakImageUpload from '../../../oakui/wc/OakImageUpload';
 
 interface Props {
   site: any;
-  handleChange: any;
+  onInput: any;
   handleUploadChange: any;
 }
 
@@ -27,8 +22,8 @@ const SiteSettings = (props: Props) => {
   const formId = newId();
   const authorization = useSelector((state: any) => state.authorization);
 
-  const handleInput = (detail: any) => {
-    props.handleChange({ ...props.site, [detail.name]: detail.value });
+  const onInput = (detail: any) => {
+    props.onInput({ ...props.site, [detail.name]: detail.value });
   };
 
   const handleImageChange = (detail: any) => {
@@ -38,19 +33,13 @@ const SiteSettings = (props: Props) => {
   const [groupId, setGroupId] = useState(newId());
 
   return (
-    <OakSection
-      fillColor="container"
-      rounded
-      paddingHorizontal={3}
-      paddingVertical={3}
-      elevation={1}
-    >
-      <OakTypography variant="h6">
+    <div>
+      <h6>
         <div className="title-section">
           <FontAwesomeIcon icon={faPalette} />
           Login page design
         </div>
-      </OakTypography>
+      </h6>
       <div className="title-gutter-bottom" />
       <div className="site-settings">
         <div className="site-settings__form">
@@ -59,7 +48,7 @@ const SiteSettings = (props: Props) => {
             radioGroupName={`layout-${groupId}`}
             value={props.site.layout}
             label="Layout"
-            handleChange={handleInput}
+            onInput={onInput}
           >
             <div className="">
               <OakRadio radioGroupName={`layout-${groupId}`} name="full">
@@ -75,7 +64,7 @@ const SiteSettings = (props: Props) => {
             radioGroupName={`borderRadius-${groupId}`}
             value={props.site.borderRadius}
             label="Roundness"
-            handleChange={handleInput}
+            onInput={onInput}
           >
             <div className="">
               <OakRadio radioGroupName={`borderRadius-${groupId}`} name="none">
@@ -100,7 +89,7 @@ const SiteSettings = (props: Props) => {
             radioGroupName={`signupVariant-${groupId}`}
             value={props.site.signupVariant}
             label="Signup link placement"
-            handleChange={handleInput}
+            onInput={onInput}
           >
             <div className="">
               <OakRadio
@@ -123,20 +112,18 @@ const SiteSettings = (props: Props) => {
               </OakRadio>
             </div>
           </OakRadioGroup>
-          <OakInput
-            formGroupName={formId}
+          <Input
             value={props.site.background}
             name="background"
             label="Background"
             type="text"
-            minLength={1}
-            handleInput={handleInput}
+            onInput={onInput}
           />
           {props.site.layout === 'full' && props.site.background && (
             <OakCheckbox
               name="container"
               value={props.site.container}
-              handleChange={handleInput}
+              onInput={onInput}
             >
               Enclose form inside a container
             </OakCheckbox>
@@ -149,7 +136,7 @@ const SiteSettings = (props: Props) => {
               toolbarPosition="top"
               name="logo"
               value=""
-              handleChange={handleImageChange}
+              onInput={handleImageChange}
             />
           </div>
           <div className="site-settings__image__background">
@@ -159,12 +146,12 @@ const SiteSettings = (props: Props) => {
               name="background"
               value=""
               initialFile={props.site.background}
-              handleChange={handleImageChange}
+              onInput={handleImageChange}
             />
           </div>
         </div>
       </div>
-    </OakSection>
+    </div >
   );
 };
 

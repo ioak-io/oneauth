@@ -5,10 +5,10 @@ import { faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { Check, Close, Https, Info } from '@material-ui/icons';
 import './EditRealm.scss';
 import { updateRealm } from '../../../store/actions/RealmActions';
-import OakInput from '../../../oakui/wc/OakInput';
-import OakButton from '../../../oakui/wc/OakButton';
+import Input from '../../../oakui/wc/Input';
+import Button from '../../../oakui/wc/Button';
 import OakForm from '../../../oakui/wc/OakForm';
-import OakSection from '../../../oakui/wc/OakSection';
+import div from '../../../oakui/wc/div';
 import { newId } from '../../../events/MessageService';
 import OakTypography from '../../../oakui/wc/OakTypography';
 import SiteSettings from './SiteSettings';
@@ -53,7 +53,7 @@ const EditRealm = (props: Props) => {
   //   return { day, hour, minutes };
   // };
 
-  const handleInput = (detail: any) => {
+  const onInput = (detail: any) => {
     setRealmData({
       ...realmData,
       [detail.name]: detail.value,
@@ -86,126 +86,126 @@ const EditRealm = (props: Props) => {
 
   return (
     <OakForm
-      formGroupName={formId}
+      
       handleSubmit={editRealm}
       handleReset={handleReset}
     >
       <div className="edit-realm">
-        <OakSection
+        <div
           fillColor="container"
           rounded
           paddingHorizontal={3}
           paddingVertical={3}
           elevation={1}
         >
-          <OakTypography variant="h6">
+          <h6>
             <div className="title-section">
               <FontAwesomeIcon icon={faInfoCircle} />
               Overview
             </div>
-          </OakTypography>
+          </div>
           <div className="title-gutter-bottom" />
           <div className="edit-realm__overview">
-            <OakInput
-              formGroupName={formId}
+            <Input
+              
               value={realmData.name}
               name="name"
               label="Realm name"
               type="text"
               minLength={5}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
-            <OakInput
-              formGroupName={formId}
+            <Input
+              
               value={realmData.description}
               name="description"
               label="Description"
               type="text"
               minLength={1}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
           </div>
-        </OakSection>
-        <OakSection
+        </div>
+        <div
           fillColor="container"
           paddingHorizontal={3}
           paddingVertical={3}
           elevation={1}
           rounded
         >
-          <OakTypography variant="h6">
+          <h6>
             <div className="title-section">
               <FontAwesomeIcon icon={faShieldAlt} />
               Security
             </div>
-          </OakTypography>
+          </div>
           <div className="edit-realm__security">
             <div className="edit-realm__security__jwt">
-              <OakInput
-                formGroupName={formId}
+              <Input
+                
                 value={realmData.days}
                 name="days"
                 type="number"
                 minLength={1}
                 label="Expiry in days"
-                handleInput={(e: any) => handleInput(e)}
+                onInput={(e: any) => onInput(e)}
                 gutterBottom
               />
-              <OakInput
-                formGroupName={formId}
+              <Input
+                
                 value={realmData.hours}
                 name="hours"
                 type="number"
                 minLength={1}
                 label="Expiry in hours"
-                handleInput={(e: any) => handleInput(e)}
+                onInput={(e: any) => onInput(e)}
                 gutterBottom
               />
-              <OakInput
-                formGroupName={formId}
+              <Input
+                
                 value={realmData.minutes}
                 name="minutes"
                 type="number"
                 minLength={1}
                 label="Expiry in minutes"
-                handleInput={(e: any) => handleInput(e)}
+                onInput={(e: any) => onInput(e)}
                 gutterBottom
               />
             </div>
           </div>
-        </OakSection>
+        </div>
         {realmData.site.layout && (
           <SiteSettings
             site={realmData.site}
-            handleChange={handleSiteChange}
+            onInput={handleSiteChange}
             handleUploadChange={handleUploadChange}
           />
         )}
         <div className="app-action-bar">
           <div />
           <div>
-            <OakButton
-              formGroupName={formId}
-              theme="primary"
-              variant="regular"
+            <Button
+              
+              theme={ThemeType.primary}
+              
               type="submit"
               elevation={4}
             >
               <Check />
               Update
-            </OakButton>
-            <OakButton
-              formGroupName={formId}
-              handleClick={handleReset}
-              theme="default"
-              variant="regular"
+            </Button>
+            <Button
+              
+              onClick={handleReset}
+              theme={ThemeType.default}
+              
               elevation={4}
             >
               <Close />
               Reset
-            </OakButton>
+            </Button>
           </div>
         </div>
       </div>

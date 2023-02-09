@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import OakInput from '../../../oakui/wc/OakInput';
+import Input from '../../../oakui/wc/Input';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
 import { isEmptyOrSpaces } from '../../Utils';
 import './CreateRealm.scss';
 import RealmItem from './RealmItem';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
-import OakButton from '../../../oakui/wc/OakButton';
+import Button from '../../../oakui/wc/Button';
 import { createRealm } from '../../../store/actions/RealmActions';
 
 interface Props {
@@ -28,7 +28,7 @@ const CreateRealm = (props: Props) => {
     },
   });
 
-  const handleChange = (detail: any) => {
+  const onInput = (detail: any) => {
     setState({ ...state, [detail.name]: detail.value });
   };
 
@@ -39,33 +39,33 @@ const CreateRealm = (props: Props) => {
   return (
     <div className="create-realm">
       <div className="create-realm__form">
-        <OakInput
+        <Input
           name="name"
           value={state.name}
-          handleInput={handleChange}
+          onInput={onInput}
           placeholder="Realm name"
           gutterBottom
         />
-        <OakInput
+        <Input
           name="description"
           value={state.description}
-          handleInput={handleChange}
+          onInput={onInput}
           type="textarea"
           placeholder="Description"
           gutterBottom
         />
       </div>
       <div className="create-realm__toolbar">
-        <OakButton variant="regular" handleClick={save}>
+        <Button  onClick={save}>
           Save
-        </OakButton>
-        <OakButton
-          variant="regular"
-          theme="default"
-          handleClick={props.handleClose}
+        </Button>
+        <Button
+          
+          theme={ThemeType.default}
+          onClick={props.handleClose}
         >
           Cancel
-        </OakButton>
+        </Button>
       </div>
     </div>
   );

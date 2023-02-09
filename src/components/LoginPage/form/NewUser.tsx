@@ -131,7 +131,7 @@ const NewUser = (props: Props) => {
     }
   };
 
-  const handleChange = (event: any) => {
+  const onInput = (event: any) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
@@ -164,7 +164,7 @@ const NewUser = (props: Props) => {
             </div>
             <FormInput
               name="given_name"
-              handleChange={handleChange}
+              onInput={onInput}
               type="text"
               value={data.given_name}
               autoFocus
@@ -184,7 +184,7 @@ const NewUser = (props: Props) => {
             </div>
             <FormInput
               name="family_name"
-              handleChange={handleChange}
+              onInput={onInput}
               type="text"
               value={data.family_name}
             />
@@ -201,7 +201,7 @@ const NewUser = (props: Props) => {
             </div>
             <FormInput
               name="email"
-              handleChange={handleChange}
+              onInput={onInput}
               type="text"
               value={data.email}
             />
@@ -218,7 +218,7 @@ const NewUser = (props: Props) => {
             </div>
             <FormInput
               name="password"
-              handleChange={handleChange}
+              onInput={onInput}
               type="password"
               value={data.password}
             />
@@ -237,7 +237,7 @@ const NewUser = (props: Props) => {
             </div>
             <FormInput
               name="repeatpassword"
-              handleChange={handleChange}
+              onInput={onInput}
               type="password"
               value={data.repeatpassword}
             />
@@ -248,7 +248,7 @@ const NewUser = (props: Props) => {
       <div className="action">
         {stage === 'userdetails' && (
           <>
-            <FormButton type="button" handleClick={signupAction}>
+            <FormButton type="button" onClick={signupAction}>
               Create Account
             </FormButton>
             <hr className="divider" />

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
-import OakButton from '../../../oakui/wc/OakButton';
+import Button from '../../../oakui/wc/Button';
 import './style.scss';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import {
@@ -78,7 +78,7 @@ const UserGrid = (props: Props) => {
   return (
     <div>
       <div className="control-grid__action">
-        <OakButton handleClick={props.handleClose}>Add user</OakButton>
+        <Button onClick={props.handleClose}>Add user</Button>
       </div>
 
       <table className={tableCompose({ color: 'container' })}>
@@ -105,7 +105,7 @@ const UserGrid = (props: Props) => {
                     props.systemRoleReverseMap['system-admin']?._id
                   )}
                   name={item.user?._id}
-                  handleChange={(detail: any) => {
+                  onInput={(detail: any) => {
                     toggleRole(detail, 'system-admin');
                   }}
                 />
@@ -116,7 +116,7 @@ const UserGrid = (props: Props) => {
                     props.systemRoleReverseMap['system-user']?._id
                   )}
                   name={item.user?._id}
-                  handleChange={(detail: any) => {
+                  onInput={(detail: any) => {
                     toggleRole(detail, 'system-user');
                   }}
                 />

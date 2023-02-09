@@ -6,8 +6,8 @@ import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
-import OakInput from '../../oakui/wc/OakInput';
-import OakButton from '../../oakui/wc/OakButton';
+import Input from '../../oakui/wc/Input';
+import Button from '../../oakui/wc/Button';
 
 interface Props {
   goHome: any;
@@ -31,7 +31,7 @@ const ChangePassword = (props: Props) => {
     repeatpassword: '',
   });
 
-  const handleChange = (detail: any) => {
+  const onInput = (detail: any) => {
     setData({ ...data, [detail.name]: detail.value });
   };
 
@@ -144,12 +144,12 @@ const ChangePassword = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 name="oldpassword"
                 type="password"
                 placeholder="Type your current password"
                 value={data.oldpassword}
-                handleChange={handleChange}
+                onInput={onInput}
               />
             </div>
             <div>
@@ -164,12 +164,12 @@ const ChangePassword = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 name="password"
                 type="password"
                 placeholder="Make it a good one"
                 value={data.password}
-                handleChange={handleChange}
+                onInput={onInput}
               />
             </div>
             <div>
@@ -184,25 +184,25 @@ const ChangePassword = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 name="repeatpassword"
                 type="password"
                 placeholder="Don't forget it"
                 value={data.repeatpassword}
-                handleChange={handleChange}
+                onInput={onInput}
               />
             </div>
           </div>
         )}
         <div className="action">
           {['form'].includes(stage) && (
-            <OakButton
-              variant="regular"
-              theme="primary"
-              handleClick={handleSubmit}
+            <Button
+              
+              theme={ThemeType.primary}
+              onClick={handleSubmit}
             >
               Change Password
-            </OakButton>
+            </Button>
           )}
           {['form'].includes(stage) && <p className="hr">or</p>}
           <div className="button-link">

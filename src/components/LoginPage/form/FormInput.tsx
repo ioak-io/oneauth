@@ -5,7 +5,7 @@ interface Props {
   name: string;
   value: string;
   type: string;
-  handleChange: any;
+  onInput: any;
   autoFocus?: boolean;
   id?: string;
   variant?: 'default' | 'fixed-light' | 'fixed-dark';
@@ -22,7 +22,7 @@ const FormInput = (props: Props) => {
       autoFocus={props.autoFocus || false}
       type={props.type}
       name={props.name}
-      onInput={props.handleChange}
+      onInput={props.onInput}
     />
   );
 };

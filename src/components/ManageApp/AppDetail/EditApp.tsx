@@ -1,22 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Cancel,
   Check,
   Close,
-  Details,
-  DoubleArrow,
   Https,
   Info,
 } from '@material-ui/icons';
+import { Input, Button, ThemeType } from 'basicui';
 import './EditClient.scss';
-import OakInput from '../../../oakui/wc/OakInput';
-import OakButton from '../../../oakui/wc/OakButton';
-import OakForm from '../../../oakui/wc/OakForm';
-import OakSection from '../../../oakui/wc/OakSection';
 import { newId } from '../../../events/MessageService';
-import OakTypography from '../../../oakui/wc/OakTypography';
-import OakSpacing from '../../../oakui/wc/OakSpacing';
 import { updateClient } from '../../../store/actions/ClientActions';
 
 interface Props {
@@ -60,7 +52,7 @@ const EditClient = (props: Props) => {
   //   return { day, hour, minutes };
   // };
 
-  const handleInput = (detail: any) => {
+  const onInput = (detail: any) => {
     setClientData({
       ...clientData,
       [detail.name]: detail.value,
@@ -71,137 +63,122 @@ const EditClient = (props: Props) => {
     dispatch(updateClient(clientData));
   };
 
-  const handleReset = () => {};
+  const handleReset = () => { };
 
   return (
-    <OakForm
-      formGroupName={formId}
-      handleSubmit={editClient}
-      handleReset={handleReset}
+    <form
+      onSubmit={editClient}
+      onReset={handleReset}
     >
       <div className="edit-client">
-        <OakSection
-          fillColor="container"
-          rounded
-          paddingHorizontal={3}
-          paddingVertical={3}
-          elevation={1}
-        >
-          <OakTypography variant="h6">
+        <div>
+          <h6>
             <div className="title-section">
               <Info />
               Overview
             </div>
-          </OakTypography>
+          </h6>
           <div className="title-gutter-bottom" />
           <div className="edit-client__overview">
-            <OakInput
-              formGroupName={formId}
+            <Input
               value={clientData.name}
               name="name"
               label="Client name"
               type="text"
-              minLength={5}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
-            <OakInput
-              formGroupName={formId}
+            <Input
+
               value={clientData.description}
               name="description"
               label="Description"
               type="text"
               minLength={1}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
-            <OakInput
-              formGroupName={formId}
+            <Input
+
               value={clientData.redirect}
               name="redirect"
               label="Redirect URL"
               type="text"
               minLength={1}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
-            <OakInput
+            <Input
               disabled
               fill
-              formGroupName={formId}
+
               value={clientData.clientId}
               name="clientId"
               label="Client ID (to be used in your client)"
               type="text"
               minLength={1}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
-            <OakInput
+            <Input
               disabled
               fill
-              formGroupName={formId}
+
               value={clientData.clientrealmId}
               name="clientrealmId"
               label="Client specific realm"
               type="text"
               minLength={1}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
           </div>
-        </OakSection>
-        <OakSection
-          fillColor="container"
-          paddingHorizontal={3}
-          paddingVertical={3}
-          elevation={1}
-          rounded
-        >
-          <OakTypography variant="h6">
+        </div>
+        <div>
+          <h6>
             <div className="title-section">
               <Https />
               Security
             </div>
-          </OakTypography>
+          </h6>
           <div className="edit-realm__security">
-            <OakInput
-              formGroupName={formId}
+            <Input
+
               value={clientData.jwtpassword}
               name="jwtpassword"
               label="JWT password"
               type="text"
               minLength={1}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
           </div>
-        </OakSection>
+        </div>
         <div className="app-action-bar">
           <div />
           <div>
-            <OakButton
-              formGroupName={formId}
-              theme="primary"
-              variant="regular"
+            <Button
+
+              theme={ThemeType.primary}
+
               type="submit"
             >
               <Check />
               Update
-            </OakButton>
-            <OakButton
-              formGroupName={formId}
-              handleClick={handleReset}
-              theme="default"
-              variant="regular"
+            </Button>
+            <Button
+
+              onClick={handleReset}
+              theme={ThemeType.default}
+
             >
               <Close />
               Reset
-            </OakButton>
+            </Button>
           </div>
         </div>
       </div>
-    </OakForm>
+    </form>
   );
 };
 

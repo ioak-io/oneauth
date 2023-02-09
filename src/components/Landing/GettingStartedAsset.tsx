@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './style.scss';
-import OakButton from '../../oakui/wc/OakButton';
+import Button from '../../oakui/wc/Button';
 import { newMessageId, sendMessage } from '../../events/MessageService';
 import createAsset from './service';
 import { fetchAllAssets } from '../../store/actions/AssetActions';
 import OakForm from '../../oakui/wc/OakForm';
 import OakTypography from '../../oakui/wc/OakTypography';
-import OakInput from '../../oakui/wc/OakInput';
+import Input from '../../oakui/wc/Input';
 
 interface Props {
   history: any;
@@ -21,7 +21,7 @@ const GettingStartedAsset = (props: Props) => {
     description: '',
   });
 
-  const handleChange = (event: any) => {
+  const onInput = (event: any) => {
     setState({
       ...state,
       [event.currentTarget.name]: event.currentTarget.value,
@@ -71,18 +71,18 @@ const GettingStartedAsset = (props: Props) => {
       )}
       {showCreate && (
         <>
-          <OakTypography variant="h2">Setup new asset</OakTypography>
+          <h2>Setup new asset</div>
           <OakForm handleSubmit={save} formGroupName="create-asset-form">
-            <OakInput
+            <Input
               name="name"
               value={state.name}
-              handleChange={handleChange}
+              onInput={onInput}
               label="Asset name"
             />
-            <OakInput
+            <Input
               value={state.description}
               name="description"
-              handleChange={handleChange}
+              onInput={onInput}
               label="Short description"
             />
           </OakForm>
@@ -90,27 +90,27 @@ const GettingStartedAsset = (props: Props) => {
       )}
       <div className="action-footer position-center">
         {!showCreate && (
-          <OakButton
-            theme="default"
-            variant="appear"
-            handleClick={() => setShowCreate(true)}
+          <Button
+            theme={ThemeType.default}
+            
+            onClick={() => setShowCreate(true)}
           >
             Create a new asset
-          </OakButton>
+          </Button>
         )}
         {showCreate && (
-          <OakButton theme="primary" variant="appear" handleClick={save}>
+          <Button theme={ThemeType.primary}  onClick={save}>
             Submit
-          </OakButton>
+          </Button>
         )}
         {showCreate && (
-          <OakButton
-            theme="default"
-            variant="appear"
-            handleClick={() => setShowCreate(false)}
+          <Button
+            theme={ThemeType.default}
+            
+            onClick={() => setShowCreate(false)}
           >
             Cancel
-          </OakButton>
+          </Button>
         )}
       </div>
     </div>

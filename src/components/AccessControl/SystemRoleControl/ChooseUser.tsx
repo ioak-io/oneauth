@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
-import OakButton from '../../../oakui/wc/OakButton';
+import Button from '../../../oakui/wc/Button';
 import './ChooseUser.scss';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import {
@@ -64,29 +64,29 @@ const ChooseUser = (props: Props) => {
         <div className="control-grid__action">
           {choosenRecords.length > 0 && (
             <>
-              <OakButton
-                handleClick={handleSave}
-                theme="primary"
-                variant="regular"
+              <Button
+                onClick={handleSave}
+                theme={ThemeType.primary}
+                
               >
                 Link choosen realms
-              </OakButton>
-              <OakButton
-                handleClick={() => setChoosenRecords([])}
+              </Button>
+              <Button
+                onClick={() => setChoosenRecords([])}
                 theme="info"
-                variant="regular"
+                
               >
                 Clear
-              </OakButton>
+              </Button>
             </>
           )}
-          <OakButton
-            handleClick={props.handleClose}
+          <Button
+            onClick={props.handleClose}
             theme="info"
-            variant="regular"
+            
           >
             Cancel
-          </OakButton>
+          </Button>
         </div>
       </div>
       <div className="choose-user__main">
@@ -114,7 +114,7 @@ const ChooseUser = (props: Props) => {
                     <OakCheckbox
                       value={choosenRecords.includes(item._id)}
                       name={item._id}
-                      handleChange={handleSelection}
+                      onInput={handleSelection}
                     />
                   </div>
                 </td>

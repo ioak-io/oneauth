@@ -6,8 +6,7 @@ import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
-import OakInput from '../../oakui/wc/OakInput';
-import OakButton from '../../oakui/wc/OakButton';
+import {Button, Input, ThemeType} from 'basicui';
 
 interface Props {
   goHome: any;
@@ -36,7 +35,7 @@ const UpdateProfile = (props: Props) => {
     });
   }, [authorization]);
 
-  const handleChange = (event) => {
+  const onInput = (event) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
@@ -137,10 +136,10 @@ const UpdateProfile = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 name="given_name"
                 value={data.given_name}
-                handleChange={(e) => handleChange(e)}
+                onInput={onInput}
               />
             </div>
             <div>
@@ -155,23 +154,22 @@ const UpdateProfile = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 name="family_name"
                 value={data.family_name}
-                handleChange={(e) => handleChange(e)}
+                onInput={onInput}
               />
             </div>
           </div>
         )}
         <div className="action">
           {['form'].includes(stage) && (
-            <OakButton
-              variant="regular"
-              theme="primary"
-              handleClick={handleSubmit}
+            <Button
+              theme={ThemeType.primary}
+              onClick={handleSubmit}
             >
               Save
-            </OakButton>
+            </Button>
           )}
           {['form'].includes(stage) && <p className="hr">or</p>}
           <div className="button-link">

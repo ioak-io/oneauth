@@ -22,7 +22,7 @@ const RealmDetail = () => {
     };
   }, []);
 
-  const handleChangeTab = (detail: any) => {
+  const onInputTab = (detail: any) => {
     setActiveTab(detail.value);
   };
 
@@ -30,7 +30,7 @@ const RealmDetail = () => {
     <div className="realm-detail">
       <OakTab
         tabs={['Detail', 'Clients', 'User groups', 'Administrators']}
-        handleChange={handleChangeTab}
+        onInput={onInputTab}
         variant="pills"
         color="info"
         nobaseline

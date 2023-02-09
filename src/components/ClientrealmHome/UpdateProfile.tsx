@@ -5,10 +5,10 @@ import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
-import OakButton from '../../oakui/wc/OakButton';
+import Button from '../../oakui/wc/Button';
 import OakForm from '../../oakui/wc/OakForm';
 import { Warning } from '@material-ui/icons';
-import OakInput from '../../oakui/wc/OakInput';
+import Input from '../../oakui/wc/Input';
 
 interface Props {
   goHome: any;
@@ -37,7 +37,7 @@ const UpdateProfile = (props: Props) => {
     });
   }, [authorization]);
 
-  const handleChange = (detail: any) => {
+  const onInput = (detail: any) => {
     setData({ ...data, [detail.name]: detail.value });
   };
 
@@ -138,10 +138,10 @@ const UpdateProfile = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 name="given_name"
                 value={data.given_name}
-                handleChange={(e) => handleChange(e)}
+                onInput={(e) => onInput(e)}
               />
             </div>
             <div>
@@ -156,24 +156,24 @@ const UpdateProfile = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 name="family_name"
                 value={data.family_name}
-                handleChange={(e) => handleChange(e)}
+                onInput={(e) => onInput(e)}
               />
             </div>
           </div>
         )}
         <div className="action">
           {['form'].includes(stage) && (
-            <OakButton
-              variant="regular"
-              theme="primary"
+            <Button
+              
+              theme={ThemeType.primary}
               formGroupName="clientrealmUpdateProfileGroup"
-              handleClick={handleSubmit}
+              onClick={handleSubmit}
             >
               Save
-            </OakButton>
+            </Button>
           )}
           {['form'].includes(stage) && <p className="hr">or</p>}
           <div className="button-link">

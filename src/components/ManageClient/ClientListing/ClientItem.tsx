@@ -2,7 +2,7 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import OakButton from '../../../oakui/wc/OakButton';
+import Button from '../../../oakui/wc/Button';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
 
 import './ClientItem.scss';
@@ -18,7 +18,7 @@ const ClientItem = (props: Props) => {
 
   return (
     <div className="client-item">
-      <OakClickArea handleClick={goToViewPage}>
+      <OakClickArea onClick={goToViewPage}>
         <div className="client-item__left">
           <div className="client-item__left__name">{props.client.name}</div>
           <div className="client-item__left__description">
@@ -27,14 +27,14 @@ const ClientItem = (props: Props) => {
         </div>
       </OakClickArea>
       <div className="client-item__right">
-        <OakButton
-          handleClick={goToViewPage}
-          theme="danger"
+        <Button
+          onClick={goToViewPage}
+          theme={ThemeType.danger}
           shape="icon"
-          variant="drama"
+          
         >
           <FontAwesomeIcon icon={faTrashAlt} />
-        </OakButton>
+        </Button>
       </div>
     </div>
   );

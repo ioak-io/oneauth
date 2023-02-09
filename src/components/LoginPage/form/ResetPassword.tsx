@@ -7,8 +7,8 @@ import { Authorization } from '../../Types/GeneralTypes';
 import { sendMessage } from '../../../events/MessageService';
 import { isEmptyOrSpaces } from '../../Utils';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
-import OakInput from '../../../oakui/wc/OakInput';
-import OakButton from '../../../oakui/wc/OakButton';
+import Input from '../../../oakui/wc/Input';
+import Button from '../../../oakui/wc/Button';
 
 interface Props {
   loginType: string;
@@ -181,7 +181,7 @@ const ResetPassword = (props: Props) => {
     }
   };
 
-  const handleChange = (detail: any) => {
+  const onInput = (detail: any) => {
     setData({ ...data, [detail.name]: detail.value });
   };
 
@@ -231,14 +231,14 @@ const ResetPassword = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 fill
                 color="invert"
                 size="large"
                 name="email"
                 placeholder="Email to send reset link"
                 value={data.email}
-                handleChange={(e) => handleChange(e)}
+                onInput={(e) => onInput(e)}
               />
             </div>
           </div>
@@ -257,7 +257,7 @@ const ResetPassword = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 fill
                 color="invert"
                 size="large"
@@ -265,7 +265,7 @@ const ResetPassword = (props: Props) => {
                 name="password"
                 placeholder="Choose a strong password"
                 value={data.password}
-                handleChange={(e) => handleChange(e)}
+                onInput={(e) => onInput(e)}
               />
             </div>
             <div>
@@ -280,7 +280,7 @@ const ResetPassword = (props: Props) => {
                   </div>
                 )}
               </div>
-              <OakInput
+              <Input
                 fill
                 color="invert"
                 size="large"
@@ -288,33 +288,33 @@ const ResetPassword = (props: Props) => {
                 name="repeatpassword"
                 placeholder="Don't forget it"
                 value={data.repeatpassword}
-                handleChange={(e) => handleChange(e)}
+                onInput={(e) => onInput(e)}
               />
             </div>
           </div>
         )}
         <div className="action">
           {stage === 'requestLink' && (
-            <OakButton
+            <Button
               fullWidth
               size="large"
-              variant="regular"
-              theme="primary"
-              handleClick={requestLink}
+              
+              theme={ThemeType.primary}
+              onClick={requestLink}
             >
               Send Link
-            </OakButton>
+            </Button>
           )}
           {stage === 'setPassword' && (
-            <OakButton
+            <Button
               fullWidth
               size="large"
-              variant="regular"
-              theme="primary"
-              handleClick={resetPassword}
+              
+              theme={ThemeType.primary}
+              onClick={resetPassword}
             >
               Update Password
-            </OakButton>
+            </Button>
           )}
           {['setPassword', 'requestLink'].includes(stage) && (
             <p className="hr">or</p>

@@ -44,7 +44,7 @@ const ChangeAsset = (props: Props) => {
         <OakLink
           action={goToChangeAssetPage}
           theme="secondary"
-          variant="appear"
+          
         >
           {currentAsset ? 'Change company' : 'Choose company'}
         </OakLink>

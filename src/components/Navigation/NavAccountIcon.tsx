@@ -29,7 +29,7 @@ const NavAccountIcon = (props: Props) => {
     });
   }, []);
 
-  const handleClick = () => {
+  const onClick = () => {
     if (authorization.isAuth) {
       removeSessionValue(`${authorization.realm}-refresh_token`);
       removeSessionValue(`${authorization.realm}-access_token`);
@@ -43,7 +43,7 @@ const NavAccountIcon = (props: Props) => {
   };
 
   return (
-    <div className={`nav-account-icon ${profile.theme}`} onClick={handleClick}>
+    <div className={`nav-account-icon ${profile.theme}`} onClick={onClick}>
       {authorization.isAuth && (
         <div className="nav-account-icon--username">
           <div>{authorization.name}</div>

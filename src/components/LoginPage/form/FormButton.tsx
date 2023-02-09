@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './FormButton.scss';
 
 interface Props {
-  handleClick: any;
+  onClick: any;
   children: any;
   type: 'button' | 'submit' | 'reset';
   radius?: 'none' | 'small' | 'medium' | 'large';
@@ -13,7 +13,7 @@ const FormButton = (props: Props) => {
     <button
       className={`form-button--radius-${props.radius || 'medium'}`}
       type={props.type}
-      onClick={props.handleClick}
+      onClick={props.onClick}
     >
       {props.children}
     </button>

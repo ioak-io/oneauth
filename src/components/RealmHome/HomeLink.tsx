@@ -3,13 +3,10 @@ import { useSelector } from 'react-redux';
 import './style.scss';
 import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
-import { Authorization } from '../Types/GeneralTypes';
-import { isEmptyOrSpaces } from '../Utils';
-import OakInput from '../../oakui/wc/OakInput';
-import OakButton from '../../oakui/wc/OakButton';
 import { getSessionValue, removeSessionValue } from '../../utils/SessionUtils';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import {Button, ThemeType} from 'basicui';
 
 interface Props {
   switchToSigninPage: any;
@@ -86,41 +83,41 @@ const HomeLink = (props: Props) => {
           <div className="action-group">
             {authorization.isAuth && (
               <>
-                <OakButton
-                  variant="drama"
-                  theme="primary"
-                  handleClick={() => changeRoute('updateProfile')}
+                <Button
+                  
+                  theme={ThemeType.primary}
+                  onClick={() => changeRoute('updateProfile')}
                 >
                   Edit Profile
-                </OakButton>
-                <OakButton
-                  variant="drama"
-                  theme="primary"
-                  handleClick={() => changeRoute('changePassword')}
+                </Button>
+                <Button
+                  
+                  theme={ThemeType.primary}
+                  onClick={() => changeRoute('changePassword')}
                 >
                   Change Password
-                </OakButton>
-                <OakButton
-                  variant="appear"
-                  theme="tertiary"
-                  handleClick={logout}
+                </Button>
+                <Button
+                  
+                  
+                  onClick={logout}
                 >
                   Sign out
-                </OakButton>
+                </Button>
               </>
             )}
             {!authorization.isAuth && (
               <>
-                <OakButton variant="appear" theme="primary" handleClick={login}>
+                <Button  theme={ThemeType.primary} onClick={login}>
                   Sign in
-                </OakButton>
-                <OakButton
-                  variant="appear"
-                  theme="primary"
-                  handleClick={signup}
+                </Button>
+                <Button
+                  
+                  theme={ThemeType.primary}
+                  onClick={signup}
                 >
                   Sign up
-                </OakButton>
+                </Button>
               </>
             )}
           </div>

@@ -20,16 +20,16 @@ interface Props {
   clientId: string;
   userId: string;
   roles: any[];
-  handleChange: any;
+  onInput: any;
 }
 
 const SystemRoles = (props: Props) => {
-  const handleChange = (detail: any) => {
+  const onInput = (detail: any) => {
     const _roles = props.roles.filter((item) => item !== detail.name);
     if (detail.value) {
       _roles.push(detail.name);
     }
-    props.handleChange(_roles);
+    props.onInput(_roles);
   };
 
   // const save = () => {
@@ -68,7 +68,7 @@ const SystemRoles = (props: Props) => {
         <OakCheckboxGroup
           checkboxGroupName={formId}
           name="role"
-          handleChange={handleChange}
+          onInput={onInput}
         >
           <OakCheckbox
             name="MEMBER"

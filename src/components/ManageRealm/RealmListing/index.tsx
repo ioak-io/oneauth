@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useSelector } from 'react-redux';
-import OakInput from '../../../oakui/wc/OakInput';
+import Input from '../../../oakui/wc/Input';
 import OakClickArea from '../../../oakui/wc/OakClickArea';
 import { isEmptyOrSpaces } from '../../Utils';
 import './style.scss';
 import RealmItem from './RealmItem';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
-import OakButton from '../../../oakui/wc/OakButton';
+import Button from '../../../oakui/wc/Button';
 import CreateRealm from './CreateRealm';
 
 const RealmListing = () => {
@@ -48,20 +48,20 @@ const RealmListing = () => {
         <div className="realm-listing">
           <div className="realm-listing__toolbar">
             <div className="realm-listing__toolbar__left">
-              <OakInput
+              <Input
                 name="searchCriteria"
                 value={searchCriteria}
-                handleInput={handleSearchCriteriaChange}
+                onInput={handleSearchCriteriaChange}
                 placeholder="Type to search"
               />
             </div>
             <div className="realm-listing__toolbar__right">
-              <OakButton
-                variant="regular"
-                handleClick={() => setShowCreate(true)}
+              <Button
+                
+                onClick={() => setShowCreate(true)}
               >
                 New realm
-              </OakButton>
+              </Button>
             </div>
           </div>
           <div className="realm-listing__list">

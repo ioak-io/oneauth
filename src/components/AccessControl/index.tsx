@@ -1,7 +1,8 @@
+import { Button } from 'basicui';
+import ThemeType from 'basicui/components/types/ThemeType';
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRoles, fetchRoles } from '../../store/actions/OaRoleActions';
-import OakButton from '../../oakui/wc/OakButton';
 import Member from './Member';
 
 interface Props {
@@ -78,9 +79,9 @@ const AccessControl = (props: Props) => {
       {!showAddUser && (
         <div>
           <div className="autocomplete-users client-bottom-2">
-            <OakButton theme="default" handleClick={() => setShowAddUser(true)}>
+            <Button theme={ThemeType.default} onClick={() => setShowAddUser(true)}>
               Add user
-            </OakButton>
+            </Button>
           </div>
           <div
             className="realm-view realm-top-2 realm-bottom-4"

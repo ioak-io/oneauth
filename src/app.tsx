@@ -4,7 +4,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './oak-styles/index.scss';
+import './basicui-styles/index.scss';
 import App from './components/App';
 import './index.scss';
 // import * as serviceWorker from './serviceWorker';

@@ -10,10 +10,10 @@ import {
   Info,
 } from '@material-ui/icons';
 import './EditClient.scss';
-import OakInput from '../../../oakui/wc/OakInput';
-import OakButton from '../../../oakui/wc/OakButton';
+import Input from '../../../oakui/wc/Input';
+import Button from '../../../oakui/wc/Button';
 import OakForm from '../../../oakui/wc/OakForm';
-import OakSection from '../../../oakui/wc/OakSection';
+import div from '../../../oakui/wc/div';
 import { newId } from '../../../events/MessageService';
 import OakTypography from '../../../oakui/wc/OakTypography';
 import OakSpacing from '../../../oakui/wc/OakSpacing';
@@ -59,7 +59,7 @@ const EditClient = (props: Props) => {
   //   return { day, hour, minutes };
   // };
 
-  const handleInput = (detail: any) => {
+  const onInput = (detail: any) => {
     setClientData({
       ...clientData,
       [detail.name]: detail.value,
@@ -74,118 +74,118 @@ const EditClient = (props: Props) => {
 
   return (
     <OakForm
-      formGroupName={formId}
+      
       handleSubmit={editClient}
       handleReset={handleReset}
     >
       <div className="edit-client">
-        <OakSection
+        <div
           fillColor="container"
           rounded
           paddingHorizontal={3}
           paddingVertical={3}
           elevation={1}
         >
-          <OakTypography variant="h6">
+          <h6>
             <div className="title-section">
               <Info />
               Overview
             </div>
-          </OakTypography>
+          </div>
           <div className="title-gutter-bottom" />
           <div className="edit-client__overview">
-            <OakInput
-              formGroupName={formId}
+            <Input
+              
               value={clientData.name}
               name="name"
               label="Client name"
               type="text"
               minLength={5}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
-            <OakInput
-              formGroupName={formId}
+            <Input
+              
               value={clientData.description}
               name="description"
               label="Description"
               type="text"
               minLength={1}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
-            <OakInput
-              formGroupName={formId}
+            <Input
+              
               value={clientData.redirect}
               name="redirect"
               label="Redirect URL"
               type="text"
               minLength={1}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
-            <OakInput
+            <Input
               disabled
               fill
-              formGroupName={formId}
+              
               value={clientData.client_id}
               name="client_id"
               label="Client ID (to be used in your client)"
               type="text"
               minLength={1}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
-            <OakInput
+            <Input
               disabled
               fill
-              formGroupName={formId}
+              
               value={clientData.realm}
               name="realm"
               label="Client specific realm"
               type="text"
               minLength={1}
-              handleInput={(e: any) => handleInput(e)}
+              onInput={(e: any) => onInput(e)}
               gutterBottom
             />
           </div>
-        </OakSection>
-        <OakSection
+        </div>
+        <div
           fillColor="container"
           paddingHorizontal={3}
           paddingVertical={3}
           elevation={1}
           rounded
         >
-          <OakTypography variant="h6">
+          <h6>
             <div className="title-section">
               <Https />
               Security
             </div>
-          </OakTypography>
+          </div>
           <div className="edit-realm__security">security form elements</div>
-        </OakSection>
+        </div>
         <div className="app-action-bar">
           <div />
           <div>
-            <OakButton
-              formGroupName={formId}
-              theme="primary"
-              variant="regular"
+            <Button
+              
+              theme={ThemeType.primary}
+              
               type="submit"
             >
               <Check />
               Update
-            </OakButton>
-            <OakButton
-              formGroupName={formId}
-              handleClick={handleReset}
-              theme="default"
-              variant="regular"
+            </Button>
+            <Button
+              
+              onClick={handleReset}
+              theme={ThemeType.default}
+              
             >
               <Close />
               Reset
-            </OakButton>
+            </Button>
           </div>
         </div>
       </div>

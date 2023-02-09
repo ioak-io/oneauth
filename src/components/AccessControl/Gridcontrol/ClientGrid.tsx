@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCheck,
@@ -8,12 +7,13 @@ import {
   faUnlink,
   faUserFriends,
 } from '@fortawesome/free-solid-svg-icons';
-import OakButton from '../../../oakui/wc/OakButton';
 import './style.scss';
 import {
   deleteGridcontrolByClient,
   approveGridcontrolByClient,
 } from './ClientService';
+import { Button } from 'basicui';
+import ThemeType from 'basicui/components/types/ThemeType';
 
 interface Props {
   data: any[];
@@ -42,10 +42,10 @@ const ClientGrid = (props: Props) => {
   return (
     <div>
       <div className="control-grid__action">
-        <OakButton handleClick={props.handleClose}>Map Client</OakButton>
+        <Button onClick={props.handleClose}>Map Client</Button>
       </div>
 
-      <table className={tableCompose({ color: 'container' })}>
+      <table>
         <thead>
           <tr>
             <th>Realm</th>
@@ -67,48 +67,36 @@ const ClientGrid = (props: Props) => {
               <td>
                 <div className="context-action">
                   {item.approved_by_client && item.approved_by_realm && (
-                    <OakButton
-                      handleClick={() => {}}
-                      size="xsmall"
-                      theme="primary"
-                      variant="block"
-                      semitransparent
+                    <Button
+                      onClick={() => { }}
+                      theme={ThemeType.primary}
                     >
                       <FontAwesomeIcon icon={faUserFriends} />
-                    </OakButton>
+                    </Button>
                   )}
                   {!item.approved_by_client && (
                     <>
-                      <OakButton
-                        handleClick={() => approveRealm(item.realm)}
-                        size="xsmall"
-                        theme="success"
-                        variant="block"
-                        semitransparent
+                      <Button
+                        onClick={() => approveRealm(item.realm)}
+                        theme={ThemeType.success}
                       >
                         <FontAwesomeIcon icon={faCheck} />
-                      </OakButton>
-                      <OakButton
-                        handleClick={() => unmapRealm(item.realm)}
-                        size="xsmall"
-                        theme="danger"
-                        variant="block"
-                        semitransparent
+                      </Button>
+                      <Button
+                        onClick={() => unmapRealm(item.realm)}
+                        theme={ThemeType.danger}
                       >
                         <FontAwesomeIcon icon={faTimes} />
-                      </OakButton>
+                      </Button>
                     </>
                   )}
                   {item.approved_by_client && (
-                    <OakButton
-                      handleClick={() => unmapRealm(item.realm)}
-                      size="xsmall"
-                      theme="default"
-                      variant="block"
-                      semitransparent
+                    <Button
+                      onClick={() => unmapRealm(item.realm)}
+                      theme={ThemeType.default}
                     >
                       <FontAwesomeIcon icon={faUnlink} />
-                    </OakButton>
+                    </Button>
                   )}
                 </div>
               </td>
@@ -116,7 +104,7 @@ const ClientGrid = (props: Props) => {
           ))}
         </tbody>
       </table>
-    </div>
+    </div >
   );
 };
 

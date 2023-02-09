@@ -2,7 +2,7 @@ import React from 'react';
 
 import './DropLinks.scss';
 import { NavLink } from 'react-router-dom';
-import OakButton from '../../oakui/wc/OakButton';
+import Button from '../../oakui/wc/Button';
 
 interface Props {
   realm: string;

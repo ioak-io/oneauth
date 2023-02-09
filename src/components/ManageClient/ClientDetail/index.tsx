@@ -23,7 +23,7 @@ const ClientDetail = () => {
     };
   }, []);
 
-  const handleChangeTab = (detail: any) => {
+  const onInputTab = (detail: any) => {
     setActiveTab(detail.value);
   };
 
@@ -31,7 +31,7 @@ const ClientDetail = () => {
     <div className="client-detail">
       <OakTab
         tabs={['Detail', 'Realms', 'Roles', 'Administrators']}
-        handleChange={handleChangeTab}
+        onInput={onInputTab}
         variant="pills"
         color="info"
         nobaseline

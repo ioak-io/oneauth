@@ -130,7 +130,7 @@ const SigninPage = (props: Props) => {
     }
   };
 
-  const handleChange = (event: any) => {
+  const onInput = (event: any) => {
     setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
@@ -298,7 +298,7 @@ const SigninPage = (props: Props) => {
               radius={props.currentRealm.site.borderRadius}
               variant={formElementVariant}
               name="email"
-              handleChange={handleChange}
+              onInput={onInput}
               type="text"
               value={data.email}
               autoFocus
@@ -330,7 +330,7 @@ const SigninPage = (props: Props) => {
               radius={props.currentRealm.site.borderRadius}
               variant={formElementVariant}
               name="password"
-              handleChange={handleChange}
+              onInput={onInput}
               type="password"
               value={data.password}
             />
@@ -339,7 +339,7 @@ const SigninPage = (props: Props) => {
           <div className="signin-page__form-group">
             <FormButton
               radius={props.currentRealm.site.borderRadius}
-              handleClick={signinAction}
+              onClick={signinAction}
               type="submit"
             >
               Sign in

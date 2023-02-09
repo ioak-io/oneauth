@@ -13,7 +13,7 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 import './Member.scss';
 
 import OakClickArea from '../../oakui/wc/OakClickArea';
-import OakButton from '../../oakui/wc/OakButton';
+import Button from '../../oakui/wc/Button';
 import OakCheckbox from '../../oakui/wc/OakCheckbox';
 import OakCheckboxGroup from '../../oakui/wc/OakCheckboxGroup';
 import { newId } from '../../events/MessageService';
@@ -46,7 +46,7 @@ const Member = (props: Props) => {
     setRoleNames(_roleNames);
   }, [props.roles]);
 
-  const handleChange = (detail: any) => {
+  const onInput = (detail: any) => {
     const _roleNames = roleNames.filter((item) => item !== detail.name);
     if (detail.value) {
       if (detail.value) {
@@ -101,7 +101,7 @@ const Member = (props: Props) => {
             <OakCheckboxGroup
               checkboxGroupName={formId}
               name="role"
-              handleChange={handleChange}
+              onInput={onInput}
             >
               {props.rolesMaster.map((item) => (
                 <OakCheckbox
@@ -115,22 +115,22 @@ const Member = (props: Props) => {
             </OakCheckboxGroup>
           </div>
           <div className="member-view__right">
-            <OakButton handleClick={save} theme="primary" shape="icon">
+            <Button onClick={save} theme={ThemeType.primary} shape="icon">
               <FontAwesomeIcon icon={faCheck} />
-            </OakButton>
-            <OakButton
-              handleClick={() => setShowEdit(false)}
-              theme="default"
+            </Button>
+            <Button
+              onClick={() => setShowEdit(false)}
+              theme={ThemeType.default}
               shape="icon"
             >
               <FontAwesomeIcon icon={faTimes} />
-            </OakButton>
+            </Button>
           </div>
         </div>
       )}
       {!showEdit && (
         <div className="member-view">
-          <OakClickArea handleClick={() => setShowEdit(true)}>
+          <OakClickArea onClick={() => setShowEdit(true)}>
             <div className="member-view__left">
               <div className="member-view__left__name">{`${user.given_name} ${user.family_name}`}</div>
               <div className="member-view__left__description">
@@ -141,14 +141,14 @@ const Member = (props: Props) => {
             </div>
           </OakClickArea>
           <div className="member-view__right">
-            <OakButton
-              handleClick={() => {}}
-              theme="danger"
+            <Button
+              onClick={() => {}}
+              theme={ThemeType.danger}
               shape="icon"
-              variant="drama"
+              
             >
               <FontAwesomeIcon icon={faTrashAlt} />
-            </OakButton>
+            </Button>
           </div>
         </div>
       )}
