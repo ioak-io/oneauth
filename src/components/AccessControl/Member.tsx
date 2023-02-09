@@ -130,7 +130,7 @@ const Member = (props: Props) => {
       )}
       {!showEdit && (
         <div className="member-view">
-          <OakClickArea onClick={() => setShowEdit(true)}>
+          <div onClick={() => setShowEdit(true)}>
             <div className="member-view__left">
               <div className="member-view__left__name">{`${user.given_name} ${user.family_name}`}</div>
               <div className="member-view__left__description">
@@ -139,7 +139,7 @@ const Member = (props: Props) => {
                 ))}
               </div>
             </div>
-          </OakClickArea>
+          </div>
           <div className="member-view__right">
             <Button
               onClick={() => {}}

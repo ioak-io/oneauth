@@ -6,8 +6,7 @@ import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
-import Input from '../../oakui/wc/Input';
-import Button from '../../oakui/wc/Button';
+import { Button, Input, ThemeType } from 'basicui';
 
 interface Props {
   goHome: any;
@@ -197,7 +196,7 @@ const ChangePassword = (props: Props) => {
         <div className="action">
           {['form'].includes(stage) && (
             <Button
-              
+
               theme={ThemeType.primary}
               onClick={handleSubmit}
             >

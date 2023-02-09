@@ -18,14 +18,14 @@ const ClientItem = (props: Props) => {
 
   return (
     <div className="client-item">
-      <OakClickArea onClick={goToViewPage}>
+      <div onClick={goToViewPage}>
         <div className="client-item__left">
           <div className="client-item__left__name">{props.client.name}</div>
           <div className="client-item__left__description">
             {props.client.description}
           </div>
         </div>
-      </OakClickArea>
+      </div>
       <div className="client-item__right">
         <Button
           onClick={goToViewPage}

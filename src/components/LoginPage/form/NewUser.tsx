@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { compose as linkCompose } from '@oakui/core-stage/style-composer/OakLinkComposer';
+import {Link} from 'basicui';
 import './style.scss';
-import { Authorization } from '../../Types/GeneralTypes';
 import { sendMessage } from '../../../events/MessageService';
 import { isEmptyOrSpaces } from '../../Utils';
 import { httpPost, httpGet } from '../../Lib/RestTemplate';
@@ -258,15 +257,9 @@ const NewUser = (props: Props) => {
           <span className="signin-page__action__register__label">
             Already a member?
           </span>
-          <a
-            href={`/#/realm/${props.realm}/login/${props.clientId}?type=signin`}
-            className={linkCompose({
-              color: 'primary',
-              underlineThickness: 'thin',
-            })}
-          >
+          <Link href={`/#/realm/${props.realm}/login/${props.clientId}?type=signin`}>
             Sign in now
-          </a>
+          </Link>
         </div>
       </div>
     </form>
