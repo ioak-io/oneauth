@@ -5,10 +5,8 @@ import { sendMessage } from '../../events/MessageService';
 import { httpPost } from '../Lib/RestTemplate';
 import { Authorization } from '../Types/GeneralTypes';
 import { isEmptyOrSpaces } from '../Utils';
-import Button from '../../oakui/wc/Button';
-import OakForm from '../../oakui/wc/OakForm';
 import { Warning } from '@material-ui/icons';
-import Input from '../../oakui/wc/Input';
+import { Button, Input, ThemeType } from 'basicui';
 
 interface Props {
   goHome: any;
@@ -141,7 +139,7 @@ const UpdateProfile = (props: Props) => {
               <Input
                 name="given_name"
                 value={data.given_name}
-                onInput={(e) => onInput(e)}
+                onInput={onInput}
               />
             </div>
             <div>
@@ -167,9 +165,7 @@ const UpdateProfile = (props: Props) => {
         <div className="action">
           {['form'].includes(stage) && (
             <Button
-              
               theme={ThemeType.primary}
-              formGroupName="clientrealmUpdateProfileGroup"
               onClick={handleSubmit}
             >
               Save

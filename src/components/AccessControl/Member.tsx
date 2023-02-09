@@ -12,12 +12,11 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 import './Member.scss';
 
-import OakClickArea from '../../oakui/wc/OakClickArea';
-import Button from '../../oakui/wc/Button';
 import OakCheckbox from '../../oakui/wc/OakCheckbox';
 import OakCheckboxGroup from '../../oakui/wc/OakCheckboxGroup';
 import { newId } from '../../events/MessageService';
 import { updateRoles, deleteRoles } from '../../store/actions/OaRoleActions';
+import { Button, ThemeType, Checkbox, IconButton } from 'basicui';
 
 interface Props {
   domainId: string;
@@ -118,13 +117,12 @@ const Member = (props: Props) => {
             <Button onClick={save} theme={ThemeType.primary} shape="icon">
               <FontAwesomeIcon icon={faCheck} />
             </Button>
-            <Button
+            <IconButton
               onClick={() => setShowEdit(false)}
               theme={ThemeType.default}
-              shape="icon"
             >
               <FontAwesomeIcon icon={faTimes} />
-            </Button>
+            </IconButton>
           </div>
         </div>
       )}
@@ -141,14 +139,13 @@ const Member = (props: Props) => {
             </div>
           </div>
           <div className="member-view__right">
-            <Button
+            <IconButton
               onClick={() => {}}
               theme={ThemeType.danger}
-              shape="icon"
               
             >
               <FontAwesomeIcon icon={faTrashAlt} />
-            </Button>
+            </IconButton>
           </div>
         </div>
       )}

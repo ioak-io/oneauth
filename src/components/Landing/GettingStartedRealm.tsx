@@ -1,7 +1,6 @@
+import { Button, ThemeType } from 'basicui';
 import React from 'react';
 import './style.scss';
-import Button from '../../oakui/wc/Button';
-import OakTypography from '../../oakui/wc/OakTypography';
 
 interface Props {
   history: any;
@@ -14,7 +13,7 @@ const GettingStartedRealm = (props: Props) => {
   return (
     <div className="getting-started">
       <div>
-        <h2>Getting Started</div>
+        <h2>Getting Started</h2>
         <div className="getting-started--steps realm-top-2">
           <div className="typography-7">Create Realm</div>
           <div className="typography-4">
@@ -42,7 +41,6 @@ const GettingStartedRealm = (props: Props) => {
       <div className="action-footer position-center">
         <Button
           theme={ThemeType.primary}
-          variant="disappear"
           onClick={goToCreatePage}
         >
           Create a new realm

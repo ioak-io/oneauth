@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './style.scss';
-import Button from '../../oakui/wc/Button';
 import { newMessageId, sendMessage } from '../../events/MessageService';
 import createAsset from './service';
 import { fetchAllAssets } from '../../store/actions/AssetActions';
-import OakForm from '../../oakui/wc/OakForm';
-import OakTypography from '../../oakui/wc/OakTypography';
-import Input from '../../oakui/wc/Input';
+import { Button, Input, ThemeType } from 'basicui';
 
 interface Props {
   history: any;
@@ -72,7 +69,7 @@ const GettingStartedAsset = (props: Props) => {
       {showCreate && (
         <>
           <h2>Setup new asset</div>
-          <OakForm handleSubmit={save} formGroupName="create-asset-form">
+          <form onSubmit={save}>
             <Input
               name="name"
               value={state.name}
@@ -85,7 +82,7 @@ const GettingStartedAsset = (props: Props) => {
               onInput={onInput}
               label="Short description"
             />
-          </OakForm>
+          </form>
         </>
       )}
       <div className="action-footer position-center">

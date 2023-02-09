@@ -3,12 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
-import Button from '../../../oakui/wc/Button';
 import './ChooseRealm.scss';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
-import { mapGridcontrolByRealm } from './RealmService';
 import { mapGridcontrolByClient } from './ClientService';
+import { Button, ThemeType } from 'basicui';
 
 interface Props {
   data: any[];
@@ -46,14 +44,11 @@ const ChooseRealm = (props: Props) => {
               <Button
                 onClick={handleSave}
                 theme={ThemeType.primary}
-                
               >
                 Link choosen realms
               </Button>
               <Button
                 onClick={() => setChoosenRecords([])}
-                theme="info"
-                
               >
                 Clear
               </Button>
@@ -61,15 +56,13 @@ const ChooseRealm = (props: Props) => {
           )}
           <Button
             onClick={props.handleClose}
-            theme="info"
-            
           >
             Cancel
           </Button>
         </div>
       </div>
       <div className="choose-realm__main">
-        <table className={tableCompose({ color: 'container' })}>
+        <table>
           <thead>
             <tr>
               <th> </th>

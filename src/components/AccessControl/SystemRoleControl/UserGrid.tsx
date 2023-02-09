@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
-import Button from '../../../oakui/wc/Button';
 import './style.scss';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import {
@@ -10,6 +8,7 @@ import {
   addSystemRoleForClient,
   deleteSystemRoleForClient,
 } from './service';
+import { Button } from 'basicui';
 
 interface Props {
   data: any[];
@@ -81,7 +80,7 @@ const UserGrid = (props: Props) => {
         <Button onClick={props.handleClose}>Add user</Button>
       </div>
 
-      <table className={tableCompose({ color: 'container' })}>
+      <table>
         <thead>
           <tr>
             <th>First name</th>

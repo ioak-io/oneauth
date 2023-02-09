@@ -2,12 +2,10 @@
 /* eslint-disable react/jsx-curly-newline */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
-import Button from '../../../oakui/wc/Button';
 import './ChooseClient.scss';
 import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import { mapGridcontrolByRealm } from './RealmService';
+import { Button, ThemeType } from 'basicui';
 
 interface Props {
   data: any[];
@@ -45,13 +43,11 @@ const ChooseClient = (props: Props) => {
               <Button
                 onClick={handleSave}
                 theme={ThemeType.primary}
-                
               >
                 Link choosen clients
               </Button>
               <Button
                 onClick={() => setChoosenRecords([])}
-                theme="info"
                 
               >
                 Clear
@@ -60,7 +56,6 @@ const ChooseClient = (props: Props) => {
           )}
           <Button
             onClick={props.handleClose}
-            theme="info"
             
           >
             Cancel
@@ -68,7 +63,7 @@ const ChooseClient = (props: Props) => {
         </div>
       </div>
       <div className="choose-client__main">
-        <table className={tableCompose({ color: 'container' })}>
+        <table>
           <thead>
             <tr>
               <th> </th>
