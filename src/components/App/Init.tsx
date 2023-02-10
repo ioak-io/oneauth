@@ -58,9 +58,13 @@ const Init = (props: Props) => {
 
   useEffect(() => {
     if (profile.theme === 'basicui-light') {
-      document.body.style.backgroundColor = 'var(--theme-white-50)';
+      document.body.classList.add("basicui-light");
+      document.body.classList.remove("basicui-dark");
+      // document.body.style.backgroundColor = 'var(--theme-white-50)';
     } else {
-      document.body.style.backgroundColor = 'var(--theme-black-800)';
+      document.body.classList.add("basicui-dark");
+      document.body.classList.remove("basicui-light");
+      // document.body.style.backgroundColor = 'var(--theme-black-800)';
     }
   }, [profile.theme]);
 

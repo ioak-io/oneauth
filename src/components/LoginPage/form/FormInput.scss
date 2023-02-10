@@ -13,24 +13,24 @@ input {
   transition: background-color 250ms ease-in-out, border-color 250ms ease-in-out;
 }
 
-input,
-input:focus,
-input:active {
-  box-shadow: none;
-  outline: none;
-}
-input:hover {
-  background-color: transparent;
-  border: 1px solid #8d8d8d;
-}
-input:focus,
-input:active {
-  background-color: transparent;
-  //   background-color: #e2e2e2;
-  border: 1px solid #8d8d8d;
-  border: 1px solid var(--color-primary);
-  //   border: 1px solid #000000;
-}
+// input,
+// input:focus,
+// input:active {
+//   box-shadow: none;
+//   outline: none;
+// }
+// input:hover {
+//   background-color: transparent;
+//   border: 1px solid #8d8d8d;
+// }
+// input:focus,
+// input:active {
+//   background-color: transparent;
+//   //   background-color: #e2e2e2;
+//   border: 1px solid #8d8d8d;
+//   border: 1px solid var(--color-primary);
+//   //   border: 1px solid #000000;
+// }
 
 .form-input--variant-fixed-light {
   background-color: #fff;
