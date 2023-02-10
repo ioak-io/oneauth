@@ -9,7 +9,7 @@ import { newId } from '../../../events/MessageService';
 
 interface Props {
   site: any;
-  onInput: any;
+  onChange: any;
   handleUploadChange: any;
 }
 
@@ -18,8 +18,8 @@ const SiteSettings = (props: Props) => {
   const formId = newId();
   const authorization = useSelector((state: any) => state.authorization);
 
-  const onInput = (event: any) => {
-    props.onInput({ ...props.site, [event.currentTarget.name]: event.currentTarget.value });
+  const onChange = (event: any) => {
+    props.onChange({ ...props.site, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const handleImageChange = (detail: any) => {
@@ -40,44 +40,51 @@ const SiteSettings = (props: Props) => {
       <div className="site-settings">
         <div className="site-settings__form">
           <div className="">
-            <Radio onInput={onInput} id="full" name="full" checked={props.site.layout === "full"}>
+            <Radio
+            label=""
+              // onChange={onChange}
+              // id="full"
+              // name="full"
+              // value="full"
+              // checked={props.site.layout === "full"}
+            >
               Full page
             </Radio>
-            <Radio onInput={onInput} id="split" name="split" checked={props.site.layout === "split"}>
+            {/* <Radio onChange={onChange} id="split" name="split" checked={props.site.layout === "split"}>
               Split Section
-            </Radio>
+            </Radio> */}
           </div>
-          <div className="">
-            <Radio onInput={onInput} id="none" name="none" checked={props.site.borderRadius === "none"}>
+          {/* <div className="">
+            <Radio onChange={onChange} id="none" name="none" checked={props.site.borderRadius === "none"}>
               None
             </Radio>
-            <Radio onInput={onInput} id="small" name="small" checked={props.site.borderRadius === "small"}>
+            <Radio onChange={onChange} id="small" name="small" checked={props.site.borderRadius === "small"}>
               Small
             </Radio>
-            <Radio onInput={onInput} id="medium" name="medium" checked={props.site.borderRadius === "medium"}>
+            <Radio onChange={onChange} id="medium" name="medium" checked={props.site.borderRadius === "medium"}>
               Medium
             </Radio>
-            <Radio onInput={onInput} id="large" name="large" checked={props.site.borderRadius === "large"}>
+            <Radio onChange={onChange} id="large" name="large" checked={props.site.borderRadius === "large"}>
               Large
             </Radio>
           </div>
           <div className="">
-            <Radio onInput={onInput} id="bottom" name="bottom" checked={props.site.signupVariant === "bottom"}>
+            <Radio onChange={onChange} id="bottom" name="bottom" checked={props.site.signupVariant === "bottom"}>
               Bottom
             </Radio>
-            <Radio onInput={onInput} id="top-one-line" name="top-one-line" checked={props.site.signupVariant === "top-one-line"}>
+            <Radio onChange={onChange} id="top-one-line" name="top-one-line" checked={props.site.signupVariant === "top-one-line"}>
               Top single line
             </Radio>
-            <Radio onInput={onInput} id="top-two-line" name="top-two-line" checked={props.site.signupVariant === "top-two-line"}>
+            <Radio onChange={onChange} id="top-two-line" name="top-two-line" checked={props.site.signupVariant === "top-two-line"}>
               Top multi line
             </Radio>
-          </div>
+          </div> */}
           <Input
             value={props.site.background}
             name="background"
             label="Background"
             type="text"
-            onInput={onInput}
+            onChange={onChange}
           />
           {props.site.layout === 'full' && props.site.background && (
             <Checkbox
@@ -85,7 +92,7 @@ const SiteSettings = (props: Props) => {
               name="container"
               value={props.site.container}
               checked={props.site.container}
-              onInput={onInput}
+              onChange={onChange}
             >
               Enclose form inside a container
             </Checkbox>
@@ -99,7 +106,7 @@ const SiteSettings = (props: Props) => {
               toolbarPosition="top"
               name="logo"
               value=""
-              onInput={handleImageChange}
+              onChange={handleImageChange}
             /> */}
           </div>
           <div className="site-settings__image__background">
@@ -110,7 +117,7 @@ const SiteSettings = (props: Props) => {
               name="background"
               value=""
               initialFile={props.site.background}
-              onInput={handleImageChange}
+              onChange={handleImageChange}
             /> */}
           </div>
         </div>

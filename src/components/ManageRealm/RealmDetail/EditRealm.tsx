@@ -152,7 +152,7 @@ const EditRealm = (props: Props) => {
         {realmData.site.layout && (
           <SiteSettings
             site={realmData.site}
-            onInput={handleSiteChange}
+            onChange={handleSiteChange}
             handleUploadChange={handleUploadChange}
           />
         )}

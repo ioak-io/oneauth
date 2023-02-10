@@ -27,7 +27,7 @@
     //   }
 
     //   &:focus {
-    //     border: 3px solid var(--color-secondary-1);
+    //     border: 3px solid var(--theme-primary-500);
     //   }
     // }
 
@@ -40,7 +40,7 @@
       margin-bottom: 6px;
 
       .forgot-password-link {
-        color: var(--color-secondary-1);
+        color: var(--theme-primary-500);
         cursor: pointer;
       }
 
@@ -52,7 +52,7 @@
         color: var(--color-warning);
       }
       .link {
-        color: var(--color-secondary-1);
+        color: var(--theme-primary-500);
         cursor: pointer;
         &:hover {
           text-decoration: underline;
@@ -199,7 +199,7 @@
       // justify-content: center;
       // align-items: center;
       cursor: pointer;
-      color: var(--color-secondary-1) !important;
+      color: var(--theme-primary-500) !important;
       &:hover {
         text-decoration: underline;
       }

@@ -11,7 +11,7 @@ import SystemRoleControl from '../../AccessControl/SystemRoleControl';
 const RealmDetail = () => {
   const history = useNavigate();
   const { realmId }: any = useParams();
-  const [activeTab, setActiveTab] = useState("0");
+  const [activeTab, setActiveTab] = useState("detail");
   const realm = useSelector((state: any) =>
     state.realm.realms?.find((item: any) => item.realm === Number(realmId))
   );
@@ -22,32 +22,34 @@ const RealmDetail = () => {
     };
   }, []);
 
-  const onInputTab = (detail: any) => {
-    setActiveTab(detail.value);
-  };
+  const handleChange = (_activeTabId: string) => {
+    setActiveTab(_activeTabId);
+  }
+
 
   return (
     <div className="realm-detail">
-      <Tabs activeTabId={activeTab} onChange={onInputTab}>
-        <Tab id='0'>
+      {activeTab}
+      <Tabs activeTabId={activeTab} onChange={handleChange}>
+        <Tab id='detail'>
           <TabHeader>Detail</TabHeader>
           <TabDetail>
             <EditRealm realm={realm} />
           </TabDetail>
         </Tab>
-        <Tab id='1'>
+        <Tab id='clients'>
           <TabHeader>Clients</TabHeader>
           <TabDetail>
             <Gridcontrol realm={realm.realm} />
           </TabDetail>
         </Tab>
-        <Tab id='2'>
+        <Tab id='user-groups'>
           <TabHeader>User groups</TabHeader>
           <TabDetail>
             User groups
           </TabDetail>
         </Tab>
-        <Tab id='3'>
+        <Tab id='administrators'>
           <TabHeader>Administrators</TabHeader>
           <TabDetail>
             <SystemRoleControl realm={realm.realm} />

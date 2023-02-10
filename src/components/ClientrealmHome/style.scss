@@ -4,7 +4,7 @@
     center;
   background-size: cover;
   position: relative;
-  background-color: var(--color-tertiary-1);
+  background-color: var(--theme-primary-500);
 
   .overlay {
     background-color: rgba(22, 22, 22, 0.6);
@@ -83,7 +83,7 @@
     //   }
 
     //   &:focus {
-    //     border: 3px solid var(--color-secondary-1);
+    //     border: 3px solid var(--theme-primary-500);
     //   }
     // }
 
@@ -96,7 +96,7 @@
       margin-bottom: 6px;
 
       .forgot-password-link {
-        color: var(--color-secondary-1);
+        color: var(--theme-primary-500);
         cursor: pointer;
       }
 
@@ -108,7 +108,7 @@
         color: var(--color-warning);
       }
       .link {
-        color: var(--color-secondary-1);
+        color: var(--theme-primary-500);
         cursor: pointer;
         &:hover {
           text-decoration: underline;
@@ -192,7 +192,7 @@
       // justify-content: center;
       // align-items: center;
       cursor: pointer;
-      color: var(--color-secondary-1) !important;
+      color: var(--theme-primary-500) !important;
       &:hover {
         text-decoration: underline;
       }
