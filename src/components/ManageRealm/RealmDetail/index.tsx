@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
+import { Tabs, Tab, TabDetail, TabHeader } from 'basicui';
 import './style.scss';
-import OakTab from '../../../oakui/wc/OakTab';
 import EditRealm from './EditRealm';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
 import Gridcontrol from '../../AccessControl/Gridcontrol';
@@ -11,7 +11,7 @@ import SystemRoleControl from '../../AccessControl/SystemRoleControl';
 const RealmDetail = () => {
   const history = useNavigate();
   const { realmId }: any = useParams();
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState("0");
   const realm = useSelector((state: any) =>
     state.realm.realms?.find((item: any) => item.realm === Number(realmId))
   );
@@ -28,24 +28,32 @@ const RealmDetail = () => {
 
   return (
     <div className="realm-detail">
-      <OakTab
-        tabs={['Detail', 'Clients', 'User groups', 'Administrators']}
-        onInput={onInputTab}
-        variant="pills"
-        color="info"
-        nobaseline
-        fill
-        rounded
-      >
-        {realm && (
-          <div className="realm-detail__container">
-            {activeTab === 0 && <EditRealm realm={realm} />}
-            {activeTab === 1 && <Gridcontrol realm={realm.realm} />}
-            {/* {activeTab === 2 && <Gridcontrol realm={realm.realm} />} */}
-            {activeTab === 3 && <SystemRoleControl realm={realm.realm} />}
-          </div>
-        )}
-      </OakTab>
+      <Tabs activeTabId={activeTab} onChange={onInputTab}>
+        <Tab id='0'>
+          <TabHeader>Detail</TabHeader>
+          <TabDetail>
+            <EditRealm realm={realm} />
+          </TabDetail>
+        </Tab>
+        <Tab id='1'>
+          <TabHeader>Clients</TabHeader>
+          <TabDetail>
+            <Gridcontrol realm={realm.realm} />
+          </TabDetail>
+        </Tab>
+        <Tab id='2'>
+          <TabHeader>User groups</TabHeader>
+          <TabDetail>
+            User groups
+          </TabDetail>
+        </Tab>
+        <Tab id='3'>
+          <TabHeader>Administrators</TabHeader>
+          <TabDetail>
+            <SystemRoleControl realm={realm.realm} />
+          </TabDetail>
+        </Tab>
+      </Tabs>
     </div>
   );
 };

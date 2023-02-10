@@ -12,11 +12,9 @@ import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 import './Member.scss';
 
-import OakCheckbox from '../../oakui/wc/OakCheckbox';
-import OakCheckboxGroup from '../../oakui/wc/OakCheckboxGroup';
 import { newId } from '../../events/MessageService';
 import { updateRoles, deleteRoles } from '../../store/actions/OaRoleActions';
-import { Button, ThemeType, Checkbox, IconButton } from 'basicui';
+import { Button, ThemeType, Checkbox, IconButton, Radio } from 'basicui';
 
 interface Props {
   domainId: string;
@@ -45,11 +43,11 @@ const Member = (props: Props) => {
     setRoleNames(_roleNames);
   }, [props.roles]);
 
-  const onInput = (detail: any) => {
-    const _roleNames = roleNames.filter((item) => item !== detail.name);
-    if (detail.value) {
-      if (detail.value) {
-        _roleNames.push(detail.name);
+  const onInput = (event: any) => {
+    const _roleNames = roleNames.filter((item) => item !== event.currentTarget.name);
+    if (event.currentTarget.value) {
+      if (event.currentTarget.value) {
+        _roleNames.push(event.currentTarget.name);
       }
     }
     setRoleNames(_roleNames);
@@ -97,21 +95,17 @@ const Member = (props: Props) => {
       {showEdit && (
         <div className="member-edit">
           <div className="member-view__left">
-            <OakCheckboxGroup
-              checkboxGroupName={formId}
-              name="role"
-              onInput={onInput}
-            >
-              {props.rolesMaster.map((item) => (
-                <OakCheckbox
-                  name={item}
-                  value={roleNames.includes(item)}
-                  checkboxGroupName={formId}
-                >
-                  {item}
-                </OakCheckbox>
-              ))}
-            </OakCheckboxGroup>
+            {props.rolesMaster.map((item) => (
+              <Checkbox
+                id={item}
+                name={item}
+                value={roleNames.includes(item)}
+                checked={roleNames.includes(item)}
+                onInput={onInput}
+              >
+                {item}
+              </Checkbox>
+            ))}
           </div>
           <div className="member-view__right">
             <Button onClick={save} theme={ThemeType.primary} shape="icon">
@@ -140,9 +134,9 @@ const Member = (props: Props) => {
           </div>
           <div className="member-view__right">
             <IconButton
-              onClick={() => {}}
+              onClick={() => { }}
               theme={ThemeType.danger}
-              
+
             >
               <FontAwesomeIcon icon={faTrashAlt} />
             </IconButton>

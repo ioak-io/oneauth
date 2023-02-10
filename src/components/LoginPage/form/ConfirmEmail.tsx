@@ -16,7 +16,7 @@ interface Props {
   realm: string;
 }
 
-export const ConfirmEmail = (props: Props) => {
+const ConfirmEmail = (props: Props) => {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -198,3 +198,5 @@ export const ConfirmEmail = (props: Props) => {
     </>
   );
 };
+
+export default ConfirmEmail;

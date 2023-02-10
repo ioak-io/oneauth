@@ -5,13 +5,9 @@ import { faInfoCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { Check, Close, Https, Info } from '@material-ui/icons';
 import './EditRealm.scss';
 import { updateRealm } from '../../../store/actions/RealmActions';
-import Input from '../../../oakui/wc/Input';
-import Button from '../../../oakui/wc/Button';
-import OakForm from '../../../oakui/wc/OakForm';
-import div from '../../../oakui/wc/div';
 import { newId } from '../../../events/MessageService';
-import OakTypography from '../../../oakui/wc/OakTypography';
 import SiteSettings from './SiteSettings';
+import { Button, Input, ThemeType } from 'basicui';
 
 interface Props {
   realm: any;
@@ -82,95 +78,72 @@ const EditRealm = (props: Props) => {
     realmData.upload = {};
   };
 
-  const handleReset = () => {};
+  const handleReset = () => { };
 
   return (
-    <OakForm
-      
-      handleSubmit={editRealm}
-      handleReset={handleReset}
+    <form
+      onSubmit={editRealm}
+      onReset={handleReset}
     >
       <div className="edit-realm">
-        <div
-          fillColor="container"
-          rounded
-          paddingHorizontal={3}
-          paddingVertical={3}
-          elevation={1}
-        >
+        <div>
           <h6>
             <div className="title-section">
               <FontAwesomeIcon icon={faInfoCircle} />
               Overview
             </div>
-          </div>
+          </h6>
           <div className="title-gutter-bottom" />
           <div className="edit-realm__overview">
             <Input
-              
               value={realmData.name}
               name="name"
               label="Realm name"
               type="text"
-              minLength={5}
-              onInput={(e: any) => onInput(e)}
-              gutterBottom
+              onInput={onInput}
             />
             <Input
-              
               value={realmData.description}
               name="description"
               label="Description"
               type="text"
-              minLength={1}
-              onInput={(e: any) => onInput(e)}
-              gutterBottom
+              onInput={onInput}
             />
           </div>
         </div>
-        <div
-          fillColor="container"
-          paddingHorizontal={3}
-          paddingVertical={3}
-          elevation={1}
-          rounded
-        >
+        <div>
           <h6>
             <div className="title-section">
               <FontAwesomeIcon icon={faShieldAlt} />
               Security
             </div>
-          </div>
+          </h6>
           <div className="edit-realm__security">
             <div className="edit-realm__security__jwt">
               <Input
-                
+
                 value={realmData.days}
                 name="days"
                 type="number"
-                minLength={1}
                 label="Expiry in days"
-                onInput={(e: any) => onInput(e)}
-                gutterBottom
+                onInput={onInput}
               />
               <Input
-                
+
                 value={realmData.hours}
                 name="hours"
                 type="number"
-                minLength={1}
                 label="Expiry in hours"
-                onInput={(e: any) => onInput(e)}
-                gutterBottom
+                onInput={onInput}
               />
               <Input
-                
+
                 value={realmData.minutes}
                 name="minutes"
                 type="number"
                 minLength={1}
                 label="Expiry in minutes"
-                onInput={(e: any) => onInput(e)}
+                onInput={onInput}
                 gutterBottom
               />
             </div>
@@ -187,21 +160,15 @@ const EditRealm = (props: Props) => {
           <div />
           <div>
             <Button
-              
               theme={ThemeType.primary}
-              
               type="submit"
-              elevation={4}
             >
               <Check />
               Update
             </Button>
             <Button
-              
               onClick={handleReset}
               theme={ThemeType.default}
-              
-              elevation={4}
             >
               <Close />
               Reset
@@ -209,7 +176,7 @@ const EditRealm = (props: Props) => {
           </div>
         </div>
       </div>
-    </OakForm>
+    </form>
   );
 };
 

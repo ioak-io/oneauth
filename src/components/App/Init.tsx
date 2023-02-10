@@ -57,10 +57,10 @@ const Init = (props: Props) => {
   }, [profile]);
 
   useEffect(() => {
-    if (profile.theme === 'theme_light') {
-      document.body.style.backgroundColor = 'var(--color-global-lightmode)';
+    if (profile.theme === 'basicui-light') {
+      document.body.style.backgroundColor = 'var(--theme-white-50)';
     } else {
-      document.body.style.backgroundColor = 'var(--color-global-darkmode)';
+      document.body.style.backgroundColor = 'var(--theme-black-800)';
     }
   }, [profile.theme]);
 

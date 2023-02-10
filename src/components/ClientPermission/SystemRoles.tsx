@@ -11,10 +11,8 @@ import {
 import { faTrashAlt } from '@fortawesome/free-regular-svg-icons';
 
 import './SystemRoles.scss';
-
-import OakCheckbox from '../../oakui/wc/OakCheckbox';
-import OakCheckboxGroup from '../../oakui/wc/OakCheckboxGroup';
 import { newId } from '../../events/MessageService';
+import { Checkbox } from 'basicui';
 
 interface Props {
   clientId: string;
@@ -24,10 +22,10 @@ interface Props {
 }
 
 const SystemRoles = (props: Props) => {
-  const onInput = (detail: any) => {
-    const _roles = props.roles.filter((item) => item !== detail.name);
-    if (detail.value) {
-      _roles.push(detail.name);
+  const onInput = (event: any) => {
+    const _roles = props.roles.filter((item) => item !== event.currentTarget.name);
+    if (event.currentTarget.value) {
+      _roles.push(event.currentTarget.name);
     }
     props.onInput(_roles);
   };
@@ -65,26 +63,22 @@ const SystemRoles = (props: Props) => {
     <div className="client-permission-system">
       <div className="client-permission-system__title">System roles</div>
       <div className="client-permission-system__content">
-        <OakCheckboxGroup
-          checkboxGroupName={formId}
-          name="role"
-          onInput={onInput}
+        <Checkbox
+          id="MEMBER"
+          name="MEMBER"
+          value={props.roles.includes('MEMBER')}
+          checked={props.roles.includes('MEMBER')}
         >
-          <OakCheckbox
-            name="MEMBER"
-            value={props.roles.includes('MEMBER')}
-            checkboxGroupName={formId}
-          >
-            Member
-          </OakCheckbox>
-          <OakCheckbox
-            name="ADMIN"
-            value={props.roles.includes('ADMIN')}
-            checkboxGroupName={formId}
-          >
-            Administrator
-          </OakCheckbox>
-        </OakCheckboxGroup>
+          Member
+        </Checkbox>
+        <Checkbox
+          name="ADMIN"
+          id="ADMIN"
+          value={props.roles.includes('ADMIN')}
+          checked={props.roles.includes('ADMIN')}
+        >
+          Administrator
+        </Checkbox>
       </div>
     </div>
   );

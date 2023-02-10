@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './style.scss';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import {
   addSystemRoleForRealm,
   deleteSystemRoleForRealm,
   addSystemRoleForClient,
   deleteSystemRoleForClient,
 } from './service';
-import { Button } from 'basicui';
+import { Button, Checkbox } from 'basicui';
 
 interface Props {
   data: any[];
@@ -47,7 +46,7 @@ const UserGrid = (props: Props) => {
     }
   }, [props.data, props.systemUserMap]);
 
-  const toggleRole = (detail: any, roleName: string) => {
+  const toggleRole = (event: any, roleName: string) => {
     const addFunction: any = props.realm
       ? addSystemRoleForRealm
       : addSystemRoleForClient;
@@ -55,10 +54,10 @@ const UserGrid = (props: Props) => {
       ? deleteSystemRoleForRealm
       : deleteSystemRoleForClient;
 
-    if (detail.value) {
+    if (event.currentTarget.value) {
       addFunction(
         props.realm ? props.realm : props.clientId,
-        detail.name,
+        event.currentTarget.name,
         props.systemRoleReverseMap[roleName]?._id
       ).then((data: any) => {
         props.handleUpdate();
@@ -66,7 +65,7 @@ const UserGrid = (props: Props) => {
     } else {
       deleteFunction(
         props.realm ? props.realm : props.clientId,
-        detail.name,
+        event.currentTarget.name,
         props.systemRoleReverseMap[roleName]?._id
       ).then((data: any) => {
         props.handleUpdate();
@@ -99,8 +98,12 @@ const UserGrid = (props: Props) => {
               <td>{item.user?.family_name}</td>
               <td>{item.user?.email}</td>
               <td>
-                <OakCheckbox
+                <Checkbox
+                  id={item.user?._id}
                   value={item.roleId?.includes(
+                    props.systemRoleReverseMap['system-admin']?._id
+                  )}
+                  checked={item.roleId?.includes(
                     props.systemRoleReverseMap['system-admin']?._id
                   )}
                   name={item.user?._id}
@@ -110,13 +113,17 @@ const UserGrid = (props: Props) => {
                 />
               </td>
               <td>
-                <OakCheckbox
+                <Checkbox
                   value={item.roleId?.includes(
                     props.systemRoleReverseMap['system-user']?._id
                   )}
+                  checked={item.roleId?.includes(
+                    props.systemRoleReverseMap['system-user']?._id
+                  )}
                   name={item.user?._id}
-                  onInput={(detail: any) => {
-                    toggleRole(detail, 'system-user');
+                  id={item.user?._id}
+                  onInput={(event: any) => {
+                    toggleRole(event, 'system-user');
                   }}
                 />
               </td>

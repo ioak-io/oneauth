@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import Input from '../../../oakui/wc/Input';
-import OakClickArea from '../../../oakui/wc/OakClickArea';
-import { isEmptyOrSpaces } from '../../Utils';
 import './CreateRealm.scss';
-import RealmItem from './RealmItem';
-import { loginPageSubject } from '../../../events/LoginPageEvent';
-import Button from '../../../oakui/wc/Button';
 import { createRealm } from '../../../store/actions/RealmActions';
+import { Button, Input, Textarea, ThemeType } from 'basicui';
 
 interface Props {
   handleClose: any;
@@ -44,23 +39,20 @@ const CreateRealm = (props: Props) => {
           value={state.name}
           onInput={onInput}
           placeholder="Realm name"
-          gutterBottom
         />
-        <Input
+        <Textarea
           name="description"
           value={state.description}
           onInput={onInput}
           type="textarea"
           placeholder="Description"
-          gutterBottom
         />
       </div>
       <div className="create-realm__toolbar">
-        <Button  onClick={save}>
+        <Button onClick={save}>
           Save
         </Button>
         <Button
-          
           theme={ThemeType.default}
           onClick={props.handleClose}
         >

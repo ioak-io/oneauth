@@ -10,14 +10,14 @@ const DarkModeIcon = () => {
   const toggleMode = () => {
     dispatch(
       setProfile({
-        theme: profile.theme === 'theme_dark' ? 'theme_light' : 'theme_dark',
+        theme: profile.theme === 'basicui-dark' ? 'basicui-light' : 'basicui-dark',
       })
     );
   };
   return (
     <div className={`dark-mode-icon ${profile.theme}`} onClick={toggleMode}>
-      {profile.theme === 'theme_dark' && <WbSunny className="cursor-pointer" />}
-      {profile.theme !== 'theme_dark' && (
+      {profile.theme === 'basicui-dark' && <WbSunny className="cursor-pointer" />}
+      {profile.theme !== 'basicui-dark' && (
         <NightsStay className="cursor-pointer" />
       )}
     </div>

@@ -4,9 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './ChooseRealm.scss';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import { mapGridcontrolByClient } from './ClientService';
-import { Button, ThemeType } from 'basicui';
+import { Button, ThemeType, Checkbox } from 'basicui';
 
 interface Props {
   data: any[];
@@ -21,11 +20,11 @@ const ChooseRealm = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const [choosenRecords, setChoosenRecords] = useState<number[]>([]);
 
-  const handleSelection = (detail: any) => {
-    if (detail.value) {
-      setChoosenRecords([...choosenRecords, detail.name]);
+  const handleSelection = (event: any) => {
+    if (event.currentTarget.value) {
+      setChoosenRecords([...choosenRecords, event.currentTarget.name]);
     } else {
-      setChoosenRecords(choosenRecords.filter((item) => item !== detail.name));
+      setChoosenRecords(choosenRecords.filter((item) => item !== event.currentTarget.name));
     }
   };
 
@@ -82,7 +81,8 @@ const ChooseRealm = (props: Props) => {
               >
                 <td>
                   <div className="context-action">
-                    <OakCheckbox
+                    <Checkbox
+                    id={item.realm}
                       value={choosenRecords.includes(item.realm)}
                       name={item.realm}
                       onInput={handleSelection}

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
+import { Tabs, Tab, TabDetail, TabHeader } from 'basicui';
 import './style.scss';
-import OakTab from '../../../oakui/wc/OakTab';
 import EditClient from './EditClient';
 import AccessControl from '../../AccessControl';
 import { loginPageSubject } from '../../../events/LoginPageEvent';
@@ -12,7 +12,7 @@ import SystemRoleControl from '../../AccessControl/SystemRoleControl';
 const ClientDetail = () => {
   const history = useNavigate();
   const { id }: any = useParams();
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState("0");
   const client = useSelector((state: any) =>
     state.client.clients?.find((item: any) => item._id === id)
   );
@@ -23,31 +23,38 @@ const ClientDetail = () => {
     };
   }, []);
 
-  const onInputTab = (detail: any) => {
-    setActiveTab(detail.value);
+  const onInputTab = (_activeTabId: string) => {
+    setActiveTab(_activeTabId);
   };
 
   return (
     <div className="client-detail">
-      <OakTab
-        tabs={['Detail', 'Realms', 'Roles', 'Administrators']}
-        onInput={onInputTab}
-        variant="pills"
-        color="info"
-        nobaseline
-        fill
-        rounded
-      >
-        {client && (
-          <div className="client-detail__container">
-            {activeTab === 0 && <EditClient client={client} />}
-            {activeTab === 1 && <Gridcontrol clientId={client.client_id} />}
-            {activeTab === 3 && (
-              <SystemRoleControl clientId={client.client_id} />
-            )}
-          </div>
-        )}
-      </OakTab>
+      <Tabs activeTabId={activeTab} onChange={onInputTab}>
+        <Tab id='0'>
+          <TabHeader>Detail</TabHeader>
+          <TabDetail>
+            <EditClient client={client} />
+          </TabDetail>
+        </Tab>
+        <Tab id='1'>
+          <TabHeader>Realms</TabHeader>
+          <TabDetail>
+            <Gridcontrol clientId={client.client_id} />
+          </TabDetail>
+        </Tab>
+        <Tab id='2'>
+          <TabHeader>Roles</TabHeader>
+          <TabDetail>
+            Roles
+          </TabDetail>
+        </Tab>
+        <Tab id='3'>
+          <TabHeader>Administrators</TabHeader>
+          <TabDetail>
+            <SystemRoleControl clientId={client.client_id} />
+          </TabDetail>
+        </Tab>
+      </Tabs>
     </div>
   );
 };

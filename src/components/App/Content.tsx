@@ -5,16 +5,11 @@ import Landing from '../Landing';
 import Init from './Init';
 
 import TopbarContainer from './TopbarContainer';
-import SidebarContainer from './SidebarContainer';
 import BodyContainer from './BodyContainer';
-import { receiveMessage } from '../../events/MessageService';
 import { loginPageSubject } from '../../events/LoginPageEvent';
-import OakNotification from '../../oakui/wc/OakNotification';
-import OakAppLayout from '../../oakui/wc/OakAppLayout';
 import { setProfile } from '../../store/actions/ProfileActions';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { Chart } from 'chart.js';
 
 interface Props {
 }
@@ -39,7 +34,7 @@ const Content = (props: Props) => {
 
   // useEffect(() => {
   //   Chart.defaults.global.defaultFontColor =
-  //     profile.theme === 'theme_dark' ? '#181818' : '#626262';
+  //     profile.theme === 'basicui-dark' ? '#181818' : '#626262';
   // }, [profile]);
 
   const handleClose = (detail: any) => {
@@ -63,29 +58,16 @@ const Content = (props: Props) => {
       <HashRouter>
         <Init />
         {/* <Notification /> */}
-        <OakNotification
+        {/* <OakNotification
           indicator="fill"
           outlined
           rounded
           // paddingVertical={10}
           elevation={5}
           displayCount={5}
-        />
-
-        <OakAppLayout
-          topbarVariant={loginPage ? 'none' : 'static'}
-          sidebarVariant="none"
-          sidebarColor="container"
-          topbarColor="custom"
-          topbarElevation={0}
-        >
-          <div slot="topbar">
-            <TopbarContainer />
-          </div>
-          <div slot="main">
-            <BodyContainer {...props} />
-          </div>
-        </OakAppLayout>
+        /> */}
+        <TopbarContainer />
+        <BodyContainer {...props} />
       </HashRouter>
     </div>
   );

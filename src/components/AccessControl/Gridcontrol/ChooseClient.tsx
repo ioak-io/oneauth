@@ -3,9 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './ChooseClient.scss';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import { mapGridcontrolByRealm } from './RealmService';
-import { Button, ThemeType } from 'basicui';
+import { Button, ThemeType, Checkbox } from 'basicui';
 
 interface Props {
   data: any[];
@@ -20,11 +19,11 @@ const ChooseClient = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
   const [choosenRecords, setChoosenRecords] = useState<string[]>([]);
 
-  const handleSelection = (detail: any) => {
-    if (detail.value) {
-      setChoosenRecords([...choosenRecords, detail.name]);
+  const handleSelection = (event: any) => {
+    if (event.currentTarget.value) {
+      setChoosenRecords([...choosenRecords, event.currentTarget.name]);
     } else {
-      setChoosenRecords(choosenRecords.filter((item) => item !== detail.name));
+      setChoosenRecords(choosenRecords.filter((item) => item !== event.currentTarget.name));
     }
   };
 
@@ -83,8 +82,10 @@ const ChooseClient = (props: Props) => {
               >
                 <td>
                   <div className="context-action">
-                    <OakCheckbox
+                    <Checkbox
+                      id={item.client_id}
                       value={choosenRecords.includes(item.client_id)}
+                      checked={choosenRecords.includes(item.client_id)}
                       name={item.client_id}
                       onInput={handleSelection}
                     />

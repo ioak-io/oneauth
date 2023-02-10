@@ -12,8 +12,7 @@ import {
   deleteGridcontrolByClient,
   approveGridcontrolByClient,
 } from './ClientService';
-import { Button } from 'basicui';
-import ThemeType from 'basicui/components/types/ThemeType';
+import { Button, ThemeType } from 'basicui';
 
 interface Props {
   data: any[];

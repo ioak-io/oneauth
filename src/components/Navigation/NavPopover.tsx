@@ -22,10 +22,10 @@ const NavPopover = (props: Props) => {
   return (
     <div className="nav-popover">
       {/* <div className="nav-popover-header">
-        {profile.theme === 'theme_light' && (
+        {profile.theme === 'basicui-light' && (
           <img className="logo" src={packetWhite} alt="Packet logo" />
         )}
-        {profile.theme === 'theme_dark' && (
+        {profile.theme === 'basicui-dark' && (
           <img className="logo" src={packetBlack} alt="Packet logo" />
         )}
       </div> */}

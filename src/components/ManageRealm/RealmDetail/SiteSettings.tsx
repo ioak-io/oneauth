@@ -2,14 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
-import {Input} from 'basicui';
+import { Checkbox, Input, Radio } from 'basicui';
 import './SiteSettings.scss';
 import { updateRealm } from '../../../store/actions/RealmActions';
 import { newId } from '../../../events/MessageService';
-import OakRadioGroup from '../../../oakui/wc/OakRadioGroup';
-import OakRadio from '../../../oakui/wc/OakRadio';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
-import OakImageUpload from '../../../oakui/wc/OakImageUpload';
 
 interface Props {
   site: any;
@@ -22,8 +18,8 @@ const SiteSettings = (props: Props) => {
   const formId = newId();
   const authorization = useSelector((state: any) => state.authorization);
 
-  const onInput = (detail: any) => {
-    props.onInput({ ...props.site, [detail.name]: detail.value });
+  const onInput = (event: any) => {
+    props.onInput({ ...props.site, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const handleImageChange = (detail: any) => {
@@ -43,75 +39,39 @@ const SiteSettings = (props: Props) => {
       <div className="title-gutter-bottom" />
       <div className="site-settings">
         <div className="site-settings__form">
-          <OakRadioGroup
-            name="layout"
-            radioGroupName={`layout-${groupId}`}
-            value={props.site.layout}
-            label="Layout"
-            onInput={onInput}
-          >
-            <div className="">
-              <OakRadio radioGroupName={`layout-${groupId}`} name="full">
-                Full page
-              </OakRadio>
-              <OakRadio radioGroupName={`layout-${groupId}`} name="split">
-                Split Section
-              </OakRadio>
-            </div>
-          </OakRadioGroup>
-          <OakRadioGroup
-            name="borderRadius"
-            radioGroupName={`borderRadius-${groupId}`}
-            value={props.site.borderRadius}
-            label="Roundness"
-            onInput={onInput}
-          >
-            <div className="">
-              <OakRadio radioGroupName={`borderRadius-${groupId}`} name="none">
-                None
-              </OakRadio>
-              <OakRadio radioGroupName={`borderRadius-${groupId}`} name="small">
-                Small
-              </OakRadio>
-              <OakRadio
-                radioGroupName={`borderRadius-${groupId}`}
-                name="medium"
-              >
-                Medium
-              </OakRadio>
-              <OakRadio radioGroupName={`borderRadius-${groupId}`} name="large">
-                Large
-              </OakRadio>
-            </div>
-          </OakRadioGroup>
-          <OakRadioGroup
-            name="signupVariant"
-            radioGroupName={`signupVariant-${groupId}`}
-            value={props.site.signupVariant}
-            label="Signup link placement"
-            onInput={onInput}
-          >
-            <div className="">
-              <OakRadio
-                radioGroupName={`signupVariant-${groupId}`}
-                name="bottom"
-              >
-                Bottom
-              </OakRadio>
-              <OakRadio
-                radioGroupName={`signupVariant-${groupId}`}
-                name="top-one-line"
-              >
-                Top single line
-              </OakRadio>
-              <OakRadio
-                radioGroupName={`signupVariant-${groupId}`}
-                name="top-two-line"
-              >
-                Top multi line
-              </OakRadio>
-            </div>
-          </OakRadioGroup>
+          <div className="">
+            <Radio onInput={onInput} id="full" name="full" checked={props.site.layout === "full"}>
+              Full page
+            </Radio>
+            <Radio onInput={onInput} id="split" name="split" checked={props.site.layout === "split"}>
+              Split Section
+            </Radio>
+          </div>
+          <div className="">
+            <Radio onInput={onInput} id="none" name="none" checked={props.site.borderRadius === "none"}>
+              None
+            </Radio>
+            <Radio onInput={onInput} id="small" name="small" checked={props.site.borderRadius === "small"}>
+              Small
+            </Radio>
+            <Radio onInput={onInput} id="medium" name="medium" checked={props.site.borderRadius === "medium"}>
+              Medium
+            </Radio>
+            <Radio onInput={onInput} id="large" name="large" checked={props.site.borderRadius === "large"}>
+              Large
+            </Radio>
+          </div>
+          <div className="">
+            <Radio onInput={onInput} id="bottom" name="bottom" checked={props.site.signupVariant === "bottom"}>
+              Bottom
+            </Radio>
+            <Radio onInput={onInput} id="top-one-line" name="top-one-line" checked={props.site.signupVariant === "top-one-line"}>
+              Top single line
+            </Radio>
+            <Radio onInput={onInput} id="top-two-line" name="top-two-line" checked={props.site.signupVariant === "top-two-line"}>
+              Top multi line
+            </Radio>
+          </div>
           <Input
             value={props.site.background}
             name="background"
@@ -120,34 +80,38 @@ const SiteSettings = (props: Props) => {
             onInput={onInput}
           />
           {props.site.layout === 'full' && props.site.background && (
-            <OakCheckbox
+            <Checkbox
+              id="container"
               name="container"
               value={props.site.container}
+              checked={props.site.container}
               onInput={onInput}
             >
               Enclose form inside a container
-            </OakCheckbox>
+            </Checkbox>
           )}
         </div>
         <div className="site-settings__image">
           <div className="site-settings__image__logo">
             Logo
-            <OakImageUpload
+            "upload prompt"
+            {/* <OakImageUpload
               toolbarPosition="top"
               name="logo"
               value=""
               onInput={handleImageChange}
-            />
+            /> */}
           </div>
           <div className="site-settings__image__background">
             Background
-            <OakImageUpload
+            "upload prompt"
+            {/* <OakImageUpload
               toolbarPosition="top"
               name="background"
               value=""
               initialFile={props.site.background}
               onInput={handleImageChange}
-            />
+            /> */}
           </div>
         </div>
       </div>

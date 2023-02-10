@@ -16,7 +16,7 @@ interface Props {
   realm: string;
 }
 
-export const ResetPassword = (props: Props) => {
+const ResetPassword = (props: Props) => {
   const [data, setData] = useState({
     email: '',
     password: '',
@@ -316,3 +316,5 @@ export const ResetPassword = (props: Props) => {
     </>
   );
 };
+
+export default ResetPassword;

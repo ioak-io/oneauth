@@ -6,8 +6,6 @@ import { Authorization } from '../Types/GeneralTypes';
 import { sendMessage, receiveMessage } from '../../events/MessageService';
 import oneauthWhite from '../../images/oneauth_white.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
-import { httpGet } from '../Lib/RestTemplate';
-import OakSpinner from '../../oakui/OakSpinner';
 import NotificationMessage from '../LoginPage/form/NotificationMessage';
 import HomeLink from './HomeLink';
 import ChangePassword from './ChangePassword';
@@ -69,14 +67,14 @@ const RealmHome = (props: Props) => {
     <div className="realm-home">
       <div className="overlay">
         <div className="container smooth-page">
-          {profile.theme === 'theme_light' && (
+          {profile.theme === 'basicui-light' && (
             <img className="logo" src={oneauthBlack} alt="Oneauth logo" />
           )}
-          {profile.theme === 'theme_dark' && (
+          {profile.theme === 'basicui-dark' && (
             <img className="logo" src={oneauthWhite} alt="Oneauth logo" />
           )}
 
-          {spinner && <OakSpinner />}
+          {/* {spinner && <OakSpinner />} */}
           <NotificationMessage notification={notificationMessage} />
 
           {type === 'home' && (

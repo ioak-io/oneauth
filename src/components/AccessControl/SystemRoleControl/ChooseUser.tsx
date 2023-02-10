@@ -3,12 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './ChooseUser.scss';
-import OakCheckbox from '../../../oakui/wc/OakCheckbox';
 import {
   addSystemRoleForRealmForMultipleUsers,
   addSystemRoleForClientForMultipleUsers,
 } from './service';
-import { Button, ThemeType } from 'basicui';
+import { Button, ThemeType, Checkbox } from 'basicui';
 
 interface Props {
   realm?: number;
@@ -28,11 +27,11 @@ const ChooseUser = (props: Props) => {
     console.log('props.systemUserMap', props.systemUserMap);
   }, [props.systemUserMap]);
 
-  const handleSelection = (detail: any) => {
-    if (detail.value) {
-      setChoosenRecords([...choosenRecords, detail.name]);
+  const handleSelection = (event: any) => {
+    if (event.currentTarget.value) {
+      setChoosenRecords([...choosenRecords, event.currentTarget.name]);
     } else {
-      setChoosenRecords(choosenRecords.filter((item) => item !== detail.name));
+      setChoosenRecords(choosenRecords.filter((item) => item !== event.currentTarget.name));
     }
   };
 
@@ -104,7 +103,8 @@ const ChooseUser = (props: Props) => {
               >
                 <td>
                   <div className="context-action">
-                    <OakCheckbox
+                    <Checkbox
+                    id={item._id}
                       value={choosenRecords.includes(item._id)}
                       name={item._id}
                       onInput={handleSelection}
