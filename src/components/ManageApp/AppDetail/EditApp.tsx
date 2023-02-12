@@ -86,7 +86,7 @@ const EditClient = (props: Props) => {
               label="Client name"
               type="text"
               onInput={(e: any) => onInput(e)}
-              gutterBottom
+              
             />
             <Input
 
@@ -96,7 +96,7 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={(e: any) => onInput(e)}
-              gutterBottom
+              
             />
             <Input
 
@@ -106,7 +106,7 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={(e: any) => onInput(e)}
-              gutterBottom
+              
             />
             <Input
               disabled
@@ -118,7 +118,7 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={(e: any) => onInput(e)}
-              gutterBottom
+              
             />
             <Input
               disabled
@@ -130,7 +130,7 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={(e: any) => onInput(e)}
-              gutterBottom
+              
             />
           </div>
         </div>
@@ -150,7 +150,7 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={(e: any) => onInput(e)}
-              gutterBottom
+              
             />
           </div>
         </div>

@@ -13,7 +13,7 @@ const RealmDetail = () => {
   const { realmId }: any = useParams();
   const [activeTab, setActiveTab] = useState("detail");
   const realm = useSelector((state: any) =>
-    state.realm.realms?.find((item: any) => item.realm === Number(realmId))
+    state.realm?.realms?.find((item: any) => item.realm === Number(realmId))
   );
   useEffect(() => {
     loginPageSubject.next({ state: false });
@@ -29,33 +29,33 @@ const RealmDetail = () => {
 
   return (
     <div className="realm-detail">
-      {activeTab}
-      <Tabs activeTabId={activeTab} onChange={handleChange}>
-        <Tab id='detail'>
-          <TabHeader>Detail</TabHeader>
-          <TabDetail>
-            <EditRealm realm={realm} />
-          </TabDetail>
-        </Tab>
-        <Tab id='clients'>
-          <TabHeader>Clients</TabHeader>
-          <TabDetail>
-            <Gridcontrol realm={realm.realm} />
-          </TabDetail>
-        </Tab>
-        <Tab id='user-groups'>
-          <TabHeader>User groups</TabHeader>
-          <TabDetail>
-            User groups
-          </TabDetail>
-        </Tab>
-        <Tab id='administrators'>
-          <TabHeader>Administrators</TabHeader>
-          <TabDetail>
-            <SystemRoleControl realm={realm.realm} />
-          </TabDetail>
-        </Tab>
-      </Tabs>
+      {realm &&
+        <Tabs activeTabId={activeTab} onChange={handleChange}>
+          <Tab id='detail'>
+            <TabHeader>Detail</TabHeader>
+            <TabDetail>
+              <EditRealm realm={realm} />
+            </TabDetail>
+          </Tab>
+          <Tab id='clients'>
+            <TabHeader>Clients</TabHeader>
+            <TabDetail>
+              <Gridcontrol realm={realm.realm} />
+            </TabDetail>
+          </Tab>
+          <Tab id='user-groups'>
+            <TabHeader>User groups</TabHeader>
+            <TabDetail>
+              User groups
+            </TabDetail>
+          </Tab>
+          <Tab id='administrators'>
+            <TabHeader>Administrators</TabHeader>
+            <TabDetail>
+              <SystemRoleControl realm={realm.realm} />
+            </TabDetail>
+          </Tab>
+        </Tabs>}
     </div>
   );
 };

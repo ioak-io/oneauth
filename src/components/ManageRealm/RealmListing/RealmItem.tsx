@@ -31,6 +31,7 @@ const RealmItem = (props: Props) => {
       </div>
       <div className="realm-item__right">
         <IconButton
+          circle
           onClick={goToViewPage}
           theme={ThemeType.danger}
         >

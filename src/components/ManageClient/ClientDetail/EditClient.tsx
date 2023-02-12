@@ -96,7 +96,7 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={onInput}
-              gutterBottom
+              
             />
             <Input
 
@@ -106,7 +106,7 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={onInput}
-              gutterBottom
+              
             />
             <Input
               disabled
@@ -118,7 +118,7 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={onInput}
-              gutterBottom
+              
             />
             <Input
               disabled
@@ -130,7 +130,7 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={onInput}
-              gutterBottom
+              
             />
           </div>
         </div>

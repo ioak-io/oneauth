@@ -73,12 +73,13 @@ const EditRealm = (props: Props) => {
     });
   };
 
-  const editRealm = () => {
+  const editRealm = (event: any) => {
+    event.preventDefault();
     dispatch(updateRealm({ ...realmData }));
     realmData.upload = {};
   };
 
-  const handleReset = () => { };
+  const handleReset = (event: any) => { event.preventDefault();};
 
   return (
     <form
@@ -144,7 +145,7 @@ const EditRealm = (props: Props) => {
                 minLength={1}
                 label="Expiry in minutes"
                 onInput={onInput}
-                gutterBottom
+                
               />
             </div>
           </div>

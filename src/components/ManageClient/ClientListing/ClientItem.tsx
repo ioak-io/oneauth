@@ -27,6 +27,7 @@ const ClientItem = (props: Props) => {
       </div>
       <div className="client-item__right">
         <IconButton
+          circle
           onClick={goToViewPage}
           theme={ThemeType.danger}
         >

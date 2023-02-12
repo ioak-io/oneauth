@@ -23,12 +23,12 @@
 .realm-listing__list__item {
   padding: 10px 20px;
   border-radius: 4px;
-  background-color: var(--color-container);
+  background-color: var(--theme-adaptive-200);
   border: 2px solid transparent;
   cursor: pointer;
   transition: border-color 250ms ease-in-out;
   &:hover {
-    background-color: var(--color-container);
+    background-color: var(--theme-adaptive-200);
     border-color: var(--color-primary);
   }
 }

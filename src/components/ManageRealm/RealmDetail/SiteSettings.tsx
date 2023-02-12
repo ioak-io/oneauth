@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPalette } from '@fortawesome/free-solid-svg-icons';
-import { Checkbox, Input, Radio } from 'basicui';
+import { Checkbox, Input, Radio, ThemeType } from 'basicui';
 import './SiteSettings.scss';
 import { updateRealm } from '../../../store/actions/RealmActions';
 import { newId } from '../../../events/MessageService';
@@ -19,6 +19,7 @@ const SiteSettings = (props: Props) => {
   const authorization = useSelector((state: any) => state.authorization);
 
   const onChange = (event: any) => {
+    console.log(event.currentTarget.name, event.currentTarget.value)
     props.onChange({ ...props.site, [event.currentTarget.name]: event.currentTarget.value });
   };
 
@@ -40,45 +41,36 @@ const SiteSettings = (props: Props) => {
       <div className="site-settings">
         <div className="site-settings__form">
           <div className="">
-            <Radio
-            label=""
-              // onChange={onChange}
-              // id="full"
-              // name="full"
-              // value="full"
-              // checked={props.site.layout === "full"}
-            >
-              Full page
-            </Radio>
-            {/* <Radio onChange={onChange} id="split" name="split" checked={props.site.layout === "split"}>
-              Split Section
-            </Radio> */}
-          </div>
-          {/* <div className="">
-            <Radio onChange={onChange} id="none" name="none" checked={props.site.borderRadius === "none"}>
-              None
-            </Radio>
-            <Radio onChange={onChange} id="small" name="small" checked={props.site.borderRadius === "small"}>
-              Small
-            </Radio>
-            <Radio onChange={onChange} id="medium" name="medium" checked={props.site.borderRadius === "medium"}>
-              Medium
-            </Radio>
-            <Radio onChange={onChange} id="large" name="large" checked={props.site.borderRadius === "large"}>
-              Large
-            </Radio>
+            <Radio theme={ThemeType.primary}
+              onChange={onChange}
+              id="layout-full"
+              name="layout"
+              value="full"
+              checked={props.site.layout === "full"}
+              label="Full page"
+            />
+            <Radio theme={ThemeType.primary}
+              label="Split Section"
+              value="split"
+              onChange={onChange}
+              id="layout-split"
+              name="layout"
+              checked={props.site.layout === "split"}
+            />
           </div>
           <div className="">
-            <Radio onChange={onChange} id="bottom" name="bottom" checked={props.site.signupVariant === "bottom"}>
-              Bottom
-            </Radio>
-            <Radio onChange={onChange} id="top-one-line" name="top-one-line" checked={props.site.signupVariant === "top-one-line"}>
-              Top single line
-            </Radio>
-            <Radio onChange={onChange} id="top-two-line" name="top-two-line" checked={props.site.signupVariant === "top-two-line"}>
-              Top multi line
-            </Radio>
-          </div> */}
+            <Radio theme={ThemeType.primary} label="None" value="none" onChange={onChange} id="borderRadius-none" name="borderRadius" checked={props.site.borderRadius === "none"} />
+            <Radio theme={ThemeType.primary} label="Small" value="small" onChange={onChange} id="borderRadius-small" name="borderRadius"
+              checked={props.site.borderRadius === "small"}
+            />
+            <Radio theme={ThemeType.primary} label="Medium" value="medium" onChange={onChange} id="borderRadius-medium" name="borderRadius" checked={props.site.borderRadius === "medium"} />
+            <Radio theme={ThemeType.primary} label="Large" value="large" onChange={onChange} id="borderRadius-large" name="borderRadius" checked={props.site.borderRadius === "large"} />
+          </div>
+          <div className="">
+            <Radio theme={ThemeType.primary} label="Bottom" value="bottom" onChange={onChange} id="signupVariant-bottom" name="signupVariant" checked={props.site.signupVariant === "bottom"} />
+            <Radio theme={ThemeType.primary} label="Top single line" value="top-one-line" onChange={onChange} id="signupVariant-top-one-line" name="signupVariant" checked={props.site.signupVariant === "top-one-line"} />
+            <Radio theme={ThemeType.primary} label="Top multi line" value="top-two-line" onChange={onChange} id="signupVariant-top-two-line" name="signupVariant" checked={props.site.signupVariant === "top-two-line"} />
+          </div>
           <Input
             value={props.site.background}
             name="background"
