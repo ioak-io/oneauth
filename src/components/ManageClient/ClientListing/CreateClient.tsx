@@ -17,8 +17,8 @@ const CreateClient = (props: Props) => {
     redirect: '',
   });
 
-  const onInput = (detail: any) => {
-    setState({ ...state, [detail.name]: detail.value });
+  const onInput = (event: any) => {
+    setState({ ...state, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const save = () => {

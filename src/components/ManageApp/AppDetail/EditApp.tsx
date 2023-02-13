@@ -52,10 +52,10 @@ const EditClient = (props: Props) => {
   //   return { day, hour, minutes };
   // };
 
-  const onInput = (detail: any) => {
+  const onInput = (event: any) => {
     setClientData({
       ...clientData,
-      [detail.name]: detail.value,
+      [event.currentTarget.name]: event.currentTarget.value,
     });
   };
 

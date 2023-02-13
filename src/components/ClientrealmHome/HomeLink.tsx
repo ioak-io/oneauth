@@ -31,8 +31,8 @@ const HomeLink = (props: Props) => {
     email: '',
   });
 
-  const onInput = (detail: any) => {
-    setData({ ...data, [detail.name]: detail.value });
+  const onInput = (event: any) => {
+    setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const handleSubmit = (detail: any) => {

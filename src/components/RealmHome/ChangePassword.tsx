@@ -30,8 +30,8 @@ const ChangePassword = (props: Props) => {
     repeatpassword: '',
   });
 
-  const onInput = (detail: any) => {
-    setData({ ...data, [detail.name]: detail.value });
+  const onInput = (event: any) => {
+    setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const changePassword = (event: any) => {

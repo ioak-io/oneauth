@@ -35,8 +35,8 @@ const UpdateProfile = (props: Props) => {
     });
   }, [authorization]);
 
-  const onInput = (detail: any) => {
-    setData({ ...data, [detail.name]: detail.value });
+  const onInput = (event: any) => {
+    setData({ ...data, [event.currentTarget.name]: event.currentTarget.value });
   };
 
   const updateProfile = (event) => {

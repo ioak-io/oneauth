@@ -33,8 +33,8 @@ const ClientListing = () => {
     }
   }, [client.clients, searchCriteria]);
 
-  const handleSearchCriteriaChange = (detail: any) => {
-    setSearchCriteria(detail.value);
+  const handleSearchCriteriaChange = (event: any) => {
+    setSearchCriteria(event.currentTarget.value);
   };
 
   const search = (clientList: any, criteria: any) => {

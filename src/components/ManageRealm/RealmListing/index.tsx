@@ -26,8 +26,8 @@ const RealmListing = () => {
     };
   }, []);
 
-  const handleSearchCriteriaChange = (detail: any) => {
-    setSearchCriteria(detail.value);
+  const handleSearchCriteriaChange = (event: any) => {
+    setSearchCriteria(event.currentTarget.value);
   };
 
   const search = (realmList: any, criteria: any) => {

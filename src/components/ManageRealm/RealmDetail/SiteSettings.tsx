@@ -23,8 +23,8 @@ const SiteSettings = (props: Props) => {
     props.onChange({ ...props.site, [event.currentTarget.name]: event.currentTarget.value });
   };
 
-  const handleImageChange = (detail: any) => {
-    props.handleUploadChange(detail.name, detail.value);
+  const handleImageChange = (event: any) => {
+    props.handleUploadChange(event.currentTarget.name, event.currentTarget.value);
   };
 
   const [groupId, setGroupId] = useState(newId());
