@@ -54,7 +54,8 @@ const UserGrid = (props: Props) => {
       ? deleteSystemRoleForRealm
       : deleteSystemRoleForClient;
 
-    if (event.currentTarget.value) {
+      console.log(event.currentTarget.value, event.currentTarget.checked);
+    if (event.currentTarget.checked) {
       addFunction(
         props.realm ? props.realm : props.clientId,
         event.currentTarget.name,
@@ -107,8 +108,8 @@ const UserGrid = (props: Props) => {
                     props.systemRoleReverseMap['system-admin']?._id
                   )}
                   name={item.user?._id}
-                  onInput={(detail: any) => {
-                    toggleRole(detail, 'system-admin');
+                  onChange={(event: any) => {
+                    toggleRole(event, 'system-admin');
                   }}
                 />
               </td>
@@ -122,7 +123,7 @@ const UserGrid = (props: Props) => {
                   )}
                   name={item.user?._id}
                   id={item.user?._id}
-                  onInput={(event: any) => {
+                  onChange={(event: any) => {
                     toggleRole(event, 'system-user');
                   }}
                 />
