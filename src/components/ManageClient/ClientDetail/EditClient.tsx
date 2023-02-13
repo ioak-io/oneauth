@@ -33,7 +33,7 @@ const EditClient = (props: Props) => {
   });
 
   useEffect(() => {
-    setClientData(props.client);
+    setClientData({ ...clientData, ...props.client });
   }, [props.client]);
 
   // useEffect(() => {
@@ -54,14 +54,15 @@ const EditClient = (props: Props) => {
   //   return { day, hour, minutes };
   // };
 
-  const onInput = (detail: any) => {
+  const onInput = (event: any) => {
     setClientData({
       ...clientData,
-      [detail.name]: detail.value,
+      [event.currentTarget.name]: event.currentTarget.value,
     });
   };
 
-  const editClient = () => {
+  const editClient = (event: any) => {
+    event.preventDefault();
     dispatch(updateClient(clientData));
   };
 
@@ -96,7 +97,7 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={onInput}
-              
+
             />
             <Input
 
@@ -106,31 +107,25 @@ const EditClient = (props: Props) => {
               type="text"
               minLength={1}
               onInput={onInput}
-              
+
             />
             <Input
               disabled
-              fill
-
               value={clientData.client_id}
               name="client_id"
               label="Client ID (to be used in your client)"
               type="text"
               minLength={1}
               onInput={onInput}
-              
             />
             <Input
               disabled
-              fill
-
               value={clientData.realm}
               name="realm"
               label="Client specific realm"
               type="text"
               minLength={1}
               onInput={onInput}
-              
             />
           </div>
         </div>

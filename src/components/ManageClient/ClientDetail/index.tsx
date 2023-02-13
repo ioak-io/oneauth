@@ -29,7 +29,7 @@ const ClientDetail = () => {
 
   return (
     <div className="client-detail">
-      <Tabs activeTabId={activeTab} onChange={onInputTab}>
+      {client && <Tabs activeTabId={activeTab} onChange={onInputTab}>
         <Tab id='0'>
           <TabHeader>Detail</TabHeader>
           <TabDetail>
@@ -54,7 +54,7 @@ const ClientDetail = () => {
             <SystemRoleControl clientId={client.client_id} />
           </TabDetail>
         </Tab>
-      </Tabs>
+      </Tabs>}
     </div>
   );
 };

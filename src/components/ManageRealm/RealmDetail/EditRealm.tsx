@@ -28,7 +28,7 @@ const EditRealm = (props: Props) => {
   });
 
   useEffect(() => {
-    setRealmData(props.realm);
+    setRealmData({ ...realmData, ...props.realm });
   }, [props.realm]);
 
   // useEffect(() => {
@@ -49,10 +49,10 @@ const EditRealm = (props: Props) => {
   //   return { day, hour, minutes };
   // };
 
-  const onInput = (detail: any) => {
+  const onInput = (event: any) => {
     setRealmData({
       ...realmData,
-      [detail.name]: detail.value,
+      [event.currentTarget.name]: event.currentTarget.value,
     });
   };
 
@@ -79,7 +79,7 @@ const EditRealm = (props: Props) => {
     realmData.upload = {};
   };
 
-  const handleReset = (event: any) => { event.preventDefault();};
+  const handleReset = (event: any) => { event.preventDefault(); };
 
   return (
     <form
@@ -145,7 +145,7 @@ const EditRealm = (props: Props) => {
                 minLength={1}
                 label="Expiry in minutes"
                 onInput={onInput}
-                
+
               />
             </div>
           </div>
