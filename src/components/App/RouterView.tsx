@@ -12,11 +12,11 @@ import ClientrealmHome from '../ClientrealmHome';
 import RealmDetail from '../ManageRealm/RealmDetail';
 import ClientDetail from '../ManageClient/ClientDetail';
 import ClientPermission from '../ClientPermission';
-import LoginPage from '../LoginPage';
 import { loginPageSubject } from '../../events/LoginPageEvent';
 import ReachInstance from '../ReachInstance';
 import ProtectedRoute from '../ProtectedRoute';
 import Landing from '../Landing';
+import LoginPage from '../Page/LoginPage';
 
 interface Props {
 }
@@ -50,6 +50,15 @@ const RouterView = (props: Props) => {
             <ProtectedRoute
               middleware={['readAuthenticationOa']}>
               <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute
+              middleware={['']}>
+              <LoginPage />
             </ProtectedRoute>
           }
         />
@@ -105,7 +114,7 @@ const RouterView = (props: Props) => {
             <ProtectedRoute middleware={['authenticate']} component={ReachInstance} />
           }
         />
-        
+
         <Route
           path="/realm/:realm/home"
           element={

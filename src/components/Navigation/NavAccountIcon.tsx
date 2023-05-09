@@ -34,11 +34,9 @@ const NavAccountIcon = (props: Props) => {
       removeSessionValue(`${authorization.realm}-refresh_token`);
       removeSessionValue(`${authorization.realm}-access_token`);
       dispatch(removeAuth());
-      authorization.realm === 100
-        ? history('/')
-        : history(`/realm/${authorization.realm}/home`);
+      history('/')
     } else {
-      history(`/realm/100/login/oneauth`);
+      history(`/login`);
     }
   };
 
