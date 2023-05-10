@@ -1,0 +1,14 @@
+.schedule-receipt-details {
+}
+
+.schedule-receipt-details__error {
+  color: var(--color-danger);
+  font-size: 12px;
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 4px;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+  margin-bottom: 12px;
+}

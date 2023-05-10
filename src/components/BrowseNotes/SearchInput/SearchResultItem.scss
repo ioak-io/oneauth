@@ -1,0 +1,27 @@
+.search-result-item {
+  display: grid;
+  grid-auto-flow: row;
+  justify-content: flex-start;
+  justify-items: flex-start;
+  // row-gap: 5px;
+}
+
+.search-result-item__tag {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  // margin-bottom: -10px;
+  margin-top: 4px;
+}
+
+.search-result-item__tag__item {
+  margin: 0 12px 12px 0;
+  padding: 4px 12px;
+  font-size: 14px;
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 6px;
+  align-items: center;
+  border-radius: 4px;
+}

@@ -1,0 +1,14 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: var(--height-nav);
+  line-height: var(--height-nav);
+  margin: 0px 10px;
+  .material-icons {
+    cursor: pointer;
+    // line-height: 60px;
+    color: var(--color-sidebar-text);
+  }
+}

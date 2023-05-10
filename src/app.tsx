@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './basicui-styles/index.scss';
 import App from './components/App';
-import './index.scss';
+// import './index.scss';
 // import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(

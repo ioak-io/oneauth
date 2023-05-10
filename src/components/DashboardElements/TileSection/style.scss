@@ -1,0 +1,46 @@
+.tile-section {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+}
+.tile-section__main__item--1 {
+  grid-area: area-1;
+}
+
+.tile-section__main__item--2 {
+  grid-area: area-2;
+}
+
+.tile-section__main__item--3 {
+  grid-area: area-3;
+}
+
+.tile-section__main__item--4 {
+  grid-area: area-4;
+}
+
+.tile-section__main__item--5 {
+  grid-area: area-5;
+}
+
+.tile-section__main__item--6 {
+  grid-area: area-6;
+}
+
+.tile-section__main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 40px;
+  grid-template-areas:
+    'area-1 area-2'
+    'area-3 area-4'
+    'area-5 area-6';
+}
+
+.tile-section__main__item {
+  display: grid;
+  align-content: center;
+  // row-gap: 10px;
+}

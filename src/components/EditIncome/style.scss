@@ -1,0 +1,52 @@
+.add-income {
+}
+
+.add-income__form {
+}
+
+.add-income__form__question {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.add-income__form__chips {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.add-income__form__chips__chip {
+  box-shadow: none;
+  border: 1px solid var(--color-container-i);
+  border-radius: 100px;
+  padding: 10px 30px;
+  color: inherit;
+  margin: 0 10px 10px 0;
+
+  transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+  background-color: inherit;
+  &:focus {
+    background-color: var(--color-info);
+    color: var(--color-info-i);
+  }
+  background-color: inherit;
+  &:hover {
+    background-color: var(--color-info);
+    color: var(--color-info-i);
+  }
+}
+
+.add-income__form__chips__chip--selected,
+.add-income__form__chips__chip--selected:focus,
+.add-income__form__chips__chip--selected:hover {
+  background-color: var(--color-default);
+  color: var(--color-default-i);
+}
+
+.add-income-footer {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+}

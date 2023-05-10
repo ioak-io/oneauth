@@ -1,0 +1,30 @@
+.colorfilter-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 10px 6px;
+    border-radius: 4px;
+    background-color: var(--theme-white-400);
+    align-items: center;
+}
+
+.colorfilter-item__left {
+    display: flex;
+    align-items: center;
+}
+
+.colorfilter-item__right {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 6px;
+}
+
+.basicui-dark .colorfilter-item {
+    background-color: var(--theme-black-extended-800);
+}
+
+.colorfilter-item__color-preview {
+    height: 12px;
+    width: 12px;
+    border-radius: 50px;
+    margin-right: 6px;
+}

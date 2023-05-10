@@ -13,6 +13,11 @@ const DarkModeIcon = () => {
         theme: profile.theme === 'basicui-dark' ? 'basicui-light' : 'basicui-dark',
       })
     );
+
+    sessionStorage.setItem(
+      'oneauth_pref_profile_colormode',
+      profile.theme === 'basicui-dark' ? 'basicui-light' : 'basicui-dark'
+    );
   };
   return (
     <div className={`dark-mode-icon ${profile.theme}`} onClick={toggleMode}>

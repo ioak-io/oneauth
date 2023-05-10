@@ -1,0 +1,5 @@
+.new-note-form {
+  display: grid;
+  row-gap: 12px;
+  margin-bottom: calc(24px + var(--footer-height));
+}

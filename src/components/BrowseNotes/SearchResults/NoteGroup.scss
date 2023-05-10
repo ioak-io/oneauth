@@ -1,0 +1,9 @@
+.search-results-note-group__header {
+    // margin-bottom: 0;
+}
+
+.search-results-note-group__main {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 16px;
+}

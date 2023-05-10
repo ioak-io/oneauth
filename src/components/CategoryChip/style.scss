@@ -1,0 +1,25 @@
+.category-chip {
+  color: var(--color-info-i);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+
+  background-color: var(--tag-background-color);
+  &:hover,
+  &:focus {
+    background-color: var(--tag-background-color-hover);
+  }
+}
+
+.category-chip--active, .category-chip--active:hover, .category-chip--active:focus {
+  background-color: var(--theme-black-extended-50);
+  color: var(--theme-black-extended-50i);
+}
+
+.basicui-dark .category-chip--active,
+.basicui-dark .category-chip--active:hover,
+.basicui-dark .category-chip--active:focus {
+  background-color: var(--theme-white-900);
+  color: var(--theme-white-900i);
+}

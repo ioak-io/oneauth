@@ -1,0 +1,13 @@
+.edit-bill-page {
+}
+
+.edit-bill-page__main {
+  display: grid;
+  grid-auto-flow: row;
+  // row-gap: 20px;
+  margin-bottom: calc(var(--footer-height) + 40px);
+}
+
+.edit-bill-page__main__bill,
+.edit-bill-page__main__expense {
+}

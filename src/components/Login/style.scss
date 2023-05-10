@@ -1,0 +1,37 @@
+.login-home {
+  align-items: center;
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 20px;
+  }
+  @media (max-width: 767px) {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    row-gap: 20px;
+  }
+}
+
+.login-method {
+  cursor: pointer;
+  user-select: none;
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 10px;
+  justify-items: center;
+  background-color: var(--color-background-5);
+  padding: 20px;
+  box-shadow: var(--bs-lg);
+  border-radius: 6px;
+  &:hover {
+    background-color: var(--color-primary-1);
+  }
+  .material-icons {
+    font-size: 50px;
+  }
+
+  img.login-method--icon {
+    height: 50px;
+    width: auto;
+  }
+}

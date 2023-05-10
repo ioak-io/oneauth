@@ -1,0 +1,45 @@
+.expense-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  row-gap: 20px;
+  column-gap: 20px;
+  margin: 20px 0px;
+  // margin-right: 0;
+}
+
+.expense-summary__tab {
+  display: flex;
+  justify-content: center;
+  padding: 40px 10px;
+  background-color: var(--color-float);
+  color: var(--color-float-i);
+  border-radius: 6px;
+  position: relative;
+  transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+}
+
+.expense-summary__tab--active {
+  background-color: var(--color-secondary);
+  color: var(--color-secondary-i);
+}
+
+.expense-summary__tab__metric {
+  position: relative;
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.expense-summary__tab .expense-summary__tab__definition {
+  position: absolute;
+  text-transform: capitalize;
+  bottom: 0px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-float-darkest);
+}
+
+.expense-summary__tab--active .expense-summary__tab__definition {
+  color: var(--color-secondary-i);
+}

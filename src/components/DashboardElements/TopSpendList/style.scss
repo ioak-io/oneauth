@@ -1,0 +1,25 @@
+.top-spend-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 40px;
+}
+
+.top-spend-list__left,
+.top-spend-list__right {
+  display: grid;
+  grid-auto-flow: row;
+  // row-gap: 20px;
+  align-content: flex-start;
+}
+
+.top-spend-list__item {
+  border-bottom: 1px solid var(--theme-white-300);
+  padding: 10px 0;
+}
+.basicui-dark .top-spend-list__item {
+  border-bottom: 1px solid var(--theme-black-50);
+}
+
+.top-spend-list__item:last-child {
+  border-bottom: none;
+}

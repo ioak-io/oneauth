@@ -1,0 +1,13 @@
+.head-viewer {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 12px;
+}
+
+.head-viewer__name {
+    font-weight: 500;
+}
+
+.head-viewer__title {
+    display: inline;
+}

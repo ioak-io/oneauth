@@ -1,0 +1,26 @@
+.search-pref {
+    // background-color: var(--theme-white-300);
+    padding: 12px;
+    border-radius: 4px 4px 0 0;
+    border-radius: 0;
+}
+
+.basicui-dark .search-pref {
+    // background-color: var(--theme-black-50);
+}
+
+.search-pref__info {
+    font-size: 12px;
+    margin-bottom: 12px;
+    color: var(--theme-black-extended-100);
+}
+.basicui-dark .search-pref__info {
+    color: var(--theme-white-extended-100);
+}
+
+.search-pref__options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: -12px;
+}

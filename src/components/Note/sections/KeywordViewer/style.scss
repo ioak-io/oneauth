@@ -1,0 +1,20 @@
+.keyword-viewer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: -6px;
+}
+
+.keyword-viewer__item {
+    padding: 2px 10px;
+    font-size: 12px;
+    border-radius: 40px;
+    border: 1px dashed var(--theme-white-900);
+    margin: 0 6px 6px 0;
+    // color: var(--basicui-formelement-label-color);
+    // opacity: 0.8;
+}
+
+.basicui-dark .keyword-viewer__item {
+    border-color: var(--theme-black-extended-400);
+}

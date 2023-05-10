@@ -1,0 +1,11 @@
+.sch-rec-pg-element {
+  display: grid;
+  grid-auto-flow: row;
+  justify-items: flex-start;
+  text-align: left;
+  // row-gap: 10px;
+}
+
+.sch-rec-pg-element__label {
+  font-size: 10px;
+}

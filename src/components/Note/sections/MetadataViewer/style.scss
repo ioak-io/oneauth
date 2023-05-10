@@ -1,0 +1,8 @@
+.metadata-viewer {
+    display: flex;
+    flex-direction: column;
+}
+.metadata-viewer__main {
+    display: grid;
+    row-gap: 12px;
+}

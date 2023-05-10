@@ -1,0 +1,20 @@
+.category-distribution {
+  //   height: 200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+}
+
+.category-distribution__chart {
+  //   padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.category-distribution__chart__center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}

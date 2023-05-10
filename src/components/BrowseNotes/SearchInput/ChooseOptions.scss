@@ -1,0 +1,31 @@
+.search-choose-options {
+    // background-color: var(--theme-white-300);
+    padding: 0 12px 12px 12px;
+    border-radius: 4px 4px 0 0;
+    border-radius: 0;
+}
+
+.basicui-dark .search-choose-options {
+    // background-color: var(--theme-black-50);
+}
+
+.search-choose-options__options__option:disabled {
+    opacity: 0.5;
+}
+
+.search-choose-options__info {
+    font-size: 12px;
+    margin-bottom: 12px;
+    color: var(--theme-black-extended-100);
+}
+
+.basicui-dark .search-choose-options__info {
+    color: var(--theme-white-extended-100);
+}
+
+.search-choose-options__options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: -12px;
+}

@@ -1,0 +1,27 @@
+.stopwords-page__action {
+  display: grid;
+  margin-bottom: 24px;
+  margin-top: 12px;
+  justify-content: space-between;
+  align-items: center;
+  grid-auto-flow: column;
+  column-gap: 6px;
+}
+
+.stopwords-page__action__right {
+  display: grid;
+  justify-content: flex-end;
+  align-items: center;
+  grid-auto-flow: column;
+  column-gap: 6px;
+}
+
+.stopwords-page__content {
+  display: grid;
+  row-gap: 12px;
+}
+
+.stopwords-page__content__info {
+  font-size: 12px;
+  // opacity: 0.8;
+}

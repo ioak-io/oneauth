@@ -1,6 +1,6 @@
-import { Button, ThemeType } from 'basicui';
 import React from 'react';
 import './style.scss';
+import { Button } from 'basicui';
 
 interface Props {
   history: any;
@@ -40,7 +40,6 @@ const GettingStartedRealm = (props: Props) => {
       </div>
       <div className="action-footer position-center">
         <Button
-          theme={ThemeType.primary}
           onClick={goToCreatePage}
         >
           Create a new realm

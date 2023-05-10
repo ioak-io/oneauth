@@ -3,14 +3,14 @@ import './NavMenuIcon.scss';
 
 interface Props {
   showClose: boolean;
-  onClick: any;
+  handleClick: any;
 }
 
 const NavMenuIcon = (props: Props) => {
   return (
     <div
       className={`nav-menu-icon ${props.showClose ? 'close' : ''}`}
-      onClick={props.onClick}
+      onClick={props.handleClick}
     >
       <span className="__line __line-left" />
       <span className="__line" />

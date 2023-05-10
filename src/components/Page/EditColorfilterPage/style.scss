@@ -1,0 +1,21 @@
+.edit-colorfilter-page-form {
+  display: grid;
+  row-gap: 12px;
+  margin-bottom: calc(24px + var(--footer-height));
+}
+
+.edit-colorfilter-page-form input[type=color] {
+  height: var(--basicui-formelement-height);
+  width: calc(var(--basicui-formelement-height) + 36px);
+  box-shadow: none;
+  border: none;
+  outline: none;
+  // border-radius: 100px;
+}
+
+.edit-colorfilter-page-form__header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 12px;
+  align-items: center;
+}

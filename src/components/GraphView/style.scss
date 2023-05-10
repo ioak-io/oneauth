@@ -1,0 +1,16 @@
+.graph-view__depth-control {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-content: center;
+}
+
+.graph-view__depth-control__action {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  align-content: center;
+}
+
+.graph-view__depth-control__text {
+  font-weight: 600;
+}

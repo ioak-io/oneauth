@@ -1,0 +1,27 @@
+.sch-rec-pg-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  padding: 20px 10px;
+  background-color: var(--theme-white-500);
+  align-items: flex-start;
+  &:hover,
+  &:focus {
+    background-color: var(--theme-primary-transparent-200);
+  }
+}
+.basicui-dark .sch-rec-pg-item {
+  background-color: var(--theme-black-300);
+  &:hover,
+  &:focus {
+    background-color: var(--theme-primary-transparent-200);
+  }
+}
+.sch-rec-pg-item__element {
+  display: grid;
+  grid-auto-flow: row;
+  // row-gap: 10px;
+}
+
+.sch-rec-pg-item__element__label {
+  font-size: 10px;
+}

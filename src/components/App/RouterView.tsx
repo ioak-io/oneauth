@@ -3,19 +3,24 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './RouterView.scss';
 import Home from '../Home';
-import OakRoute from '../Auth/OakRoute';
-import Unauthorized from '../Auth/Unauthorized';
-import RealmHome from '../RealmHome';
-import RealmListing from '../ManageRealm/RealmListing';
-import ClientListing from '../ManageClient/ClientListing';
-import ClientrealmHome from '../ClientrealmHome';
-import RealmDetail from '../ManageRealm/RealmDetail';
-import ClientDetail from '../ManageClient/ClientDetail';
-import ClientPermission from '../ClientPermission';
 import { loginPageSubject } from '../../events/LoginPageEvent';
-import ReachInstance from '../ReachInstance';
-import ProtectedRoute from '../ProtectedRoute';
-import Landing from '../Landing';
+import ProtectedRouteApp from '../ProtectedRouteApp';
+import LandingPage from '../Page/LandingPage';
+import OaLogin from '../Auth/OaLogin';
+import EditCompanyPage from '../Page/EditCompanyPage';
+import UnauthorizedPage from '../Page/UnauthorizedPage';
+import ExpensePage from '../Page/ExpensePage';
+import EditCompany from '../Page/SettingsPage/EditCompany';
+import Permissions from '../Page/SettingsPage/Permissions';
+import BackupAndRestore from '../Page/SettingsPage/BackupAndRestore';
+import GraphPage from '../Page/GraphPage';
+import NotePage from '../Page/NotePage';
+import MetadataDefinitionPage from '../Page/MetadataDefinitionPage';
+import BrowsePage from '../Page/BrowsePage';
+import NewNotePage from '../Page/NewNotePage';
+import ColorfilterPage from '../Page/ColorfilterPage';
+import EditColorFilterPage from '../Page/EditColorfilterPage';
+import StopwordsPage from '../Page/StopwordsPage';
 import LoginPage from '../Page/LoginPage';
 
 interface Props {
@@ -32,133 +37,113 @@ const RouterView = (props: Props) => {
 
   return (
     <div
-      className={`router-view ${loginPage ? 'login-page' : 'not-login-page'}`}
+      className={`router-view ${loginPage ? 'on-login-page' : 'not-on-login-page'}`}
     >
       <Routes>
         <Route
           path="/"
           element={
-            <ProtectedRoute
-              middleware={['readAuthenticationOa']}>
-              <Home />
-            </ProtectedRoute>
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={LandingPage} />
           }
         />
         <Route
           path="/home"
           element={
-            <ProtectedRoute
-              middleware={['readAuthenticationOa']}>
-              <Home />
-            </ProtectedRoute>
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={LandingPage} />
           }
         />
         <Route
           path="/login"
           element={
-            <ProtectedRoute
-              middleware={['']}>
-              <LoginPage />
-            </ProtectedRoute>
-          }
+            <ProtectedRouteApp
+              middleware={[]} component={LoginPage} />}
         />
         <Route
-          path="/landing"
+          path="/company/edit"
           element={
-            <ProtectedRoute
-              middleware={[]}>
-              <Landing />
-            </ProtectedRoute>
-          }
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={EditCompanyPage} />}
         />
         <Route
-          path="/realm/:realm/login/:client_id"
+          path="/:space/unauthorized"
           element={
-            <ProtectedRoute
-              middleware={['readRealm']} component={LoginPage} />
-          }
+            <ProtectedRouteApp
+              middleware={['isAuthenticated']} component={UnauthorizedPage} />}
         />
         <Route
-          path="/managerealm"
+          path="/:space/home"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={RealmListing} />
-          }
+            <ProtectedRouteApp
+              middleware={['readAuthentication']} component={ExpensePage} />}
         />
         <Route
-          path="/managerealm/:realmId"
+          path="/:space/new-note"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={RealmDetail} />
-          }
+            <ProtectedRouteApp
+              middleware={['readAuthentication']} component={NewNotePage} />}
         />
         <Route
-          path="/manageclient"
+          path="/:space/note/:id"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={ClientListing} />
-          }
+            <ProtectedRouteApp
+              middleware={['readAuthentication']} component={NotePage} />}
         />
         <Route
-          path="/manageclient/:id"
+          path="/:space/browse"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={ClientDetail} />
-          }
+            <ProtectedRouteApp
+              middleware={['readAuthentication']} component={BrowsePage} />}
         />
         <Route
-          path="/manageclient/:id/permission/:userId"
+          path="/:space/graph"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={ClientPermission} />
-          }
+            <ProtectedRouteApp
+              middleware={['readAuthentication']} component={GraphPage} />}
         />
         <Route
-          path="/blog"
+          path="/:space/metadata-definition"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={ReachInstance} />
-          }
+            <ProtectedRouteApp
+              middleware={['readAuthentication']} component={MetadataDefinitionPage} />}
         />
-
         <Route
-          path="/realm/:realm/home"
+          path="/:space/color-filter"
           element={
-            <ProtectedRoute middleware={['readAuthentication']} component={RealmHome} />
-          }
+            <ProtectedRouteApp
+              middleware={['readAuthentication']} component={ColorfilterPage} />}
         />
         <Route
-          path="/realm/:realm"
+          path="/:space/color-filter/:id"
           element={
-            <ProtectedRoute middleware={['readAuthentication']} component={RealmHome} />
-          }
+            <ProtectedRouteApp
+              middleware={['readAuthentication']} component={EditColorFilterPage} />}
         />
         <Route
-          path="/realm/:realm/unauthorized"
+          path="/:space/stopwords"
           element={
-            <ProtectedRoute middleware={['isAuthenticated']} component={Unauthorized} />
-          }
-        />
-
-        {/* <Route
-          exact
-          path="/clientrealm/:clientrealm/home"
-          render={(propsLocal: any) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              //  logout={() => logout}
-              component={ClientrealmHome}
-              middleware={['readAuthenticationClientrealm']}
-            />
-          )}
+            <ProtectedRouteApp
+              middleware={['readAuthentication']} component={StopwordsPage} />}
         />
         <Route
-          exact
-          path="/clientrealm/:clientrealm"
-          render={(propsLocal: any) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={ClientrealmHome}
-              middleware={['readAuthenticationClientrealm']}
-            />
-          )}
-        /> */}
+          path="/:space/settings/company"
+          element={
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={EditCompany} />}
+        />
+        <Route
+          path="/:space/settings/user"
+          element={
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={Permissions} />}
+        />
+        <Route
+          path="/:space/settings/backup"
+          element={
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={BackupAndRestore} />}
+        />
       </Routes>
     </div>
   );

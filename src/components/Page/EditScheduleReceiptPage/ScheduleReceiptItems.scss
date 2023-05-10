@@ -1,0 +1,31 @@
+table {
+  tr {
+    vertical-align: middle;
+  }
+}
+
+.indicator-column {
+  width: 20px !important;
+  min-width: 20px !important;
+}
+
+.indicator {
+  height: 12px;
+  width: 12px;
+  border-radius: 12px;
+}
+
+.indicator--error {
+  background-color: var(--color-danger);
+}
+
+.schedule-receipt-items__error {
+  color: var(--color-danger);
+  font-size: 12px;
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 4px;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: center;
+}

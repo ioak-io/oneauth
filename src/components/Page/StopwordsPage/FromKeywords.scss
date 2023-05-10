@@ -1,0 +1,31 @@
+.from-keywords {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 12px;
+}
+
+.from-keywords__header {
+    display: grid;
+    margin-bottom: 24px;
+    margin-top: 12px;
+    justify-content: space-between;
+    align-items: center;
+    grid-auto-flow: column;
+    column-gap: 6px;
+}
+
+.from-keywords__header__left {
+    display: flex;
+    align-items: center;
+}
+
+.from-keywords__header__right {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 6px;
+}
+
+.from-keywords__content {
+    display: grid;
+    row-gap: 12px;
+}

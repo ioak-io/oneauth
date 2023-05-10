@@ -1,0 +1,13 @@
+.colorfilter-page__action {
+  display: grid;
+  margin-bottom: 24px;
+  justify-content: flex-end;
+  grid-auto-flow: column;
+  column-gap: 6px;
+}
+
+.colorfilter-page__content {
+  display: grid;
+  row-gap: 12px;
+}
+

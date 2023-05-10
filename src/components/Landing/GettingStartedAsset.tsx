@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Input, Button } from 'basicui';
 import './style.scss';
 import { newMessageId, sendMessage } from '../../events/MessageService';
 import createAsset from './service';
 import { fetchAllAssets } from '../../store/actions/AssetActions';
-import { Button, Input, ThemeType } from 'basicui';
 
 interface Props {
   history: any;
@@ -18,7 +18,7 @@ const GettingStartedAsset = (props: Props) => {
     description: '',
   });
 
-  const onInput = (event: any) => {
+  const handleChange = (event: any) => {
     setState({
       ...state,
       [event.currentTarget.name]: event.currentTarget.value,
@@ -68,18 +68,18 @@ const GettingStartedAsset = (props: Props) => {
       )}
       {showCreate && (
         <>
-          <h2>Setup new asset</div>
-          <form onSubmit={save}>
+          <h2>Setup new asset</h2>
+          <form onSubmit={save} id="create-asset-form">
             <Input
               name="name"
               value={state.name}
-              onInput={onInput}
+              onInput={handleChange}
               label="Asset name"
             />
             <Input
               value={state.description}
               name="description"
-              onInput={onInput}
+              onInput={handleChange}
               label="Short description"
             />
           </form>
@@ -88,22 +88,18 @@ const GettingStartedAsset = (props: Props) => {
       <div className="action-footer position-center">
         {!showCreate && (
           <Button
-            theme={ThemeType.default}
-            
             onClick={() => setShowCreate(true)}
           >
             Create a new asset
           </Button>
         )}
         {showCreate && (
-          <Button theme={ThemeType.primary}  onClick={save}>
+          <Button onClick={save}>
             Submit
           </Button>
         )}
         {showCreate && (
           <Button
-            theme={ThemeType.default}
-            
             onClick={() => setShowCreate(false)}
           >
             Cancel

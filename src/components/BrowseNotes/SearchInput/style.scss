@@ -1,0 +1,16 @@
+@import './searchbox';
+
+.search-input {
+  display: grid;
+  // row-gap: 12px;
+    background-color: var(--theme-white-300);
+    border-radius: 4px;
+}
+
+.basicui-dark .search-input {
+    background-color: var(--theme-black-50);
+}
+
+.search-input__input {
+  padding: 12px;
+}

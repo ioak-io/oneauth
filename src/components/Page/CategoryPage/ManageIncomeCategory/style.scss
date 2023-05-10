@@ -1,0 +1,12 @@
+.manage-income-category {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 20px;
+}
+
+.manage-income-category__items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}

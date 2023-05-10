@@ -30,8 +30,8 @@ const LoginPage = (props: Props) => {
     event.preventDefault();
     signin(state.email, state.password).then((response) => {
       console.log(response);
-      setSessionValue(`fortuna-access_token`, response.access_token);
-      setSessionValue(`fortuna-refresh_token`, response.refresh_token);
+      setSessionValue(`oneauth-access_token`, response.access_token);
+      setSessionValue(`oneauth-refresh_token`, response.refresh_token);
       navigate(searchParams.get("from") || '/home');
     })
   }
@@ -41,12 +41,11 @@ const LoginPage = (props: Props) => {
     <div className="login-page__right">
       <div className="login-page__right__overlay">
         <div className="login-page__right__overlay__content">
-          <Logo />
+          <Logo variant='short' />
           <form onSubmit={onSignin} className="login-page__right__overlay__content__form">
-            <Input name="email" value={state.email} onInput={onInput} label='Username or Email Address' />
+            <Input autoFocus name="email" value={state.email} onInput={onInput} label='Username or Email Address' />
             <Input name="password" value={state.password} onInput={onInput} type="password" label='Password' />
             <Button type="submit" theme={ThemeType.primary}>Sign in</Button>
-            <input />
           </form>
         </div>
       </div>

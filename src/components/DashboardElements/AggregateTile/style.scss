@@ -1,0 +1,56 @@
+.aggregate-tile {
+  display: flex;
+  justify-content: center;
+  padding: 40px 10px;
+  background-color: var(--theme-white-300);
+  color: var(--theme-white-300i);
+  box-shadow: none;
+  border: none;
+  // border-radius: 6px;
+  position: relative;
+  transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    background-color: var(--theme-white-400);
+  }
+}
+.basicui-dark .aggregate-tile {
+  background-color: var(--theme-black-300);
+  color: var(--theme-black-300i);
+  &:hover,
+  &:focus {
+    background-color: var(--theme-black-400);
+  }
+}
+
+.aggregate-tile--active,
+.aggregate-tile--active:hover,
+.aggregate-tile--active:focus,
+.basicui-dark .aggregate-tile--active,
+.basicui-dark .aggregate-tile--active:hover,
+.basicui-dark .aggregate-tile--active:focus {
+  background-color: var(--theme-primary-500);
+  color: var(--theme-primary-500i);
+}
+
+.aggregate-tile__metric {
+  position: relative;
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.aggregate-tile .aggregate-tile__definition {
+  position: absolute;
+  text-transform: capitalize;
+  bottom: 5px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-float-darkest);
+}
+
+.aggregate-tile--active .aggregate-tile__definition {
+  color: var(--color-secondary-i);
+}

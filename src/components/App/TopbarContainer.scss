@@ -1,3 +1,11 @@
 .topbar-container {
-  // height: var(--height-nav);
+  // height: 48px;
+  height: 78px;
+  z-index: 40;
+  box-shadow: none;
+  border-bottom: 1px solid var(--color-global-dark);
+}
+.topbar-container--transparent {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid transparent;
 }

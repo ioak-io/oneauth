@@ -2,8 +2,8 @@
     display: grid;
     grid-template-columns: 0 1fr;
     min-height: 100vh;
-    // background-color: #fcfcfc;
-    // color: #0c0c0c;
+    background-color: #fcfcfc;
+    color: #0c0c0c;
 }
 
 @media (min-width: 960px) {
@@ -17,7 +17,7 @@
 }
 
 .login-page__left {
-    background: url("https://images.unsplash.com/photo-1619718082268-5a1b74988497?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80") center center / cover no-repeat;
+    background: url("https://images.unsplash.com/photo-1588581939864-064d42ace7cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80") center center / cover no-repeat;
 }
 
 .login-page__right {
@@ -48,16 +48,14 @@
     row-gap: 20px;
     justify-content: center;
 }
+
 .login-page__right__overlay__content__form {
     display: grid;
     grid-auto-flow: row;
     row-gap: 20px;
 
-    input, button {
+    input,
+    button {
         height: 40px;
     }
-}
-
-input {
-    background-color: red !important;
 }

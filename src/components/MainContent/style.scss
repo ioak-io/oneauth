@@ -1,0 +1,14 @@
+@media (min-width: 768px) {
+  .main-content {
+    margin-left: var(--app-layout-sidebar-width);
+    transition: margin-left 250ms ease-in-out;
+  }
+  .main-content__sidebar-inactive {
+    margin-left: 75px;
+    margin-left: var(--app-layout-sidebar-width-shrinked);
+  }
+}
+
+.main-content--login-page {
+  margin-left: 0;
+}

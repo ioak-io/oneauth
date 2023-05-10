@@ -1,0 +1,30 @@
+.category-selection {
+}
+
+.category-selection__list {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.category-selection__list__chip {
+  border-radius: 100px;
+  padding: 10px 20px;
+  color: inherit;
+  margin: 0 10px 10px 0;
+
+  transition: background-color 250ms ease-in-out, border-color 250ms ease-in-out,
+    color 250ms ease-in-out;
+  background-color: var(--tag-background-color);
+  &:hover,
+  &:focus {
+    background-color: var(--tag-background-color-hover);
+  }
+}
+
+.category-selection__list__chip--selected,
+.category-selection__list__chip--selected:focus,
+.category-selection__list__chip--selected:hover {
+  background-color: var(--color-default);
+  color: var(--color-default-i);
+}

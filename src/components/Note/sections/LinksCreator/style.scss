@@ -1,0 +1,23 @@
+.links-creator {
+    margin-top: 24px;
+}
+
+.links-creator__links {
+    display: grid;
+    margin-top: 12px;
+}
+.links-creator__links .link-view {
+    margin-bottom: 12px;
+}
+
+.links-creator__links__link {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: flex-start;
+    column-gap: 12px;
+}
+
+.links-creator__links__link button {
+    height: 24px;
+    width: 24px;
+}

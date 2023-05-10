@@ -1,0 +1,47 @@
+.grid-filter {
+  padding: 0 20px;
+  position: relative;
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  align-items: flex-start;
+}
+
+.grid-filter__name {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  align-content: center;
+  height: var(--app-layout-topbar-height);
+  font-size: 18px;
+  button {
+    font-size: 18px;
+  }
+}
+
+.grid-filter__topbar {
+  height: 100px;
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  align-content: center;
+  align-items: center;
+  font-size: 28px;
+}
+
+.grid-filter__main {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 20px;
+}
+
+.grid-filter__action {
+  height: 100px;
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  align-content: center;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 20px;
+}

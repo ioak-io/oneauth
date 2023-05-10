@@ -1,21 +1,23 @@
 .nav-account-icon {
+  color: #fff;
   i {
     &:hover {
       color: var(--color-failure);
     }
   }
 
-  &.basicui-dark {
-    color: var(--theme-adaptive-200i);
-  }
-  &.basicui-light {
-    color: #fff;
-  }
-
+  // .nav-account-icon--username {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 10px;
+  align-items: center;
+  align-content: center;
+  // }
   .nav-account-icon--username {
     display: grid;
     grid-auto-flow: column;
     column-gap: 10px;
     align-items: center;
+    align-content: center;
   }
 }

@@ -1,0 +1,24 @@
+.backup-and-restore {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 20px;
+}
+
+.backup-and-restore__section__subtitle {
+  //   margin-bottom: 20px;
+}
+
+.backup-and-restore__section__action {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+.import-section {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 20px;
+  margin-bottom: 20px;
+}

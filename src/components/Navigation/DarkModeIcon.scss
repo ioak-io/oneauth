@@ -1,9 +1,10 @@
 .dark-mode-icon {
   display: flex;
-  &.basicui-dark {
-    color: var(--theme-adaptive-200i);
-  }
-  &.basicui-light {
-    color: #fff;
-  }
+  color: var(--theme-adaptive-100i);
+  // &.basicui-dark {
+  //   color: var(--color-1);
+  // }
+  // &.basicui-light {
+  //   color: var(--color-1);
+  // }
 }

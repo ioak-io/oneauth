@@ -1,0 +1,18 @@
+.mock-search-results {
+    display: grid;
+    row-gap: 12px;
+    opacity: 0.4;
+}
+
+.mock-search-results__item__title {
+    font-weight: 500;
+}
+
+.mock-search-results-warning {
+    font-size: 12px;
+    color: var(--theme-warning-500);
+}
+
+.mock-search-results__info {
+    font-size: 12px;
+}

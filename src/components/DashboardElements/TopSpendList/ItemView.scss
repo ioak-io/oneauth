@@ -1,0 +1,19 @@
+.top-spend-list-item {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.top-spend-list-item__top,
+.top-spend-list-item__bottom {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.top-spend-list-item__bottom__left,
+.top-spend-list-item__bottom__right {
+  // color: var(--color-2);
+}
+
+.top-spend-list-item__bottom__left {
+  font-size: 12px;
+}

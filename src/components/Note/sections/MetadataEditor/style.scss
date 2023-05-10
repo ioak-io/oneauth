@@ -1,0 +1,8 @@
+.metadata-editor {
+    display: flex;
+    flex-direction: column;
+}
+.metadata-editor__main {
+    display: grid;
+    row-gap: 12px;
+}

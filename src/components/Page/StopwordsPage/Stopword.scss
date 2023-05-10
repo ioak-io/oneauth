@@ -1,0 +1,36 @@
+.stopword {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 10px 6px;
+    border-radius: 4px;
+    background-color: var(--theme-white-400);
+    align-items: center;
+    opacity: 1;
+    transition: opacity 250ms ease-in-out;
+}
+
+.stopword__left {
+    display: flex;
+    align-items: center;
+}
+
+.stopword__right {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 6px;
+}
+
+.basicui-dark .stopword {
+    background-color: var(--theme-black-extended-800);
+}
+
+.stopword__color-preview {
+    height: 12px;
+    width: 12px;
+    border-radius: 50px;
+    margin-right: 6px;
+}
+
+.stopword--disabled {
+    opacity: 0.6;
+}

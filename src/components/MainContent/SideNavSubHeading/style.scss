@@ -1,0 +1,16 @@
+.side-nav-sub-heading {
+  color: var(--theme-white-extended-900);
+  display: flex;
+  justify-content: center;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+.side-nav-sub-heading__sidebar-active {
+  justify-content: flex-start;
+  margin-left: 15px;
+}
+.side-nav-sub-heading__sidebar-inactive {
+  text-align: center;
+  word-break: break-all;
+}

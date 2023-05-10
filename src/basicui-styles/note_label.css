@@ -1,0 +1,41 @@
+.note-label-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: -10px;
+}
+
+.note-label {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 10px;
+    align-items: center;
+    text-align: left;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    background-color: var(--theme-white-500);
+    color: var(--theme-white-500i);
+    margin: 0 10px 10px 0;
+    border: none;
+    transition: background-color 250ms ease-in-out, color 250ms ease-in-out;
+}
+
+.basicui-dark .note-label {
+    background-color: var(--theme-black-extended-700);
+    color: var(--theme-black-extended-700i);
+}
+
+button.note-label:hover,
+button.note-label:focus,
+button.note-label:active {
+    background-color: var(--theme-primary-transparent-400);
+    color: var(--theme-primary-transparent-400i);
+}
+
+.note-label button {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+}
+

@@ -1,0 +1,70 @@
+.expense-page {}
+
+.expense-page {
+  // display: grid;
+  // grid-template-columns: 1fr auto;
+  // margin-right: 27em;
+}
+
+.expense-page__topbar {
+  // background-color: var(--color-surface);
+  height: 100px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 10px;
+  align-content: center;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.expense-page__topbar__left {
+  font-size: 28px;
+}
+
+.expense-page__topbar__right {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+}
+
+.expense-page__main {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  // margin-bottom: 20px;
+}
+
+.expense-page__main__list {
+  // background-color: var(--color-surface);
+  // margin-top: 100px;
+  // padding: 14px 28px;
+  // padding-top: 14px;
+}
+
+.expense-page__main__summary {
+  // border-bottom: 1px solid var(--color-container-darker);
+  // border-top: 1px solid var(--color-container-darker);
+}
+
+.expense-page__filter {
+  position: fixed;
+  width: 27em;
+  overflow-y: auto;
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin-right: -27em;
+  background-color: var(--theme-white-100);
+  border-left: 1px solid var(--theme-white-500);
+  transition: margin-right 250ms ease-in-out;
+}
+
+.basicui-dark .expense-page__filter {
+  background-color: var(--theme-black-300);
+  border-left: 1px solid var(--theme-black-50);
+}
+
+.expense-page__filter--active {
+  margin-right: 0;
+}

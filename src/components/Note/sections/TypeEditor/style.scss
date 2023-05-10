@@ -1,0 +1,25 @@
+.type-editor__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: -12px;
+}
+
+.type-editor__container button {
+    // height: 24px;
+    padding: 2px 10px;
+    border: none;
+    border-radius: 24px;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    opacity: 0.5;
+    font-size: 12px;
+    transition: color 250ms ease-in-out, background-color 250ms ease-in-out, opacity 250ms ease-in-out;
+}
+
+.type-editor__container button:hover,
+// .type-editor__container button:focus,
+.type-editor__container button:active,
+.type-editor__container button.active {
+    opacity: 1;
+}
