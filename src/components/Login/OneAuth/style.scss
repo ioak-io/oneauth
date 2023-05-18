@@ -1,0 +1,28 @@
+.list-spaces {
+  display: grid;
+  padding: 20px 20px;
+  align-content: center;
+  grid-template-rows: auto auto;
+  .list-spaces--content {
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 20px;
+    overflow-y: auto;
+    align-items: flex-start;
+  }
+}
+
+.space-list-item {
+  background-color: var(--color-background-5);
+  padding: 20px 40px;
+  box-shadow: var(--bs-lg);
+  .space-list-item--link {
+    display: flex;
+  }
+  border-left: 6px solid transparent;
+
+  &:hover {
+    cursor: pointer;
+    border-left: 6px solid var(--color-primary-1);
+  }
+}

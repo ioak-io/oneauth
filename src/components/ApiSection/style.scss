@@ -1,0 +1,13 @@
+.overview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.property-section,
+.event-section {
+  margin-top: 16px;
+}
+.property-section {
+  margin-bottom: 40px;
+}

@@ -1,35 +1,21 @@
-import format from 'date-fns/format';
+import moment from 'moment';
 
-const currentYear = new Date().getFullYear();
+export const FORMAT_FULL_DATE = "Do MMM YYYY";
+export const FORMAT_MONTH_AND_YEAR = "MMMM YYYY";
 
-const dateFormatWithoutYear = 'MMM d';
-const dateFormat = 'MMM d, yyyy';
-
-export const formatDateText = (dateText: string) => {
+export const formatDateText = (dateText: string, format: string) => {
   if (dateText) {
-    const date = new Date(dateText);
-    return format(
-      date,
-      date.getFullYear() === currentYear ? dateFormatWithoutYear : dateFormat
-    );
+    // const date = new Date(dateText);
+    const date = moment(dateText, 'YYYY-MM-DDTHH:mm:ssZ')
+    return date.format(format);
   }
-  return '';
-};
+  return "";
+}
 
-export const formatDate = (date: Date) => {
+export const formatDate = (date: Date, format: string) => {
   if (date) {
-    return format(
-      date,
-      date.getFullYear() === currentYear ? dateFormatWithoutYear : dateFormat
-    );
+    const _date = moment(date);
+    return _date.format(format);
   }
-  return '';
-};
-
-export const days = (dateText: string) => {
-  if (dateText) {
-    const date = new Date(dateText);
-    return (date.getTime() - new Date().getTime()) / (1000 * 3600 * 24);
-  }
-  return 0;
-};
+  return "";
+}

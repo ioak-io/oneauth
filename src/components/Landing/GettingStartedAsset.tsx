@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Input, Button } from 'basicui';
 import './style.scss';
-import OakButton from '../../oakui/wc/OakButton';
 import { newMessageId, sendMessage } from '../../events/MessageService';
 import createAsset from './service';
 import { fetchAllAssets } from '../../store/actions/AssetActions';
-import OakForm from '../../oakui/wc/OakForm';
-import OakTypography from '../../oakui/wc/OakTypography';
-import OakInput from '../../oakui/wc/OakInput';
 
 interface Props {
   history: any;
@@ -71,46 +68,42 @@ const GettingStartedAsset = (props: Props) => {
       )}
       {showCreate && (
         <>
-          <OakTypography variant="h2">Setup new asset</OakTypography>
-          <OakForm handleSubmit={save} formGroupName="create-asset-form">
-            <OakInput
+          <h2>Setup new asset</h2>
+          <form onSubmit={save} id="create-asset-form">
+            <Input
               name="name"
               value={state.name}
-              handleChange={handleChange}
+              onInput={handleChange}
               label="Asset name"
             />
-            <OakInput
+            <Input
               value={state.description}
               name="description"
-              handleChange={handleChange}
+              onInput={handleChange}
               label="Short description"
             />
-          </OakForm>
+          </form>
         </>
       )}
       <div className="action-footer position-center">
         {!showCreate && (
-          <OakButton
-            theme="default"
-            variant="appear"
-            handleClick={() => setShowCreate(true)}
+          <Button
+            onClick={() => setShowCreate(true)}
           >
             Create a new asset
-          </OakButton>
+          </Button>
         )}
         {showCreate && (
-          <OakButton theme="primary" variant="appear" handleClick={save}>
+          <Button onClick={save}>
             Submit
-          </OakButton>
+          </Button>
         )}
         {showCreate && (
-          <OakButton
-            theme="default"
-            variant="appear"
-            handleClick={() => setShowCreate(false)}
+          <Button
+            onClick={() => setShowCreate(false)}
           >
             Cancel
-          </OakButton>
+          </Button>
         )}
       </div>
     </div>

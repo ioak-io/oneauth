@@ -1,54 +1,110 @@
 import React, { useEffect, useState } from 'react';
-import { Routes, Route, Link, BrowserRouter, HashRouter } from 'react-router-dom';
-import Home from '../Home';
-import Landing from '../Landing';
-import Init from './Init';
+import { HashRouter } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
+// TODO Chart JS responsiveness does not work after 4.1.1 version
+// https://github.com/chartjs/Chart.js/issues/11005
+
+import {
+  Chart,
+  ArcElement,
+  DoughnutController,
+  Legend,
+  LineController,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  TimeScale,
+  TimeSeriesScale,
+  Tooltip,
+  BarController,
+  BarElement,
+  Filler,
+} from 'chart.js';
+
+import './style.scss';
+
+import Notification from '../Notification';
+import Init from './Init';
 import TopbarContainer from './TopbarContainer';
 import SidebarContainer from './SidebarContainer';
 import BodyContainer from './BodyContainer';
 import { receiveMessage } from '../../events/MessageService';
-import { loginPageSubject } from '../../events/LoginPageEvent';
 import OakNotification from '../../oakui/wc/OakNotification';
 import OakAppLayout from '../../oakui/wc/OakAppLayout';
+import MakeNavBarTransparentCommand from '../../events/MakeNavBarTransparentCommand';
+import HideNavBarCommand from '../../events/HideNavBarCommand';
+import MainContent from '../MainContent';
+import Spinner from '../Spinner';
 import { setProfile } from '../../store/actions/ProfileActions';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { Chart } from 'chart.js';
+import { fetchAllSpaces } from '../../store/actions/SpaceActions';
+
+Chart.register(
+  DoughnutController,
+  LineController,
+  BarController,
+  ArcElement,
+  CategoryScale,
+  LinearScale,
+  TimeScale,
+  TimeSeriesScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  Legend,
+  Filler,
+  Tooltip
+);
 
 interface Props {
 }
 
 const Content = (props: Props) => {
   const profile = useSelector((state: any) => state.profile);
+  const authorization = useSelector((state: any) => state.authorization);
   const dispatch = useDispatch();
   const [usingMouse, setUsingMouse] = useState(false);
-  const [loginPage, setLoginPage] = useState(true);
+  const [space, setSpace] = useState('');
+  const [transparentNav, setTransparentNav] = useState(false);
+  const [hideNav, setHideNav] = useState(false);
 
   useEffect(() => {
-    // receiveMessage().subscribe((message) => {
-    //   if (message.name === 'usingMouse') {
-    //     setUsingMouse(message.signal);
-    //   }
-    // });
-
-    loginPageSubject.subscribe((message) => {
-      setLoginPage(message.state);
+    receiveMessage().subscribe((event) => {
+      if (event.name === 'spaceChange') {
+        setSpace(event.data);
+      }
     });
+  }, []);
+
+  useEffect(() => {
+    MakeNavBarTransparentCommand.asObservable().subscribe((message) => {
+      setTransparentNav(message);
+    });
+    HideNavBarCommand.asObservable().subscribe((message) => {
+      setHideNav(message);
+    });
+    receiveMessage().subscribe((message) => {
+      if (message.name === 'usingMouse') {
+        setUsingMouse(message.signal);
+      }
+    });
+
+    dispatch(fetchAllSpaces());
   }, []);
 
   // useEffect(() => {
   //   Chart.defaults.global.defaultFontColor =
-  //     profile.theme === 'theme_dark' ? '#181818' : '#626262';
+  //     profile.theme === 'basicui-dark' ? '#e0e0e0' : '#626262';
   // }, [profile]);
 
-  const handleClose = (detail: any) => {
-    switch (detail.name) {
+  const handleClose = (event: any) => {
+    switch (event.currentTarget.name) {
       case 'left':
-        dispatch(setProfile({ ...profile, sidebar: !detail.value }));
+        dispatch(setProfile({ ...profile, sidebar: !event.currentTarget.value }));
         break;
       case 'right':
-        dispatch(setProfile({ ...profile, rightSidebar: !detail.value }));
+        dispatch(setProfile({ ...profile, rightSidebar: !event.currentTarget.value }));
         break;
       default:
         break;
@@ -56,36 +112,11 @@ const Content = (props: Props) => {
   };
 
   return (
-    <div
-      className={`App ${profile.theme} ${profile.textSize} ${profile.themeColor
-        } ${usingMouse ? 'using-mouse' : ''}`}
-    >
+    <div className={`App ${profile.theme} ${profile.textSize}`}>
       <HashRouter>
         <Init />
-        {/* <Notification /> */}
-        <OakNotification
-          indicator="fill"
-          outlined
-          rounded
-          // paddingVertical={10}
-          elevation={5}
-          displayCount={5}
-        />
-
-        <OakAppLayout
-          topbarVariant={loginPage ? 'none' : 'static'}
-          sidebarVariant="none"
-          sidebarColor="container"
-          topbarColor="custom"
-          topbarElevation={0}
-        >
-          <div slot="topbar">
-            <TopbarContainer />
-          </div>
-          <div slot="main">
-            <BodyContainer {...props} />
-          </div>
-        </OakAppLayout>
+        <Spinner />
+        <MainContent space={space} />
       </HashRouter>
     </div>
   );

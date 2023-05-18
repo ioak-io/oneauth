@@ -1,16 +1,17 @@
-import { REFRESH_REALMS } from '../actions/types';
+import { REALM_LIST_FETCH_AND_SET } from '../actions/types';
 
 const initialState = {
-  realms: [],
+  items: [],
 };
 
-export default function RealmReducer(state = initialState, action: any) {
+export default function (state = initialState, action: any) {
   switch (action.type) {
-    case REFRESH_REALMS:
-      console.log('REFRESH_REALMS reducer');
+    case REALM_LIST_FETCH_AND_SET:
+      console.log('REALM_LIST_FETCH_AND_SET reducer');
+      console.log(action);
       return {
         ...state,
-        ...action.payload,
+        items: [...action.payload],
       };
     default:
       return state;

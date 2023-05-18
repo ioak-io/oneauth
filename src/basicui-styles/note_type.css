@@ -1,0 +1,29 @@
+.note-type-Fleeting,
+.note-type-Reference,
+.note-type-Literature,
+.note-type-Permanent {
+    padding: 2px 10px;
+    border: none;
+    border-radius: 24px;
+    font-size: 12px;
+}
+
+.note-type-Fleeting {
+    background-color: var(--theme-adaptive-900);
+    color: var(--theme-adaptive-900i);
+}
+
+.note-type-Reference {
+    background-color: #9b6336;
+    color: #fff;
+}
+
+.note-type-Literature {
+    background-color: #f1bb46;
+    color: #000;
+}
+
+.note-type-Permanent {
+    background-color: var(--theme-success-700);
+    color: #fff;
+}

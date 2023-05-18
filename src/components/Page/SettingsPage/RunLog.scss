@@ -1,0 +1,27 @@
+.backup-pg__main {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 20px;
+}
+
+.backup-runlog__main__delete-button {
+  color: var(--color-danger);
+  &:hover {
+    cursor: pointer;
+  }
+  &:hover,
+  &:focus {
+    color: var(--color-danger-darker);
+  }
+}
+
+.backup-runlog__main__export-button {
+  color: var(--color-primary);
+  &:hover {
+    cursor: pointer;
+  }
+  &:hover,
+  &:focus {
+    color: var(--color-primary-darker);
+  }
+}

@@ -1,7 +1,6 @@
 import React from 'react';
 import './style.scss';
-import OakButton from '../../oakui/wc/OakButton';
-import OakTypography from '../../oakui/wc/OakTypography';
+import { Button } from 'basicui';
 
 interface Props {
   history: any;
@@ -14,7 +13,7 @@ const GettingStartedRealm = (props: Props) => {
   return (
     <div className="getting-started">
       <div>
-        <OakTypography variant="h2">Getting Started</OakTypography>
+        <h2>Getting Started</h2>
         <div className="getting-started--steps realm-top-2">
           <div className="typography-7">Create Realm</div>
           <div className="typography-4">
@@ -40,13 +39,11 @@ const GettingStartedRealm = (props: Props) => {
         </div>
       </div>
       <div className="action-footer position-center">
-        <OakButton
-          theme="primary"
-          variant="disappear"
-          handleClick={goToCreatePage}
+        <Button
+          onClick={goToCreatePage}
         >
           Create a new realm
-        </OakButton>
+        </Button>
       </div>
     </div>
   );

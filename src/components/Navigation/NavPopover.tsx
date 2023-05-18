@@ -8,7 +8,7 @@ import './NavPopover.scss';
 import DropLinks from './DropLinks';
 
 interface Props {
-  realm: string;
+  space: string;
   handleClose: any;
   logout: Function;
   login: Function;
@@ -22,15 +22,15 @@ const NavPopover = (props: Props) => {
   return (
     <div className="nav-popover">
       {/* <div className="nav-popover-header">
-        {profile.theme === 'theme_light' && (
+        {profile.theme === 'basicui-light' && (
           <img className="logo" src={packetWhite} alt="Packet logo" />
         )}
-        {profile.theme === 'theme_dark' && (
+        {profile.theme === 'basicui-dark' && (
           <img className="logo" src={packetBlack} alt="Packet logo" />
         )}
       </div> */}
       <div className="nav-content">
-        <DropLinks realm={props.realm} handleClose={props.handleClose} />
+        <DropLinks space={props.space} handleClose={props.handleClose} />
       </div>
       <div className="midline" />
       <div className="nav-resources">support resources</div>

@@ -3,20 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import './RouterView.scss';
 import Home from '../Home';
-import OakRoute from '../Auth/OakRoute';
-import Unauthorized from '../Auth/Unauthorized';
-import RealmHome from '../RealmHome';
-import RealmListing from '../ManageRealm/RealmListing';
-import ClientListing from '../ManageClient/ClientListing';
-import ClientrealmHome from '../ClientrealmHome';
-import RealmDetail from '../ManageRealm/RealmDetail';
-import ClientDetail from '../ManageClient/ClientDetail';
-import ClientPermission from '../ClientPermission';
-import LoginPage from '../LoginPage';
 import { loginPageSubject } from '../../events/LoginPageEvent';
-import ReachInstance from '../ReachInstance';
-import ProtectedRoute from '../ProtectedRoute';
-import Landing from '../Landing';
+import ProtectedRouteApp from '../ProtectedRouteApp';
+import LandingPage from '../Page/LandingPage';
+import OaLogin from '../Auth/OaLogin';
+import UnauthorizedPage from '../Page/UnauthorizedPage';
+import Permissions from '../Page/SettingsPage/Permissions';
+import BackupAndRestore from '../Page/SettingsPage/BackupAndRestore';
+import LoginPage from '../Page/LoginPage';
+import EditRealmPage from '../Page/EditRealmPage';
+import EditRealm from '../Page/SettingsPage/EditRealm';
+import ApiAccessPage from '../Page/ApiAccessPage';
+import RolePage from '../Page/RolePage';
+import UserListPage from '../Page/UserListPage';
 
 interface Props {
 }
@@ -32,124 +31,84 @@ const RouterView = (props: Props) => {
 
   return (
     <div
-      className={`router-view ${loginPage ? 'login-page' : 'not-login-page'}`}
+      className={`router-view ${loginPage ? 'on-login-page' : 'not-on-login-page'}`}
     >
       <Routes>
         <Route
           path="/"
           element={
-            <ProtectedRoute
-              middleware={['readAuthenticationOa']}>
-              <Home />
-            </ProtectedRoute>
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={LandingPage} />
           }
         />
         <Route
           path="/home"
           element={
-            <ProtectedRoute
-              middleware={['readAuthenticationOa']}>
-              <Home />
-            </ProtectedRoute>
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={LandingPage} />
           }
         />
         <Route
-          path="/landing"
+          path="/create-realm"
           element={
-            <ProtectedRoute
-              middleware={[]}>
-              <Landing />
-            </ProtectedRoute>
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={EditRealmPage} />
           }
         />
         <Route
-          path="/realm/:realm/login/:client_id"
+          path="/login"
           element={
-            <ProtectedRoute
-              middleware={['readRealm']} component={LoginPage} />
-          }
+            <ProtectedRouteApp
+              middleware={[]} component={LoginPage} />}
         />
         <Route
-          path="/managerealm"
+          path="/:space/unauthorized"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={RealmListing} />
-          }
+            <ProtectedRouteApp
+              middleware={['isAuthenticated']} component={UnauthorizedPage} />}
         />
         <Route
-          path="/managerealm/:realmId"
+          path="/:space/home"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={RealmDetail} />
-          }
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={EditRealm} />}
         />
         <Route
-          path="/manageclient"
+          path="/:space/edit-realm"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={ClientListing} />
-          }
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={EditRealm} />}
         />
         <Route
-          path="/manageclient/:id"
+          path="/:space/apitoken"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={ClientDetail} />
-          }
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={ApiAccessPage} />}
         />
         <Route
-          path="/manageclient/:id/permission/:userId"
+          path="/:space/user"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={ClientPermission} />
-          }
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={UserListPage} />}
         />
         <Route
-          path="/blog"
+          path="/:space/role"
           element={
-            <ProtectedRoute middleware={['authenticate']} component={ReachInstance} />
-          }
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={RolePage} />}
         />
-        
         <Route
-          path="/realm/:realm/home"
+          path="/:space/settings/user"
           element={
-            <ProtectedRoute middleware={['readAuthentication']} component={RealmHome} />
-          }
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={Permissions} />}
         />
         <Route
-          path="/realm/:realm"
+          path="/:space/settings/backup"
           element={
-            <ProtectedRoute middleware={['readAuthentication']} component={RealmHome} />
-          }
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={BackupAndRestore} />}
         />
-        <Route
-          path="/realm/:realm/unauthorized"
-          element={
-            <ProtectedRoute middleware={['isAuthenticated']} component={Unauthorized} />
-          }
-        />
-
-        {/* <Route
-          exact
-          path="/clientrealm/:clientrealm/home"
-          render={(propsLocal: any) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              //  logout={() => logout}
-              component={ClientrealmHome}
-              middleware={['readAuthenticationClientrealm']}
-            />
-          )}
-        />
-        <Route
-          exact
-          path="/clientrealm/:clientrealm"
-          render={(propsLocal: any) => (
-            <OakRoute
-              {...propsLocal}
-              {...props}
-              component={ClientrealmHome}
-              middleware={['readAuthenticationClientrealm']}
-            />
-          )}
-        /> */}
       </Routes>
     </div>
   );

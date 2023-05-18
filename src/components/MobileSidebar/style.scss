@@ -1,0 +1,25 @@
+.mobile-sidebar-overlay,
+.mobile-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.mobile-sidebar-overlay {
+  right: 0;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.mobile-sidebar {
+  width: calc(100vw - 50px);
+  overflow-y: auto;
+  background-color: #425b8c;
+}
+
+.mobile-sidebar::-webkit-scrollbar {
+  display: none;
+}
+.basicui-dark .mobile-sidebar {
+  background-color: #446695;
+}

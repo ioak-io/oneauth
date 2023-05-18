@@ -1,0 +1,51 @@
+.navbar {
+  display: grid;
+  height: 100%;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  column-gap: 10px;
+  margin: 0 20px;
+  @media (max-width: 767px) {
+    margin: 0 16px;
+  }
+  .navbar__left,
+  .navbar--right {
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 20px;
+    align-content: center;
+    align-items: center;
+  }
+  .navbar__left {
+    justify-content: flex-start;
+  }
+  .logo-container {
+    margin-left: 20px;
+  }
+}
+
+.navbar__left__links {
+  display: grid;
+  grid-auto-flow: column;
+  column-gap: 20px;
+}
+
+.navlink {
+  text-decoration: none;
+  color: inherit;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: rgba($color: #ffffff, $alpha: 0.5);
+  transition: color 250ms ease-in-out;
+  &:hover {
+    color: rgba($color: #ffffff, $alpha: 1);
+  }
+  &:focus {
+    box-shadow: none;
+    color: rgba($color: #ffffff, $alpha: 1);
+  }
+}
+.navlink--active {
+  color: rgba($color: #ffffff, $alpha: 1);
+}

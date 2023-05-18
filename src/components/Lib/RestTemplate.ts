@@ -41,11 +41,10 @@ export function httpPut(
 
 export function httpDelete(
   endpoint: string,
-  payload: any,
   headers: any,
   url?: string
 ) {
-  return axiosInstance.delete((url || baseUrl) + endpoint);
+  return axiosInstance.delete((url || baseUrl) + endpoint, headers);
   // return axiosInstance.delete((url || baseUrl) + endpoint, {
   //   headers,
   //   data: payload,

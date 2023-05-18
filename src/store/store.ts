@@ -2,14 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import thunk from 'redux-thunk';
 
 import AuthReducer from './reducers/AuthReducer';
-import ProfileReducer from './reducers/ProfileReducer';
-import UserReducer from './reducers/UserReducer';
 import RealmReducer from './reducers/RealmReducer';
-import AssetReducer from './reducers/AssetReducer';
-import ClientReducer from './reducers/ClientReducer';
-import PermittedRealmReducer from './reducers/PermittedRealmReducer';
-import OaRoleReducer from './reducers/OaRoleReducer';
-import OaUserReducer from './reducers/OaUserReducer';
+import ProfileReducer from './reducers/ProfileReducer';
+import RoleReducer from './reducers/RoleReducer';
+import SpaceReducer from './reducers/SpaceReducer';
+import UserReducer from './reducers/UserReducer';
 
 const initialState = {};
 
@@ -21,12 +18,9 @@ const store = configureStore(
       authorization: AuthReducer,
       profile: ProfileReducer,
       user: UserReducer,
+      role: RoleReducer,
       realm: RealmReducer,
-      asset: AssetReducer,
-      client: ClientReducer,
-      oaUsers: OaUserReducer,
-      oaRoles: OaRoleReducer,
-      permittedRealm: PermittedRealmReducer,
+      space: SpaceReducer,
     }
   }
 );
