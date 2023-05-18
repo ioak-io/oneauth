@@ -62,7 +62,7 @@ export const signup = (environment: 'local' | 'production', payloadRequest: Auth
     }
     return fetch(`${url}/auth/signup`, {
         method: "POST",
-        body: JSON.stringify({ response_type: "token", ...payload, given_name: null }),
+        body: JSON.stringify({ response_type: "token", ...payload }),
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
