@@ -55,3 +55,7 @@ export function htmlToText(str?: string | null) {
   str = str.toString();
   return str.replace(/(<([^>]+)>)/gi, '');
 }
+
+export function isEmailValid(email: string) {
+  return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
+}

@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import './style.scss';
 import oneauthWhiteSmall from '../../images/oneauth_white_small.svg';
-import oneauthWhiteText from '../../images/oneauth_white.svg';
+import oneauthWhiteText from '../../images/oneauth_white_text.svg';
 import oneauthBlackSmall from '../../images/oneauth_black_small.svg';
-import oneauthBlackText from '../../images/oneauth_black.svg';
+import oneauthBlackText from '../../images/oneauth_black_text.svg';
 import oneauthBlack from '../../images/oneauth_black.svg';
 
 interface Props {

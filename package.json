@@ -38,6 +38,7 @@
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
     "@types/uuid": "^9.0.0",
+    "authlite": "file:authlite-1.0.0.tgz",
     "babel-loader": "^9.1.0",
     "chart.js": "^3.9.1",
     "chartjs-adapter-date-fns": "^2.0.0",
@@ -90,7 +91,6 @@
     "d3": "^7.8.4",
     "file-saver": "^2.0.5",
     "moment": "^2.29.4",
-    "react-popper": "^2.3.0",
-    "writeup": "file:writeup-1.0.0.tgz"
+    "react-popper": "^2.3.0"
   }
 }

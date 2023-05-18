@@ -34,41 +34,41 @@ const LandingPage = (props: Props) => {
   const navigate = useNavigate();
 
   const authorization = useSelector((state: any) => state.authorization);
-  const companyList = useSelector((state: any) => state.company.items);
+  const realmList = useSelector((state: any) => state.realm.items);
 
-  const goToCreateCompanyPage = () => {
-    navigate('/company/edit');
+  const goToCreateRealmPage = () => {
+    navigate('/create-realm');
   };
 
-  const goToCompanyPage = (companyReference: number) => {
-    navigate(`/${companyReference}/browse`);
+  const goToRealmPage = (realmReference: number) => {
+    navigate(`/${realmReference}/home`);
   };
 
   return (
     <div className="landing-page">
-      <Topbar title="Choose company" />
+      <Topbar title="Choose realm" />
       <div className="landing-page__main__container">
         <div className="landing-page__main main-section">
-          {companyList.map((company: any) => (
+          {realmList.map((realm: any) => (
             <button
-              key={company._id}
-              className="landing-page__main__company"
-              onClick={() => goToCompanyPage(company.reference)}
+              key={realm._id}
+              className="landing-page__main__realm"
+              onClick={() => goToRealmPage(realm.realm)}
             >
-              <div className="landing-page__main__company__title">
-                {company.name}
+              <div className="landing-page__main__realm__title">
+                {realm.name}
               </div>
-              <div className="landing-page__main__company__subtitle">
-                {company.description}
+              <div className="landing-page__main__realm__subtitle">
+                {realm.description}
               </div>
             </button>
           ))}
           <button
-            className="landing-page__main__new-company"
-            onClick={goToCreateCompanyPage}
+            className="landing-page__main__new-realm"
+            onClick={goToCreateRealmPage}
           >
             <FontAwesomeIcon icon={faPlus} />
-            <div>New company</div>
+            <div>New realm</div>
           </button>
         </div>
       </div>

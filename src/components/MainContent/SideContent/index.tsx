@@ -5,7 +5,9 @@ import {
   faChartBar,
   faChevronLeft,
   faChevronRight,
+  faCircleInfo,
   faCircleNodes,
+  faClock,
   faClone,
   faCog,
   faCogs,
@@ -17,16 +19,25 @@ import {
   faFingerprint,
   faFolderOpen,
   faHome,
+  faInfo,
+  faInfoCircle,
+  faKey,
   faListUl,
   faMagnifyingGlass,
   faMoneyBillWave,
   faMoneyBillWaveAlt,
   faPalette,
+  faPen,
+  faPenClip,
   faPlus,
   faReceipt,
+  faShield,
+  faShieldAlt,
+  faShieldBlank,
   faShoppingBag,
   faShoppingCart,
   faSignOutAlt,
+  faSkull,
   faStrikethrough,
   faTable,
   faTag,
@@ -124,47 +135,38 @@ const SideContent = (props: Props) => {
         </button>
         {props.space && (
           <>
-            <SideNavSubHeading short="Notes" long="Notes" />
+            <SideNavSubHeading short="Realm" long="Realm" />
             <SideNavLink
-              link={`/${props.space}/new-note`}
-              icon={faPlus}
-              label="New note"
+              link={`/${props.space}/edit-realm`}
+              icon={faCircleInfo}
+              label="Details"
             />
             <SideNavLink
-              link={`/${props.space}/browse`}
-              icon={faFolderOpen}
-              label="Browse"
+              link={`/${props.space}/token-expiry`}
+              icon={faClock}
+              label="Token lifespan"
             />
             <SideNavLink
-              link={`/${props.space}/graph`}
-              icon={faCircleNodes}
-              label="Graph"
+              link={`/${props.space}/apitoken`}
+              icon={faKey}
+              label="API access"
+            />
+            <SideNavSubHeading short="Roles" long="Users and Roles" />
+            <SideNavLink
+              link={`/${props.space}/user`}
+              icon={faUserShield}
+              label="Users"
+            />
+            <SideNavLink
+              link={`/${props.space}/role`}
+              icon={faShieldAlt}
+              label="Roles"
             />
             <SideNavSubHeading short="System" long="System" />
             <SideNavLink
-              link={`/${props.space}/color-filter`}
-              icon={faPalette}
-              label="Color filter"
-            />
-            <SideNavLink
-              link={`/${props.space}/metadata-definition`}
-              icon={faListUl}
-              label="Metadata"
-            />
-            <SideNavLink
-              link={`/${props.space}/stopwords`}
-              icon={faStrikethrough}
-              label="Stopwords"
-            />
-            <SideNavLink
-              link={`/${props.space}/settings/company`}
-              icon={faCogs}
-              label="Company setting"
-            />
-            <SideNavLink
               link={`/${props.space}/settings/user`}
-              icon={faUserShield}
-              label="User"
+              icon={faSkull}
+              label="Realm Administrators"
             />
             <SideNavLink
               link={`/${props.space}/settings/backup`}

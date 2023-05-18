@@ -10,8 +10,8 @@
   justify-content: center;
 }
 
-.landing-page__main__company,
-.landing-page__main__new-company {
+.landing-page__main__realm,
+.landing-page__main__new-realm {
   background-color: var(--theme-white-400);
   color: var(--theme-white-400i);
   box-shadow: none;
@@ -29,14 +29,14 @@
   max-width: 90vw;
 }
 
-.basicui-dark .landing-page__main__company,
-.basicui-dark .landing-page__main__new-company {
+.basicui-dark .landing-page__main__realm,
+.basicui-dark .landing-page__main__new-realm {
   background-color: var(--theme-black-400);
   color: var(--theme-black-400i);
 }
 
-.landing-page__main__company,
-.landing-page__main__new-company {
+.landing-page__main__realm,
+.landing-page__main__new-realm {
   &:hover,
   &:focus {
     background-color: var(--theme-primary-transparent-200);
@@ -44,15 +44,15 @@
   }
 }
 
-.landing-page__main__company__title {
+.landing-page__main__realm__title {
   font-size: 18px;
 }
 
-.landing-page__main__company__subtitle {
+.landing-page__main__realm__subtitle {
   font-size: 12px;
 }
 
-.landing-page__main__new-company {
+.landing-page__main__new-realm {
   // background-color: var(--color-container);
   justify-items: center;
   text-align: center;
