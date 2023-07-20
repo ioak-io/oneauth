@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './style.scss';
 import { receiveMessage, sendMessage } from '../../events/MessageService';
 import NotificationMessage from './NotificationMessage';
-import OakSpinner from '../../oakui/OakSpinner';
 
 const Notification = () => {
   const [spinner, setSpinner] = useState(false);

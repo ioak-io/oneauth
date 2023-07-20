@@ -31,8 +31,6 @@ import TopbarContainer from './TopbarContainer';
 import SidebarContainer from './SidebarContainer';
 import BodyContainer from './BodyContainer';
 import { receiveMessage } from '../../events/MessageService';
-import OakNotification from '../../oakui/wc/OakNotification';
-import OakAppLayout from '../../oakui/wc/OakAppLayout';
 import MakeNavBarTransparentCommand from '../../events/MakeNavBarTransparentCommand';
 import HideNavBarCommand from '../../events/HideNavBarCommand';
 import MainContent from '../MainContent';

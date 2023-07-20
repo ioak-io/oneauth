@@ -1,8 +1,6 @@
 import React from 'react';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
 
 import './style.scss';
-import OakTypography from '../../oakui/wc/OakTypography';
 
 interface Props {
   events: {
@@ -15,7 +13,7 @@ const EventSection = (props: Props) => {
   return (
     <div className="event-section">
       {props.events.length > 0 && (
-        <table className={tableCompose({ color: 'global' })}>
+        <table className="">
           <thead>
             <tr>
               <th>Name</th>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { compose as tableCompose } from '@oakui/core-stage/style-composer/OakTableComposer';
 
 import './style.scss';
 
@@ -15,7 +14,7 @@ interface Props {
 const PropertySection = (props: Props) => {
   return (
     <div className="property-section">
-      <table className={tableCompose({ color: 'global' })}>
+      <table className="">
         <thead>
           <tr>
             <th>Name</th>
