@@ -60,6 +60,7 @@ const OakRouteApp = (props: Props) => {
     if (authorization.isAuth) {
       if (
         props.match.params.space &&
+        authorization.space &&
         !authorization.space.includes(parseInt(props.match.params.space, 10))
       ) {
         console.log(

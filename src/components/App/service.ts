@@ -7,7 +7,7 @@ export const rotateToken = (authorization: any) => {
         `/api-internal/auth/token`,
         { grant_type: 'refresh_token', refresh_token: authorization.refresh_token },
         null,
-        process.env.REACT_APP_ONEAUTH_API_URL
+        process.env.REACT_APP_API_URL
     )
         .then((response) => {
             if (response.status === 200) {

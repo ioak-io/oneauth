@@ -27,7 +27,7 @@ const Init = () => {
       initialize();
       initializeHttpRequestInterceptor();
       initializeHttpResponseInterceptor();
-      dispatch(fetchAndSetUserItems(space, authorization));
+      // dispatch(fetchAndSetUserItems(space, authorization));
     }
   }, [authorization, space]);
 

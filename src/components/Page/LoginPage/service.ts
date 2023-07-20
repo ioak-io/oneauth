@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { httpGet, httpPost, httpPut } from '../../Lib/RestTemplate';
 
-const authBaseUrl = process.env.REACT_APP_ONEAUTH_API_URL
+const authBaseUrl = process.env.REACT_APP_API_URL
 
 export const signin = (email: string, password: string) => {
     return httpPost(`/api-internal/auth/signin`, {

@@ -4,8 +4,8 @@ import { REFRESH_SPACES } from './types';
 
 export const fetchAllSpaces = () => (dispatch: any) => {
   axios
-    .get(`${process.env.REACT_APP_ONEAUTH_API_URL}/realm/introspect`)
-    .then((response) => {
+    .get(`${process.env.REACT_APP_API_URL}/api-internal/realm/introspect`)
+    .then((response: any) => {
       console.log(response.data);
       dispatch({
         type: REFRESH_SPACES,

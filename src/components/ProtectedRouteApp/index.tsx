@@ -63,6 +63,7 @@ const ProtectedRouteApp = (props: Props) => {
         if (authorization.isAuth) {
             if (
                 params.space &&
+                authorization.space &&
                 !authorization.space.includes(parseInt(params.space, 10))
             ) {
                 console.log(
@@ -80,7 +81,7 @@ const ProtectedRouteApp = (props: Props) => {
                 `/api-internal/auth/token`,
                 { grant_type: 'refresh_token', refresh_token: refreshToken },
                 null,
-                process.env.REACT_APP_ONEAUTH_API_URL
+                process.env.REACT_APP_API_URL
             )
                 .then((response: any) => {
                     if (response.status === 200) {
