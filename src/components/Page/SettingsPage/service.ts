@@ -5,7 +5,7 @@ import RemoveSpinnerCommand from '../../../events/RemoveSpinnerCommand';
 import { httpDelete, httpGet, httpPost, httpPut } from '../../Lib/RestTemplate';
 
 export const getUserInvite = (space: string, authorization: any) => {
-  return httpGet(`/user/invite/${space}`, {
+  return httpGet(`/api-internal/user/invite/${space}`, {
     headers: {
       Authorization: authorization.access_token,
     },
