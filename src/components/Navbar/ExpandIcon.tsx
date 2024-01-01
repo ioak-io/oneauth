@@ -1,9 +1,10 @@
-import { MenuOpen } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 
 import { getProfile, setProfile } from '../../store/actions/ProfileActions';
 import './ExpandIcon.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   controls: 'left' | 'right';
@@ -33,14 +34,9 @@ const ExpandIcon = (props: Props) => {
 
   return (
     <div className="expand-icon">
-      <MenuOpen
-        className={
-          profile.sidebar
-            ? 'menu-icon sidebar-shown'
-            : 'menu-icon sidebar-hidden'
-        }
-        onClick={toggleSidebar}
-      />
+    <FontAwesomeIcon icon={faBars}
+      onClick={toggleSidebar}
+    />
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import { ExpandMore } from '@material-ui/icons';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, connect, useDispatch } from 'react-redux';
 import {
@@ -8,6 +7,8 @@ import {
 } from '../../events/MessageService';
 
 import './NavGroup.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   space: string;
@@ -72,16 +73,13 @@ const NavGroup = (props: Props) => {
     <div className="nav-group">
       <a
         href=""
-        className={`nav-group--headline ${
-          isExpanded ? 'expanded' : 'collapsed'
-        }`}
+        className={`nav-group--headline ${isExpanded ? 'expanded' : 'collapsed'
+          }`}
         onClick={toggleExpansion}
       >
         <div>{props.label}</div>
         <div>
-          <ExpandMore
-            className={`material-icons ${isExpanded ? 'showless' : 'showmore'}`}
-          />
+          <FontAwesomeIcon icon={faChevronDown} />
         </div>
       </a>
       <div className="nav-group--container" id={instanceId}>
