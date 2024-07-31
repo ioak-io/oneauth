@@ -15,6 +15,7 @@ import {
   faClock,
   faDatabase,
   faKey,
+  faList,
   faShieldAlt,
   faSkull,
   faTh,
@@ -123,6 +124,11 @@ const MainContent = (props: Props) => {
                 link={`/${props.space}/apitoken`}
                 icon={faKey}
                 label="API access"
+              />
+              <SideNavLink
+                link={`/${props.space}/custom-attributes`}
+                icon={faList}
+                label="Custom attributes"
               />
               <SideNavSubHeading short="Roles" long="Users and Roles" />
               <SideNavLink

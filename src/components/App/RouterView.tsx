@@ -16,6 +16,7 @@ import EditRealm from '../Page/SettingsPage/EditRealm';
 import ApiAccessPage from '../Page/ApiAccessPage';
 import RolePage from '../Page/RolePage';
 import UserListPage from '../Page/UserListPage';
+import AttributedefPage from '../Page/AttributedefPage';
 
 interface Props {
 }
@@ -84,6 +85,12 @@ const RouterView = (props: Props) => {
           element={
             <ProtectedRouteApp
               middleware={['authenticate']} component={ApiAccessPage} />}
+        />
+        <Route
+          path="/:space/custom-attributes"
+          element={
+            <ProtectedRouteApp
+              middleware={['authenticate']} component={AttributedefPage} />}
         />
         <Route
           path="/:space/user"
