@@ -12,6 +12,7 @@
 @import './note_label.css';
 @import './note_type.css';
 
+
 * {
   --app-layout-sidebar-width: 300px;
   --app-layout-sidebar-width-shrinked: 75px;
@@ -19,29 +20,19 @@
   font-family: Roboto;
 }
 
-.basicui-light {
-  --global-background-color: var(--theme-white-100);
-  --global-color: var(--theme-white-100i);
-}
-
-.basicui-dark {
-  --global-background-color: var(--theme-black-200);
-  --global-color: var(--theme-black-200i);
-}
+// body {
+  // --global-background-color: var(--theme-black-200);
+  // --global-color: var(--theme-black-200i);
+// }
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   // overflow-y: overlay;
-
+  
   margin: 0;
-  background-color: var(--theme-white-100);
-  color: var(--theme-white-100i);
-}
-
-body.basicui-dark {
-  background-color: var(--theme-black-200);
-  color: var(--theme-black-200i);
+  background-color: var(--basicui-bg-base);
+  color: var(--basicui-fg);
 }
 
 body.oak-dialog-open {
